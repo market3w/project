@@ -52,17 +52,16 @@ class Library_Core_RestServer{
     
     public function handle(){
         $res = call_user_func(array($this->service, $this->classMethod),  $this->requestParam);
-        $this->json->response           = $res->response;
-        $this->json->apiError           = $res->apiError;
-        $this->json->apiErrorMessage    = $res->apiErrorMessage;
+        $this->json->response              = $res->response;
+        $this->json->apiError              = $res->apiError;
+        $this->json->apiErrorMessage       = $res->apiErrorMessage;
+        $this->json->serverError           = $res->serverError;
+        $this->json->serverErrorMessage    = $res->serverErrorMessage;
         exit;
     }
     
     private function setClassMethod($methodName){
         $this->classMethod = strtolower("{$this->httpMethod}_$methodName");
-        if(!method_exists($this->service, $this->classMethod)){
-            $this->showErrorServer("Server Error, Method invalid");
-        }
     }
     
     private function showErrorServer($message){

@@ -1,12 +1,18 @@
 <?php
-class Service extends Application_Controllers_Exemple{
+class Service extends Library_Core_Extensions {
     
     public function __construct(){
         
+		// Initialisation du user_id en session
         if(empty ($_SESSION['market3w_user_id'])){
             $_SESSION['market3w_user_id'] = -1;
         }
 		
-		parent::__construct();
+		// Ajout des controllers
+		$extensions = array ('Application_Controllers_Users',
+							 'Application_Controllers_Roles',
+							 'Application_Controllers_Statutes');
+		
+		parent::__construct($extensions);
     }
 }
