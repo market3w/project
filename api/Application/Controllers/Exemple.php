@@ -4,6 +4,7 @@ class Application_Controllers_Exemple extends Library_Core_Controllers{
 	private $as;
 	
 	public function __construct(){
+		//initialisation
         global $iDB;
         $this->exempleTable = new Application_Models_Exemple($iDB->getConnexion());
 		$as = $this->exempleTable->getAlias();
