@@ -3,6 +3,9 @@ class Application_Controllers_Statutes extends Library_Core_Controllers{
     private $statusTable;
 	private $as;
 	
+	public $status_id;
+	public $status_name;
+	
 	public function __construct(){
         global $iDB;
         $this->statusTable = new Application_Models_Statutes($iDB->getConnexion());
@@ -19,6 +22,9 @@ class Application_Controllers_Statutes extends Library_Core_Controllers{
 		$this->statusTable->addWhere("status_id",$status_id);
 		
         $res = (array)$this->statusTable->search();
+		foreach($res[0] as $k=>$v){
+			$this->$k = $v;
+		}
         return $this->setApiResult($res);
     }
     
