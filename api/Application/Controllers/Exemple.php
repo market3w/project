@@ -23,6 +23,7 @@ class Application_Controllers_Exemple extends Library_Core_Controllers{
 		
 		//Récupère le champs sélectionné de la table principale
 		//$this->exempleTable->addField("field_name"); 
+		//$this->exempleTable->addField("field2_name"); 
 		
 		//Récupère le champs sélectionné de la table sélectionnée
 		//$this->exempleTable->addField("field_name","table_as");   
@@ -149,6 +150,7 @@ class Application_Controllers_Exemple extends Library_Core_Controllers{
         if($exemple_name!=null){
 			$this->exempleTable->addNewField("exemple_name",$exemple_name);
 		}
+		
         $this->exempleTable->update();
         return $this->setApiResult(true);
     }

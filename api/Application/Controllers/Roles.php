@@ -3,6 +3,9 @@ class Application_Controllers_Roles extends Library_Core_Controllers{
     private $roleTable;
 	private $as;
 	
+	public $role_id;
+	public $role_name;
+	
 	public function __construct(){
         global $iDB;
         $this->roleTable = new Application_Models_Roles($iDB->getConnexion());
@@ -19,6 +22,9 @@ class Application_Controllers_Roles extends Library_Core_Controllers{
 		$this->roleTable->addWhere("role_id",$role_id);
 		
         $res = (array)$this->roleTable->search();
+		foreach($res[0] as $k=>$v){
+			$this->$k = $v;
+		}
         return $this->setApiResult($res);
     }
     
