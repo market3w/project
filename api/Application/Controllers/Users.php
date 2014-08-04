@@ -152,15 +152,22 @@ class Application_Controllers_Users extends Library_Core_Controllers{
 				if($user_phone==null){return $this->setApiResult(false, true, 'param \'user_phone\' undefined');}
 				if($user_mobile==null){return $this->setApiResult(false, true, 'param \'user_mobile\' undefined');}
 				if($user_adress==null){return $this->setApiResult(false, true, 'param \'user_adress\' undefined');}
+				
+	//!!!!!!!!!!//Flo a revoir tu as mis deux fois la meme ligne tu voulais peut être mettre l'adress2 il vaut mieu pas ne la mettre en obligatoire
 				if($user_adress==null){return $this->setApiResult(false, true, 'param \'user_adress\' undefined');}
 				if($user_zipcode==null){return $this->setApiResult(false, true, 'param \'user_zipcode\' undefined');}
+				if(!is_numeric($user_zipcode)){return $this->setApiResult(false, true, 'param \'user_zipcode\' unvalid');}
 				if($user_town==null){return $this->setApiResult(false, true, 'param \'user_town\' undefined');}
 				if($company_id==null){return $this->setApiResult(false, true, 'param \'company_id\' undefined');}
+				if(!is_numeric($company_id)){return $this->setApiResult(false, true, 'param \'company_id\' unvalid');}
+				
 				// Préparation de la requête
 				$this->usersTable->addNewField("user_function",$user_function);
 				$this->usersTable->addNewField("user_phone",$user_phone);
 				$this->usersTable->addNewField("user_mobile",$user_mobile);
 				$this->usersTable->addNewField("user_adress",$user_adress);
+				
+	//!!!!!!!!!!!//PAREIL ICI!!!!!!!!!!
 				$this->usersTable->addNewField("user_adress",$user_adress);
 				$this->usersTable->addNewField("user_zipcode",$user_zipcode);
 				$this->usersTable->addNewField("user_town",$user_town);
