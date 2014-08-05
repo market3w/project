@@ -2,6 +2,7 @@
 class Application_Controllers_Companies extends Library_Core_Controllers{
     private $companyTable;
 	private $as;
+	//test
 	
 	private $company_id;
 	private $company_siret;
