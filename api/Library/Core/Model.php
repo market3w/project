@@ -85,9 +85,10 @@ abstract class Library_Core_Model{
 		$this->newFieldValueList['field'.$count]=$field_value;
 	}
 	
-	public function addJoin($table,$table_as,$local_on,$dist_on,$dist_as=""){
+	public function addJoin($table,$table_as,$local_on,$dist_on,$dist_as="",$join_type=""){
 		$as = ($dist_as=="")?$this->table_as:$dist_as;
-		$this->joinsList[]='JOIN '.$table.' AS '.$table_as.' ON '.$as.'.`'.$dist_on.'`='.$table_as.'.`'.$dist_on.'`';
+		$join_type = ($join_type=="")?null:strtoupper($join_type).' ';
+		$this->joinsList[]=$join_type.'JOIN '.$table.' AS '.$table_as.' ON '.$as.'.`'.$dist_on.'`='.$table_as.'.`'.$dist_on.'`';
 	}
 	
 	public function addWhere($field_name,$field_value,$table_as=""){
