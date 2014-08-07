@@ -11,7 +11,8 @@ class Service extends Library_Core_Extensions {
 		// Ajout des controllers
 		$extensions = array ('Application_Controllers_Users',
 							 'Application_Controllers_Roles',
-							 'Application_Controllers_Statutes');
+							 'Application_Controllers_Statutes',
+							 'Application_Controllers_Companies');
 		
 		parent::__construct($extensions);
     }
