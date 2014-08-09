@@ -16,4 +16,3 @@ class Library_Core_Connexion{
         $this->connexion->exec("SET CHARACTER SET $charset");
     }
 }
-?>

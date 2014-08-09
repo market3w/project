@@ -10,4 +10,3 @@ class Application_Models_Statutes extends Library_Core_Model{
         parent::__construct($connexion);
     }
 }
-?>

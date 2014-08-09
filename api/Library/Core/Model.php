@@ -10,6 +10,7 @@ abstract class Library_Core_Model{
 	protected $joinsList;
 	protected $whereList;
 	protected $whereValueList;
+	protected $whereOpeList;
 	protected $groupList;
 	protected $orderList;
 	protected $limit;
@@ -87,15 +88,22 @@ abstract class Library_Core_Model{
 	
 	public function addJoin($table,$table_as,$local_on,$dist_on,$dist_as="",$join_type=""){
 		$as = ($dist_as=="")?$this->table_as:$dist_as;
-		$join_type = ($join_type=="")?null:strtoupper($join_type).' ';
+		$join_type = ($join_type=="")?null:trim(strtoupper($join_type)).' ';
 		$this->joinsList[]=$join_type.'JOIN '.$table.' AS '.$table_as.' ON '.$as.'.`'.$dist_on.'`='.$table_as.'.`'.$dist_on.'`';
 	}
 	
-	public function addWhere($field_name,$field_value,$table_as=""){
+	public function addWhere($field_name,$field_value,$table_as="",$where_type="",$where_ope=""){
 		$as = ($table_as=="")?$this->table_as:$table_as;
+		$where_type = ($where_type=="")?" = ":" ".trim(strtoupper($where_type))." ";
+		$where_ope = ($where_ope=="")?" AND ":" ".trim(strtoupper($where_ope))." ";
 		$count = count($this->whereList);
-		$this->whereList[]=$as.'.`'.$field_name.'`=:where'.$count;
-		$this->whereValueList['where'.$count]=$field_value;
+		$this->whereList[]=$as.'.`'.$field_name.'`'.$where_type.':where'.$count;
+		if($where_type==" LIKE "){
+			$this->whereValueList['where'.$count]="%".$field_value."%";
+		} else {
+			$this->whereValueList['where'.$count]=$field_value;
+		}
+		$this->whereOpeList['where'.$count]=$where_ope;
 	}
 	
 	public function addGroup($field_name,$table_as=""){
@@ -162,8 +170,13 @@ abstract class Library_Core_Model{
 		$is_select = ($mode==="")?false:true;
 		
 		$where = "";
-        if(!count($this->whereList)==0){
-			$where = " WHERE ".implode(" AND ",$this->whereList);
+		for($count=0;$count<count($this->whereList);$count++){
+			if($count>0){
+				$where .= $this->whereOpeList["where".$count];
+			} else {
+				$where .= " WHERE ";
+			}
+			$where .= $this->whereList[$count];
 		}
 		
 		if(!$is_select){
@@ -193,21 +206,4 @@ abstract class Library_Core_Model{
 		$limit = (empty ($this->limit))?'':$this->limit;
 		return $limit;
 	}
-	
-	private function isSetPrimary($ids){
-		/*$return = array("erreur"=>false, "message"=>"");
-		$found = array();
-		foreach($this->primary as $k=>$v){ $found[$v]=false; }
-		foreach($this->whereList as $k=>$v){
-			foreach($this->primary as $k2=>$v2){
-				if (strpos($v, $v2) !== false){ 
-					$found[$v2]=true;
-					$this->whereValueList['where'.$k]=$ids[$v2];
-				}
-			}
-		}
-		if(in_array(false, $found)){ $return = array("erreur"=>true, "message"=>"Primary key not found"); }
-		return $return;*/
-	}
 }
-?>

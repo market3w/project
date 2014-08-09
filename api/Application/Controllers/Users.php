@@ -43,7 +43,7 @@ class Application_Controllers_Users extends Library_Core_Controllers{
 			}
 		}
 		if($tab['user_company']['company_id']!=null){
-			$tab['user_company']['company_url']=API_ROOT."?method=companies&company_id=".(int)$tab['user_company']['company_id'];
+			$tab['user_company']['company_url']=API_ROOT."?method=company&company_id=".(int)$tab['user_company']['company_id'];
 		}
         return $this->setApiResult($tab);
     }
@@ -71,7 +71,7 @@ class Application_Controllers_Users extends Library_Core_Controllers{
 			}
 		}
 		if($tab['user_company']['company_id']!=null){
-			$tab['user_company']['company_url']=API_ROOT."?method=companies&company_id=".(int)$tab['user_company']['company_id'];
+			$tab['user_company']['company_url']=API_ROOT."?method=company&company_id=".(int)$tab['user_company']['company_id'];
 		}
         return $this->setApiResult($tab);
     }
@@ -95,7 +95,39 @@ class Application_Controllers_Users extends Library_Core_Controllers{
 				}
 			}
 			if($tab[$k]['user_company']['company_id']!=null){
-				$tab[$k]['user_company']['company_url']=API_ROOT."?method=companies&company_id=".(int)$tab[$k]['user_company']['company_id'];
+				$tab[$k]['user_company']['company_url']=API_ROOT."?method=company&company_id=".(int)$tab[$k]['user_company']['company_id'];
+			}
+		}
+        return $this->setApiResult($tab);
+    }
+    
+    public function get_autocompletionuser($data){
+        $user_search = (empty ($data['user_search']))?null:$data['user_search'];
+        if($user_search==null){return $this->setApiResult(false, true, 'param \'user_search\' undefined');}
+        if(strlen($user_search)<3){return $this->setApiResult(false, true, '3 characters minimum for autocompletion');}
+		// Jointure
+		$this->usersTable->addJoin("roles","r","role_id","role_id");
+		$this->usersTable->addJoin("companies","c","company_id","company_id","","left");
+		// Condition 
+		$this->usersTable->addWhere("user_name",$user_search,"","like");
+		$this->usersTable->addWhere("user_firstname",$user_search,"","like","or");
+        $res = (array)$this->usersTable->search();
+        $tab = array();
+		if(!array_key_exists(0,$res)){
+			return $this->setApiResult(false, true, ' no users found');
+		}
+		foreach($res as $k=>$v){
+			foreach($v as $k2=>$v2){
+				if(!(strpos($k2,"role")===false)){
+					$tab[$k]['user_role'][$k2]=$v2;
+				} elseif(!(strpos($k2,"company")===false)){
+					$tab[$k]['user_company'][$k2]=$v2;
+				} elseif(in_array($k2,$this->user_vars)) {
+					$tab[$k][$k2] = $v2;
+				}
+			}
+			if($tab[$k]['user_company']['company_id']!=null){
+				$tab[$k]['user_company']['company_url']=API_ROOT."?method=company&company_id=".(int)$tab[$k]['user_company']['company_id'];
 			}
 		}
         return $this->setApiResult($tab);
@@ -185,9 +217,6 @@ class Application_Controllers_Users extends Library_Core_Controllers{
 				if($user_phone==null){return $this->setApiResult(false, true, 'param \'user_phone\' undefined');}
 				if($user_mobile==null){return $this->setApiResult(false, true, 'param \'user_mobile\' undefined');}
 				if($user_adress==null){return $this->setApiResult(false, true, 'param \'user_adress\' undefined');}
-				
-	//!!!!!!!!!!//Flo a revoir tu as mis deux fois la meme ligne tu voulais peut être mettre l'adress2 il vaut mieu pas ne la mettre en obligatoire
-				if($user_adress==null){return $this->setApiResult(false, true, 'param \'user_adress\' undefined');}
 				if($user_zipcode==null){return $this->setApiResult(false, true, 'param \'user_zipcode\' undefined');}
 				if(!is_numeric($user_zipcode)){return $this->setApiResult(false, true, 'param \'user_zipcode\' unvalid');}
 				if($user_town==null){return $this->setApiResult(false, true, 'param \'user_town\' undefined');}
@@ -199,9 +228,7 @@ class Application_Controllers_Users extends Library_Core_Controllers{
 				$this->usersTable->addNewField("user_phone",$user_phone);
 				$this->usersTable->addNewField("user_mobile",$user_mobile);
 				$this->usersTable->addNewField("user_adress",$user_adress);
-				
-	//!!!!!!!!!!!//PAREIL ICI!!!!!!!!!!
-				$this->usersTable->addNewField("user_adress",$user_adress);
+				$this->usersTable->addNewField("user_adress2",$user_adress2);
 				$this->usersTable->addNewField("user_zipcode",$user_zipcode);
 				$this->usersTable->addNewField("user_town",$user_town);
 				$this->usersTable->addNewField("role_id",5);
@@ -266,10 +293,10 @@ class Application_Controllers_Users extends Library_Core_Controllers{
 		$this->usersTable->addNewField("user_phone",$user_phone);
 		$this->usersTable->addNewField("user_mobile",$user_mobile);
 		$this->usersTable->addNewField("user_adress",$user_adress);
-		$this->usersTable->addNewField("user_adress",$user_adress);
+		$this->usersTable->addNewField("user_adress2",$user_adress2);
 		$this->usersTable->addNewField("user_zipcode",$user_zipcode);
 		$this->usersTable->addNewField("user_town",$user_town);
-		$this->usersTable->addNewField("role_id",5);
+		$this->usersTable->addNewField("role_id",$role_id);
 		$this->usersTable->addNewField("company_id",$company_id);
 		
         $this->usersTable->update();

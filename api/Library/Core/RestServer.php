@@ -10,7 +10,7 @@ class Library_Core_RestServer{
     private $json;
     
     public function __construct($service){
-        //header('Content-type: application/json');
+        header('Content-type: application/json');
         $this->json                     = new stdClass();
         $this->json->response           = "";
         $this->json->apiError           = false;

@@ -2,17 +2,16 @@
 class Application_Controllers_Companies extends Library_Core_Controllers{
     private $companyTable;
 	private $as;
-	//test
 	
-	private $company_id;
-	private $company_siret;
-	private $company_siren;
-	private $company_name;
-	private $company_adress;
-	private $company_adress2;
-	private $company_zipcode;
-	private $company_town;
-	private $company_nb_employees;
+	private $company_vars = array('company_id',
+					   		      'company_siret',
+					   		      'company_siren',
+					   		      'company_name',
+					   		      'company_adress',
+					   		      'company_adress2',
+					   		      'company_zipcode',
+					   		      'company_town',
+					   		      'company_nb_employees');
 	
 	public function __construct(){
         global $iDB;
@@ -25,28 +24,143 @@ class Application_Controllers_Companies extends Library_Core_Controllers{
         $company_id = (empty ($data['company_id']))?null:$data['company_id'];
         if($company_id==null){return $this->setApiResult(false, true, 'param \'company_id\' undefined');}
         if(!is_numeric($company_id)){return $this->setApiResult(false, true, 'param \'company_id\' is not numeric');}
+		// Jointure
+		$this->companyTable->addJoin("users","u","company_id","company_id","","left");
+		$this->companyTable->addJoin("roles","r","role_id","role_id","u"); 
+		// Condition
 		$this->companyTable->addWhere("company_id",$company_id);
         $res = (array)$this->companyTable->search();
-        return $this->setApiResult($res);
+		
+		$tab = array();
+		if(!array_key_exists(0,$res)){
+			return $this->setApiResult(false, true, 'Company not found');
+		}
+		foreach($res as $k=>$v){
+			foreach($v as $k2=>$v2){
+				if(!(strpos($k2,"role")===false)){
+					$tab['company_users'][$k]['user_role'][$k2]=$v2;
+				} elseif(!(strpos($k2,"user")===false)){
+					$tab['company_users'][$k][$k2]=$v2;
+				} elseif(in_array($k2,$this->company_vars)) {
+					$tab[$k2] = $v2;
+				}
+			}
+			if($tab['company_users'][$k]['user_id']!=null){
+				$tab['company_users'][$k]['user_url']=API_ROOT."?method=user&user_id=".(int)$tab['company_users'][$k]['user_id'];
+			}
+		}
+        return $this->setApiResult($tab);
     }
 	
 	public function get_currentcompany($data){
         $company_id = ($_SESSION['market3w_user_id']==-1)?null:$_SESSION['market3w_user_id'];
         if($company_id==null){return $this->setApiResult(false, true, 'You are not logged');}
 		// Jointure
-		$this->companyTable->addJoin("users","u","company_id","company_id"); 
+		$this->companyTable->addJoin("users","u","company_id","company_id","","left");
+		$this->companyTable->addJoin("roles","r","role_id","role_id","u"); 
 		// Condition
 		$this->companyTable->addWhere("user_id",$_SESSION['market3w_user_id'],"u");
         $res = (array)$this->companyTable->search();
-		if(empty($res)){
+		
+		$tab = array();
+		if(!array_key_exists(0,$res)){
 			return $this->setApiResult(false, true, 'Company not found');
 		}
-        return $this->setApiResult($res);
+		foreach($res as $k=>$v){
+			foreach($v as $k2=>$v2){
+				if(!(strpos($k2,"role")===false)){
+					$tab['company_users'][$k]['user_role'][$k2]=$v2;
+				} elseif(!(strpos($k2,"user")===false)){
+					$tab['company_users'][$k][$k2]=$v2;
+				} elseif(in_array($k2,$this->company_vars)) {
+					$tab[$k2] = $v2;
+				}
+			}
+			if($tab['company_users'][$k]['user_id']!=null){
+				$tab['company_users'][$k]['user_url']=API_ROOT."?method=user&user_id=".(int)$tab['company_users'][$k]['user_id'];
+			}
+		}
+        return $this->setApiResult($tab);
     }
-    
-    public function get_allcompany($data){
+	
+	public function get_allcompany($data){
+		// Jointure
+		$this->companyTable->addJoin("users","u","company_id","company_id","","left");
+		$this->companyTable->addJoin("roles","r","role_id","role_id","u","left");  
         $res = (array)$this->companyTable->search();
-        return $this->setApiResult($res);
+		
+		$tab = array();
+		if(!array_key_exists(0,$res)){
+			return $this->setApiResult(false, true, 'No companies found');
+		}
+		$count = 0;
+		$countUser = 0;
+		foreach($res as $k=>$v){
+			if($k!=0){
+				if($v->company_id!=$last->company_id){
+					$count++;
+					$countUser = 0;
+				} else {
+					$countUser++;
+				}
+			}
+			foreach($v as $k2=>$v2){
+				if(!(strpos($k2,"role")===false)){
+					$tab[$count]['company_users'][$countUser]['user_role'][$k2]=$v2;
+				} elseif(!(strpos($k2,"user")===false)){
+					$tab[$count]['company_users'][$countUser][$k2]=$v2;
+				} elseif(in_array($k2,$this->company_vars)) {
+					$tab[$count][$k2] = $v2;
+				}
+			}
+			if($tab[$count]['company_users'][$countUser]['user_id']!=null){
+				$tab[$count]['company_users'][$countUser]['user_url']=API_ROOT."?method=user&user_id=".(int)$tab[$count]['company_users'][$countUser]['user_id'];
+			}
+			$last = $v;
+		}
+        return $this->setApiResult($tab);
+	}
+    
+    public function get_autocompletioncompany($data){
+        $company_search = (empty ($data['company_search']))?null:$data['company_search'];
+        if($company_search==null){return $this->setApiResult(false, true, 'param \'company_search\' undefined');}
+        if(strlen($company_search)<3){return $this->setApiResult(false, true, '3 characters minimum for autocompletion');}
+		// Jointure
+		$this->companyTable->addJoin("users","u","company_id","company_id","","left");
+		$this->companyTable->addJoin("roles","r","role_id","role_id","u","left"); 
+		// Condition 
+		$this->companyTable->addWhere("company_name",$company_search,"","like");
+        $res = (array)$this->companyTable->search();
+        $tab = array();
+		if(!array_key_exists(0,$res)){
+			return $this->setApiResult(false, true, 'No companies found');
+		}
+		$count = 0;
+		$countUser = 0;
+		foreach($res as $k=>$v){
+			if($k!=0){
+				if($v->company_id!=$last->company_id){
+					$count++;
+					$countUser = 0;
+				} else {
+					$countUser++;
+				}
+			}
+			foreach($v as $k2=>$v2){
+				if(!(strpos($k2,"role")===false)){
+					$tab[$count]['company_users'][$countUser]['user_role'][$k2]=$v2;
+				} elseif(!(strpos($k2,"user")===false)){
+					$tab[$count]['company_users'][$countUser][$k2]=$v2;
+				} elseif(in_array($k2,$this->company_vars)) {
+					$tab[$count][$k2] = $v2;
+				}
+			}
+			if($tab[$count]['company_users'][$countUser]['user_id']!=null){
+				$tab[$count]['company_users'][$countUser]['user_url']=API_ROOT."?method=user&user_id=".(int)$tab[$count]['company_users'][$countUser]['user_id'];
+			}
+			$last = $v;
+		}
+        return $this->setApiResult($tab);
     }
     
     public function post_company($data){
@@ -118,6 +232,7 @@ class Application_Controllers_Companies extends Library_Core_Controllers{
 					if($company_zipcode==null){return $this->setApiResult(false, true, 'param \'company_zipcode\' undefined');}
 					if(!is_numeric($company_zipcode)){return $this->setApiResult(false, true, 'param \'company_zipcode\' unvalid');}
 					if($company_town==null){return $this->setApiResult(false, true, 'param \'company_town\' undefined');}
+					if($company_nb_employees==null){return $this->setApiResult(false, true, 'param \'company_nb_employees\' undefined');}
 					if(!is_numeric($company_nb_employees)){return $this->setApiResult(false, true, 'param \'company_nb_employees\' unvalid');}
 					
 					// Préparation de la requete
