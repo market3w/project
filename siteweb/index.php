@@ -53,11 +53,18 @@
 					<span class="icon fa-bar-chart-o"></span>
 					<h2>Market <strong>3W</strong> garantit des résultats rapides et efficaces en matière de référencement.
 					</h2>
-					<p>Un site web sans un référencement complet peut passer à côté de nombreux visiteurs et donc de clients potentiels. Nous sommes spécialisés dans le référencement, nous avons tous les outils afin
-                    de vous permettre d'augmenter la notoriété de votre site rapidement. 
-					<br /><br />
-					Nos webmarketeurs sont là pour vous aider dans ce projet. Ils vous feront un suivi détaillé de l'avancement de vos campagnes. </p>
-                    	<br/><a href="#video_conference" class="button fit scrolly" style="width:400px;">Vidéo conférence gratuite</a>
+					<p>Profitez de notre expertise en marketing digital afin de promouvoir efficacement votre site E-Commerce.<br/><br/>
+
+ 
+
+Composé d'une équipe de Webmarketeurs expérimentés soigneusement sélectionnés pour leurs compétences inéluctables, Market3W vous accompagne dans votre projet vers un gain de trafic qualifié.<br/><br/>
+
+Market3W étant spécialisé dans le référencement, nous appliquons toutes les différentes techniques de référencement qui puissent exister. A savoir, le référencement naturel (SEO, gratuit), le référencement payant (SEA, achat de mots-clés), le référencement grâce aux réseaux sociaux (SMO, alimentation des pages de réseaux sociaux)...  <br/><br/>
+
+
+
+  </p>
+                    	<br/><a href="services.php" class="button fit scrolly" style="width:400px;">Voir tous nos services</a>
 				</header>
 					
 					
