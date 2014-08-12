@@ -24,7 +24,6 @@
 
 				<div style="text-align:center;">
 					<h2>Exemple de vidéo</h2>
-					<p>Ici sera la description de la vidéo.</p>
 				</div>
 					
 				<!-- One -->
@@ -35,8 +34,11 @@
 								<section>
                                 
 									
-                                    <a href="#" style="float:left;" class="button">< Vidéo précédente</a><a href="#" style="float:right;" class="button">> Vidéo suivante</a>
-									<br/><br/><br/><iframe width="100%" height="300" src="//www.youtube.com/embed/zts7sBh_Arw" frameborder="0" allowfullscreen></iframe>
+                                    <center>
+                                   <a class="button special" href="#">< vidéo précédente</a><a class="button special_violet" href="videos.php">Toutes les vidéos</a><a class="button special" href="#">Vidéo suivante ></a><br/><br/></center>
+                                  	<br/><iframe width="100%" height="300" src="//www.youtube.com/embed/zts7sBh_Arw" frameborder="0" allowfullscreen></iframe>
+                                    
+                                    ici sera la description de la vidéo.
 								</section>
 							</div>
 

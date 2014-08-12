@@ -87,6 +87,7 @@
 
 	#main {
 		padding: 5em 0;
+		
 	}
 
 		#main .sidebar {
@@ -100,7 +101,7 @@
 			}
 
 	body.index #main {
-		padding-top: 4.5em;
+		padding: 4.0em 0 0 0;
 	}
 
 /* CTA */
@@ -113,4 +114,16 @@
 
 	#footer {
 		padding: 4em 1.5em;
+	}
+	
+	.logo_tablette {
+		display:block;
+		position:fixed;
+		padding-top:20px;
+		padding-bottom:10px;
+	}
+	
+	#conteneur_connexion{
+		left:20%; 
+		width:60%; 
 	}

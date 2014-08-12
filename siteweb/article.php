@@ -24,7 +24,6 @@
 
 				<div style="text-align:center;">
 					<h2>Exemple d'un aticle</h2>
-					<p><a href="">Ici par exemple le lien de téléchargement</a></p>
 				</div>
 					
 				<!-- One -->
@@ -32,15 +31,16 @@
 					
 						<!-- Content -->
 							<div class="content">
+                              <center>
+                                  <a class="button special" href="#">< article précédent</a><a class="button special_violet" href="articles.php">Tous les articles</a><a class="button special" href="#">Article suivant ></a><br/><br/></center>
+                                  
 								<section>
                                 
 									
                                     Illud autem non dubitatur quod cum esset aliquando virtutum omnium domicilium Roma, ingenuos advenas plerique nobilium, ut Homerici bacarum suavitate Lotophagi, humanitatis multiformibus officiis retentabant.
 
 Et quia Montius inter dilancinantium manus spiritum efflaturus Epigonum et Eusebium nec professionem nec dignitatem ostendens aliquotiens increpabat, qui sint hi magna quaerebatur industria, et nequid intepesceret, Epigonus e Lycia philosophus ducitur et Eusebius ab Emissa Pittacas cognomento, concitatus orator, cum quaestor non hos sed tribunos fabricarum insimulasset promittentes armorum si novas res agitari conperissent.
-
-Nec sane haec sola pernicies orientem diversis cladibus adfligebat. Namque et Isauri, quibus est usitatum saepe pacari saepeque inopinis excursibus cuncta miscere, ex latrociniis occultis et raris, alente inpunitate adulescentem in peius audaciam ad bella gravia proruperunt, diu quidem perduelles spiritus inrequietis motibus erigentes, hac tamen indignitate perciti vehementer, ut iactitabant, quod eorum capiti quidam consortes apud Iconium Pisidiae oppidum in amphitheatrali spectaculo feris praedatricibus obiecti sunt praeter morem.
-
+<br/><br/><center><a class="button special_violet" href="#">Télécharger en PDF</a></center>
 	</section>
 							</div>
 
