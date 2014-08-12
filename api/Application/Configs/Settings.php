@@ -1,7 +1,7 @@
 <?php
 class Application_Configs_Settings{
     public function __construct() {
-		define("API_ROOT", str_replace("index.php", "", "http://".$_SERVER['SERVER_NAME'].':/'.$_SERVER['SCRIPT_NAME']));
+		define("API_ROOT", str_replace("index.php", "", "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME']));
         
         define("DB_HOST",   "localhost");
         define("DB_NAME",   "market3w");

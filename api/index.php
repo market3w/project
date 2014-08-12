@@ -28,5 +28,5 @@ $iSettings = new Application_Configs_Settings();
 $iDB = new Library_Core_Connexion();
 $iDB->connect(DB_HOST, DB_NAME, DB_USER, DB_PASS, DB_CHARSET);
 
-$server = new Library_Core_RestServer('Service');
+$server = new Library_Core_RestServer('Library_Core_Service');
 $server->handle();

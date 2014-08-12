@@ -1,5 +1,5 @@
 <?php
-class Service extends Library_Core_Extensions {
+class Library_Core_Service extends Library_Core_Extensions {
     
     public function __construct(){
         

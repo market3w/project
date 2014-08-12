@@ -4,16 +4,16 @@ abstract class Library_Core_Model{
     protected $table;
     protected $table_as;
     protected $primary;
-	protected $fieldsList;
-	protected $newFieldList;
-	protected $newFieldValueList;
-	protected $joinsList;
-	protected $whereList;
-	protected $whereValueList;
-	protected $whereOpeList;
-	protected $groupList;
-	protected $orderList;
-	protected $limit;
+	protected $fieldsList = array();
+	protected $newFieldList = array();
+	protected $newFieldValueList = array();
+	protected $joinsList = array();
+	protected $whereList = array();
+	protected $whereValueList = array();
+	protected $whereOpeList = array();
+	protected $groupList = array();
+	protected $orderList = array();
+	protected $limit = array();
     
     public function __construct($connexion) {
         $this->db = $connexion;
@@ -76,7 +76,7 @@ abstract class Library_Core_Model{
 	public function addField($field="*",$table_as=""){
 		if(!($field=="*" && $table_as="")){
 			$as = ($table_as=="")?$this->table_as:$table_as;
-			$this->fieldsList[]=$table_as.'.`'.$field.'`';
+			$this->fieldsList[]=$as.'.`'.$field.'`';
 		}
 	}
 	
@@ -89,7 +89,7 @@ abstract class Library_Core_Model{
 	public function addJoin($table,$table_as,$local_on,$dist_on,$dist_as="",$join_type=""){
 		$as = ($dist_as=="")?$this->table_as:$dist_as;
 		$join_type = ($join_type=="")?null:trim(strtoupper($join_type)).' ';
-		$this->joinsList[]=$join_type.'JOIN '.$table.' AS '.$table_as.' ON '.$as.'.`'.$dist_on.'`='.$table_as.'.`'.$dist_on.'`';
+		$this->joinsList[]=$join_type.'JOIN '.$table.' AS '.$table_as.' ON '.$table_as.'.`'.$local_on.'`='.$as.'.`'.$dist_on.'`';
 	}
 	
 	public function addWhere($field_name,$field_value,$table_as="",$where_type="",$where_ope=""){
@@ -205,5 +205,18 @@ abstract class Library_Core_Model{
 	private function getLimit(){
 		$limit = (empty ($this->limit))?'':$this->limit;
 		return $limit;
+	}
+	
+	public function resetObject(){
+		$this->fieldsList = array();
+		$this->newFieldList = array();
+		$this->newFieldValueList = array();
+		$this->joinsList = array();
+		$this->whereList = array();
+		$this->whereValueList = array();
+		$this->whereOpeList = array();
+		$this->groupList = array();
+		$this->orderList = array();
+		$this->limit = array();
 	}
 }
