@@ -276,40 +276,33 @@ class Application_Controllers_Companies extends Library_Core_Controllers{
 		$company_town = (empty ($data['company_town']))?null:$data['company_town'];
 		$company_nb_employees = (empty ($data['company_nb_employees']))?null:$data['company_nb_employees'];
 		
+		// Tests des variables
+		if($company_siret==null){return $this->setApiResult(false, true, 'param \'company_siret\' undefined');}
+		if(!is_numeric($company_siret)){return $this->setApiResult(false, true, 'param \'company_siret\' unvalid');}
+		if($company_siren==null){return $this->setApiResult(false, true, 'param \'company_siren\' undefined');}
+		if(!is_numeric($company_siren)){return $this->setApiResult(false, true, 'param \'company_siren\' unvalid');}
+		if($company_name==null){return $this->setApiResult(false, true, 'param \'company_name\' undefined');}
+		if($company_adress==null){return $this->setApiResult(false, true, 'param \'company_adress\' undefined');}
+		if($company_zipcode==null){return $this->setApiResult(false, true, 'param \'company_zipcode\' undefined');}
+		if(!is_numeric($company_zipcode)){return $this->setApiResult(false, true, 'param \'company_zipcode\' unvalid');}
+		if($company_town==null){return $this->setApiResult(false, true, 'param \'company_town\' undefined');}
+		if($company_nb_employees==null){return $this->setApiResult(false, true, 'param \'company_nb_employees\' undefined');}
+		if(!is_numeric($company_nb_employees)){return $this->setApiResult(false, true, 'param \'company_nb_employees\' unvalid');}
+		
 		//------------- Test existance en base --------------------------------------------//
 		$exist_company = $this->get_company(array("company_id"=>$company_id));
         if($exist_company->apiError==true){ return $this->setApiResult(false,true,$exist_company->apiErrorMessage); }
         $update = array();
 		
 		//------------- Test et ajout des champs ------------------------------------------//
-       
-		 if($company_siret!=null){
-			$this->companyTable->addNewField("company_siret",$company_siret);
-		} 
-		
-		 if($company_siren!=null){
-			$this->companyTable->addNewField("company_siren",$company_siren);
-		} 
-		
-		 if($company_name!=null){
-			$this->companyTable->addNewField("company_name",$company_name);
-		} 
-		
-		if($company_adress!=null){
-			$this->companyTable->addNewField("company_adress",$company_adress);
-		}
-		if($company_adress2!=null){
-			$this->companyTable->addNewField("company_adress2",$company_adress2);
-		}
-		if($company_zipcode!=null){
-			$this->companyTable->addNewField("company_zipcode",$company_zipcode);
-		}
-		if($company_town!=null){
-			$this->companyTable->addNewField("company_town",$company_town);
-		}
-		if($company_nb_employees!=null){
-			$this->companyTable->addNewField("company_nb_employees",$company_nb_employees);
-		}
+        $this->companyTable->addNewField("company_siret",$company_siret); 
+		$this->companyTable->addNewField("company_siren",$company_siren);
+		$this->companyTable->addNewField("company_name",$company_name);
+		$this->companyTable->addNewField("company_adress",$company_adress);
+		$this->companyTable->addNewField("company_adress2",$company_adress2);
+		$this->companyTable->addNewField("company_zipcode",$company_zipcode);
+		$this->companyTable->addNewField("company_town",$company_town);
+		$this->companyTable->addNewField("company_nb_employees",$company_nb_employees);
 		
         $this->companyTable->update();
         return $this->setApiResult(true);
