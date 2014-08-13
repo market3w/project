@@ -32,7 +32,8 @@ abstract class Library_Core_Model{
 		$limit = $this->getLimit();
         
         $request = 'SELECT '.$fields.' FROM '.$this->table.' AS '.$this->table_as.$join.$where.$group.$order.$limit;
-        $sql = $this->db->prepare($request);
+        //echo $request
+		$sql = $this->db->prepare($request);
         $sql->execute($this->whereValueList);
         return $sql->fetchAll();
     }
