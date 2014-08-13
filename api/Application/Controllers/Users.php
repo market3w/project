@@ -101,6 +101,84 @@ class Application_Controllers_Users extends Library_Core_Controllers{
         return $this->setApiResult($tab);
     }
     
+	 public function get_allprospet($data){
+		$this->usersTable->addJoin("roles","r","role_id","role_id");
+		$this->usersTable->addJoin("companies","c","company_id","company_id","","left");
+		$this->usersTable->addWhere("role_id",5);
+        $res = (array)$this->usersTable->search();
+		$tab = array();
+		if(!array_key_exists(0,$res)){
+			return $this->setApiResult(false, true, ' no prospects found');
+		}
+		foreach($res as $k=>$v){
+			foreach($v as $k2=>$v2){
+				if(!(strpos($k2,"role")===false)){
+					$tab[$k]['user_role'][$k2]=$v2;
+				} elseif(!(strpos($k2,"company")===false)){
+					$tab[$k]['user_company'][$k2]=$v2;
+				} elseif(in_array($k2,$this->user_vars)) {
+					$tab[$k][$k2] = $v2;
+				}
+			}
+			if($tab[$k]['user_company']['company_id']!=null){
+				$tab[$k]['user_company']['company_url']=API_ROOT."?method=company&company_id=".(int)$tab[$k]['user_company']['company_id'];
+			}
+		}
+        return $this->setApiResult($tab);
+    }
+	
+	 public function get_allclient($data){
+		$this->usersTable->addJoin("roles","r","role_id","role_id");
+		$this->usersTable->addJoin("companies","c","company_id","company_id","","left");
+		$this->usersTable->addWhere("role_id",4);
+        $res = (array)$this->usersTable->search();
+		$tab = array();
+		if(!array_key_exists(0,$res)){
+			return $this->setApiResult(false, true, ' no prospects found');
+		}
+		foreach($res as $k=>$v){
+			foreach($v as $k2=>$v2){
+				if(!(strpos($k2,"role")===false)){
+					$tab[$k]['user_role'][$k2]=$v2;
+				} elseif(!(strpos($k2,"company")===false)){
+					$tab[$k]['user_company'][$k2]=$v2;
+				} elseif(in_array($k2,$this->user_vars)) {
+					$tab[$k][$k2] = $v2;
+				}
+			}
+			if($tab[$k]['user_company']['company_id']!=null){
+				$tab[$k]['user_company']['company_url']=API_ROOT."?method=company&company_id=".(int)$tab[$k]['user_company']['company_id'];
+			}
+		}
+        return $this->setApiResult($tab);
+    }
+	
+	public function get_allvisiteur($data){
+		$this->usersTable->addJoin("roles","r","role_id","role_id");
+		$this->usersTable->addJoin("companies","c","company_id","company_id","","left");
+		$this->usersTable->addWhere("role_id",6);
+        $res = (array)$this->usersTable->search();
+		$tab = array();
+		if(!array_key_exists(0,$res)){
+			return $this->setApiResult(false, true, ' no prospects found');
+		}
+		foreach($res as $k=>$v){
+			foreach($v as $k2=>$v2){
+				if(!(strpos($k2,"role")===false)){
+					$tab[$k]['user_role'][$k2]=$v2;
+				} elseif(!(strpos($k2,"company")===false)){
+					$tab[$k]['user_company'][$k2]=$v2;
+				} elseif(in_array($k2,$this->user_vars)) {
+					$tab[$k][$k2] = $v2;
+				}
+			}
+			if($tab[$k]['user_company']['company_id']!=null){
+				$tab[$k]['user_company']['company_url']=API_ROOT."?method=company&company_id=".(int)$tab[$k]['user_company']['company_id'];
+			}
+		}
+        return $this->setApiResult($tab);
+    }
+	
     public function get_autocompletionuser($data){
         $user_search = (empty ($data['user_search']))?null:$data['user_search'];
         if($user_search==null){return $this->setApiResult(false, true, 'param \'user_search\' undefined');}
