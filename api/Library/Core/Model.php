@@ -23,7 +23,7 @@ abstract class Library_Core_Model{
 		return $this->table_as;
 	}
     
-    public function search(){
+    public function search($print=false){
 		$fields = $this->getFields();
 		$join = $this->getJoins();
 		$where = $this->getWhere("select");
@@ -32,16 +32,21 @@ abstract class Library_Core_Model{
 		$limit = $this->getLimit();
         
         $request = 'SELECT '.$fields.' FROM '.$this->table.' AS '.$this->table_as.$join.$where.$group.$order.$limit;
-        //echo $request
+        if($print===true){
+			$this->printRequest($request);
+		}
 		$sql = $this->db->prepare($request);
         $sql->execute($this->whereValueList);
         return $sql->fetchAll();
     }
     
-    public function insert(){
+    public function insert($print=false){
 		$fields = $this->getNewFields("insert");
         
-        $request = "INSERT INTO `".$this->table."`".$fields;		
+        $request = "INSERT INTO `".$this->table."`".$fields;	
+        if($print===true){
+			$this->printRequest($request);
+		}	
         $sql = $this->db->prepare($request);
         $sql->execute($this->newFieldValueList);
         $errorInfo = $sql->errorInfo();
@@ -51,20 +56,26 @@ abstract class Library_Core_Model{
         return "ok";
     }
     
-    public function update(){
+    public function update($print=false){
 		$fields = $this->getNewFields("update");
 		$where = $this->getWhere();
 		$values = array_merge($this->newFieldValueList,$this->whereValueList);
         
         $request = "UPDATE `".$this->table."`".$fields.$where;
+        if($print===true){
+			$this->printRequest($request);
+		}
         $sql = $this->db->prepare($request);
         return $sql->execute($values);
     }
     
-    public function delete(){
+    public function delete($print=false){
 		$where = $this->getWhere();
 		
 		$request = "DELETE FROM `".$this->table."`".$where;
+        if($print===true){
+			$this->printRequest($request);
+		}
 		foreach($this->whereValueList as $k=>$v){
 			echo $k." : ".$v."\n";
 		}
@@ -74,10 +85,13 @@ abstract class Library_Core_Model{
         return $sql->rowCount();
     }
 	
-	public function addField($field="*",$table_as=""){
-		if(!($field=="*" && $table_as="")){
-			$as = ($table_as=="")?$this->table_as:$table_as;
-			$this->fieldsList[]=$as.'.`'.$field.'`';
+	public function addField($field="*",$table_as="",$field_as=""){
+		$as = ($table_as=="")?$this->table_as:$table_as;
+		$field_as = ($field_as=="")?null:' AS '.$field_as;
+		if($field!="*"){
+			$this->fieldsList[]=$as.'.`'.$field.'`'.$field_as;
+		} else {
+			$this->fieldsList[]=$as.'.'.$field.$field_as;
 		}
 	}
 	
@@ -219,5 +233,9 @@ abstract class Library_Core_Model{
 		$this->groupList = array();
 		$this->orderList = array();
 		$this->limit = array();
+	}
+	
+	private function printRequest($request){
+		echo '<p style="border:1px solid #ff0000; color:#ff0000; padding:5px; margin:5px 0 10px; font-weight:bold;"><u>Request :</u><br />'.$request.'</p>';
 	}
 }
