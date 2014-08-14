@@ -48,6 +48,30 @@ class Application_Controllers_Users extends Library_Core_Controllers{
         return $this->setApiResult($tab);
     }
 	
+	public function get_user_paiement($data){
+        $user_id = (empty ($data['user_id']))?null:$data['user_id'];
+        if($user_id==null){return $this->setApiResult(false, true, 'param \'user_id\' undefined');}
+        if(!is_numeric($user_id)){return $this->setApiResult(false, true, 'param \'user_id\' is not numeric');}
+		$this->usersTable->addJoin("paiements","p","paiement_id","paiement_id","","left");
+		$this->usersTable->addWhere("user_id",$user_id);
+        $res = (array)$this->usersTable->search();
+		$tab = array();
+		if(!array_key_exists(0,$res)){
+			return $this->setApiResult(false, true, 'user not found');
+		}
+		foreach($res[0] as $k=>$v){
+			if(!(strpos($k,"paiement")===false)){
+				$tab['user_paiement'][$k]=$v;
+			} elseif(in_array($k,$this->user_vars)) {
+				$tab[$k] = $v;
+			}
+		}
+		if($tab['user_paiement']['user_paiement']!=null){
+			$tab['user_paiement']['paiement_url']=API_ROOT."?method=paiement&paiement_id=".(int)$tab['user_paiement']['paiement_id'];
+		}
+        return $this->setApiResult($tab);
+    }
+	
 	public function get_currentuser($data=array()){
         $user_id = ($_SESSION['market3w_user_id']==-1)?null:$_SESSION['market3w_user_id'];
 		

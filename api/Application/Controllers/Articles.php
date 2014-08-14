@@ -156,9 +156,9 @@ class Application_Controllers_Articles extends Library_Core_Controllers{
 		if(!is_numeric($article_id)){return $this->setApiResult(false, true, 'param \'article_id\' not numeric');}
 		
 		//------------- Test existance en base --------------------------------------------//
-		$exist_user = $this->get_article(array("article_id"=>$article_id));
-        if($exist_user->apiError==true){ return $this->setApiResult(false,true,'article doesn\'t look existt'); }
-        $update = array();
+		$article_user = $this->get_article(array("article_id"=>$article_id));
+        if($article_user->apiError==true){ return $this->setApiResult(false,true,'article doesn\'t look existt'); }
+        
 		$this->articlesTable->addWhere("article_id",$article_id);
         $this->articlesTable->delete();
         return $this->setApiResult(true);
