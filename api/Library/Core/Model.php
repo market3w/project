@@ -4,15 +4,16 @@ abstract class Library_Core_Model{
     protected $table;
     protected $table_as;
     protected $primary;
-	protected $fieldsList;
-	protected $newFieldList;
-	protected $newFieldValueList;
-	protected $joinsList;
-	protected $whereList;
-	protected $whereValueList;
-	protected $groupList;
-	protected $orderList;
-	protected $limit;
+	protected $fieldsList = array();
+	protected $newFieldList = array();
+	protected $newFieldValueList = array();
+	protected $joinsList = array();
+	protected $whereList = array();
+	protected $whereValueList = array();
+	protected $whereOpeList = array();
+	protected $groupList = array();
+	protected $orderList = array();
+	protected $limit = array();
     
     public function __construct($connexion) {
         $this->db = $connexion;
@@ -22,7 +23,7 @@ abstract class Library_Core_Model{
 		return $this->table_as;
 	}
     
-    public function search(){
+    public function search($print=false){
 		$fields = $this->getFields();
 		$join = $this->getJoins();
 		$where = $this->getWhere("select");
@@ -31,15 +32,21 @@ abstract class Library_Core_Model{
 		$limit = $this->getLimit();
         
         $request = 'SELECT '.$fields.' FROM '.$this->table.' AS '.$this->table_as.$join.$where.$group.$order.$limit;
-        $sql = $this->db->prepare($request);
+        if($print===true){
+			$this->printRequest($request);
+		}
+		$sql = $this->db->prepare($request);
         $sql->execute($this->whereValueList);
         return $sql->fetchAll();
     }
     
-    public function insert(){
+    public function insert($print=false){
 		$fields = $this->getNewFields("insert");
         
-        $request = "INSERT INTO `".$this->table."`".$fields;		
+        $request = "INSERT INTO `".$this->table."`".$fields;	
+        if($print===true){
+			$this->printRequest($request);
+		}	
         $sql = $this->db->prepare($request);
         $sql->execute($this->newFieldValueList);
         $errorInfo = $sql->errorInfo();
@@ -49,20 +56,26 @@ abstract class Library_Core_Model{
         return "ok";
     }
     
-    public function update(){
+    public function update($print=false){
 		$fields = $this->getNewFields("update");
 		$where = $this->getWhere();
 		$values = array_merge($this->newFieldValueList,$this->whereValueList);
         
         $request = "UPDATE `".$this->table."`".$fields.$where;
+        if($print===true){
+			$this->printRequest($request);
+		}
         $sql = $this->db->prepare($request);
         return $sql->execute($values);
     }
     
-    public function delete(){
+    public function delete($print=false){
 		$where = $this->getWhere();
 		
 		$request = "DELETE FROM `".$this->table."`".$where;
+        if($print===true){
+			$this->printRequest($request);
+		}
 		foreach($this->whereValueList as $k=>$v){
 			echo $k." : ".$v."\n";
 		}
@@ -72,10 +85,13 @@ abstract class Library_Core_Model{
         return $sql->rowCount();
     }
 	
-	public function addField($field="*",$table_as=""){
-		if(!($field=="*" && $table_as="")){
-			$as = ($table_as=="")?$this->table_as:$table_as;
-			$this->fieldsList[]=$table_as.'.`'.$field.'`';
+	public function addField($field="*",$table_as="",$field_as=""){
+		$as = ($table_as=="")?$this->table_as:$table_as;
+		$field_as = ($field_as=="")?null:' AS '.$field_as;
+		if($field!="*"){
+			$this->fieldsList[]=$as.'.`'.$field.'`'.$field_as;
+		} else {
+			$this->fieldsList[]=$as.'.'.$field.$field_as;
 		}
 	}
 	
@@ -85,16 +101,24 @@ abstract class Library_Core_Model{
 		$this->newFieldValueList['field'.$count]=$field_value;
 	}
 	
-	public function addJoin($table,$table_as,$local_on,$dist_on,$dist_as=""){
+	public function addJoin($table,$table_as,$local_on,$dist_on,$dist_as="",$join_type=""){
 		$as = ($dist_as=="")?$this->table_as:$dist_as;
-		$this->joinsList[]='JOIN '.$table.' AS '.$table_as.' ON '.$as.'.`'.$dist_on.'`='.$table_as.'.`'.$dist_on.'`';
+		$join_type = ($join_type=="")?null:trim(strtoupper($join_type)).' ';
+		$this->joinsList[]=$join_type.'JOIN '.$table.' AS '.$table_as.' ON '.$table_as.'.`'.$local_on.'`='.$as.'.`'.$dist_on.'`';
 	}
 	
-	public function addWhere($field_name,$field_value,$table_as=""){
+	public function addWhere($field_name,$field_value,$table_as="",$where_type="",$where_ope=""){
 		$as = ($table_as=="")?$this->table_as:$table_as;
+		$where_type = ($where_type=="")?" = ":" ".trim(strtoupper($where_type))." ";
+		$where_ope = ($where_ope=="")?" AND ":" ".trim(strtoupper($where_ope))." ";
 		$count = count($this->whereList);
-		$this->whereList[]=$as.'.`'.$field_name.'`=:where'.$count;
-		$this->whereValueList['where'.$count]=$field_value;
+		$this->whereList[]=$as.'.`'.$field_name.'`'.$where_type.':where'.$count;
+		if($where_type==" LIKE "){
+			$this->whereValueList['where'.$count]="%".$field_value."%";
+		} else {
+			$this->whereValueList['where'.$count]=$field_value;
+		}
+		$this->whereOpeList['where'.$count]=$where_ope;
 	}
 	
 	public function addGroup($field_name,$table_as=""){
@@ -161,8 +185,13 @@ abstract class Library_Core_Model{
 		$is_select = ($mode==="")?false:true;
 		
 		$where = "";
-        if(!count($this->whereList)==0){
-			$where = " WHERE ".implode(" AND ",$this->whereList);
+		for($count=0;$count<count($this->whereList);$count++){
+			if($count>0){
+				$where .= $this->whereOpeList["where".$count];
+			} else {
+				$where .= " WHERE ";
+			}
+			$where .= $this->whereList[$count];
 		}
 		
 		if(!$is_select){
@@ -193,20 +222,20 @@ abstract class Library_Core_Model{
 		return $limit;
 	}
 	
-	private function isSetPrimary($ids){
-		/*$return = array("erreur"=>false, "message"=>"");
-		$found = array();
-		foreach($this->primary as $k=>$v){ $found[$v]=false; }
-		foreach($this->whereList as $k=>$v){
-			foreach($this->primary as $k2=>$v2){
-				if (strpos($v, $v2) !== false){ 
-					$found[$v2]=true;
-					$this->whereValueList['where'.$k]=$ids[$v2];
-				}
-			}
-		}
-		if(in_array(false, $found)){ $return = array("erreur"=>true, "message"=>"Primary key not found"); }
-		return $return;*/
+	public function resetObject(){
+		$this->fieldsList = array();
+		$this->newFieldList = array();
+		$this->newFieldValueList = array();
+		$this->joinsList = array();
+		$this->whereList = array();
+		$this->whereValueList = array();
+		$this->whereOpeList = array();
+		$this->groupList = array();
+		$this->orderList = array();
+		$this->limit = array();
+	}
+	
+	private function printRequest($request){
+		echo '<p style="border:1px solid #ff0000; color:#ff0000; padding:5px; margin:5px 0 10px; font-weight:bold;"><u>Request :</u><br />'.$request.'</p>';
 	}
 }
-?>

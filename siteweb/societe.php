@@ -35,7 +35,7 @@
 								<section>
                               
                                 <center>
-                                  <a class="button special" href="#">Qui sommes nous ?</a><a class="button special" href="#equipe">L'équipe</a><br/><a class="button special" href="#valeurs">Nos valeurs</a><a class="button special" href="#mot">Coordonnées</a><br/><br/>
+                                  <div class="menu_societe"><a class="onglet_societe" href="#">Qui sommes nous ?</a><a class="onglet_societe" href="#equipe">L'équipe</a><a class="onglet_societe" href="#valeurs">Nos valeurs</a><a class="onglet_societe" href="#mot">Coordonnées</a></div>
                                
                                 <h1 style="font-weight:500;" >Qui sommes nous ?</h1>
 
