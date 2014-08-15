@@ -48,13 +48,13 @@ class Application_Controllers_Campains extends Library_Core_Controllers{
 		return $this->setApiResult($tab);
 	}
 	
-	public function get_allcampain_user($data){
+	public function get_allcampain_company($data){
 		//!!!Reste a vérfier si utilisteur connecté et si c'est ses campain OU webmarketeur OU admin
 		
-		$user_id = (empty ($data['user_id']))?null:$data['user_id'];
-        if($user_id==null){return $this->setApiResult(false, true, 'param \'user_id\' undefined');}
-        if(!is_numeric($user_id)){return $this->setApiResult(false, true, 'param \'user_id\' is not numeric');}
-		$this->campainsTable->addWhere("user_id",$user_id);
+		$company_id = (empty ($data['company_id']))?null:$data['company_id'];
+        if($company_id==null){return $this->setApiResult(false, true, 'param \'company_id\' undefined');}
+        if(!is_numeric($company_id)){return $this->setApiResult(false, true, 'param \'company_id\' is not numeric');}
+		$this->campainsTable->addWhere("company_id",$company_id);
 		$res = (array)$this->campainsTable->search();
 		
 		if(!array_key_exists(0,$res)){
@@ -62,6 +62,30 @@ class Application_Controllers_Campains extends Library_Core_Controllers{
 		}
 	
         return $this->setApiResult($res);
+	}
+	
+	public function get_allcampain($data){
+		//!!!Seulement l'admin a cette fonction A FAIRE
+		
+		$this->campainsTable->addJoin("companies","c","company_id","company_id","","left");
+        $res = (array)$this->campainsTable->search();
+		$tab = array();
+		if(!array_key_exists(0,$res)){
+			return $this->setApiResult(false, true, ' no campains found');
+		}
+		foreach($res as $k=>$v){
+			foreach($v as $k2=>$v2){
+				if(!(strpos($k2,"company")===false)){
+					$tab[$k]['campain_company'][$k2]=$v2;
+				} elseif(in_array($k2,$this->campain_vars)) {
+					$tab[$k][$k2] = $v2;
+				}
+			}
+			if($tab[$k]['campain_company']['company_id']!=null){
+				$tab[$k]['campain_company']['company_url']=API_ROOT."?method=company&company_id=".(int)$tab[$k]['campain_company']['company_id'];
+			}
+		}
+        return $this->setApiResult($tab);
 	}
 	
 	 public function post_campain($data){
@@ -73,27 +97,33 @@ class Application_Controllers_Campains extends Library_Core_Controllers{
 			// On récupere l'id du role, si c'est un administrateur ou webmarketeur, il peut ajouter un campain effectué sinon non autorisation
 			case "1":case "2":
 				// Récupération des parametres utiles
-				$user_id = (empty ($data['user_id']))?null:$data['user_id'];
+				
 				$campain_name = (empty ($data['campain_name']))?null:$data['campain_name'];
 				$campain_description = (empty ($data['campain_description']))?null:$data['campain_description'];
 				$campain_prix = (empty ($data['campain_prix']))?null:$data['campain_prix'];
-				$campain_link = (empty ($data['campain_link']))?null:$data['campain_link'];
+				$company_id = (empty ($data['company_id']))?null:$data['company_id'];
+				$webmarketter_id = (empty ($data['webmarketter_id']))?null:$data['webmarketter_id'];
+				$campain_completion = (empty ($data['campain_completion']))?null:$data['campain_completion'];
 				
 				// Tests des variables
-				if($user_id==null){return $this->setApiResult(false, true, 'param \'user_id\' undefined');}
-				if(!is_numeric($user_id)){return $this->setApiResult(false, true, 'param \'user_id\' must be numeric');}
+				
 				if($campain_name==null){return $this->setApiResult(false, true, 'param \'campain_name\' undefined');}
 				if($campain_description==null){return $this->setApiResult(false, true, 'param \'campain_description\' undefined');}
 				if($campain_prix==null){return $this->setApiResult(false, true, 'param \'campain_prix\' undefined');}
 				if(!is_numeric($campain_prix)){return $this->setApiResult(false, true, 'param \'campain_prix\' must be numeric');}
-				if($campain_link==null){return $this->setApiResult(false, true, 'param \'campain_link\' undefined');}
+				if($company_id==null){return $this->setApiResult(false, true, 'param \'company_id\' undefined');}
+				if(!is_numeric($company_id)){return $this->setApiResult(false, true, 'param \'company_id\' must be numeric');}
+				if($webmarketter_id==null){return $this->setApiResult(false, true, 'param \'webmarketter_id\' undefined');}
+				if(!is_numeric($webmarketter_id)){return $this->setApiResult(false, true, 'param \'webmarketter_id\' must be numeric');}
+				if($campain_completion==null){return $this->setApiResult(false, true, 'param \'campain_completion\' undefined');}
 				
 				// Préparation de la requete
 				$this->campainsTable->addNewField("campain_name",$campain_name);
 				$this->campainsTable->addNewField("campain_description",$campain_description);
 				$this->campainsTable->addNewField("campain_prix",$campain_prix);
-				$this->campainsTable->addNewField("campain_link",$campain_link);
-				$this->campainsTable->addNewField("user_id",$user_id);
+				$this->campainsTable->addNewField("company_id",$company_id);
+				$this->campainsTable->addNewField("webmarketter_id",$webmarketter_id);
+				$this->campainsTable->addNewField("campain_completion",$campain_completion);
 				break;
 			
 			default:
@@ -115,15 +145,16 @@ class Application_Controllers_Campains extends Library_Core_Controllers{
         if($put_campain_role==null){return $this->setApiResult(false, true, 'param \'put_campain_role\' undefined');}
 		
 		switch($put_campain_role){
-			// On récupere l'id du role, si c'est un administrateur il peut modifier un campain effectué sinon non autorisation
-			case "1":
+			// On récupere l'id du role, si c'est un administrateur ou webmarketeur, il peut ajouter un campain effectué sinon non autorisation
+			case "1":case "2":
 				// Récupération des parametres utiles
 				$campain_id = (empty ($data['campain_id']))?null:$data['campain_id'];
 				$campain_name = (empty ($data['campain_name']))?null:$data['campain_name'];
 				$campain_description = (empty ($data['campain_description']))?null:$data['campain_description'];
-					
 				$campain_prix = (empty ($data['campain_prix']))?null:$data['campain_prix'];
-				$campain_link = (empty ($data['campain_link']))?null:$data['campain_link'];
+				$company_id = (empty ($data['company_id']))?null:$data['company_id'];
+				$webmarketter_id = (empty ($data['webmarketter_id']))?null:$data['webmarketter_id'];
+				$campain_completion = (empty ($data['campain_completion']))?null:$data['campain_completion'];
 				
 				// Tests des variables
 				if($campain_id==null){return $this->setApiResult(false, true, 'param \'campain_id\' undefined');}
@@ -132,19 +163,26 @@ class Application_Controllers_Campains extends Library_Core_Controllers{
 				if($campain_description==null){return $this->setApiResult(false, true, 'param \'campain_description\' undefined');}
 				if($campain_prix==null){return $this->setApiResult(false, true, 'param \'campain_prix\' undefined');}
 				if(!is_numeric($campain_prix)){return $this->setApiResult(false, true, 'param \'campain_prix\' must be numeric');}
-				if($campain_link==null){return $this->setApiResult(false, true, 'param \'campain_link\' undefined');}
+				if($company_id==null){return $this->setApiResult(false, true, 'param \'company_id\' undefined');}
+				if(!is_numeric($company_id)){return $this->setApiResult(false, true, 'param \'company_id\' must be numeric');}
+				if($webmarketter_id==null){return $this->setApiResult(false, true, 'param \'webmarketter_id\' undefined');}
+				if(!is_numeric($webmarketter_id)){return $this->setApiResult(false, true, 'param \'webmarketter_id\' must be numeric');}
+				if($campain_completion==null){return $this->setApiResult(false, true, 'param \'campain_completion\' undefined');}
 				
 				// Préparation de la requete
 				$this->campainsTable->addNewField("campain_name",$campain_name);
 				$this->campainsTable->addNewField("campain_description",$campain_description);
 				$this->campainsTable->addNewField("campain_prix",$campain_prix);
-				$this->campainsTable->addNewField("campain_link",$campain_link);
+				$this->campainsTable->addNewField("company_id",$company_id);
+				$this->campainsTable->addNewField("webmarketter_id",$webmarketter_id);
+				$this->campainsTable->addNewField("campain_completion",$campain_completion);
 				break;
 			
 			default:
 				return $this->setApiResult(false, true, 'No authorization to access to this page');
 				break;
 		}
+		
 		
 		
         $this->campainsTable->addWhere("campain_id",$campain_id);
