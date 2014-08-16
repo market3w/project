@@ -37,7 +37,9 @@
 										<h3>Les documents pdf</h3>
 									</header>
 									<p>
-                                    Retrouvez toutes nos documentations sur le référencement à télécharger gratuitement.</p>
+                                    Retrouvez toutes notre documentation pour vous initier au monde référencement Web.
+                                    L'ensemble des cours est téléchargeable gratuitement.
+                                    </p>
 									<footer>
 										<ul class="buttons">
 											<li><a href="articles.php" class="button">Voir les documentations</a></li>

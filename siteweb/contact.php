@@ -63,7 +63,28 @@
 							</div>
 							
 					</section>
-				
+                    
+                    
+                    <section class="wrapper style4 special container small">
+					
+						<!-- contact -->
+							<div class="contact">
+                            
+                                <h1 style="font-weight:500; border-top: #999999 solid 1px; padding-top:20px;">Coordonnées</h1>
+                                    
+                                12 rue de Rambouillet 75012 PARIS / +33 (0)1 03 04 05 06 / contact@market3w.fr
+                                <br/><br/>
+                                
+                                
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d20996.753455028036!2d2.0891941!3d48.86594845!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e662a78e8f8631%3A0x43d8df2addf6e492!2sMarly-le-Roi!5e0!3m2!1sfr!2sfr!4v1407087275326" width="100%" height="400" frameborder="0" style="border:0"></iframe>
+
+
+                           
+	
+							</div>
+							
+					</section>
+                    
 			</article>
 
 		<?php
