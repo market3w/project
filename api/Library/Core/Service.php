@@ -14,7 +14,8 @@ class Library_Core_Service extends Library_Core_Extensions {
 							 'Application_Controllers_Statutes',
 							 'Application_Controllers_Companies',
 							 'Application_Controllers_Articles',
-							 'Application_Controllers_Paiements');
+							 'Application_Controllers_Paiements',
+							 'Application_Controllers_Appointments');
 		
 		parent::__construct($extensions);
     }
