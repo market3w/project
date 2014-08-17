@@ -116,7 +116,7 @@ class Application_Controllers_Paiements extends Library_Core_Controllers{
 		//Si c'est un administrateur ou webmarketeur ils récupére les paiements et leur utilisateurs// Sinon si c'est un client il ne peut que recuperer ses paiements
 		if($role_id==1 || $role_id==2 || $role_id==3 )
 		{
-			//Si c'est un admin qui accéde aux paiements du client, il devra renseigne l'id du client
+			//Si c'est un admin ou webmarketeur  qui accéde aux paiements du client, il devra renseigne l'id du client
 			if($role!=3)
 			{
 				$user_id = (empty ($data['user_id']))?null:$data['user_id'];
