@@ -1089,3 +1089,27 @@
 			display:none;
 		}
 		
+		.menu_societe{
+			width:auto;
+			background-color:#4F394F;
+			
+			margin-bottom:20px;
+			border-bottom:3px solid #718FA7;
+		}
+		
+		.onglet_societe{
+			
+			display:inline-block;
+			color:#ffffff;
+			width:200px;
+			padding-left:20px;
+			padding-right:20px;
+			padding-top:5px;
+			padding-bottom:5px;
+		}
+		
+		.onglet_societe:hover{
+		
+		background-color:#718FA7;
+		
+		}
