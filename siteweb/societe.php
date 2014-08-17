@@ -70,113 +70,79 @@ Market3w met un point d’honneur à se rendre disponible pour ses clients parto
 
 <h1 style="font-weight:500; border-top: #999999 solid 1px; padding-top:20px;">L'équipe</h1>
 
+       
+     <div class="img-eq">
+        <img src="images/eq1.png" alt="Oscar DITTE – picturs" />
+        <p>
+        <strong>Oscar DITTE – Dirigeant de Market3w / Chef de projet Grand Compte</strong><br/>
+        mail : g.ditte@market3w.fr
+        </p>
+    </div>   
 
-<div class="img-eq">
-
-<p>
-<img src="images/eq1.png" width="100%" style="max-width:250px;" alt="Loic LOISAU – picturs" />
-
-<strong>Oscar DITTE – Dirigeant / Chef de projet Grand Compte / Ancien Responsable Marketing chez Publicis / Fondateur</strong><br/>
-
-mail : g.ditte@market3w.fr
-</p>
-
-</div>
+<br/><br/>
+    
+    <div class="img-eq">
+        <img src="images/eq2.png" alt="Loic LOISAU – picturs" />
+        <p>
+        <strong>Loic LOISAU – Webmarketeur / Chef de projet</strong><br/>
+        mail : l.loisau@market3w.fr
+        </p>
+    </div>
 
 <br/><br/>
 
-<div class="img-eq">
-
-
-<p>
-<img src="images/eq2.png" width="100%" style="max-width:250px;" alt="Loic LOISAU – picturs" />
-
-<strong>Loic LOISAU – Webmarketeur / Chef de projet</strong><br/>
-
-mail : l.loisau@market3w.fr
-
-</p>
-
-</div>
+ 	<div class="img-eq">
+        <img src="images/eq3.png" alt="Johanna BAPTISTA – picturs" />
+        <p>
+        <strong>Johanna BAPTISTA – Webmarketeur / spécialiste SEO</strong><br/>
+        mail : j.baptista@market3w.fr
+        </p>
+    </div>
 
 <br/><br/>
 
-<div class="img-eq">
+    <div class="img-eq">
+        <img src="images/eq5.png"  alt="Jean VALLET – picturs" />
+        <p>
+        <strong>Jean VALLET – Webmarketeur  / spécialiste SEA</strong><br/>
+        mail : j.vallet@market3w.fr
+        </p>
+    </div>
 
+<br/><br/>
 
-<p>
-<img src="images/eq4.png" width="100%" style="max-width:250px;" alt="Loic LOISAU – picturs" />
-
-<strong>Alfred MADOC – Webmarketeur / spécialiste SEA</strong><br/>
-
-mail : a.madoc@market3w.fr
-
-</p>
+	<div class="img-eq">
+        <img src="images/eq4.png" alt="Alfred MADOC – picturs" />
+        <p>
+        <strong>Alfred MADOC – Webmarketeur / spécialiste SEA</strong><br/>
+        mail : a.madoc@market3w.fr
+        </p>
+    </div>
  
-</div>
-
 <br/><br/>
 
-
-<div class="img-eq">
-
-<p>
-<img src="images/eq5.png" width="100%" style="max-width:250px;" alt="Loic LOISAU – picturs" />
-
-<strong>Jean VALLET – Webmarketeur  / spécialiste SEA</strong><br/>
-
-mail : j.vallet@market3w.fr
-
-</p>
-</div>
+    <div class="img-eq">
+        <img src="images/eq8.png" alt="Caroline GOGNAUX – picturs" />
+        <p>
+        <strong>Caroline GOGNAUX – Webmarketeur / spécialiste SMO</strong><br/>
+        mail : c.gognaux@market3w.fr
+        </p>
+    </div>
 
 <br/><br/>
-
-
-<div class="img-eq">
-
-
-<p>
-<img src="images/eq3.png" width="100%" style="max-width:250px;" alt="Loic LOISAU – picturs" />
-
-<strong>Johanna BAPTISTA – Webmarketeur / spécialiste SEO</strong><br/>
-
-mail : j.baptista@market3w.fr
-</p>
-
-</div>
-
+    
+    <div class="img-eq">
+        <img src="images/eq6.png" alt="David BRIDOU – picturs" />
+        <p>
+        <strong>David BRIDOU - Comunity manager</strong><br/>
+        mail : d.bridou@market3w.fr
+        </p>
+    </div>
+    
 <br/><br/>
-
-
-<div class="img-eq">
-
-<p>
-<img src="images/eq8.png" width="100%" style="max-width:250px;" alt="Loic LOISAU – picturs" />
-
-<strong>Caroline GOGNAUX – Webmarketeur / spécialiste SMO</strong><br/>
-
-mail : c.gognaux@market3w.fr
-
-</p>
-
-</div>
-
-<br/><br/>
-
-
-<div class="img-eq">
-
-<p>
-<img src="images/eq6.png" width="100%" style="max-width:250px;" alt="Loic LOISAU – picturs" />
-
-<strong>David BRIDOU - Comunity manager</strong><br/>
-<div id="valeurs"></div>
-mail : d.bridou@market3w.fr<br/><br/>
-
-</p>
-
-</div>
+    
+    
+ <div id="valeurs"></div>
 
 <h1 style="font-weight:500; border-top: #999999 solid 1px; padding-top:20px;">Nos valeurs</h1>
 Il est difficile de lister nos valeurs et surtout de vous démontrer combien elles font partie intégrante de chacun des projets Market3w avant que vous n’ayez collaboré avec notre équipe, pour autant sachez que nous portons une attention très particulière à respecter les valeurs suivantes :
