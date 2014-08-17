@@ -1113,3 +1113,11 @@
 		background-color:#718FA7;
 		
 		}
+		
+	/* Messages d'erreurs */
+	.responseError{
+		font-size:12px;
+		font-weight:bold;
+		color:#ff0000;
+		display:none;
+	}

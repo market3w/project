@@ -37,7 +37,7 @@
   		  $(document).ready(function() {
 	
 	 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Confirmation des parametres !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	   $(".btn_connexion").on('click', function(){
+	   		$(".btn_connexion").on('click', function(){
 				$(".fermer_pop_up").fadeIn(500);
 				$("#conteneur_connexion").fadeIn(500);
 				
@@ -48,6 +48,15 @@
 				$("#conteneur_connexion").fadeOut(500);
 				
 			});
+			
+			<?php
+				//affichage auto de la fenêtre de connexion en cas d'erreur
+				if($_SESSION["method"]=="login" && $_SESSION["errorMessage"]!=""){
+			?>
+			$("#loginError").show();
+			$(".fermer_pop_up").fadeIn(500);
+			$("#conteneur_connexion").fadeIn(500);
+			<?php } ?>
 			
 			 $("#oubli_mdp").on('click', function(){
 				$("#formulaire_connexion").hide(500);
@@ -60,6 +69,13 @@
 				$("#formulaire_connexion").show(500);
 				$("#titre_conteneur_connexion").html("CONNEXION");
 			});
+			
+			<?php
+				//affichage d'une alerte en cas d'erreur du serveur
+				if($_SESSION["errorServer"]!=""){
+			?>
+			alert("<?php echo $_SESSION["errorServer"]; ?>");
+			<?php } ?>
            
         });
 		</script>
@@ -71,8 +87,10 @@
    
   <center> <h1 style="color:#ffffff; background-color:#83BBD3; padding:10px;"><span id="titre_conteneur_connexion">Connexion</span><span class="fermer_pop_up" style="float:right; cursor:pointer;">X</span></h1></center>
    <div id="formulaire_connexion" style="padding:10px;"><center>
+   <span class="responseError" id="loginError"><?php echo $_SESSION["errorMessage"]; ?></span>
    <form action="" method="post">
-   <input type="text" name="login" value="" style="width:80%;" placeholder="Pseudo"/><br/>
+   <input type="hidden" name="method" value="login"/>
+   <input type="text" name="login" value="<?php echo (array_key_exists("login",$_POST))?$_POST["login"]:""; ?>" style="width:80%;" placeholder="Pseudo"/><br/>
    <input type="password" name="password" style="width:80%;" value=""  placeholder="Mot de passe" /><br/>
    <input type="submit" name="submit" value="SE CONNECTER" style="background-color:#83BBD3; border:0px; color:#ffffff; cursor:pointer;" /><br/><br/>
    </form>
@@ -83,7 +101,7 @@
    
    <div id="conteneur_oubli_mdp" style="padding:10px; display:none;"><center>
    <form action="" method="post">
-   <input type="text" name="email" value="" style="width:80%;" placeholder="Email"/><br/>
+   <input type="text" name="email" value="<?php echo (array_key_exists("email",$_POST))?$_POST["email"]:""; ?>" style="width:80%;" placeholder="Email"/><br/>
    
    <input type="submit" name="submit" value="ENVOYER" style="background-color:#83BBD3; border:0px; color:#ffffff; cursor:pointer;" /><br/>
     <a href="#" style=" color:#4F394F;" id="annul_oubli_mdp">Annuler</a>
