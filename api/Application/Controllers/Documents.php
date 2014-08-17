@@ -74,7 +74,7 @@ class Application_Controllers_Documents extends Library_Core_Controllers{
 		if($role_id==1 || $role_id==2 || $role_id==3 )
 		{
 			//Si c'est un admin ou webmarketeur qui accéde aux dossier du client, il devra renseigne l'id du client
-			if($role!=3)
+			if($role_id!=3)
 			{
 				$user_id = (empty ($data['user_id']))?null:$data['user_id'];
 				if($user_id==null){return $this->setApiResult(false, true, 'param \'user_id\' undefined');}
