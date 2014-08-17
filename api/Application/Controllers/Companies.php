@@ -21,35 +21,53 @@ class Application_Controllers_Companies extends Library_Core_Controllers{
 	}
 	
 	public function get_company($data){
-        $company_id = (empty ($data['company_id']))?null:$data['company_id'];
-        if($company_id==null){return $this->setApiResult(false, true, 'param \'company_id\' undefined');}
-        if(!is_numeric($company_id)){return $this->setApiResult(false, true, 'param \'company_id\' is not numeric');}
-		// Jointure
-		$this->companyTable->addJoin("users","u","company_id","company_id","","left");
-		$this->companyTable->addJoin("roles","r","role_id","role_id","u"); 
-		// Condition
-		$this->companyTable->addWhere("company_id",$company_id);
-        $res = (array)$this->companyTable->search();
+		 $user_id = ($_SESSION['market3w_user_id']==-1)?null:$_SESSION['market3w_user_id'];
+		 if($user_id==null){return $this->setApiResult(false, true, 'you are not logged');}
+		 
+		$role = new Application_Controllers_Roles();
+		$role_res = $role->get_currentrole();
+		$role_id = $role_res->response[0]->role_id;
 		
-		$tab = array();
-		if(!array_key_exists(0,$res)){
-			return $this->setApiResult(false, true, 'Company not found');
-		}
-		foreach($res as $k=>$v){
-			foreach($v as $k2=>$v2){
-				if(!(strpos($k2,"role")===false)){
-					$tab['company_users'][$k]['user_role'][$k2]=$v2;
-				} elseif(!(strpos($k2,"user")===false)){
-					$tab['company_users'][$k][$k2]=$v2;
-				} elseif(in_array($k2,$this->company_vars)) {
-					$tab[$k2] = $v2;
+		//Si c'est un administrateur ou webmarketeur ils récupére la société et leur utilisateurs// Sinon si c'est un client il ne peut que recuperer sa société
+		if($role_id==1 || $role_id==2 || $role_id==3 )
+		{
+			
+			$company_id = (empty ($data['company_id']))?null:$data['company_id'];
+			if($company_id==null){return $this->setApiResult(false, true, 'param \'company_id\' undefined');}
+			if(!is_numeric($company_id)){return $this->setApiResult(false, true, 'param \'company_id\' is not numeric');}
+			// Jointure
+			$this->companyTable->addJoin("users","u","company_id","company_id","","left");
+			$this->companyTable->addJoin("roles","r","role_id","role_id","u"); 
+			// Condition
+			$this->companyTable->addWhere("company_id",$company_id);
+			//Si c'est un client on regarde si c'est sa société sinon "company not found"
+			//if($role_id==3){$this->companyTable->addWhere("u.user_id",$user_id);}
+			$res = (array)$this->companyTable->search();
+			
+			$tab = array();
+			if(!array_key_exists(0,$res)){
+				return $this->setApiResult(false, true, 'Company not found');
+			}
+			foreach($res as $k=>$v){
+				foreach($v as $k2=>$v2){
+					if(!(strpos($k2,"role")===false)){
+						$tab['company_users'][$k]['user_role'][$k2]=$v2;
+					} elseif(!(strpos($k2,"user")===false)){
+						$tab['company_users'][$k][$k2]=$v2;
+					} elseif(in_array($k2,$this->company_vars)) {
+						$tab[$k2] = $v2;
+					}
+				}
+				if($tab['company_users'][$k]['user_id']!=null){
+					$tab['company_users'][$k]['user_url']=API_ROOT."?method=user&user_id=".(int)$tab['company_users'][$k]['user_id'];
 				}
 			}
-			if($tab['company_users'][$k]['user_id']!=null){
-				$tab['company_users'][$k]['user_url']=API_ROOT."?method=user&user_id=".(int)$tab['company_users'][$k]['user_id'];
-			}
+			return $this->setApiResult($tab);
 		}
-        return $this->setApiResult($tab);
+		else
+		{
+			return $this->setApiResult(false, true, 'You aren\'t authorized to access this page');
+		}
     }
 	
 	public function get_currentcompany($data){
@@ -84,41 +102,56 @@ class Application_Controllers_Companies extends Library_Core_Controllers{
     }
 	
 	public function get_allcompany($data){
-		// Jointure
-		$this->companyTable->addJoin("users","u","company_id","company_id","","left");
-		$this->companyTable->addJoin("roles","r","role_id","role_id","u","left");  
-        $res = (array)$this->companyTable->search();
+		 $user_id = ($_SESSION['market3w_user_id']==-1)?null:$_SESSION['market3w_user_id'];
+		 if($user_id==null){return $this->setApiResult(false, true, 'you are not logged');}
+		 
+		$role = new Application_Controllers_Roles();
+		$role_res = $role->get_currentrole();
+		$role_id = $role_res->response[0]->role_id;
 		
-		$tab = array();
-		if(!array_key_exists(0,$res)){
-			return $this->setApiResult(false, true, 'No companies found');
-		}
-		$count = 0;
-		$countUser = 0;
-		foreach($res as $k=>$v){
-			if($k!=0){
-				if($v->company_id!=$last->company_id){
-					$count++;
-					$countUser = 0;
-				} else {
-					$countUser++;
+		//Si c'est un administrateur ou webmarketeur ils peuvent récupérer toutes les sociétés
+		if($role_id==1 || $role_id==2)
+		{
+			// Jointure
+			$this->companyTable->addJoin("users","u","company_id","company_id","","left");
+			$this->companyTable->addJoin("roles","r","role_id","role_id","u","left");  
+			$res = (array)$this->companyTable->search();
+			
+			$tab = array();
+			if(!array_key_exists(0,$res)){
+				return $this->setApiResult(false, true, 'No companies found');
+			}
+			$count = 0;
+			$countUser = 0;
+			foreach($res as $k=>$v){
+				if($k!=0){
+					if($v->company_id!=$last->company_id){
+						$count++;
+						$countUser = 0;
+					} else {
+						$countUser++;
+					}
 				}
-			}
-			foreach($v as $k2=>$v2){
-				if(!(strpos($k2,"role")===false)){
-					$tab[$count]['company_users'][$countUser]['user_role'][$k2]=$v2;
-				} elseif(!(strpos($k2,"user")===false)){
-					$tab[$count]['company_users'][$countUser][$k2]=$v2;
-				} elseif(in_array($k2,$this->company_vars)) {
-					$tab[$count][$k2] = $v2;
+				foreach($v as $k2=>$v2){
+					if(!(strpos($k2,"role")===false)){
+						$tab[$count]['company_users'][$countUser]['user_role'][$k2]=$v2;
+					} elseif(!(strpos($k2,"user")===false)){
+						$tab[$count]['company_users'][$countUser][$k2]=$v2;
+					} elseif(in_array($k2,$this->company_vars)) {
+						$tab[$count][$k2] = $v2;
+					}
 				}
+				if($tab[$count]['company_users'][$countUser]['user_id']!=null){
+					$tab[$count]['company_users'][$countUser]['user_url']=API_ROOT."?method=user&user_id=".(int)$tab[$count]['company_users'][$countUser]['user_id'];
+				}
+				$last = $v;
 			}
-			if($tab[$count]['company_users'][$countUser]['user_id']!=null){
-				$tab[$count]['company_users'][$countUser]['user_url']=API_ROOT."?method=user&user_id=".(int)$tab[$count]['company_users'][$countUser]['user_id'];
-			}
-			$last = $v;
+			return $this->setApiResult($tab);
 		}
-        return $this->setApiResult($tab);
+		else
+		{
+			return $this->setApiResult(false, true, 'You aren\'t authorized to access this page');
+		}
 	}
     
     public function get_autocompletioncompany($data){
@@ -309,14 +342,31 @@ class Application_Controllers_Companies extends Library_Core_Controllers{
     }
     
     public function delete_company($data){
-        $company_id = (empty ($data['company_id']))?null:$data['company_id'];
 		
-		//------------- Test existance en base --------------------------------------------//
-		$exist_company = $this->get_company(array("company_id"=>$company_id));
-        if($exist_company->apiError==true){ return $this->setApiResult(false,true,$exist_company->apiErrorMessage); }
-        $update = array();
+		 $user_id = ($_SESSION['market3w_user_id']==-1)?null:$_SESSION['market3w_user_id'];
+		 if($user_id==null){return $this->setApiResult(false, true, 'you are not logged');}
+		 
+		$role = new Application_Controllers_Roles();
+		$role_res = $role->get_currentrole();
+		$role_id = $role_res->response[0]->role_id;
 		
-        $this->companyTable->delete();
-        return $this->setApiResult(true);
+		//Si c'est un administrateur il peut supprimer une société
+		if($role_id==1)
+		{
+			
+			$company_id = (empty ($data['company_id']))?null:$data['company_id'];
+			
+			//------------- Test existance en base --------------------------------------------//
+			$exist_company = $this->get_company(array("company_id"=>$company_id));
+			if($exist_company->apiError==true){ return $this->setApiResult(false,true,$exist_company->apiErrorMessage); }
+			$update = array();
+			
+			$this->companyTable->delete();
+			return $this->setApiResult(true);
+		}
+		else
+		{
+			return $this->setApiResult(false, true, 'You aren\'t authorized to access this page');
+		}
     }
 }
