@@ -14,7 +14,7 @@ class Application_Controllers_Campains extends Library_Core_Controllers{
 	
 	public function __construct(){
         global $iDB;
-        $this->campainsTable = new Application_Models_campains($iDB->getConnexion());
+        $this->campainsTable = new Application_Models_Campains($iDB->getConnexion());
 		$as = $this->campainsTable->getAlias();
 	}
 	
