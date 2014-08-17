@@ -1127,5 +1127,7 @@
 		}
 		
 
-
-
+	.panora{
+		width: 90%;
+		display: block;
+	}

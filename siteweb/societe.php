@@ -39,6 +39,9 @@
                                
                                 <h1 style="font-weight:500;" >Qui sommes nous ?</h1>
 
+<img src="images/panora.jpg" class="panora" alt="image société" />
+<br/>
+
 Fort de 10 années d’expérience dans le domaine du marketing, la société à naturellement déployé un pôle de conseils et créations d’étude marketing digital afin d’épauler au mieux les propriétaires de sites Internet E-Commerce.
 <br/><br/>
  
