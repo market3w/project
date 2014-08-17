@@ -9,6 +9,6 @@
 					<li><a href="#" class="icon circle fa-dribbble"><span class="label">Dribbble</span></a></li>
 				</ul>
 				
-				<span class="copyright">&copy; MARKET 3W. Tout droits réservés.</span>
+				<span class="copyright">&copy; MARKET 3W. Tout droits réservés. TEST</span>
 			
 			</footer>
