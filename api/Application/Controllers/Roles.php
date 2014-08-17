@@ -21,6 +21,17 @@ class Application_Controllers_Roles extends Library_Core_Controllers{
         $res = (array)$this->roleTable->search();
         return $this->setApiResult($res);
     }
+	
+	public function get_currentrole($data=""){
+        $user_id = ($_SESSION['market3w_user_id']==-1)?null:$_SESSION['market3w_user_id'];
+        if($user_id==null){return $this->setApiResult(false, true, 'You are not logged');}
+		$this->roleTable->addField("*",$this->as);
+		$this->roleTable->addJoin("users","u","role_id","role_id");
+		$this->roleTable->addWhere("user_id",$user_id,"u");
+		
+        $res = (array)$this->roleTable->search();
+        return $this->setApiResult($res);
+    }
     
     public function get_allrole($data){
         $res = (array)$this->roleTable->search();

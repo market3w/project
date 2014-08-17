@@ -27,6 +27,8 @@ class Application_Controllers_Appointments extends Library_Core_Controllers{
 		$this->appointmentsTable->addField("user_name","w","webmarketter_name");
 		$this->appointmentsTable->addField("user_firstname","w","webmarketter_firstname");
 		$this->appointmentsTable->addField("user_email","w","webmarketter_email");
+		$this->appointmentsTable->addField("user_phone","w","webmarketter_phone");
+		$this->appointmentsTable->addField("user_mobile","w","webmarketter_mobile");
 		// Jointure
 		$this->appointmentsTable->addJoin("users","u","user_id","user_id","","left");
 		$this->appointmentsTable->addJoin("users","w","user_id","webmarketter_id","","left");
@@ -66,6 +68,8 @@ class Application_Controllers_Appointments extends Library_Core_Controllers{
 		$this->appointmentsTable->addField("user_name","w","webmarketter_name");
 		$this->appointmentsTable->addField("user_firstname","w","webmarketter_firstname");
 		$this->appointmentsTable->addField("user_email","w","webmarketter_email");
+		$this->appointmentsTable->addField("user_phone","w","webmarketter_phone");
+		$this->appointmentsTable->addField("user_mobile","w","webmarketter_mobile");
 		// Jointure
 		$this->appointmentsTable->addJoin("users","u","user_id","user_id","","left");
 		$this->appointmentsTable->addJoin("users","w","user_id","webmarketter_id","","left");
@@ -103,6 +107,8 @@ class Application_Controllers_Appointments extends Library_Core_Controllers{
 		$this->appointmentsTable->addField("user_name","w","webmarketter_name");
 		$this->appointmentsTable->addField("user_firstname","w","webmarketter_firstname");
 		$this->appointmentsTable->addField("user_email","w","webmarketter_email");
+		$this->appointmentsTable->addField("user_phone","w","webmarketter_phone");
+		$this->appointmentsTable->addField("user_mobile","w","webmarketter_mobile");
 		// Jointure
 		$this->appointmentsTable->addJoin("users","u","user_id","user_id","","left");
 		$this->appointmentsTable->addJoin("users","w","user_id","webmarketter_id","","left");
