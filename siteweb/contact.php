@@ -70,7 +70,7 @@
 						<!-- contact -->
 							<div class="contact">
                             
-                                <h1 style="font-weight:500; border-top: #999999 solid 1px; padding-top:20px;">Coordonnées</h1>
+                                <h1 style="font-weight:500; padding-top:20px;">Coordonnées</h1>
                                     
                                 12 rue de Rambouillet 75012 PARIS / +33 (0)1 03 04 05 06 / contact@market3w.fr
                                 <br/><br/>
