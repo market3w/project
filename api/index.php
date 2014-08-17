@@ -23,10 +23,16 @@ function class_autoload($class){
 
 spl_autoload_register('class_autoload');
 
+$json = true;
+if(array_key_exists("json",$_GET)){
+	$json = ($_GET["json"]!=0)?true:false;
+	unset($_GET["json"]);
+}
+
 $iSettings = new Application_Configs_Settings();
 
 $iDB = new Library_Core_Connexion();
 $iDB->connect(DB_HOST, DB_NAME, DB_USER, DB_PASS, DB_CHARSET);
 
-$server = new Library_Core_RestServer('Library_Core_Service');
+$server = new Library_Core_RestServer('Library_Core_Service',$json);
 $server->handle();

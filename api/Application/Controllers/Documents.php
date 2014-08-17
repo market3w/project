@@ -197,7 +197,7 @@ class Application_Controllers_Documents extends Library_Core_Controllers{
     }
 	
 	 public function delete_document($data){
-		 // SEUL L'ADMIN POURRA SUPPRIMER UN document
+		 // l'admin, le ebmarketteur , le client et le prospect pourront supprimer leur document
 		 
 		// Récupération des parametres utiles
 		$document_id = (empty ($data['document_id']))?null:$data['document_id'];
