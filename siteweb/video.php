@@ -1,3 +1,6 @@
+<?php
+	include('include/config.php');
+?>
 <!DOCTYPE HTML>
 <!--
 	Twenty 1.0 by HTML5 UP
