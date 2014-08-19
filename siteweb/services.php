@@ -38,7 +38,7 @@
 								<section>
                               
                                 <center>
-                                  <a class="button special" href="#">Référencement naturel</a><a class="button special_violet" href="#sea">Référencement payant</a><a class="button special" href="#smo">Réseau social</a><br/><br/>
+                                  <a class="button special" href="<?php echo CURRENT_PAGE; ?>">Référencement naturel</a><a class="button special_violet" href="#sea">Référencement payant</a><a class="button special" href="#smo">Réseau social</a><br/><br/>
                                 <div id="seo"></div>
                                 <h1 style="font-weight:500;" id="seo">Référencement naturel (SEO)</h1>
 									<img src="images/search.png" width="100%" style="max-width:250px;" /><br/><br/>

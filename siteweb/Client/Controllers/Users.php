@@ -14,7 +14,7 @@ class Client_Controllers_Users extends Client_Core_Controllers{
 		$error = $this->getError();
 		if($error===false){
 			$response = $this->getResponse();
-			$_SESSION["market3w_user"] = $response[0]->user_firstname." ".$response[0]->user_name;
+			$_SESSION["market3w_user"] = trim($response[0]->user_firstname." ".$response[0]->user_name);
 		} elseif($error["errorType"]=="API ERROR") {
 			switch($error["errorMessage"]){
 				case "Login incorrect" : 				   $_SESSION["errorMessage"] = "Email et/ou mot de passe incorrecte";

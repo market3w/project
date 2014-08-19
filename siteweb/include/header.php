@@ -22,17 +22,17 @@
 							<a href="" style="color:#ffffff; font-weight:700;">Menu</a>
 							<ul>
 								<li><a href="<?php echo WEB_ROOT; ?>">Accueil</a></li>
-                            <li><a href="<?php echo WEB_ROOT; ?>/societe.php">La société</a></li>
-								<li><a href="<?php echo WEB_ROOT; ?>/services.php">Nos services</a></li>
+                            <li><a href="<?php echo WEB_ROOT; ?>societe.php">La société</a></li>
+								<li><a href="<?php echo WEB_ROOT; ?>services.php">Nos services</a></li>
 								
 								<li class="submenu">
-									<a href="<?php echo WEB_ROOT; ?>/tutoriels.php">Les tutoriels</a>
+									<a href="<?php echo WEB_ROOT; ?>tutoriels.php">Les tutoriels</a>
 									<ul>
-										<li><a href="<?php echo WEB_ROOT; ?>/articles.php">Documents pdf</a></li>
-										<li><a href="<?php echo WEB_ROOT; ?>/videos.php">Les vidéos</a></li>
+										<li><a href="<?php echo WEB_ROOT; ?>articles.php">Documents pdf</a></li>
+										<li><a href="<?php echo WEB_ROOT; ?>videos.php">Les vidéos</a></li>
 									</ul>
 								</li>
-                                <li><a href="<?php echo WEB_ROOT; ?>/contact.php">Contact</a></li>
+                                <li><a href="<?php echo WEB_ROOT; ?>contact.php">Contact</a></li>
 							</ul>
 						</li>
                         <?php if($_SESSION["market3w_user"]==""){ ?><li><a href="<?php echo CURRENT_PAGE; ?>" class="button special btn_connexion" >Connexion</a></li><?php } ?>
@@ -86,10 +86,14 @@
 			<?php } ?>
 	
 			<?php if($_SESSION["market3w_user"]!=""){ ?>
-	 		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Confirmation des parametres !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	   		$(".espace_membre_pc span").on('click', function(){
+			$(".espace_membre_pc").hover(function(){
 				$(".espace_membre_pc").fadeOut(500);
 				$(".clic_espace_membre_pc").fadeIn(500);
+				
+			},function(){});
+			$(".clic_espace_membre_pc").hover(function(){},function(){
+				$(".espace_membre_pc").fadeIn(500);
+				$(".clic_espace_membre_pc").fadeOut(500);
 				
 			});
 	   		$("#deconnexion").on('click', function(){
