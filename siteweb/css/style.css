@@ -304,7 +304,7 @@
 			text-align: center;
 			text-decoration: none;
 			top: 0;
-			width: 2.25em;
+			width: 1.25em;
 		}
 
 			.icon.circle:hover {
@@ -1121,3 +1121,5 @@
 		color:#ff0000;
 		display:none;
 	}
+	/* FOOTER*/
+	
