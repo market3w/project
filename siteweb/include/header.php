@@ -1,14 +1,14 @@
  
         <!-- Header -->
             
-			<header id="header">
+			
         
                 <div class="logo_tablette" ><div style="background-color:#83BBD3;  border-radius:3px; width:40px; height:40px; padding:5px;margin-top:-10px;cursor:pointer; float:right;" class="btn_connexion"><img src="images/em.png" style="width:30px;" /></div><center><a href="index.php" style="text-decoration:none;"><img src="images/logo_mini.png" width="120" /></a></center></div>
                 <div class="logo_mobile" ><div style="background-color:#83BBD3;  border-radius:3px; margin-right:3px;width:30px; height:30px; padding:5px;margin-top:3px;cursor:pointer; float:right;" class="btn_connexion"><img src="images/em.png" style="width:20px;" /></div><a href="index.php" style="text-decoration:none;"><img src="images/logo_mini.png" width="100" style="margin-left:10px;  margin-bottom:5px; margin-top:8px;"/></a></div>
-                
+                <header id="header">
                 <?php if($_SESSION["market3w_user"]!=""){ ?>
-                <div class="espace_membre_pc" style="position:fixed; top:14px; font-size:22px; width:100%; color:#ffffff; text-align:center;"><span style="cursor:pointer;"><img src="images/em.png" style="width:18px;margin-top:5px;"/> Bonjour <?php echo $_SESSION["market3w_user"]; ?></span></div>
-                <div class="clic_espace_membre_pc" style="position:fixed; top:14px; font-size:18px; width:100%; color:#ffffff; text-align:center; display:none;"><a href="#" style="color:#ffffff;">Accéder à votre espace membre</a> | <a href="#" id="deconnexion" style="color:#ffffff;">Se déconnecter</a></div>
+                <center><div  style="position:fixed; left:140px; top:14px; font-size:22px; width:auto; color:#ffffff; text-align:center;"><span style="cursor:pointer;" class="espace_membre_pc"><img src="images/em.png" style="width:18px;margin-top:5px;"/> Bonjour <?php echo $_SESSION["market3w_user"]; ?></span></div></center>
+                <div class="clic_espace_membre_pc" style="position:fixed; left:140px; top:14px; font-size:18px; width:auto; color:#ffffff; text-align:center; display:none;"><a href="#" style="color:#ffffff;">Accéder à votre espace membre</a> | <a href="#" id="deconnexion" style="color:#ffffff;">Se déconnecter</a></div>
                 <form action="<?php echo WEB_ROOT; ?>" name="deconnexionForm" id="deconnexionForm" method="POST">
                     <input type="hidden" name="method" value="logout"/>
                 </form>
