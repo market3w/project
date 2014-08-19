@@ -166,7 +166,8 @@
 				opacity: 0.35;
 			}
 
-	footer > :last-child {
+	
+ > :last-child {
 		margin-bottom: 0;
 	}
 
@@ -1131,3 +1132,15 @@
 		width: 90%;
 		display: block;
 	}
+	
+	.nav-footer {
+		list-style: none;
+		text-align: left;
+	}
+
+	.nav-footer li{
+		font-size: 25px;
+	}
+	
+
+

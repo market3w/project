@@ -8,8 +8,8 @@
 	<head>
 		<title>MARKET 3W | La société | Agence de référencement et marketing</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<meta name="description" content="" />
-		<meta name="keywords" content="" />
+		<meta name="description" content="Market3w Agence Webmarketing spécialiste en référencement recrute. Consultez nos poste à pourvoir ou déposez une candidature spontanée" />
+		<meta name="keywords" content="Agence Web ; Agence Marketing ; Agence Webmarketing ; Agence de référencement ; Référencement ; Webmarketing ; Spécialiste en référencement ; Audit référencement ; Recrutement " />
 		<?php 
 			include('include/head.php');
 		?>

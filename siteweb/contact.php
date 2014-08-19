@@ -8,8 +8,8 @@
 	<head>
 		<title>MARKET 3W | Agende de référencement</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<meta name="description" content="" />
-		<meta name="keywords" content="" />
+		<meta name="description" content="Agence Webmarketing Référencement Paris. A votre rencontre dans toute France et à votre disposition en Vidéoconférence. Possez nous vos Questions, etablissez un Devis" />
+		<meta name="keywords" content="Agence Web ; Agence Marketing ; Agence Webmarketing ; Agence de référencement ; Référencement ; Webmarketing ; SMO ; SEO ; SEA ; SEM;"; "contact"; "questions"; "devis" />
 		<?php 
 			include('include/head.php');
 		?>
@@ -70,7 +70,7 @@
 						<!-- contact -->
 							<div class="contact">
                             
-                                <h1 style="font-weight:500; padding-top:20px;">Coordonnées</h1>
+                                <h1 style="font-weight:500; border-top: #999999 solid 1px; padding-top:20px;">Coordonnées</h1>
                                     
                                 12 rue de Rambouillet 75012 PARIS / +33 (0)1 03 04 05 06 / contact@market3w.fr
                                 <br/><br/>

@@ -8,8 +8,8 @@
 	<head>
 		<title>MARKET 3W | La société | Agence de référencement et marketing</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<meta name="description" content="" />
-		<meta name="keywords" content="" />
+		<meta name="description" content="Agence Webmarketing spcécialiste en Référencement. Optimisation SEM : SEO / SEA / SMO. A l'écoute de vos projets, Market3w la Nouvelle ère de la relation client 100% connecté." />
+		<meta name="keywords" content="Agence Web ; Agence Marketing ; Agence Webmarketing ; Agence de référencement ; Référencement ; Webmarketing ; SMO ; SEO ; SEA ; SEM ; SMO = SEO + SEA + SEM ; Référencement seo ; Référencement sea ; Référencement sem ; Référencement réseaux sociaux ; Référencement naturel ; Référencement payant ; Expert en référencement ; Spécialiste en référencement ; Audit référencement ;" />
 		<?php 
 			include('include/head.php');
 		?>
@@ -151,7 +151,17 @@ Market3w met un point d’honneur à se rendre disponible pour ses clients parto
 Il est difficile de lister nos valeurs et surtout de vous démontrer combien elles font partie intégrante de chacun des projets Market3w avant que vous n’ayez collaboré avec notre équipe, pour autant sachez que nous portons une attention très particulière à respecter les valeurs suivantes :
 <br/><br/>
 
-<img src="images/valeurs.png" width="90%"/>
+La précision<br/>
+L’innovation<br/>
+L’accessibilité<br/>
+La disponibilité<br/>
+La responsabilité<br/>
+L’environnement<br/>
+La performance<br/>
+La satisfaction<br/>
+L’intégrité<br/>
+La qualité
+
 
 <br/><br/>
 Très orientées service clients, nos équipes ont à cœur de tout mettre en œuvre pour atteindre et dépasser les objectifs définis. Les performances obtenues, la disponibilité, la qualité des échanges offrent à nos clients un niveau de satisfaction élevé.
