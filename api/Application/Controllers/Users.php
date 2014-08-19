@@ -125,66 +125,17 @@ class Application_Controllers_Users extends Library_Core_Controllers{
         return $this->setApiResult($tab);
     }
     
-	 public function get_allprospet($data){
+	public function get_alluserbyrole($data){
+        $role_id = (empty ($data['role_id']))?null:$data['role_id'];
+        if($role_id==null){return $this->setApiResult(false, true, 'param \'role_id\' undefined');}
+        if(!is_numeric($role_id)){return $this->setApiResult(false, true, 'param \'role_id\' is not numeric');}
 		$this->usersTable->addJoin("roles","r","role_id","role_id");
 		$this->usersTable->addJoin("companies","c","company_id","company_id","","left");
-		$this->usersTable->addWhere("role_id",5);
+		$this->usersTable->addWhere("role_id",$role_id);
         $res = (array)$this->usersTable->search();
 		$tab = array();
 		if(!array_key_exists(0,$res)){
-			return $this->setApiResult(false, true, ' no prospects found');
-		}
-		foreach($res as $k=>$v){
-			foreach($v as $k2=>$v2){
-				if(!(strpos($k2,"role")===false)){
-					$tab[$k]['user_role'][$k2]=$v2;
-				} elseif(!(strpos($k2,"company")===false)){
-					$tab[$k]['user_company'][$k2]=$v2;
-				} elseif(in_array($k2,$this->user_vars)) {
-					$tab[$k][$k2] = $v2;
-				}
-			}
-			if($tab[$k]['user_company']['company_id']!=null){
-				$tab[$k]['user_company']['company_url']=API_ROOT."?method=company&company_id=".(int)$tab[$k]['user_company']['company_id'];
-			}
-		}
-        return $this->setApiResult($tab);
-    }
-	
-	 public function get_allclient($data){
-		$this->usersTable->addJoin("roles","r","role_id","role_id");
-		$this->usersTable->addJoin("companies","c","company_id","company_id","","left");
-		$this->usersTable->addWhere("role_id",4);
-        $res = (array)$this->usersTable->search();
-		$tab = array();
-		if(!array_key_exists(0,$res)){
-			return $this->setApiResult(false, true, ' no prospects found');
-		}
-		foreach($res as $k=>$v){
-			foreach($v as $k2=>$v2){
-				if(!(strpos($k2,"role")===false)){
-					$tab[$k]['user_role'][$k2]=$v2;
-				} elseif(!(strpos($k2,"company")===false)){
-					$tab[$k]['user_company'][$k2]=$v2;
-				} elseif(in_array($k2,$this->user_vars)) {
-					$tab[$k][$k2] = $v2;
-				}
-			}
-			if($tab[$k]['user_company']['company_id']!=null){
-				$tab[$k]['user_company']['company_url']=API_ROOT."?method=company&company_id=".(int)$tab[$k]['user_company']['company_id'];
-			}
-		}
-        return $this->setApiResult($tab);
-    }
-	
-	public function get_allvisiteur($data){
-		$this->usersTable->addJoin("roles","r","role_id","role_id");
-		$this->usersTable->addJoin("companies","c","company_id","company_id","","left");
-		$this->usersTable->addWhere("role_id",6);
-        $res = (array)$this->usersTable->search();
-		$tab = array();
-		if(!array_key_exists(0,$res)){
-			return $this->setApiResult(false, true, ' no prospects found');
+			return $this->setApiResult(false, true, ' no users found in this category');
 		}
 		foreach($res as $k=>$v){
 			foreach($v as $k2=>$v2){
@@ -383,7 +334,6 @@ class Application_Controllers_Users extends Library_Core_Controllers{
 		
 		//------------- Test existance en base --------------------------------------------//
 		$exist_user = $this->get_currentuser();
-		var_dump($exist_user);
         if($exist_user->apiError==true){ return $this->setApiResult(false,true,'You are not logged'); }
 		if($exist_user->response['role_id']==1){
 			$exist_user = $this->get_user(array('user_id'=>$user_id));
@@ -411,13 +361,58 @@ class Application_Controllers_Users extends Library_Core_Controllers{
     }
     
     public function delete_user($data){
+		$user_id = (empty ($data['user_id']))?null:$data['user_id'];
+        if($user_id==null){return $this->setApiResult(false, true, 'param \'user_id\' undefined');}
+        if(!is_numeric($user_id)){return $this->setApiResult(false, true, 'param \'user_id\' is not numeric');}
 		
-		//------------- Test existance en base --------------------------------------------//
-		$exist_user = $this->get_user(array("user_id"=>$user_id));
+		//------------- Test de connexion -------------------------------------------------//
+		$exist_user = $this->get_currentuser();
         if($exist_user->apiError==true){ return $this->setApiResult(false,true,'You are not logged'); }
-        $update = array();
+		 
+		$role = new Application_Controllers_Roles();
+		$role_res = $role->get_currentrole();
+		$role_current_id = $role_res->response[0]->role_id;
+			
+		$this->usersTable->resetObject();
 		
-        $this->usersTable->delete();
-        return $this->setApiResult(true);
+		if($user_id!=$_SESSION['market3w_user_id'] && $role_current_id==1){
+			//------------- Test existance en base --------------------------------------------//
+			$exist_user = $this->get_user(array("user_id"=>$user_id));
+			if($exist_user->apiError==true){ return $this->setApiResult(false,true,'User not found'); }
+			
+			$role_res = $role->get_userrole(array("user_id"=>$user_id));
+		} elseif($user_id!=$_SESSION['market3w_user_id'] && $role_current_id!=1){
+			return $this->setApiResult(false,true,'You can\'t delete this user');
+		} else {
+			$role_id = $role_current_id;
+		}
+			
+		$this->usersTable->resetObject();
+		
+		$this->usersTable->addWhere("user_id",$user_id);
+		
+		switch($role_id){
+			case 1 : 
+				return $this->setApiResult(false,true,'Delete impossible');
+				break;
+			case 2 :  case 3 :
+				if($role_current_id == 1){
+					$this->usersTable->delete();
+					return $this->setApiResult(true);
+				} else {
+					return $this->setApiResult(false,true,'Delete impossible');
+				}
+				break;
+			case 4 : 
+				$this->usersTable->addNewField("user_active",0);
+				$this->usersTable->update();
+				break;
+			case 5 : case 6 :
+				$this->usersTable->delete();
+				return $this->setApiResult(true);
+				break;
+			default :
+				break;
+		}
     }
 }

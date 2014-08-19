@@ -8,8 +8,7 @@ class Application_Controllers_Paiements extends Library_Core_Controllers{
 							   'paiement_description',
 							   'paiement_prix',
 							    'paiement_link',
-					   		   'paiement_date',
-							   'user_id');
+					   		   'paiement_date');
 	
 	public function __construct(){
         global $iDB;
