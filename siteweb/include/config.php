@@ -17,8 +17,10 @@
 		define("SERVER_ROOT", preg_replace("/siteweb\/([a-zA-Z0-9-_]*).php/", "api/", "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME']));
 	} else {
 		define("WEB_ROOT", "http://".$_SERVER['SERVER_NAME']);
-		define("SERVER_ROOT", preg_replace("/([^test]*)test.com/", "api.test.com", "http://".$_SERVER['SERVER_NAME']));
+		define("SERVER_ROOT", preg_replace("/([^test]*)market3w(.*)/", "http://api.market3w$2/", $_SERVER['SERVER_NAME']));
 	}
+	$currentPage = ("http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME']==WEB_ROOT.'/index.php')? WEB_ROOT:"http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'];
+	define("CURRENT_PAGE",$currentPage);
 	
 	$client = new Client_Core_Client;
 	

@@ -9,6 +9,7 @@ class Client_Controllers_Users extends Client_Core_Controllers{
 	public function login($data){
 		$user_email = ($data["login"]!="")? $data["login"]:null;
 		$user_password = ($data["password"]!="")? $data["password"]:null;
+		
 		$temp = $this->parseQueryResult(json_decode($this->_client->query("POST","method=login&user_email=".$user_email."&user_password=".$user_password)));
 		$error = $this->getError();
 		if($error===false){

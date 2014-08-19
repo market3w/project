@@ -21,21 +21,21 @@
 						<li class="submenu">
 							<a href="" style="color:#ffffff; font-weight:700;">Menu</a>
 							<ul>
-								<li><a href="index.php">Accueil</a></li>
-                            <li><a href="societe.php">La société</a></li>
-								<li><a href="services.php">Nos services</a></li>
+								<li><a href="<?php echo WEB_ROOT; ?>">Accueil</a></li>
+                            <li><a href="<?php echo WEB_ROOT; ?>/societe.php">La société</a></li>
+								<li><a href="<?php echo WEB_ROOT; ?>/services.php">Nos services</a></li>
 								
 								<li class="submenu">
-									<a href="tutoriels.php">Les tutoriels</a>
+									<a href="<?php echo WEB_ROOT; ?>/tutoriels.php">Les tutoriels</a>
 									<ul>
-										<li><a href="articles.php">Documents pdf</a></li>
-										<li><a href="videos.php">Les vidéos</a></li>
+										<li><a href="<?php echo WEB_ROOT; ?>/articles.php">Documents pdf</a></li>
+										<li><a href="<?php echo WEB_ROOT; ?>/videos.php">Les vidéos</a></li>
 									</ul>
 								</li>
-                                <li><a href="contact.php">Contact</a></li>
+                                <li><a href="<?php echo WEB_ROOT; ?>/contact.php">Contact</a></li>
 							</ul>
 						</li>
-                        <?php if($_SESSION["market3w_user"]==""){ ?><li><a href="#" class="button special btn_connexion" >Connexion</a></li><?php } ?>
+                        <?php if($_SESSION["market3w_user"]==""){ ?><li><a href="<?php echo CURRENT_PAGE; ?>" class="button special btn_connexion" >Connexion</a></li><?php } ?>
 					</ul>
 				</nav>
 			</header>
@@ -48,7 +48,7 @@
 	   		$(".btn_connexion").on('click', function(){
 				$(".fermer_pop_up").fadeIn(500);
 				$("#conteneur_connexion").fadeIn(500);
-				
+				return false;
 			});
 			
 			 $(".fermer_pop_up").on('click', function(){
@@ -109,7 +109,7 @@
   <center> <h1 style="color:#ffffff; background-color:#83BBD3; padding:10px;"><span id="titre_conteneur_connexion">Connexion</span><span class="fermer_pop_up" style="float:right; cursor:pointer;">X</span></h1></center>
    <div id="formulaire_connexion" style="padding:10px;"><center>
    <span class="responseError" id="loginError"><?php echo $_SESSION["errorMessage"]; ?></span>
-   <form action="" method="post">
+   <form action="<?php echo CURRENT_PAGE; ?>" method="post">
    <input type="hidden" name="method" value="login"/>
    <input type="text" name="login" value="<?php echo (array_key_exists("login",$_POST))?$_POST["login"]:""; ?>" style="width:80%;" placeholder="Pseudo"/><br/>
    <input type="password" name="password" style="width:80%;" value=""  placeholder="Mot de passe" /><br/>
@@ -121,7 +121,7 @@
    </div>
    
    <div id="conteneur_oubli_mdp" style="padding:10px; display:none;"><center>
-   <form action="" method="post">
+   <form action="<?php echo CURRENT_PAGE; ?>" method="post">
    <input type="text" name="email" value="<?php echo (array_key_exists("email",$_POST))?$_POST["email"]:""; ?>" style="width:80%;" placeholder="Email"/><br/>
    
    <input type="submit" name="submit" value="ENVOYER" style="background-color:#83BBD3; border:0px; color:#ffffff; cursor:pointer;" /><br/>

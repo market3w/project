@@ -253,6 +253,11 @@ class Application_Controllers_Users extends Library_Core_Controllers{
 		}
         return $this->setApiResult($res);
 	}
+	
+	public function post_logout($data){
+		$_SESSION['market3w_user_id']=-1;
+        return $this->setApiResult(true);
+	}
     
     public function post_user($data){
 		$post = true;
