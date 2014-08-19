@@ -11,8 +11,9 @@
 	<head>
 		<title>MARKET 3W | Agende de référencement</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<meta name="description" content="" />
-		<meta name="keywords" content="" />
+		<meta name="description" content="Agence Webmarketing spcécialiste en Référencement. Optimisation SEM : SEO / SEA / SMO. A l'écoute de vos projets, Market3w la Nouvelle ère de la relation client 100% connecté." />
+		<meta name="keywords" content="Agence Web ; Agence Marketing ; Agence Webmarketing ; Agence de référencement ; Référencement ; Webmarketing ; SMO ; SEO ; SEA ; SEM ; Référencement seo ; Référencement sea ; Référencement sem ; Référencement réseaux sociaux ; Référencement naturel ; Référencement payant ; Expert en référencement ; Spécialiste en référencement ; Audit référencement ;" />
+	
 		<?php 
 			include('include/head.php');
 		?>
@@ -37,7 +38,7 @@
 					<header>
 						<h2><img src="images/logo.png" style="margin-top:10px; width:100%;"/></h2>
 					</header>
-					<p>Agence de <strong>Webmarketing</strong><br />
+					<p>Agence <strong>Webmarketing</strong><br />
                     spécialisée en référencement
 										<footer>
 						<ul class="buttons vertical">
@@ -153,20 +154,9 @@ Market3W étant spécialisé dans le référencement, nous appliquons toutes les
 			
 			</section>
 
-		<!-- Footer -->
-			<footer id="footer">
-			
-				<ul class="icons">
-					<li><a href="#" class="icon circle fa-twitter"><span class="label">Twitter</span></a></li>
-					<li><a href="#" class="icon circle fa-facebook"><span class="label">Facebook</span></a></li>
-					<li><a href="#" class="icon circle fa-google-plus"><span class="label">Google+</span></a></li>
-					<li><a href="#" class="icon circle fa-github"><span class="label">Github</span></a></li>
-					<li><a href="#" class="icon circle fa-dribbble"><span class="label">Dribbble</span></a></li>
-				</ul>
-				
-				<span class="copyright">&copy; MARKET 3W. Tout droits réservés.</span>
-			
-			</footer>
+		<?php
+			include('include/footer.php');
+		?>
 
 	</body>
 </html>

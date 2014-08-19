@@ -9,7 +9,7 @@
 -->
 <html>
 	<head>
-		<title>MARKET 3W | Agende de référencement</title>
+		<title>Nom vidéo | MARKET 3W Agence webmarketing spécialisé en référencement</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
@@ -38,7 +38,7 @@
                                 
 									
                                     <center>
-                                   <a class="button special" href="#">< vidéo précédente</a><a class="button special_violet" href="videos.php">Toutes les vidéos</a><a class="button special" href="#">Vidéo suivante ></a><br/><br/></center>
+                                   <a class="button" href="#">< vidéo précédente</a><a class="button special_violet" href="videos.php">Toutes les vidéos</a><a class="button" href="#">Vidéo suivante ></a><br/><br/></center>
                                   	<br/><iframe width="100%" height="300" src="//www.youtube.com/embed/zts7sBh_Arw" frameborder="0" allowfullscreen></iframe>
                                     
                                     ici sera la description de la vidéo.

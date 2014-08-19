@@ -9,10 +9,11 @@
 -->
 <html>
 	<head>
-		<title>MARKET 3W | La société | Agence de référencement et marketing</title>
+		<title>Recrutement/Emploi | MARKET 3W Agence webmarketing spécialisé en référencement</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<meta name="description" content="" />
-		<meta name="keywords" content="" />
+		<meta name="description" content="Market 3W recrute toute sorte de profil spécialisé dans le référencement SEO, SEA, SEM," />
+		<meta name="keywords" content="recrutement agence Web ; recrutement agence Marketing ; recrutement agence Webmarketing ; Emploi agence de référencement ; Emploi référencement ;Emploi Webmarketing ; emploi SMO ; emploi SEO ;emploi SEA ; emploi SEM ;emploi Référencement seo ;emploi Référencement sea ;emploi Référencement sem ;job Référencement réseaux sociaux ;job Référencement naturel ;job Référencement payant ;job Expert en référencement ;job Spécialiste en référencement ; job Audit référencement ;" />
+	
 		<?php 
 			include('include/head.php');
 		?>
@@ -26,7 +27,7 @@
 			<article id="main">
 
 				<div style="text-align:center;">
-					<h2>La société</h2>
+					<h2>Nous recherchons</h2>
 					
 				</div>
 					
@@ -38,37 +39,19 @@
 								<section>
                               
                                 <center>
-                                  <a class="button special" href="#">Qui sommes nous ?</a><a class="button special" href="#equipe">L'équipe</a><a class="button special" href="#valeurs">Nos valeurs</a><a class="button special" href="#mot">Coordonnées</a><br/><br/>
-                               
-                                <h1 style="font-weight:500;" >Qui sommes nous ?</h1>
-									
-
-- L'acquisition durable de trafic qualifié<br/>
-- Le développement de la visibilité online et de la notoriété de votre site et de votre marque<br/>
-- Le développement de votre chiffre d'affaire, l'acquisition de contacts qualifiés<br/><br/>
-
-
-<h1 style="font-weight:500; border-top: #999999 solid 1px; padding-top:20px;">L'équipe</h1>
-
-- Utilisation du re-ciblage publicitaire (re-targeting)<br/>
-- Utilisation d'annonces illustrées ou vidéos<br/>
-- Utilisation des extensions d'annonces<br/>
-- Déploiement des annonces sur le réseau mobile<br/>
-
-- Optimisation et développement des campagnes<br/><br/>
-
-<h1 style="font-weight:500; border-top: #999999 solid 1px; padding-top:20px;">Nos valeurs</h1>
+                                        <h1 style="font-weight:500;" >Webmarketeur SEO Senior</h1>
 								
-- Développer sa réputation et son traffic<br/>
-- Fidéliser ses clients<br/>
-- Obtenir un retour sur investissement rapide et optimal<br/><br/>
-
-<h1 style="font-weight:500; border-top: #999999 solid 1px; padding-top:20px;">Coordonnées</h1>
+<table width="100%" ><tr><td style="font-weight:500;">Profil recherché</td></tr>
+<tr><td>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique informatique, sans que son contenu n'en soit modifié. Il a été popularisé dans les années 1960 grâce à la vente de feuilles Letraset contenant des passages du Lorem Ipsum, et, plus récemment, par son inclusion dans des applications de mise en page de texte, comme Aldus PageMaker.</td></tr>
+<tr><td style="text-align:center;"><a href="contact.php"> Vous êtes intéressé ? Contacter-nous</a></td></tr>
+</table>
+<br/>
+    <h1 style="font-weight:500;" >Webmarketeur SEO Senior</h1>
 								
-- Développer sa réputation et son traffic<br/>
-- Fidéliser ses clients<br/>
-- Obtenir un retour sur investissement rapide et optimal<br/><br/>
-
+<table width="100%" ><tr><td style="font-weight:500;">Profil recherché</td></tr>
+<tr><td>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique informatique, sans que son contenu n'en soit modifié. Il a été popularisé dans les années 1960 grâce à la vente de feuilles Letraset contenant des passages du Lorem Ipsum, et, plus récemment, par son inclusion dans des applications de mise en page de texte, comme Aldus PageMaker.</td></tr>
+<tr><td style="text-align:center;"><a href="contact.php"> Vous êtes intéressé ? Contacter-nous</a></td></tr>
+</table>
 
                                 </center>
                                  

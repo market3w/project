@@ -9,10 +9,12 @@
 -->
 <html>
 	<head>
-		<title>MARKET 3W | Agende de référencement</title>
+		<title>Les articles  référencement | MARKET 3W Agence webmarketing spécialisé en référencement</title>
+		
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<meta name="description" content="" />
-		<meta name="keywords" content="" />
+		<meta name="description" content="Accèdez gratuitement à de nombreux articles pdf (à télécharger gratuitement) pour bien comprendre le référencement Web" />
+		<meta name="keywords" content="Agence Webmarketing ; Agence de référencement ; SMO ; SEO ; SEA ; SEM ; Référencement seo ; Référencement sea ; Référencement sem ; Référencement réseaux sociaux ; Référencement naturel ; Référencement payant ; Expert en référencement ; Spécialiste en référencement ; Audit référencement ; tutoriels référencement gratuits ; " />
+		
 		<?php 
 			include('include/head.php');
 		?>

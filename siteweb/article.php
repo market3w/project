@@ -9,7 +9,7 @@
 -->
 <html>
 	<head>
-		<title>MARKET 3W | Agende de référencement | TEST</title>
+		<title>Nom article | MARKET 3W Agence webmarketing spécialisé en référencement </title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
@@ -35,7 +35,7 @@
 						<!-- Content -->
 							<div class="content">
                               <center>
-                                  <a class="button special" href="#">< article précédent</a><a class="button special_violet" href="articles.php">Tous les articles</a><a class="button special" href="#">Article suivant ></a><br/><br/></center>
+                                  <a class="button" href="#">< article précédent</a><a class="button special_violet" href="articles.php">Tous les articles</a><a class="button" href="#">Article suivant ></a><br/><br/></center>
                                   
 								<section>
                                 

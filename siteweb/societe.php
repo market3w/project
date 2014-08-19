@@ -9,10 +9,11 @@
 -->
 <html>
 	<head>
-		<title>MARKET 3W | La société | Agence de référencement et marketing</title>
+		<title>La société | MARKET 3W Agence webmarketing spécialisé en référencement</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<meta name="description" content="" />
-		<meta name="keywords" content="" />
+		<meta name="description" content="Découvrez notre société, notre équipe, nos valeurs ainsi que nos coordonnées. N'hésiter pas à nous contacter pour toute demande" />
+		<meta name="keywords" content="Agence Web ; Agence Marketing ; Agence Webmarketing ; Agence de référencement ; Référencement ; Webmarketing ; SMO ; SEO ; SEA ; SEM ; Référencement seo ; Référencement sea ; Référencement sem ; Référencement réseaux sociaux ; Référencement naturel ; Référencement payant ; Expert en référencement ; Spécialiste en référencement ; Audit référencement ;" />
+		
 		<?php 
 			include('include/head.php');
 		?>
@@ -71,60 +72,83 @@ Possédant une important carnet d’adresse et étant reconnu pour son professio
 Market3w met un point d’honneur à se rendre disponible pour ses clients partout en France.<br/><br/>
 
 
-<h1 style="font-weight:500; border-top: #999999 solid 1px; padding-top:20px;">L'équipe</h1>
-<strong>Oscar DITTE – Dirigeant / Chef de projet Grand Compte / Ancien Responsable Marketing chez Publicis / Fondateur</strong><br/>
+<h1 style="font-weight:500; border-top: #cccccc solid 1px; padding-top:20px;">L'équipe</h1>
+    
+     <div class="img-eq">
+        <img src="images/eq1.png" alt="Oscar DITTE – picturs" />
+        <p>
+        <strong>Oscar DITTE – Dirigeant de Market3w / Chef de projet Grand Compte</strong><br/>
+        mail : g.ditte@market3w.fr
+        </p>
+    </div>   
 
-mail : g.ditte@market3w.fr
+
+    
+    <div class="img-eq">
+        <img src="images/eq2.png" alt="Loic LOISAU – picturs" />
+        <p>
+        <strong>Loic LOISAU – Webmarketeur / Chef de projet</strong><br/>
+        mail : l.loisau@market3w.fr
+        </p>
+    </div>
+
+ 	<div class="img-eq">
+        <img src="images/eq3.png" alt="Johanna BAPTISTA – picturs" />
+        <p>
+        <strong>Johanna BAPTISTA – Webmarketeur / spécialiste SEO</strong><br/>
+        mail : j.baptista@market3w.fr
+        </p>
+    </div>
 
 
 
+    <div class="img-eq">
+        <img src="images/eq5.png"  alt="Jean VALLET – picturs" />
+        <p>
+        <strong>Jean VALLET – Webmarketeur  / spécialiste SEA</strong><br/>
+        mail : j.vallet@market3w.fr
+        </p>
+    </div>
 
- <br/><br/>
 
-<strong>Loic LOISAU – Webmarketeur / Chef de projet</strong><br/>
-
-mail : l.loisau@market3w.fr
-
- <br/><br/>
-<strong>Alfred MADOC – Webmarketeur / spécialiste SEA</strong><br/>
-
-mail : a.madoc@market3w.fr
-
+	<div class="img-eq">
+        <img src="images/eq4.png" alt="Alfred MADOC – picturs" />
+        <p>
+        <strong>Alfred MADOC – Webmarketeur / spécialiste SEA</strong><br/>
+        mail : a.madoc@market3w.fr
+        </p>
+    </div>
  
-<br/><br/>
-<strong>Jean VALLET – Webmarketeur  / spécialiste SEA</strong><br/>
 
-mail : j.vallet@market3w.fr
+    <div class="img-eq">
+        <img src="images/eq8.png" alt="Caroline GOGNAUX – picturs" />
+        <p>
+        <strong>Caroline GOGNAUX – Webmarketeur / spécialiste SMO</strong><br/>
+        mail : c.gognaux@market3w.fr
+        </p>
+    </div>
 
-<br/><br/>
-<strong>Johanna BAPTISTA – Webmarketeur / spécialiste SEO</strong><br/>
 
-mail : j.baptista@market3w.fr
+    
+    <div class="img-eq">
+        <img src="images/eq6.png" alt="David BRIDOU – picturs" />
+        <p>
+         <div id="valeurs"></div>
+        <strong>David BRIDOU - Comunity manager</strong><br/>
+        mail : d.bridou@market3w.fr
+        </p>
+       
+    </div>
+    
 
-<br/><br/>
-<strong>Caroline GOGNAUX – Webmarketeur / spécialiste SMO</strong><br/>
 
-mail : c.gognaux@market3w.fr
-<br/><br/>
-
-<strong>David BRIDOU - Comunity manager</strong><br/>
-<div id="valeurs"></div>
-mail : d.bridou@market3w.fr<br/><br/>
 
 <h1 style="font-weight:500; border-top: #999999 solid 1px; padding-top:20px;">Nos valeurs</h1>
 Il est difficile de lister nos valeurs et surtout de vous démontrer combien elles font partie intégrante de chacun des projets Market3w avant que vous n’ayez collaboré avec notre équipe, pour autant sachez que nous portons une attention très particulière à respecter les valeurs suivantes :
 <br/><br/>
-- La qualité<br/>
-- La précision<br/>
-- L’innovation<br/>
-- L’intégrité<br/>
-- L’accessibilité<br/>
-- La disponibilité<br/>
-- La responsabilité<br/>
-- L’Environnement<br/>
-- Le respect<br/>
-- La performance<br/>
-- La satisfaction
+
+<img src="images/valeurs.png" width="90%"/>
+
 <br/><br/>
 Très orientées service clients, nos équipes ont à cœur de tout mettre en œuvre pour atteindre et dépasser les objectifs définis. Les performances obtenues, la disponibilité, la qualité des échanges offrent à nos clients un niveau de satisfaction élevé.
 <br/><br/>
@@ -134,9 +158,9 @@ Pour l’ensemble de l’équipe, c’est la plus belle des récompenses du trav
 
 <h1 style="font-weight:500; border-top: #999999 solid 1px; padding-top:20px;">Coordonnées</h1>
 								
-Adresse de market3w / 0102030405 / Le reste<br/><br/>
-
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d20996.753455028036!2d2.0891941!3d48.86594845!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e662a78e8f8631%3A0x43d8df2addf6e492!2sMarly-le-Roi!5e0!3m2!1sfr!2sfr!4v1407087275326" width="100%" height="400" frameborder="0" style="border:0"></iframe>
+12 rue de Rambouillet 75012 PARIS / +33 (0)1 03 04 05 06 / contact@market3w.fr
+<br/><br/>
+  <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2625.7183969742828!2d2.3827458999999998!3d48.8445099!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e67211f63ffe35%3A0xe0338e7b0c6bb6b9!2s12+Rue+de+Rambouillet%2C+75012+Paris!5e0!3m2!1sfr!2sfr!4v1408470405030" width="100%" height="300" frameborder="0" style="border:0"></iframe>
 
 
                                 </center>

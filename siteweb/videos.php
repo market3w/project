@@ -9,10 +9,10 @@
 -->
 <html>
 	<head>
-		<title>MARKET 3W | Agende de référencement</title>
+		<title>Vidéos sur le reférencement | MARKET 3W Agence webmarketing spécialisé en référencement</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<meta name="description" content="" />
-		<meta name="keywords" content="" />
+		<meta name="description" content="Accèdez gratuitement à de nombreux cours en Vidéo pour comprendre le référencement Web " />
+		<meta name="keywords" content="Agence Webmarketing vidéo ; Agence de référencement vidéo;vidéo SMO ;vidéo SEO ;vidéo SEA ;vidéo SEM ;vidéo Référencement seo ;vidéo Référencement sea ;vidéo Référencement sem ;vidéo Référencement réseaux sociaux ;vidéo Référencement naturel ;vidéo Référencement payant ;vidéo Expert en référencement ;vidéo Spécialiste en référencement ;vidéo ; vidéo tutoriels gratuits ;" />
 		<?php 
 			include('include/head.php');
 		?>
