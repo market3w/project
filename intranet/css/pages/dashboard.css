@@ -224,9 +224,9 @@ Bootstrap Admin Template by EGrappler.com
 #big_stats .stat:hover i {color:#19bc9c;}
 
 h6.bigstats{margin: 20px;
-border-bottom: 1px solid #eee;
-padding-bottom: 20px;
-margin-bottom: 26px;}
+
+
+}
 
 #big_stats .stat:first-child {
 	border-left: none;

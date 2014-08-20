@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Dashboard - Bootstrap Admin Template</title>
+<title>Espace membre | Market 3W</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -21,26 +21,21 @@
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container"> <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span
-                    class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span> </a><a class="brand" href="index.html">Bootstrap Admin Template </a>
+                    class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span> </a><a class="brand" style="margin-top:-5px;" href="index.html"><img src="img/logo_mini.png" width="130" /> </a>
       <div class="nav-collapse">
         <ul class="nav pull-right">
+        
           <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
-                            class="icon-cog"></i> Account <b class="caret"></b></a>
+                            class="icon-user"></i> nom prenom <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><a href="javascript:;">Settings</a></li>
-              <li><a href="javascript:;">Help</a></li>
-            </ul>
-          </li>
-          <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
-                            class="icon-user"></i> EGrappler.com <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><a href="javascript:;">Profile</a></li>
-              <li><a href="javascript:;">Logout</a></li>
+            <li><a href="javascript:;">Revenir au site</a></li>
+              <li><a href="javascript:;">Informations personnelles</a></li>
+              <li><a href="javascript:;">Déconnexion</a></li>
             </ul>
           </li>
         </ul>
         <form class="navbar-search pull-right">
-          <input type="text" class="search-query" placeholder="Search">
+          <input type="text" class="search-query" placeholder="Rechercher">
         </form>
       </div>
       <!--/.nav-collapse --> 
@@ -82,27 +77,32 @@
       <div class="row">
         <div class="span6">
           <div class="widget widget-nopad">
-            <div class="widget-header"> <i class="icon-list-alt"></i>
-              <h3> Today's Stats</h3>
+            <div class="widget-header"> <i class="icon-user"></i>
+              <h3> Informations personnelles </h3>
             </div>
             <!-- /widget-header -->
             <div class="widget-content">
               <div class="widget big-stats-container">
                 <div class="widget-content">
-                  <h6 class="bigstats">A fully responsive premium quality admin template built on Twitter Bootstrap by <a href="http://www.egrappler.com" target="_blank">EGrappler.com</a>.  These are some dummy lines to fill the area.</h6>
-                  <div id="big_stats" class="cf">
-                    <div class="stat"> <i class="icon-anchor"></i> <span class="value">851</span> </div>
-                    <!-- .stat -->
-                    
-                    <div class="stat"> <i class="icon-thumbs-up-alt"></i> <span class="value">423</span> </div>
-                    <!-- .stat -->
-                    
-                    <div class="stat"> <i class="icon-twitter-sign"></i> <span class="value">922</span> </div>
-                    <!-- .stat -->
-                    
-                    <div class="stat"> <i class="icon-bullhorn"></i> <span class="value">25%</span> </div>
-                    <!-- .stat --> 
+                  <h6 class="bigstats" style="margin-bottom:0px;">
+                 <div style="float:left;"> Nom : Culelesmouches<br/>
+                  Prénom : Jean<br/>
+                  Email : jeancule@lesmouches.com<br/>
+                  Adresse : 1 rue de ton cou<br/>
+                  Complément adresse : au fond à droite<br/>
+                  Ville : Vince city<br/>
+                  Code postal : 12345<br/>
+                  Téléphone : <i>non renseigné</i><br/>
+                  Mobile : 0601020304<br/>
+                  Poste occupé : Cultivateur de mouche
                   </div>
+                  <div style="float:right;text-align:right;">Nom entreprise<br/>
+                  40 employés
+                  </div>
+                  <div style="clear:both;"></div>
+                <a href="infos_perso.php" style="color:#ffffff;text-decoration:none;"><button class="btn btn-info" style="float:right;">Modifier</a>
+                  </h6>
+                 
                 </div>
                 <!-- /widget-content --> 
                 
@@ -112,7 +112,7 @@
           <!-- /widget -->
           <div class="widget widget-nopad">
             <div class="widget-header"> <i class="icon-list-alt"></i>
-              <h3> Recent News</h3>
+              <h3>Agenda</h3>
             </div>
             <!-- /widget-header -->
             <div class="widget-content">
@@ -124,75 +124,95 @@
           <!-- /widget -->
           <div class="widget">
             <div class="widget-header"> <i class="icon-file"></i>
-              <h3> Content</h3>
+              <h3> Derniers documents</h3>
             </div>
             <!-- /widget-header -->
             <div class="widget-content">
               <ul class="messages_layout">
                 <li class="from_user left"> <a href="#" class="avatar"><img src="img/message_avatar1.png"/></a>
                   <div class="message_wrap"> <span class="arrow"></span>
-                    <div class="info"> <a class="name">John Smith</a> <span class="time">1 hour ago</span>
+                    <div class="info"> <a class="name">Nom Prénom</a> <span class="time">il y a 1 jour</span>
                       <div class="options_arrow">
                         <div class="dropdown pull-right"> <a class="dropdown-toggle " id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#"> <i class=" icon-caret-down"></i> </a>
                           <ul class="dropdown-menu " role="menu" aria-labelledby="dLabel">
-                            <li><a href="#"><i class=" icon-share-alt icon-large"></i> Reply</a></li>
-                            <li><a href="#"><i class=" icon-trash icon-large"></i> Delete</a></li>
-                            <li><a href="#"><i class=" icon-share icon-large"></i> Share</a></li>
+                            <li><a href="#"><i class=" icon-share icon-large"></i> Télécharger</a></li>
+                            <li><a href="#"><i class=" icon-share-alt icon-large"></i> Modifier</a></li>
+                            <li><a href="#"><i class=" icon-trash icon-large"></i> Supprimer</a></li>
+                            
                           </ul>
                         </div>
                       </div>
                     </div>
-                    <div class="text"> As an interesting side note, as a head without a body, I envy the dead. There's one way and only one way to determine if an animal is intelligent. Dissect its brain! Man, I'm sore all over. I feel like I just went ten rounds with mighty Thor. </div>
+                    <div class="text">Ici description du document téléchargé en mettant ce qu'il y a dedans bla blal bla. </div>
                   </div>
                 </li>
                 <li class="by_myself right"> <a href="#" class="avatar"><img src="img/message_avatar2.png"/></a>
                   <div class="message_wrap"> <span class="arrow"></span>
-                    <div class="info"> <a class="name">Bender (myself) </a> <span class="time">4 hours ago</span>
+                    <div class="info"> <a class="name">Pauline che pas quoi </a> <span class="time">il y a 7 jours</span>
                       <div class="options_arrow">
                         <div class="dropdown pull-right"> <a class="dropdown-toggle " id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#"> <i class=" icon-caret-down"></i> </a>
                           <ul class="dropdown-menu " role="menu" aria-labelledby="dLabel">
-                            <li><a href="#"><i class=" icon-share-alt icon-large"></i> Reply</a></li>
-                            <li><a href="#"><i class=" icon-trash icon-large"></i> Delete</a></li>
-                            <li><a href="#"><i class=" icon-share icon-large"></i> Share</a></li>
+                            <li><a href="#"><i class=" icon-share icon-large"></i> Télécharger</a></li>
+                            <li><a href="#"><i class=" icon-share-alt icon-large"></i> Modifier</a></li>
+                            <li><a href="#"><i class=" icon-trash icon-large"></i> Supprimer</a></li>
                           </ul>
                         </div>
                       </div>
                     </div>
-                    <div class="text"> All I want is to be a monkey of moderate intelligence who wears a suit… that's why I'm transferring to business school! I had more, but you go ahead. Man, I'm sore all over. I feel like I just went ten rounds with mighty Thor. File not found. </div>
+                    <div class="text"> Ici description du document téléchargé en mettant ce qu'il y a dedans bla blal bla.  </div>
                   </div>
                 </li>
                 <li class="from_user left"> <a href="#" class="avatar"><img src="img/message_avatar1.png"/></a>
                   <div class="message_wrap"> <span class="arrow"></span>
-                    <div class="info"> <a class="name">Celeste Holm </a> <span class="time">1 Day ago</span>
+                    <div class="info"> <a class="name">Nom Prénom</a> <span class="time">il y a 1 jour</span>
                       <div class="options_arrow">
                         <div class="dropdown pull-right"> <a class="dropdown-toggle " id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#"> <i class=" icon-caret-down"></i> </a>
                           <ul class="dropdown-menu " role="menu" aria-labelledby="dLabel">
-                            <li><a href="#"><i class=" icon-share-alt icon-large"></i> Reply</a></li>
-                            <li><a href="#"><i class=" icon-trash icon-large"></i> Delete</a></li>
-                            <li><a href="#"><i class=" icon-share icon-large"></i> Share</a></li>
+                            <li><a href="#"><i class=" icon-share icon-large"></i> Télécharger</a></li>
+                            <li><a href="#"><i class=" icon-share-alt icon-large"></i> Modifier</a></li>
+                            <li><a href="#"><i class=" icon-trash icon-large"></i> Supprimer</a></li>
+                            
                           </ul>
                         </div>
                       </div>
                     </div>
-                    <div class="text"> And I'd do it again! And perhaps a third time! But that would be it. Are you crazy? I can't swallow that. And I'm his friend Jesus. No, I'm Santa Claus! And from now on you're all named Bender Jr. </div>
+                    <div class="text">Ici description du document téléchargé en mettant ce qu'il y a dedans bla blal bla. </div>
                   </div>
                 </li>
-                <li class="from_user left"> <a href="#" class="avatar"><img src="img/message_avatar2.png"/></a>
+                <li class="by_myself right"> <a href="#" class="avatar"><img src="img/message_avatar2.png"/></a>
                   <div class="message_wrap"> <span class="arrow"></span>
-                    <div class="info"> <a class="name">Mark Jobs </a> <span class="time">2 Days ago</span>
+                    <div class="info"> <a class="name">Pauline che pas quoi </a> <span class="time">il y a 7 jours</span>
                       <div class="options_arrow">
                         <div class="dropdown pull-right"> <a class="dropdown-toggle " id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#"> <i class=" icon-caret-down"></i> </a>
                           <ul class="dropdown-menu " role="menu" aria-labelledby="dLabel">
-                            <li><a href="#"><i class=" icon-share-alt icon-large"></i> Reply</a></li>
-                            <li><a href="#"><i class=" icon-trash icon-large"></i> Delete</a></li>
-                            <li><a href="#"><i class=" icon-share icon-large"></i> Share</a></li>
+                            <li><a href="#"><i class=" icon-share icon-large"></i> Télécharger</a></li>
+                            <li><a href="#"><i class=" icon-share-alt icon-large"></i> Modifier</a></li>
+                            <li><a href="#"><i class=" icon-trash icon-large"></i> Supprimer</a></li>
                           </ul>
                         </div>
                       </div>
                     </div>
-                    <div class="text"> That's the ONLY thing about being a slave. Now, now. Perfectly symmetrical violence never solved anything. Uh, is the puppy mechanical in any way? As an interesting side note, as a head without a body, I envy the dead. </div>
+                    <div class="text"> Ici description du document téléchargé en mettant ce qu'il y a dedans bla blal bla.  </div>
                   </div>
                 </li>
+                <li class="by_myself right"> <a href="#" class="avatar"><img src="img/message_avatar2.png"/></a>
+                  <div class="message_wrap"> <span class="arrow"></span>
+                    <div class="info"> <a class="name">Pauline che pas quoi </a> <span class="time">il y a 7 jours</span>
+                      <div class="options_arrow">
+                        <div class="dropdown pull-right"> <a class="dropdown-toggle " id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#"> <i class=" icon-caret-down"></i> </a>
+                          <ul class="dropdown-menu " role="menu" aria-labelledby="dLabel">
+                            <li><a href="#"><i class=" icon-share icon-large"></i> Télécharger</a></li>
+                            <li><a href="#"><i class=" icon-share-alt icon-large"></i> Modifier</a></li>
+                            <li><a href="#"><i class=" icon-trash icon-large"></i> Supprimer</a></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="text"> Ici description du document téléchargé en mettant ce qu'il y a dedans bla blal bla.  </div>
+                  </div>
+                </li>
+               <center><a href="documents.php" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info">Télécharger un document</button></a>
+               <a href="documents.php" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info">Voir tous les documents</button></a></center>
               </ul>
             </div>
             <!-- /widget-content --> 
@@ -201,112 +221,87 @@
         </div>
         <!-- /span6 -->
         <div class="span6">
-          <div class="widget">
-            <div class="widget-header"> <i class="icon-bookmark"></i>
-              <h3>Important Shortcuts</h3>
-            </div>
-            <!-- /widget-header -->
-            <div class="widget-content">
-              <div class="shortcuts"> <a href="javascript:;" class="shortcut"><i class="shortcut-icon icon-list-alt"></i><span
-                                        class="shortcut-label">Apps</span> </a><a href="javascript:;" class="shortcut"><i
-                                            class="shortcut-icon icon-bookmark"></i><span class="shortcut-label">Bookmarks</span> </a><a href="javascript:;" class="shortcut"><i class="shortcut-icon icon-signal"></i> <span class="shortcut-label">Reports</span> </a><a href="javascript:;" class="shortcut"> <i class="shortcut-icon icon-comment"></i><span class="shortcut-label">Comments</span> </a><a href="javascript:;" class="shortcut"><i class="shortcut-icon icon-user"></i><span
-                                                class="shortcut-label">Users</span> </a><a href="javascript:;" class="shortcut"><i
-                                                    class="shortcut-icon icon-file"></i><span class="shortcut-label">Notes</span> </a><a href="javascript:;" class="shortcut"><i class="shortcut-icon icon-picture"></i> <span class="shortcut-label">Photos</span> </a><a href="javascript:;" class="shortcut"> <i class="shortcut-icon icon-tag"></i><span class="shortcut-label">Tags</span> </a> </div>
-              <!-- /shortcuts --> 
-            </div>
-            <!-- /widget-content --> 
-          </div>
-          <!-- /widget -->
-          <div class="widget">
-            <div class="widget-header"> <i class="icon-signal"></i>
-              <h3> Area Chart Example</h3>
-            </div>
-            <!-- /widget-header -->
-            <div class="widget-content">
-              <canvas id="area-chart" class="chart-holder" height="250" width="538"> </canvas>
-              <!-- /area-chart --> 
-            </div>
-            <!-- /widget-content --> 
-          </div>
-          <!-- /widget -->
-          <div class="widget widget-table action-table">
-            <div class="widget-header"> <i class="icon-th-list"></i>
-              <h3>A Table Example</h3>
-            </div>
-            <!-- /widget-header -->
-            <div class="widget-content">
-              <table class="table table-striped table-bordered">
-                <thead>
-                  <tr>
-                    <th> Free Resource </th>
-                    <th> Download</th>
-                    <th class="td-actions"> </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td> Fresh Web Development Resources </td>
-                    <td> http://www.egrappler.com/ </td>
-                    <td class="td-actions"><a href="javascript:;" class="btn btn-small btn-success"><i class="btn-icon-only icon-ok"> </i></a><a href="javascript:;" class="btn btn-danger btn-small"><i class="btn-icon-only icon-remove"> </i></a></td>
-                  </tr>
-                  <tr>
-                    <td> Fresh Web Development Resources </td>
-                    <td> http://www.egrappler.com/ </td>
-                    <td class="td-actions"><a href="javascript:;" class="btn btn-small btn-success"><i class="btn-icon-only icon-ok"> </i></a><a href="javascript:;" class="btn btn-danger btn-small"><i class="btn-icon-only icon-remove"> </i></a></td>
-                  </tr>
-                  <tr>
-                    <td> Fresh Web Development Resources </td>
-                    <td> http://www.egrappler.com/ </td>
-                    <td class="td-actions"><a href="javascript:;" class="btn btn-small btn-success"><i class="btn-icon-only icon-ok"> </i></a><a href="javascript:;" class="btn btn-danger btn-small"><i class="btn-icon-only icon-remove"> </i></a></td>
-                  </tr>
-                  <tr>
-                    <td> Fresh Web Development Resources </td>
-                    <td> http://www.egrappler.com/ </td>
-                    <td class="td-actions"><a href="javascript:;" class="btn btn-small btn-success"><i class="btn-icon-only icon-ok"> </i></a><a href="javascript:;" class="btn btn-danger btn-small"><i class="btn-icon-only icon-remove"> </i></a></td>
-                  </tr>
-                  <tr>
-                    <td> Fresh Web Development Resources </td>
-                    <td> http://www.egrappler.com/ </td>
-                    <td class="td-actions"><a href="javascript:;" class="btn btn-small btn-success"><i class="btn-icon-only icon-ok"> </i></a><a href="javascript:;" class="btn btn-danger btn-small"><i class="btn-icon-only icon-remove"> </i></a></td>
-                  </tr>
-                
-                </tbody>
-              </table>
-            </div>
-            <!-- /widget-content --> 
-          </div>
+          
+          
+          
+          
           <!-- /widget --> 
           <div class="widget widget-nopad">
             <div class="widget-header"> <i class="icon-list-alt"></i>
-              <h3> Recent News</h3>
+              <h3>Dernières campagnes</h3>
             </div>
             <!-- /widget-header -->
             <div class="widget-content">
               <ul class="news-items">
-                <li>
+                <li  style="width:auto;">
                   
-                  <div class="news-item-date"> <span class="news-item-day">29</span> <span class="news-item-month">Aug</span> </div>
-                  <div class="news-item-detail"> <a href="http://www.egrappler.com/thursday-roundup-40/" class="news-item-title" target="_blank">Thursday Roundup # 40</a>
-                    <p class="news-item-preview"> This is our web design and development news series where we share our favorite design/development related articles, resources, tutorials and awesome freebies. </p>
+                    <div class="news-item-detail"> <a href="#" class="news-item-title" target="_blank">Intitulé de la campagne</a>
+                    <p class="news-item-preview">Ici petite description date ce que tu veux mmon grand eze f r f zr f r er  fe r f er tg tr  gr r g rt</p>
+                      <div style="text-align:center;margin-top:10px;"><a href="#" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info">Voir la campagne</button></a></div>
+           
                   </div>
                   
                 </li>
-                <li>
+                 <li  style="width:auto;">
                   
-                  <div class="news-item-date"> <span class="news-item-day">15</span> <span class="news-item-month">Jun</span> </div>
-                  <div class="news-item-detail"> <a href="http://www.egrappler.com/retina-ready-responsive-app-landing-page-website-template-app-landing/" class="news-item-title" target="_blank">Retina Ready Responsive App Landing Page Website Template – App Landing</a>
-                    <p class="news-item-preview"> App Landing is a retina ready responsive app landing page website template perfect for software and application developers and small business owners looking to promote their iPhone, iPad, Android Apps and software products.</p>
+                     <div class="news-item-detail"> <a href="#" class="news-item-title" target="_blank">Intitulé de la campagne</a>
+                    <p class="news-item-preview">Ici petite description date ce que tu veux mmon grand eze f r f zr f r er  fe r f er tg tr  gr r g rt</p>
+                      <div style="text-align:center;margin-top:10px;"><a href="#" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info">Voir la campagne</button></a></div>
                   </div>
                   
                 </li>
-                <li>
+                 <li  style="width:auto;">
                   
-                  <div class="news-item-date"> <span class="news-item-day">29</span> <span class="news-item-month">Oct</span> </div>
-                  <div class="news-item-detail"> <a href="http://www.egrappler.com/open-source-jquery-php-ajax-contact-form-templates-with-captcha-formify/" class="news-item-title" target="_blank">Open Source jQuery PHP Ajax Contact Form Templates With Captcha: Formify</a>
-                    <p class="news-item-preview"> Formify is a contribution to lessen the pain of creating contact forms. The collection contains six different forms that are commonly used. These open source contact forms can be customized as well to suit the need for your website/application.</p>
+                    <div class="news-item-detail"> <a href="#" class="news-item-title" target="_blank">Intitulé de la campagne</a>
+                    <p class="news-item-preview">Ici petite description date ce que tu veux mmon grand eze f r f zr f r er  fe r f er tg tr  gr r g rt</p>
+                      <div style="text-align:center;margin-top:10px;"><a href="#" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info">Voir la campagne</button></a></div>
+           
                   </div>
                   
                 </li>
+                 <div style="text-align:center;margin-top:20px;margin-bottom:20px;"><a href="#" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info">Voir toutes les campagnes</button></a></div>
+           
+              </ul>
+            </div>
+            <!-- /widget-content --> 
+          </div>
+          
+          <div class="widget widget-nopad">
+            <div class="widget-header"> <i class="icon-list-alt"></i>
+              <h3>Dernières factures</h3>
+            </div>
+            <!-- /widget-header -->
+            <div class="widget-content">
+              <ul class="news-items">
+                <li  style="width:auto;">
+                  
+                    <div class="news-item-detail"> <a href="#" class="news-item-title" target="_blank">Facture n°12454434</a>
+                    <p class="news-item-preview">Ici petite description date ce que tu veux mmon grand eze f r f zr f r er  fe r f er tg tr  gr r g rt</p>
+                      <div style="text-align:center;margin-top:10px;"><a href="#" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info">Voir la facture</button></a></div>
+           
+                  </div>
+                  
+                </li>
+                 <li  style="width:auto;">
+                  
+                     <div class="news-item-detail"> <a href="#" class="news-item-title" target="_blank">Facture n°12454434</a>
+                    <p class="news-item-preview">Ici petite description date ce que tu veux mmon grand test etet tetet ttet tetet tt tet t</p>
+                      <div style="text-align:center;margin-top:10px;"><a href="#" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info">Voir la facture</button></a></div>
+           
+                  </div>
+                  
+                </li>
+                 <li  style="width:auto;">
+                  
+                    <div class="news-item-detail"> <a href="#" class="news-item-title" target="_blank">Facture n°12454434</a>
+                    <p class="news-item-preview">Ici petite description date ce que tu veux mmon grandhh fhshsf fsfj dsfdjsdjkfsj jjjjjjj  jjjjj</p>
+                      <div style="text-align:center;margin-top:10px;"><a href="#" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info">Voir la facture</button></a></div>
+           
+                  </div>
+                  
+                </li>
+                 <div style="text-align:center;margin-top:20px;margin-bottom:20px;"><a href="#" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info">Voir toutes les factures</button></a></div>
+           
               </ul>
             </div>
             <!-- /widget-content --> 
@@ -398,51 +393,12 @@
 <script src="js/excanvas.min.js"></script> 
 <script src="js/chart.min.js" type="text/javascript"></script> 
 <script src="js/bootstrap.js"></script>
-<script language="javascript" type="text/javascript" src="js/full-calendar/fullcalendar.min.js"></script>
+<script language="javascript" type="text/javascript" src="js/full-calendar/fullcalendar.js"></script>
  
 <script src="js/base.js"></script> 
 <script>     
 
-        var lineChartData = {
-            labels: ["January", "February", "March", "April", "May", "June", "July"],
-            datasets: [
-				{
-				    fillColor: "rgba(220,220,220,0.5)",
-				    strokeColor: "rgba(220,220,220,1)",
-				    pointColor: "rgba(220,220,220,1)",
-				    pointStrokeColor: "#fff",
-				    data: [65, 59, 90, 81, 56, 55, 40]
-				},
-				{
-				    fillColor: "rgba(151,187,205,0.5)",
-				    strokeColor: "rgba(151,187,205,1)",
-				    pointColor: "rgba(151,187,205,1)",
-				    pointStrokeColor: "#fff",
-				    data: [28, 48, 40, 19, 96, 27, 100]
-				}
-			]
-
-        }
-
-        var myLine = new Chart(document.getElementById("area-chart").getContext("2d")).Line(lineChartData);
-
-
-        var barChartData = {
-            labels: ["January", "February", "March", "April", "May", "June", "July"],
-            datasets: [
-				{
-				    fillColor: "rgba(220,220,220,0.5)",
-				    strokeColor: "rgba(220,220,220,1)",
-				    data: [65, 59, 90, 81, 56, 55, 40]
-				},
-				{
-				    fillColor: "rgba(151,187,205,0.5)",
-				    strokeColor: "rgba(151,187,205,1)",
-				    data: [28, 48, 40, 19, 96, 27, 100]
-				}
-			]
-
-        }    
+      
 
         $(document).ready(function() {
         var date = new Date();
