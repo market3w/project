@@ -1123,3 +1123,17 @@
 	}
 	/* FOOTER*/
 	
+	.em_tablette{
+		background-color:#83BBD3;
+		display:none;
+		position:fixed;
+		top:46px;
+		right:10px;
+		border-radius:3px;
+		width:300px;
+		height:auto;
+		padding:15px;
+		z-index:20000;
+		color:#ffffff;
+		font-size:18px;	
+	}

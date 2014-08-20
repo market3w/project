@@ -5,9 +5,15 @@
         
                 <div class="logo_tablette" ><div style="background-color:#83BBD3;  border-radius:3px; width:40px; height:40px; padding:5px;margin-top:-10px;cursor:pointer; float:right;" class="btn_connexion"><img src="images/em.png" style="width:30px;" /></div><center><a href="index.php" style="text-decoration:none;"><img src="images/logo_mini.png" width="120" /></a></center></div>
                 <div class="logo_mobile" ><div style="background-color:#83BBD3;  border-radius:3px; margin-right:3px;width:30px; height:30px; padding:5px;margin-top:3px;cursor:pointer; float:right;" class="btn_connexion"><img src="images/em.png" style="width:20px;" /></div><a href="index.php" style="text-decoration:none;"><img src="images/logo_mini.png" width="100" style="margin-left:10px;  margin-bottom:5px; margin-top:8px;"/></a></div>
+                 <?php if($_SESSION["market3w_user"]!=""){ ?>
+              <div class="em_tablette" statut="ferme" style="">
+              <center><b> Bonjour <?php echo $_SESSION["market3w_user"]; ?></b></center>
+              <div style="margin-top:10px;"><a href="#" style="color:#ffffff;">Accéder à votre espace membre</a> <br/><a href="#" id="deconnexion" style="color:#ffffff;">Se déconnecter</a></div>
+              </div>
+                <?php } ?>
                 <header id="header">
                 <?php if($_SESSION["market3w_user"]!=""){ ?>
-                <center><div  style="position:fixed; left:140px; top:14px; font-size:22px; width:auto; color:#ffffff; text-align:center;"><span style="cursor:pointer;" class="espace_membre_pc"><img src="images/em.png" style="width:18px;margin-top:5px;"/> Bonjour <?php echo $_SESSION["market3w_user"]; ?></span></div></center>
+                <div class="espace_membre_pc" style="position:fixed; left:140px; top:14px; font-size:22px; width:auto; color:#ffffff; text-align:center;"><span style="cursor:pointer;"><img src="images/em.png" style="width:18px;margin-top:5px;"/> Bonjour <?php echo $_SESSION["market3w_user"]; ?></span></div>
                 <div class="clic_espace_membre_pc" style="position:fixed; left:140px; top:14px; font-size:18px; width:auto; color:#ffffff; text-align:center; display:none;"><a href="#" style="color:#ffffff;">Accéder à votre espace membre</a> | <a href="#" id="deconnexion" style="color:#ffffff;">Se déconnecter</a></div>
                 <form action="<?php echo WEB_ROOT; ?>" name="deconnexionForm" id="deconnexionForm" method="POST">
                     <input type="hidden" name="method" value="logout"/>
@@ -45,12 +51,35 @@
   		  $(document).ready(function() {
 	
 	 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Confirmation des parametres !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	   		$(".btn_connexion").on('click', function(){
+	   		//Si non connecté on ouvre popup
+			<?php if($_SESSION["market3w_user"]==""){ ?>
+			$(".btn_connexion").on('click', function(){
 				$(".fermer_pop_up").fadeIn(500);
 				$("#conteneur_connexion").fadeIn(500);
 				return false;
 			});
+			<?php } ?>
 			
+			//Si connecté on ouvre le menu déroulant
+			<?php if($_SESSION["market3w_user"]!=""){ ?>
+			$(".btn_connexion").on('click', function(){
+				var statut = $(".em_tablette").attr("statut");
+				
+				if(statut=="ferme")
+				{
+					$(".em_tablette").show(500);
+					$(".em_tablette").attr("statut", "ouvert");
+				}
+				else
+				{
+					$(".em_tablette").hide(500);
+					$(".em_tablette").attr("statut", "ferme");
+				}
+				
+			});
+			<?php } ?>
+			
+			//FERMER POPUP
 			 $(".fermer_pop_up").on('click', function(){
 				$(".fermer_pop_up").fadeOut(500);
 				$("#conteneur_connexion").fadeOut(500);
