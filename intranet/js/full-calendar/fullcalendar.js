@@ -46,13 +46,13 @@ var defaults = {
 	// time formats
 	titleFormat: {
 		month: 'MMMM yyyy',
-		week: "MMM d[ yyyy]{ '&#8212;'[ MMM] d yyyy}",
-		day: 'dddd, MMM d, yyyy'
+		week: "'du' d MMM yyyy{ 'au' d MMM yyyy}",
+		day: 'dddd d MMM yyyy'
 	},
 	columnFormat: {
 		month: 'ddd',
-		week: 'ddd M/d',
-		day: 'dddd M/d'
+		week: 'ddd dd/MM',
+		day: 'dddd dd/MM'
 	},
 	timeFormat: { // for event elements
 		'': 'h(:mm)t' // default
@@ -62,7 +62,7 @@ var defaults = {
 	isRTL: false,
 	firstDay: 0,
 	monthNames: ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre"],
-	monthNamesShort: ["Jan", "Fev", "Mar", "Avr", "Mai", "Jui", "Juil", "Aou", "Sep", "Oct", "Nov", "Dec"
+	monthNamesShort: ["Jan", "Fev", "Mars", "Avr", "Mai", "Juin", "Juil", "Aout", "Sep", "Oct", "Nov", "Dec"
 	],
 	dayNames: ["Dimanche", "Lundi", "Mardi", "Mecredi", "Jeudi", "Vendredi", "Samedi"],
 	dayNamesShort: ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
@@ -5219,5 +5219,4 @@ function HorizontalPositionCache(getElement) {
 	};
 	
 }
-
 })(jQuery);
