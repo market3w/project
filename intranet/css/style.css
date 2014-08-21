@@ -16,7 +16,13 @@ body {
 p { 
 	font: 13px/1.7em 'Open Sans'; 	
 }
-    
+a { 
+	color:#80B3CA;
+}
+a:hover { 
+	color:#36A7CF;
+	text-decoration:none;
+}
 input,
 button,
 select,
