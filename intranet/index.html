@@ -398,7 +398,6 @@
 <script src="js/base.js"></script> 
 <script> 
 $(document).ready(function() {
-	var alertbox = true;
 	var date = new Date();
 	var d = date.getDate();
 	var m = date.getMonth();
@@ -407,12 +406,22 @@ $(document).ready(function() {
 		header: {
 		left: 'prev,next today',
 		center: 'title',
-		right: 'month,agendaWeek,agendaDay'
+		right: 'month,agendaWeek,agendaDay',
 	},
+	minTime: '09:00:00',
+	maxTime: '19:00:00',
+	allDay: false,
+	allDaySlot: false,
+	weekends: false,
 	selectable: true,
 	selectHelper: true,
 	select: function(start, end, allDay) {
-		if(alertbox){
+		if ($('#calendar').fullCalendar('getView').name=="month") {
+			// Clicked on the entire day
+			$('#calendar')
+			.fullCalendar('changeView', 'agendaDay')
+			.fullCalendar('gotoDate',start);
+		} else {
 			var title = prompt('Event Title:');
 			if (title) {
 				calendar.fullCalendar('renderEvent',
@@ -428,18 +437,6 @@ $(document).ready(function() {
 			calendar.fullCalendar('unselect');
 			$('#calendar')
 			.fullCalendar('changeView', 'month')
-		}
-	},
-	dayClick: function(date, allDay, jsEvent, view) {
-		if (allDay) {
-			alertbox = false;
-			// Clicked on the entire day
-			$('#calendar')
-			.fullCalendar('changeView', 'agendaDay')
-			.fullCalendar('gotoDate',
-			date.getFullYear(), date.getMonth(), date.getDate());
-		} else {
-			alertbox = true;
 		}
 	},
 	editable: true,
