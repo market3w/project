@@ -420,6 +420,7 @@ $(document).ready(function() {
 				$('#calendar')
 				.fullCalendar('changeView', 'agendaDay')
 				.fullCalendar('gotoDate',start);
+				$("#calendar .fc-content").css("padding-top","20px");
 			} else {
 				var title = prompt('Event Title:');
 				if (title) {

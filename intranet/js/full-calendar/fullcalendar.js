@@ -3930,11 +3930,6 @@ function AgendaEventRenderer() {
 		}
 		html +=
 			"</" + (url ? "a" : "div") + ">";
-		var padding = "50px";
-		if ($('#calendar').fullCalendar('getView').name!="month"){
-			padding = "20px";
-		}
-		$("#calendar .fc-content").css("padding-top",padding);
 		return html;
 	}
 	
@@ -4693,11 +4688,7 @@ function DayEventRenderer() {
 			seg.startCol = leftCol;
 			seg.endCol = rightCol + 1; // needs to be exclusive
 		}
-		var padding = "55px";
-		if ($('#calendar').fullCalendar('getView').name!="month"){
-			padding = "20px";
-		}
-		$("#calendar .fc-content").css("padding-top",padding);
+		$("#calendar .fc-content").css("padding-top","55px");
 		return html;
 	}
 	
