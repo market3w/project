@@ -712,6 +712,9 @@ html .fc, .fc table {
 	top: -34px;
 	right: 10px
 }
+.fc-header-right .fc-state-active{
+	display:none;
+}
 .fc-header-title {
 	display: inline-block;
 	vertical-align: top

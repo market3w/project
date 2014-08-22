@@ -55,7 +55,7 @@ var defaults = {
 		day: 'dddd dd/MM'
 	},
 	timeFormat: { // for event elements
-		'': 'H(:mm)t' // default
+		'': "HH('h'mm)" // default
 	},
 	
 	// locale
@@ -2804,9 +2804,9 @@ setDefaults({
 	firstHour: 6,
 	slotMinutes: 30,
 	defaultEventMinutes: 120,
-	axisFormat: 'h(:mm)tt',
+	axisFormat: "HH'h'mm",
 	timeFormat: {
-		agenda: 'h:mm{ - h:mm}'
+		agenda: "HH'h'mm{ - HH'h'mm}"
 	},
 	dragOpacity: {
 		agenda: .5
@@ -2973,7 +2973,7 @@ function AgendaView(element, calendar, viewName) {
 		
 		s =
 			"<table style='width:100%' class='fc-agenda-days fc-border-separate' cellspacing='0'>" +
-			"<thead>" +
+			/*"<thead>" +
 			"<tr>" +
 			"<th class='fc-agenda-axis " + headerClass + "'>&nbsp;</th>";
 		for (i=0; i<colCnt; i++) {
@@ -2983,7 +2983,7 @@ function AgendaView(element, calendar, viewName) {
 		s +=
 			"<th class='fc-agenda-gutter " + headerClass + "'>&nbsp;</th>" +
 			"</tr>" +
-			"</thead>" +
+			"</thead>" +*/
 			"<tbody>" +
 			"<tr>" +
 			"<th class='fc-agenda-axis " + headerClass + "'>&nbsp;</th>";
@@ -4670,7 +4670,7 @@ function DayEventRenderer() {
 				html +=
 					"<span class='fc-event-time'>" +
 					htmlEscape(formatDates(event.start, event.end, opt('timeFormat'))) +
-					"</span>";
+					"h</span>";
 			}
 			html +=
 				"<span class=''>" + htmlEscape(event.title) + "</span>" +
@@ -5043,7 +5043,7 @@ function SelectionManager() {
 			hoverListener.start(function(cell, origCell) { // TODO: maybe put cellDate/cellIsAllDay info in cell
 				clearSelection();
 				if (cell && cellIsAllDay(cell)) {
-					dates = [ cellDate(origCell), cellDate(cell) ].sort(cmp);
+					dates = [ cellDate(origCell), cellDate(origCell) ].sort(cmp);
 					renderSelection(dates[0], dates[1], true);
 				}else{
 					dates = null;
