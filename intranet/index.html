@@ -422,21 +422,7 @@ $(document).ready(function() {
 				.fullCalendar('gotoDate',start);
 				$("#calendar .fc-content").css("padding-top","20px");
 			} else {
-				var title = prompt('Event Title:');
-				if (title) {
-					calendar.fullCalendar('renderEvent',
-						{
-							title: title,
-							start: start,
-							end: end,
-							allDay: allDay
-						},
-						true // make the event "stick"
-					);
-				}
-				calendar.fullCalendar('unselect');
-				$('#calendar')
-				.fullCalendar('changeView', 'month')
+				addAppointment(start,end);
 			}
 		},
 		editable: true,
@@ -455,9 +441,37 @@ $(document).ready(function() {
 				start: new Date(y, m, d, 16, 0),
 				end: new Date(y, m, d, 17, 0),
 				allDay: false
+			},
+			{
+				id: 10,
+				title: 'Vidéoconférence',
+				start: new Date(y, m, 25, 12, 0),
+				end: new Date(y, m, 25, 14, 0),
+				allDay: false
 			}
 		]
 	});
+	
+	$(".appointmentEvent").click(function(){
+		var id = parseInt($(this).attr("id").replace("appointment_",""));
+		editAppointment(id);
+	});
+	
+	function addAppointment(start,end){
+		alert("debut : " + start + "\n" + "fin : " + end);
+		location.reload();
+	}
+	
+	function editAppointment(id){
+		var appointment;
+		$.each($("#calendar").fullCalendar('clientEvents'), function(key, val) { 
+			if(val.id==id){
+				appointment = val;
+			}
+		});
+		alert("titre : " + appointment.title + "\n" + "debut : " + appointment.start + "\n" + "fin : " + appointment.end);
+		location.reload();
+	}
 });
 </script><!-- /Calendar -->
 </body>
