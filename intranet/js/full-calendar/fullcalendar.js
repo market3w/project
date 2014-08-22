@@ -3903,12 +3903,13 @@ function AgendaEventRenderer() {
 		}
 		html += " class='" + classes.join(' ');
 		if(event.type=="unavailable"){
-			html += " appointmentUnavailable'";
-		} else {
-			html += " appointmentEvent'";
-		}
+			html += " appointmentUnavailable";
+		} 
+		html += "'";
+		if(event.type!="unavailable"){
+			html += "onclick='editAppointment(" + event.id + ")'";
+		} 
 		html +=
-			" id='appointment_" + event.id + "'" +
 			" style='position:absolute;z-index:8;top:" + seg.top + "px;left:" + seg.left + "px;" + skinCss + "'" +
 			">" +
 			"<div class='fc-event-inner fc-event-skin'" + skinCssAttr + ">" +
@@ -4654,12 +4655,13 @@ function DayEventRenderer() {
 			}
 			html += " class='" + classes.join(' ');
 			if(event.type=="unavailable"){
-				html += " appointmentUnavailable'";
-			} else {
-				html += " appointmentEvent'";
-			}
+				html += " appointmentUnavailable";
+			} 
+			html += "'";
+			if(event.type!="unavailable"){
+				html += "onclick='editAppointment(" + event.id + ")'";
+			} 
 			html +=
-				" id='appointment_" + event.id + "'" +
 				" style='position:absolute;z-index:8;left:"+left+"px;" + skinCss + "'" +
 				">" +
 				"<div" +
