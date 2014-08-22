@@ -1032,6 +1032,13 @@ table.fc-border-separate {
 .fc-agenda-days .fc-col0 {
 	border-left-width: 0
 }
+.fc-agenda-days thead{
+	background:none;
+	border:none;
+}
+.fc-agenda-days thead th{
+	border:none;
+}
 .fc-agenda-allday th {
 	border-width: 0 1px
 }

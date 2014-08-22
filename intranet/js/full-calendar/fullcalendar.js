@@ -52,7 +52,7 @@ var defaults = {
 	columnFormat: {
 		month: 'ddd',
 		week: 'ddd dd/MM',
-		day: 'dddd dd/MM'
+		day: ''
 	},
 	timeFormat: { // for event elements
 		'': "HH('h'mm)" // default
@@ -61,8 +61,8 @@ var defaults = {
 	// locale
 	isRTL: false,
 	firstDay: 0,
-	monthNames: ["Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre"],
-	monthNamesShort: ["Jan", "Fev", "Mars", "Avr", "Mai", "Juin", "Juil", "Aout", "Sep", "Oct", "Nov", "Dec"
+	monthNames: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
+	monthNamesShort: ["Jan", "Fév", "Mars", "Avr", "Mai", "Juin", "Juil", "Août", "Sep", "Oct", "Nov", "Déc"
 	],
 	dayNames: ["Dimanche", "Lundi", "Mardi", "Mecredi", "Jeudi", "Vendredi", "Samedi"],
 	dayNamesShort: ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
@@ -699,7 +699,7 @@ function Header(calendar, options) {
 		tm = options.theme ? 'ui' : 'fc';
 		var sections = options.header;
 		if (sections) {
-			element = $("<table class='fc-header' style='width:100%'/>")
+			element = $("<table class='fc-header' style='width:100%; position:absolute; top:0; z-index:10000;'/>")
 				.append(
 					$("<tr/>")
 						.append(renderSection('left'))
@@ -2973,7 +2973,7 @@ function AgendaView(element, calendar, viewName) {
 		
 		s =
 			"<table style='width:100%' class='fc-agenda-days fc-border-separate' cellspacing='0'>" +
-			/*"<thead>" +
+			"<thead>" +
 			"<tr>" +
 			"<th class='fc-agenda-axis " + headerClass + "'>&nbsp;</th>";
 		for (i=0; i<colCnt; i++) {
@@ -2983,7 +2983,7 @@ function AgendaView(element, calendar, viewName) {
 		s +=
 			"<th class='fc-agenda-gutter " + headerClass + "'>&nbsp;</th>" +
 			"</tr>" +
-			"</thead>" +*/
+			"</thead>" +
 			"<tbody>" +
 			"<tr>" +
 			"<th class='fc-agenda-axis " + headerClass + "'>&nbsp;</th>";
@@ -3930,6 +3930,11 @@ function AgendaEventRenderer() {
 		}
 		html +=
 			"</" + (url ? "a" : "div") + ">";
+		var padding = "50px";
+		if ($('#calendar').fullCalendar('getView').name!="month"){
+			padding = "20px";
+		}
+		$("#calendar .fc-content").css("padding-top",padding);
 		return html;
 	}
 	
@@ -4688,6 +4693,11 @@ function DayEventRenderer() {
 			seg.startCol = leftCol;
 			seg.endCol = rightCol + 1; // needs to be exclusive
 		}
+		var padding = "55px";
+		if ($('#calendar').fullCalendar('getView').name!="month"){
+			padding = "20px";
+		}
+		$("#calendar .fc-content").css("padding-top",padding);
 		return html;
 	}
 	
