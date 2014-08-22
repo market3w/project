@@ -868,6 +868,19 @@ a.fc-event {
 	border-color: #3f85f5;
 	background-color: #5e96ea;
 	color: #fff
+}	
+/* event unavailable */
+.appointmentUnavailable{
+	background-color:#999999;
+	border-color:#333333;
+	color:#333333;
+	cursor:default;
+}
+.appointmentUnavailable .fc-event-skin{
+	background-color:#999999;
+	border-color:#333333;
+	color:#333333;
+	cursor:default;
 }
 .fc-event-inner {
 	position: relative;

@@ -3539,7 +3539,7 @@ function AgendaView(element, calendar, viewName) {
 				clearSelection();
 				if (cell && cell.col == origCell.col && !cellIsAllDay(cell)) {
 					var d1 = cellDate(origCell);
-					var d2 = cellDate(origCell);
+					var d2 = cellDate(cell);
 					dates = [
 						d1,
 						addMinutes(cloneDate(d1), opt('slotMinutes')),
@@ -3867,7 +3867,7 @@ function AgendaEventRenderer() {
 					// not enough room for title, put it in the time header
 					eventElement.find('div.fc-event-time')
 						.text(formatDate(event.start, opt('timeFormat')) + ' - ' + event.title);
-					eventElement.find('div.fc-event-title')
+					eventElement.find('div.')
 						.remove();
 				}
 				trigger('eventAfterRender', event, event, eventElement);
@@ -3901,8 +3901,14 @@ function AgendaEventRenderer() {
 		}else{
 			html += "div";
 		}
+		html += " class='" + classes.join(' ');
+		if(event.type=="unavailable"){
+			html += " appointmentUnavailable'";
+		} else {
+			html += " appointmentEvent'";
+		}
 		html +=
-			" class='" + classes.join(' ') + "'" +
+			" id='appointment_" + event.id + "'" +
 			" style='position:absolute;z-index:8;top:" + seg.top + "px;left:" + seg.left + "px;" + skinCss + "'" +
 			">" +
 			"<div class='fc-event-inner fc-event-skin'" + skinCssAttr + ">" +
@@ -3912,7 +3918,7 @@ function AgendaEventRenderer() {
 			"</div>" +
 			"</div>" +
 			"<div class='fc-event-content'>" +
-			"<div class='fc-event-title'>" +
+			"<div class=''>" +
 			htmlEscape(event.title) +
 			"</div>" +
 			"</div>" +
@@ -4646,8 +4652,14 @@ function DayEventRenderer() {
 			}else{
 				html += "<div";
 			}
+			html += " class='" + classes.join(' ');
+			if(event.type=="unavailable"){
+				html += " appointmentUnavailable'";
+			} else {
+				html += " appointmentEvent'";
+			}
 			html +=
-				" class='" + classes.join(' ') + "'" +
+				" id='appointment_" + event.id + "'" +
 				" style='position:absolute;z-index:8;left:"+left+"px;" + skinCss + "'" +
 				">" +
 				"<div" +
@@ -4661,7 +4673,7 @@ function DayEventRenderer() {
 					"</span>";
 			}
 			html +=
-				"<span class='fc-event-title'>" + htmlEscape(event.title) + "</span>" +
+				"<span class=''>" + htmlEscape(event.title) + "</span>" +
 				"</div>";
 			if (seg.isEnd && isEventResizable(event)) {
 				html +=
