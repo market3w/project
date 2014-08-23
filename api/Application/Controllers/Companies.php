@@ -208,7 +208,6 @@ class Application_Controllers_Companies extends Library_Core_Controllers{
 			//Administrateur, peut poster une compagnie autant qu'il veut
 			case "administrateur": case "webmarketteur":
 			
-				
 					// Récupération des parametres
 					$company_siret = (empty ($data['company_siret']))?null:$data['company_siret'];
 					$company_siren = (empty ($data['company_siren']))?null:$data['company_siren'];

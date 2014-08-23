@@ -107,12 +107,24 @@ abstract class Library_Core_Model{
 		$this->joinsList[]=$join_type.'JOIN '.$table.' AS '.$table_as.' ON '.$table_as.'.`'.$local_on.'`='.$as.'.`'.$dist_on.'`';
 	}
 	
-	public function addWhere($field_name,$field_value,$table_as="",$where_type="",$where_ope=""){
+	public function addWhere($field_name,$field_value,$table_as="",$where_type="",$where_ope="",$where_par=""){
 		$as = ($table_as=="")?$this->table_as:$table_as;
 		$where_type = ($where_type=="")?" = ":" ".trim(strtoupper($where_type))." ";
 		$where_ope = ($where_ope=="")?" AND ":" ".trim(strtoupper($where_ope))." ";
 		$count = count($this->whereList);
-		$this->whereList[]=$as.'.`'.$field_name.'`'.$where_type.':where'.$count;
+		$where_str = "";
+		if($where_par!=""){
+			if(!(strpos($where_par,"(")===false)){
+				$where_str .= $where_par;
+			}
+			$where_str .= $as.'.`'.$field_name.'`'.$where_type.':where'.$count;
+			if(!(strpos($where_par,")")===false)){
+				$where_str .= $where_par;
+			}
+		} else {
+			$where_str .= $as.'.`'.$field_name.'`'.$where_type.':where'.$count;
+		}
+		$this->whereList[]=$where_str;
 		if($where_type==" LIKE "){
 			$this->whereValueList['where'.$count]="%".$field_value."%";
 		} else {
