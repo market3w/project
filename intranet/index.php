@@ -174,26 +174,26 @@
               <ul class="news-items">
                 <li  style="width:auto;">
                   
-                    <div class="news-item-detail"> <a href="#" class="news-item-title" target="_blank">Intitulé de la campagne</a>
+                    <div class="news-item-detail"> <a href="campagne.php" class="news-item-title" target="_blank">Intitulé de la campagne</a>
                     <p class="news-item-preview">Ici petite description date ce que tu veux mmon grand eze f r f zr f r er  fe r f er tg tr  gr r g rt</p>
-                      <div style="text-align:center;margin-top:10px;"><a href="#" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info">Voir la campagne</button></a></div>
+                      <div style="text-align:center;margin-top:10px;"><a href="campagne.php" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info">Voir la campagne</button></a></div>
            
                   </div>
                   
                 </li>
                  <li  style="width:auto;">
                   
-                     <div class="news-item-detail"> <a href="#" class="news-item-title" target="_blank">Intitulé de la campagne</a>
+                     <div class="news-item-detail"> <a href="campagne.php" class="news-item-title" target="_blank">Intitulé de la campagne</a>
                     <p class="news-item-preview">Ici petite description date ce que tu veux mmon grand eze f r f zr f r er  fe r f er tg tr  gr r g rt</p>
-                      <div style="text-align:center;margin-top:10px;"><a href="#" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info">Voir la campagne</button></a></div>
+                      <div style="text-align:center;margin-top:10px;"><a href="campagne.php" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info">Voir la campagne</button></a></div>
                   </div>
                   
                 </li>
                  <li  style="width:auto;">
                   
-                    <div class="news-item-detail"> <a href="#" class="news-item-title" target="_blank">Intitulé de la campagne</a>
+                    <div class="news-item-detail"> <a href="campagne.php" class="news-item-title" target="_blank">Intitulé de la campagne</a>
                     <p class="news-item-preview">Ici petite description date ce que tu veux mmon grand eze f r f zr f r er  fe r f er tg tr  gr r g rt</p>
-                      <div style="text-align:center;margin-top:10px;"><a href="#" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info">Voir la campagne</button></a></div>
+                      <div style="text-align:center;margin-top:10px;"><a href="campagne.php" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info">Voir la campagne</button></a></div>
            
                   </div>
                   
