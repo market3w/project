@@ -1,9 +1,9 @@
 function addAppointment(start,end){
 	//Reformater la date et l'heure de début et de fin
-	var startTemp = appointment.start.toString().split(" ");
+	var startTemp = start.toString().split(" ");
 	var startDate = startTemp[2]+"/"+getMonthNumber(startTemp[1])+"/"+startTemp[3];
 	var startHour = startTemp[4];
-	var endTemp = appointment.end.toString().split(" ");
+	var endTemp = end.toString().split(" ");
 	var endDate = endTemp[2]+"/"+getMonthNumber(endTemp[1])+"/"+endTemp[3];
 	var endHour = endTemp[4];
 	
