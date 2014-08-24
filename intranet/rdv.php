@@ -1,9 +1,9 @@
-<?php  $page='contact';  ?>
+<?php  $page='rdv';  ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Contact | Market 3W</title>
+<title>Rendez-vous | Market 3W</title>
 
 <link href="css/pages/dashboard.css" rel="stylesheet">
 <?php include('include/head.php');
@@ -14,66 +14,34 @@
   <div class="main-inner">
     <div class="container">
       <div class="row">
-      
-     	<div class="span12">
+     
+        <div class="span12">
 	      	<div id="target-1" class="widget">
 	      		<div class="widget-content">
-	      			<h1 style="margin-bottom:10px;color:#80B3CA;">Contacter-nous</h1>
+	      			<h1 style="margin-bottom:10px;color:#80B3CA;">Rendez-vous</h1>
 			      		
-			      	<p>N'hésiter pas à nous contacter par le formulaire pour toute question ou demande, un de nos webmarketeurs vous répondra dans les plus brefs délais.</p>	<br/><br/>
-                   <form id="contact" class="form-horizontal">
-                    <fieldset>
-                        
-                        <div class="control-group">											
-                            <label class="control-label" for="user_name">Nom</label>
-                            <div class="controls">
-                                <input type="text" class="span4 disabled" id="user_name" value="John" disabled>
-                            </div> <!-- /controls -->				
-                        </div> <!-- /control-group -->
-                        
-                        
-                        <div class="control-group">											
-                            <label class="control-label" for="user_firstname">Prénom</label>
-                            <div class="controls">
-                                <input type="text" class="span4 disabled" id="user_firstname" value="Donga" disabled>
-                            </div> <!-- /controls -->				
-                        </div> <!-- /control-group -->
-                        
-                        
-                        <div class="control-group">											
-                            <label class="control-label" for="email">Adresse email</label>
-                            <div class="controls">
-                                <input type="text" class="span4 disabled" id="email" value="john.donga@egrappler.com" disabled>
-                            </div> <!-- /controls -->				
-                        </div> <!-- /control-group -->
-                        
-                        <div class="control-group">											
-                            <label class="control-label" for="objet">Objet</label>
-                            <div class="controls">
-                                <input type="text" class="span4" id="objet" value="" placeholder="Indiquer l'objet du contact">
-                            </div> <!-- /controls -->				
-                        </div> <!-- /control-group -->
-                        
-                      <div class="control-group">											
-                            <label class="control-label" for="message">Message</label>
-                            <div class="controls">
-                                <textarea class="span4" id="message" placeholder="Indiquer votre message"></textarea>
-                            </div> <!-- /controls -->				
-                        </div> <!-- /control-group -->
-                            
-                        <div class="control-group">
-                           <button type="submit" class="btn btn-primary" style="margin-left:20%;">Envoyer</button>
-                            <!--<button class="btn">Cancel</button>-->
-                        </div> <!-- /form-actions -->
-                    </fieldset>
-                </form>
+			      	<p>Market3w a mis en place un système de vidéo-conférence sophisitiqué afin de vous éviter certains déplacements. Vous pouvez prendre rendez-vous avec l'un de nos webmarketeurs spécialisés dans le référencement afin d'établir un devis, de poser vos quesions ou pour toute autre demande.
+                    <br/><br/> C'est bien évidemment gratuit. Veuillez prendre rendez-vous seulement si l'objet de votre demande nécessite au moins 30 minutes (durée minimum d'un rendez-vous).<br/><br/>Nous pouvons aussi fixer des rendez-vous téléphoniques ainsi que physiques afin que l'un de nos webmarketeurs apporte des solutions pour votre projet.
+                    <br/><br/><center><a href="#rdv"> <button class="btn btn-primary">Fixer un rendez-vous</button></a></center>
+                    </p>	
 			    </div> <!-- /widget-content -->
 		     </div> <!-- /widget -->
 	    </div> <!-- /span12 -->
-       
         
         
-       
+        
+        
+        <div class="widget widget-nopad" id="rdv" style="margin-left:2%;">
+            <div class="widget-header"> <i class="icon-calendar"></i>
+              <h3>Prendre un rendez-vous</h3>
+            </div>
+            <!-- /widget-header -->
+            <div class="widget-content">
+              <div id='calendar'>
+              </div>
+            </div>
+            <!-- /widget-content --> 
+          </div>
         
       </div>
       <!-- /row --> 
