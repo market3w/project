@@ -1,6 +1,7 @@
 <?php
 class Library_Core_Controllers{
 	
+	protected $table;
     private $apiResult;
 	
 	public function setApiResult($result, $error=false, $errorMessage="", $errorServer=false, $errorServerMessage=""){
@@ -12,4 +13,8 @@ class Library_Core_Controllers{
         $this->apiResult->serverErrorMessage     = $errorServerMessage;
         return $this->apiResult;
     }
+	
+	public function get_table(){
+		return $this->table;
+	}
 }

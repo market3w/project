@@ -1,6 +1,6 @@
 <?php
 class Application_Controllers_Companies extends Library_Core_Controllers{
-    private $companyTable;
+    protected $table;
 	private $as;
 	
 	private $company_vars = array('company_id',
@@ -15,8 +15,8 @@ class Application_Controllers_Companies extends Library_Core_Controllers{
 	
 	public function __construct(){
         global $iDB;
-        $this->companyTable = new Application_Models_Companies($iDB->getConnexion());
-		$as = $this->companyTable->getAlias();
+        $this->table = new Application_Models_Companies($iDB->getConnexion());
+		$as = $this->table->getAlias();
 	
 	}
 	
@@ -36,13 +36,13 @@ class Application_Controllers_Companies extends Library_Core_Controllers{
 			if($company_id==null){return $this->setApiResult(false, true, 'param \'company_id\' undefined');}
 			if(!is_numeric($company_id)){return $this->setApiResult(false, true, 'param \'company_id\' is not numeric');}
 			// Jointure
-			$this->companyTable->addJoin("users","u","company_id","company_id","","left");
-			$this->companyTable->addJoin("roles","r","role_id","role_id","u"); 
+			$this->table->addJoin("users","u","company_id","company_id","","left");
+			$this->table->addJoin("roles","r","role_id","role_id","u"); 
 			// Condition
-			$this->companyTable->addWhere("company_id",$company_id);
+			$this->table->addWhere("company_id",$company_id);
 			//Si c'est un client on regarde si c'est sa société sinon "company not found"
-			//if($role_id==3){$this->companyTable->addWhere("u.user_id",$user_id);}
-			$res = (array)$this->companyTable->search();
+			//if($role_id==3){$this->table->addWhere("u.user_id",$user_id);}
+			$res = (array)$this->table->search();
 			
 			$tab = array();
 			if(!array_key_exists(0,$res)){
@@ -74,11 +74,11 @@ class Application_Controllers_Companies extends Library_Core_Controllers{
         $company_id = ($_SESSION['market3w_user_id']==-1)?null:$_SESSION['market3w_user_id'];
         if($company_id==null){return $this->setApiResult(false, true, 'You are not logged');}
 		// Jointure
-		$this->companyTable->addJoin("users","u","company_id","company_id","","left");
-		$this->companyTable->addJoin("roles","r","role_id","role_id","u"); 
+		$this->table->addJoin("users","u","company_id","company_id","","left");
+		$this->table->addJoin("roles","r","role_id","role_id","u"); 
 		// Condition
-		$this->companyTable->addWhere("user_id",$_SESSION['market3w_user_id'],"u");
-        $res = (array)$this->companyTable->search();
+		$this->table->addWhere("user_id",$_SESSION['market3w_user_id'],"u");
+        $res = (array)$this->table->search();
 		
 		$tab = array();
 		if(!array_key_exists(0,$res)){
@@ -113,9 +113,9 @@ class Application_Controllers_Companies extends Library_Core_Controllers{
 		if($role_id==1 || $role_id==2)
 		{
 			// Jointure
-			$this->companyTable->addJoin("users","u","company_id","company_id","","left");
-			$this->companyTable->addJoin("roles","r","role_id","role_id","u","left");  
-			$res = (array)$this->companyTable->search();
+			$this->table->addJoin("users","u","company_id","company_id","","left");
+			$this->table->addJoin("roles","r","role_id","role_id","u","left");  
+			$res = (array)$this->table->search();
 			
 			$tab = array();
 			if(!array_key_exists(0,$res)){
@@ -159,11 +159,11 @@ class Application_Controllers_Companies extends Library_Core_Controllers{
         if($company_search==null){return $this->setApiResult(false, true, 'param \'company_search\' undefined');}
         if(strlen($company_search)<3){return $this->setApiResult(false, true, '3 characters minimum for autocompletion');}
 		// Jointure
-		$this->companyTable->addJoin("users","u","company_id","company_id","","left");
-		$this->companyTable->addJoin("roles","r","role_id","role_id","u","left"); 
+		$this->table->addJoin("users","u","company_id","company_id","","left");
+		$this->table->addJoin("roles","r","role_id","role_id","u","left"); 
 		// Condition 
-		$this->companyTable->addWhere("company_name",$company_search,"","like");
-        $res = (array)$this->companyTable->search();
+		$this->table->addWhere("company_name",$company_search,"","like");
+        $res = (array)$this->table->search();
         $tab = array();
 		if(!array_key_exists(0,$res)){
 			return $this->setApiResult(false, true, 'No companies found');
@@ -230,14 +230,14 @@ class Application_Controllers_Companies extends Library_Core_Controllers{
 					if(!is_numeric($company_nb_employees)){return $this->setApiResult(false, true, 'param \'company_nb_employees\' unvalid');}
 					
 					// Préparation de la requete
-					$this->companyTable->addNewField("company_siret",$company_siret);
-					$this->companyTable->addNewField("company_siren",$company_siren);
-					$this->companyTable->addNewField("company_name",$company_name);
-					$this->companyTable->addNewField("company_adress",$company_adress);
-					$this->companyTable->addNewField("company_adress2",$company_adress2);
-					$this->companyTable->addNewField("company_zipcode",$company_zipcode);
-					$this->companyTable->addNewField("company_town",$company_town);
-					$this->companyTable->addNewField("company_nb_employees",$company_nb_employees);
+					$this->table->addNewField("company_siret",$company_siret);
+					$this->table->addNewField("company_siren",$company_siren);
+					$this->table->addNewField("company_name",$company_name);
+					$this->table->addNewField("company_adress",$company_adress);
+					$this->table->addNewField("company_adress2",$company_adress2);
+					$this->table->addNewField("company_zipcode",$company_zipcode);
+					$this->table->addNewField("company_town",$company_town);
+					$this->table->addNewField("company_nb_employees",$company_nb_employees);
 				
 				
 				
@@ -268,14 +268,14 @@ class Application_Controllers_Companies extends Library_Core_Controllers{
 					if(!is_numeric($company_nb_employees)){return $this->setApiResult(false, true, 'param \'company_nb_employees\' unvalid');}
 					
 					// Préparation de la requete
-					$this->companyTable->addNewField("company_siret",$company_siret);
-					$this->companyTable->addNewField("company_siren",$company_siren);
-					$this->companyTable->addNewField("company_name",$company_name);
-					$this->companyTable->addNewField("company_adress",$company_adress);
-					$this->companyTable->addNewField("company_adress2",$company_adress2);
-					$this->companyTable->addNewField("company_zipcode",$company_zipcode);
-					$this->companyTable->addNewField("company_town",$company_town);
-					$this->companyTable->addNewField("company_nb_employees",$company_nb_employees);
+					$this->table->addNewField("company_siret",$company_siret);
+					$this->table->addNewField("company_siren",$company_siren);
+					$this->table->addNewField("company_name",$company_name);
+					$this->table->addNewField("company_adress",$company_adress);
+					$this->table->addNewField("company_adress2",$company_adress2);
+					$this->table->addNewField("company_zipcode",$company_zipcode);
+					$this->table->addNewField("company_town",$company_town);
+					$this->table->addNewField("company_nb_employees",$company_nb_employees);
 			
 				
 			break;
@@ -285,7 +285,7 @@ class Application_Controllers_Companies extends Library_Core_Controllers{
 		}
 					
 		if($post===true){
-        	$insert = $this->companyTable->insert();
+        	$insert = $this->table->insert();
 		} else {
 		}
 		
@@ -327,16 +327,16 @@ class Application_Controllers_Companies extends Library_Core_Controllers{
         $update = array();
 		
 		//------------- Test et ajout des champs ------------------------------------------//
-        $this->companyTable->addNewField("company_siret",$company_siret); 
-		$this->companyTable->addNewField("company_siren",$company_siren);
-		$this->companyTable->addNewField("company_name",$company_name);
-		$this->companyTable->addNewField("company_adress",$company_adress);
-		$this->companyTable->addNewField("company_adress2",$company_adress2);
-		$this->companyTable->addNewField("company_zipcode",$company_zipcode);
-		$this->companyTable->addNewField("company_town",$company_town);
-		$this->companyTable->addNewField("company_nb_employees",$company_nb_employees);
+        $this->table->addNewField("company_siret",$company_siret); 
+		$this->table->addNewField("company_siren",$company_siren);
+		$this->table->addNewField("company_name",$company_name);
+		$this->table->addNewField("company_adress",$company_adress);
+		$this->table->addNewField("company_adress2",$company_adress2);
+		$this->table->addNewField("company_zipcode",$company_zipcode);
+		$this->table->addNewField("company_town",$company_town);
+		$this->table->addNewField("company_nb_employees",$company_nb_employees);
 		
-        $this->companyTable->update();
+        $this->table->update();
         return $this->setApiResult(true);
     }
     
@@ -360,7 +360,7 @@ class Application_Controllers_Companies extends Library_Core_Controllers{
 			if($exist_company->apiError==true){ return $this->setApiResult(false,true,$exist_company->apiErrorMessage); }
 			$update = array();
 			
-			$this->companyTable->delete();
+			$this->table->delete();
 			return $this->setApiResult(true);
 		}
 		else

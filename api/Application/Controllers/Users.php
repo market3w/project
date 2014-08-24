@@ -1,6 +1,6 @@
 <?php
 class Application_Controllers_Users extends Library_Core_Controllers{
-    private $usersTable;
+    protected $table;
 	private $as;
 	
 	private $user_vars = array('user_id',
@@ -17,18 +17,18 @@ class Application_Controllers_Users extends Library_Core_Controllers{
 	
 	public function __construct(){
         global $iDB;
-        $this->usersTable = new Application_Models_Users($iDB->getConnexion());
-		$as = $this->usersTable->getAlias();
+        $this->table = new Application_Models_Users($iDB->getConnexion());
+		$as = $this->table->getAlias();
 	}
 	
 	public function get_user($data){
         $user_id = (empty ($data['user_id']))?null:$data['user_id'];
         if($user_id==null){return $this->setApiResult(false, true, 'param \'user_id\' undefined');}
         if(!is_numeric($user_id)){return $this->setApiResult(false, true, 'param \'user_id\' is not numeric');}
-		$this->usersTable->addJoin("roles","r","role_id","role_id");
-		$this->usersTable->addJoin("companies","c","company_id","company_id","","left");
-		$this->usersTable->addWhere("user_id",$user_id);
-        $res = (array)$this->usersTable->search();
+		$this->table->addJoin("roles","r","role_id","role_id");
+		$this->table->addJoin("companies","c","company_id","company_id","","left");
+		$this->table->addWhere("user_id",$user_id);
+        $res = (array)$this->table->search();
 		$tab = array();
 		if(!array_key_exists(0,$res)){
 			return $this->setApiResult(false, true, 'user not found');
@@ -52,9 +52,9 @@ class Application_Controllers_Users extends Library_Core_Controllers{
         $user_id = (empty ($data['user_id']))?null:$data['user_id'];
         if($user_id==null){return $this->setApiResult(false, true, 'param \'user_id\' undefined');}
         if(!is_numeric($user_id)){return $this->setApiResult(false, true, 'param \'user_id\' is not numeric');}
-		$this->usersTable->addJoin("paiements","p","paiement_id","paiement_id","","left");
-		$this->usersTable->addWhere("user_id",$user_id);
-        $res = (array)$this->usersTable->search();
+		$this->table->addJoin("paiements","p","paiement_id","paiement_id","","left");
+		$this->table->addWhere("user_id",$user_id);
+        $res = (array)$this->table->search();
 		$tab = array();
 		if(!array_key_exists(0,$res)){
 			return $this->setApiResult(false, true, 'user not found');
@@ -76,10 +76,10 @@ class Application_Controllers_Users extends Library_Core_Controllers{
         $user_id = ($_SESSION['market3w_user_id']==-1)?null:$_SESSION['market3w_user_id'];
 		
         if($user_id==null){return $this->setApiResult(false, true, 'you are not logged');}
-		$this->usersTable->addJoin("roles","r","role_id","role_id");
-		$this->usersTable->addJoin("companies","c","company_id","company_id","","left");
-		$this->usersTable->addWhere("user_id",$user_id);
-        $res = (array)$this->usersTable->search();
+		$this->table->addJoin("roles","r","role_id","role_id");
+		$this->table->addJoin("companies","c","company_id","company_id","","left");
+		$this->table->addWhere("user_id",$user_id);
+        $res = (array)$this->table->search();
 		$tab = array();
 		if(!array_key_exists(0,$res)){
 			$_SESSION['market3w_user_id']=-1;
@@ -101,9 +101,9 @@ class Application_Controllers_Users extends Library_Core_Controllers{
     }
     
     public function get_alluser($data){
-		$this->usersTable->addJoin("roles","r","role_id","role_id");
-		$this->usersTable->addJoin("companies","c","company_id","company_id","","left");
-        $res = (array)$this->usersTable->search();
+		$this->table->addJoin("roles","r","role_id","role_id");
+		$this->table->addJoin("companies","c","company_id","company_id","","left");
+        $res = (array)$this->table->search();
 		$tab = array();
 		if(!array_key_exists(0,$res)){
 			return $this->setApiResult(false, true, ' no users found');
@@ -132,28 +132,26 @@ class Application_Controllers_Users extends Library_Core_Controllers{
         $user_id = (empty ($data['user_id']))?null:$data['user_id'];
         if($user_id==null){return $this->setApiResult(false, true, 'param \'user_id\' undefined');}
         if(!is_numeric($user_id)){return $this->setApiResult(false, true, 'param \'user_id\' is not numeric');}
-		$this->usersTable->addJoin("roles","r","role_id","role_id");
-		$this->usersTable->addJoin("companies","c","company_id","company_id","","left");
-		$this->usersTable->addWhere("role_id",$role_id);
-		$this->usersTable->addWhere("user_id",$user_id);
-        $res = (array)$this->usersTable->search();
+		$this->table->addJoin("roles","r","role_id","role_id");
+		$this->table->addJoin("companies","c","company_id","company_id","","left");
+		$this->table->addWhere("role_id",$role_id);
+		$this->table->addWhere("user_id",$user_id);
+        $res = (array)$this->table->search();
 		$tab = array();
 		if(!array_key_exists(0,$res)){
 			return $this->setApiResult(false, true, 'user not found');
 		}
-		foreach($res as $k=>$v){
-			foreach($v as $k2=>$v2){
-				if(!(strpos($k2,"role")===false)){
-					$tab[$k]['user_role'][$k2]=$v2;
-				} elseif(!(strpos($k2,"company")===false)){
-					$tab[$k]['user_company'][$k2]=$v2;
-				} elseif(in_array($k2,$this->user_vars)) {
-					$tab[$k][$k2] = $v2;
-				}
+		foreach($res[0] as $k=>$v){
+			if(!(strpos($k,"role")===false)){
+				$tab['user_role'][$k]=$v;
+			} elseif(!(strpos($k,"company")===false)){
+				$tab['user_company'][$k]=$v;
+			} elseif(in_array($k,$this->user_vars)) {
+				$tab[$k] = $v;
 			}
-			if($tab[$k]['user_company']['company_id']!=null){
-				$tab[$k]['user_company']['company_url']=API_ROOT."?method=company&company_id=".(int)$tab[$k]['user_company']['company_id'];
-			}
+		}
+		if($tab['user_company']['company_id']!=null){
+			$tab['user_company']['company_url']=API_ROOT."?method=company&company_id=".(int)$tab['user_company']['company_id'];
 		}
         return $this->setApiResult($tab);
     }
@@ -162,10 +160,10 @@ class Application_Controllers_Users extends Library_Core_Controllers{
         $role_id = (empty ($data['role_id']))?null:$data['role_id'];
         if($role_id==null){return $this->setApiResult(false, true, 'param \'role_id\' undefined');}
         if(!is_numeric($role_id)){return $this->setApiResult(false, true, 'param \'role_id\' is not numeric');}
-		$this->usersTable->addJoin("roles","r","role_id","role_id");
-		$this->usersTable->addJoin("companies","c","company_id","company_id","","left");
-		$this->usersTable->addWhere("role_id",$role_id);
-        $res = (array)$this->usersTable->search();
+		$this->table->addJoin("roles","r","role_id","role_id");
+		$this->table->addJoin("companies","c","company_id","company_id","","left");
+		$this->table->addWhere("role_id",$role_id);
+        $res = (array)$this->table->search();
 		$tab = array();
 		if(!array_key_exists(0,$res)){
 			return $this->setApiResult(false, true, ' no users found in this category');
@@ -192,12 +190,12 @@ class Application_Controllers_Users extends Library_Core_Controllers{
         if($user_search==null){return $this->setApiResult(false, true, 'param \'user_search\' undefined');}
         if(strlen($user_search)<3){return $this->setApiResult(false, true, '3 characters minimum for autocompletion');}
 		// Jointure
-		$this->usersTable->addJoin("roles","r","role_id","role_id");
-		$this->usersTable->addJoin("companies","c","company_id","company_id","","left");
+		$this->table->addJoin("roles","r","role_id","role_id");
+		$this->table->addJoin("companies","c","company_id","company_id","","left");
 		// Condition 
-		$this->usersTable->addWhere("user_name",$user_search,"","like");
-		$this->usersTable->addWhere("user_firstname",$user_search,"","like","or");
-        $res = (array)$this->usersTable->search();
+		$this->table->addWhere("user_name",$user_search,"","like");
+		$this->table->addWhere("user_firstname",$user_search,"","like","or");
+        $res = (array)$this->table->search();
         $tab = array();
 		if(!array_key_exists(0,$res)){
 			return $this->setApiResult(false, true, ' no users found');
@@ -227,9 +225,9 @@ class Application_Controllers_Users extends Library_Core_Controllers{
 		if($user_email==null){return $this->setApiResult(false, true, 'param \'user_email\' undefined');}
 		if($user_password==null){return $this->setApiResult(false, true, 'param \'user_password\' undefined');}
 		// Ajout des champs de recherche
-		$this->usersTable->addWhere("user_email",$user_email);
-		$this->usersTable->addWhere("user_password",md5($user_email.SALT_USER_PWD.$user_password));
-        $res = (array)$this->usersTable->search();
+		$this->table->addWhere("user_email",$user_email);
+		$this->table->addWhere("user_password",md5($user_email.SALT_USER_PWD.$user_password));
+        $res = (array)$this->table->search();
 		if(empty($res)){
 			return $this->setApiResult(false, true, 'Login incorrect');
 		} else {
@@ -263,10 +261,10 @@ class Application_Controllers_Users extends Library_Core_Controllers{
 				if($user_password==null){return $this->setApiResult(false, true, 'param \'user_password\' undefined');}
 				if(!array_key_exists('user_password2',$data) || $user_password!=$data['user_password2']){return $this->setApiResult(false, true, 'Enter 2 same passwords');}
 				// Préparation de la requête
-				$this->usersTable->addNewField("user_name",$user_name);
-				$this->usersTable->addNewField("user_firstname",$user_firstname);
-				$this->usersTable->addNewField("user_email",$user_email);
-				$this->usersTable->addNewField("user_password",md5($user_email.SALT_USER_PWD.$user_password));
+				$this->table->addNewField("user_name",$user_name);
+				$this->table->addNewField("user_firstname",$user_firstname);
+				$this->table->addNewField("user_email",$user_email);
+				$this->table->addNewField("user_password",md5($user_email.SALT_USER_PWD.$user_password));
 				break;
 			// Ajouter un compte prospet ou client
 			case "prospet_client":
@@ -284,14 +282,14 @@ class Application_Controllers_Users extends Library_Core_Controllers{
 					if($user_password==null){return $this->setApiResult(false, true, 'param \'user_password\' undefined');}
 					if(!array_key_exists('user_password2',$data) || $user_password!=$data['user_password2']){return $this->setApiResult(false, true, 'Enter 2 same passwords');}
 					// Préparation de la requête
-					$this->usersTable->addNewField("user_name",$user_name);
-					$this->usersTable->addNewField("user_firstname",$user_firstname);
-					$this->usersTable->addNewField("user_email",$user_email);
-					$this->usersTable->addNewField("user_password",md5($user_email.SALT_USER_PWD.$user_password));
+					$this->table->addNewField("user_name",$user_name);
+					$this->table->addNewField("user_firstname",$user_firstname);
+					$this->table->addNewField("user_email",$user_email);
+					$this->table->addNewField("user_password",md5($user_email.SALT_USER_PWD.$user_password));
 				} else {
 					$post = false;
 					// Conditions
-					$this->usersTable->addWhere("user_id",$_SESSSION['market3w_user_id']);
+					$this->table->addWhere("user_id",$_SESSSION['market3w_user_id']);
 				}
 				// Récupération des paramètres supplémentaires utiles
 				$user_function = (empty ($data['user_function']))?null:$data['user_function'];
@@ -316,15 +314,15 @@ class Application_Controllers_Users extends Library_Core_Controllers{
 				if(!is_numeric($role_id)){return $this->setApiResult(false, true, 'param \'role_id\' unvalid');}
 				
 				// Préparation de la requête
-				$this->usersTable->addNewField("user_function",$user_function);
-				$this->usersTable->addNewField("user_phone",$user_phone);
-				$this->usersTable->addNewField("user_mobile",$user_mobile);
-				$this->usersTable->addNewField("user_adress",$user_adress);
-				$this->usersTable->addNewField("user_adress2",$user_adress2);
-				$this->usersTable->addNewField("user_zipcode",$user_zipcode);
-				$this->usersTable->addNewField("user_town",$user_town);
-				$this->usersTable->addNewField("role_id",$role_id);
-				$this->usersTable->addNewField("company_id",$company_id);
+				$this->table->addNewField("user_function",$user_function);
+				$this->table->addNewField("user_phone",$user_phone);
+				$this->table->addNewField("user_mobile",$user_mobile);
+				$this->table->addNewField("user_adress",$user_adress);
+				$this->table->addNewField("user_adress2",$user_adress2);
+				$this->table->addNewField("user_zipcode",$user_zipcode);
+				$this->table->addNewField("user_town",$user_town);
+				$this->table->addNewField("role_id",$role_id);
+				$this->table->addNewField("company_id",$company_id);
 				break;
 			// Ajouter un webmarketeur ou un community manager
 			case "webmarketer_community_manager":
@@ -336,7 +334,7 @@ class Application_Controllers_Users extends Library_Core_Controllers{
 				$role_current_id = $role_res->response[0]->role_id;
 				if($role_current_id!=1){ return $this->setApiResult(false,true,'You can\'t add this account'); }
 					
-				$this->usersTable->resetObject();
+				$this->table->resetObject();
 				
 				$user_name = (empty ($data['user_name']))?null:$data['user_name'];
 				$user_firstname = (empty ($data['user_firstname']))?null:$data['user_firstname'];
@@ -356,13 +354,13 @@ class Application_Controllers_Users extends Library_Core_Controllers{
 				if($role_id==null){return $this->setApiResult(false, true, 'param \'role_id\' undefined');}
 				if(!is_numeric($role_id)){return $this->setApiResult(false, true, 'param \'role_id\' unvalid');}
 				
-				$this->usersTable->addNewField("user_name",$user_name);
-				$this->usersTable->addNewField("user_firstname",$user_firstname);
-				$this->usersTable->addNewField("user_email",$user_email);
-				$this->usersTable->addNewField("user_password",md5($user_email.SALT_USER_PWD.$user_password));
-				$this->usersTable->addNewField("user_phone",$user_phone);
-				$this->usersTable->addNewField("user_mobile",$user_mobile);
-				$this->usersTable->addNewField("role_id",$role_id);
+				$this->table->addNewField("user_name",$user_name);
+				$this->table->addNewField("user_firstname",$user_firstname);
+				$this->table->addNewField("user_email",$user_email);
+				$this->table->addNewField("user_password",md5($user_email.SALT_USER_PWD.$user_password));
+				$this->table->addNewField("user_phone",$user_phone);
+				$this->table->addNewField("user_mobile",$user_mobile);
+				$this->table->addNewField("role_id",$role_id);
 				break;
 			default:
 				return $this->setApiResult(false, true, 'param \'add_user_method\' value is different to "visitor", "prospet_client" or "webmarketer_community_manager"');
@@ -370,9 +368,9 @@ class Application_Controllers_Users extends Library_Core_Controllers{
 		}
 		
 		if($post===true){
-        	$insert = $this->usersTable->insert();
+        	$insert = $this->table->insert();
 		} else {
-        	$insert = $this->usersTable->update();
+        	$insert = $this->table->update();
 		}
 		
         if($insert!="ok"){
@@ -409,7 +407,7 @@ class Application_Controllers_Users extends Library_Core_Controllers{
 		$role_current_id = $role_res->response[0]->role_id;
 			
 		if($user_id!=$_SESSION['market3w_user_id'] && $role_current_id>=2){
-			$this->usersTable->resetObject();
+			$this->table->resetObject();
 			//------------- Test existance en base --------------------------------------------//
 			$exist_user = $this->get_user(array("user_id"=>$user_id));
 			if($exist_user->apiError==true){ return $this->setApiResult(false,true,'User not found'); }
@@ -423,34 +421,34 @@ class Application_Controllers_Users extends Library_Core_Controllers{
 				
 		$role_id = (empty ($data['role_id']))?$role_id:$data['role_id'];
 			
-		$this->usersTable->resetObject();
+		$this->table->resetObject();
 		
 		
 		if($user_name!=null){
-			$this->usersTable->addNewField("user_name",$user_name);
+			$this->table->addNewField("user_name",$user_name);
 		}
 		if($user_firstname!=null){
-			$this->usersTable->addNewField("user_firstname",$user_firstname);
+			$this->table->addNewField("user_firstname",$user_firstname);
 		}
 		if($user_email!=null){
-			$this->usersTable->addNewField("user_email",$user_email);
+			$this->table->addNewField("user_email",$user_email);
 		}
 		if($user_password!=null && $user_password==$user_password2){
-			$this->usersTable->addNewField("user_password",md5($user_email.SALT_USER_PWD.$user_password));
+			$this->table->addNewField("user_password",md5($user_email.SALT_USER_PWD.$user_password));
 		}
-		$this->usersTable->addNewField("user_function",$user_function);
-		$this->usersTable->addNewField("user_phone",$user_phone);
-		$this->usersTable->addNewField("user_mobile",$user_mobile);
-		$this->usersTable->addNewField("user_adress",$user_adress);
-		$this->usersTable->addNewField("user_adress2",$user_adress2);
-		$this->usersTable->addNewField("user_zipcode",$user_zipcode);
-		$this->usersTable->addNewField("user_town",$user_town);
-		$this->usersTable->addNewField("role_id",$role_id);
+		$this->table->addNewField("user_function",$user_function);
+		$this->table->addNewField("user_phone",$user_phone);
+		$this->table->addNewField("user_mobile",$user_mobile);
+		$this->table->addNewField("user_adress",$user_adress);
+		$this->table->addNewField("user_adress2",$user_adress2);
+		$this->table->addNewField("user_zipcode",$user_zipcode);
+		$this->table->addNewField("user_town",$user_town);
+		$this->table->addNewField("role_id",$role_id);
 		if($company_id!=null){
-			$this->usersTable->addNewField("company_id",$company_id);
+			$this->table->addNewField("company_id",$company_id);
 		}
 		
-        $this->usersTable->update();
+        $this->table->update();
         return $this->setApiResult(true);
     }
     
@@ -467,7 +465,7 @@ class Application_Controllers_Users extends Library_Core_Controllers{
 		$role_res = $role->get_currentrole();
 		$role_current_id = $role_res->response[0]->role_id;
 			
-		$this->usersTable->resetObject();
+		$this->table->resetObject();
 		
 		if($user_id!=$_SESSION['market3w_user_id'] && $role_current_id==1){
 			//------------- Test existance en base --------------------------------------------//
@@ -481,9 +479,9 @@ class Application_Controllers_Users extends Library_Core_Controllers{
 			$role_id = $role_current_id;
 		}
 			
-		$this->usersTable->resetObject();
+		$this->table->resetObject();
 		
-		$this->usersTable->addWhere("user_id",$user_id);
+		$this->table->addWhere("user_id",$user_id);
 		
 		switch($role_id){
 			case 1 : 
@@ -491,18 +489,18 @@ class Application_Controllers_Users extends Library_Core_Controllers{
 				break;
 			case 2 :  case 3 :
 				if($role_current_id == 1){
-					$this->usersTable->delete();
+					$this->table->delete();
 					return $this->setApiResult(true);
 				} else {
 					return $this->setApiResult(false,true,'Delete impossible');
 				}
 				break;
 			case 4 : 
-				$this->usersTable->addNewField("user_active",0);
-				$this->usersTable->update();
+				$this->table->addNewField("user_active",0);
+				$this->table->update();
 				break;
 			case 5 : case 6 :
-				$this->usersTable->delete();
+				$this->table->delete();
 				return $this->setApiResult(true);
 				break;
 			default :

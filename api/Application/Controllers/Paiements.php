@@ -1,6 +1,6 @@
 <?php
 class Application_Controllers_Paiements extends Library_Core_Controllers{
-    private $paiementsTable;
+    protected $table;
 	private $as;
 	
 	private $paiement_vars = array('paiement_id',
@@ -12,8 +12,8 @@ class Application_Controllers_Paiements extends Library_Core_Controllers{
 	
 	public function __construct(){
         global $iDB;
-        $this->paiementsTable = new Application_Models_Paiements($iDB->getConnexion());
-		$as = $this->paiementsTable->getAlias();
+        $this->table = new Application_Models_Paiements($iDB->getConnexion());
+		$as = $this->table->getAlias();
 	}
 	
 	public function get_paiement($data){
@@ -31,12 +31,12 @@ class Application_Controllers_Paiements extends Library_Core_Controllers{
 			 $paiement_id = (empty ($data['paiement_id']))?null:$data['paiement_id'];
 			if($paiement_id==null){return $this->setApiResult(false, true, 'param \'paiement_id\' undefined');}
 			if(!is_numeric($paiement_id)){return $this->setApiResult(false, true, 'param \'paiement_id\' is not numeric');}
-			$this->paiementsTable->addJoin("users","u","user_id","user_id","","left");
-			$this->paiementsTable->addWhere("paiement_id",$paiement_id);
+			$this->table->addJoin("users","u","user_id","user_id","","left");
+			$this->table->addWhere("paiement_id",$paiement_id);
 			//Si un membre veut recupérer un paiement, on vérifie que celui-ci lui appartienne sinon le paiement sera "not found"
-			if($role_id==3){$this->paiementsTable->addWhere("user_id",$user_id);}
+			if($role_id==3){$this->table->addWhere("user_id",$user_id);}
 			
-			$res = (array)$this->paiementsTable->search();
+			$res = (array)$this->table->search();
 			$tab = array();
 			
 			if(!array_key_exists(0,$res)){
@@ -77,8 +77,8 @@ class Application_Controllers_Paiements extends Library_Core_Controllers{
 		//Si admin alors OK
 		if($role_id==1)
 		{
-			$this->paiementsTable->addJoin("users","u","user_id","user_id","","left");
-			$res = (array)$this->paiementsTable->search();
+			$this->table->addJoin("users","u","user_id","user_id","","left");
+			$res = (array)$this->table->search();
 			$tab = array();
 			if(!array_key_exists(0,$res)){
 				return $this->setApiResult(false, true, ' no paiements found');
@@ -123,8 +123,8 @@ class Application_Controllers_Paiements extends Library_Core_Controllers{
 				if(!is_numeric($user_id)){return $this->setApiResult(false, true, 'param \'user_id\' is not numeric');}
 			}
 			
-			$this->paiementsTable->addWhere("user_id",$user_id);
-			$res = (array)$this->paiementsTable->search();
+			$this->table->addWhere("user_id",$user_id);
+			$res = (array)$this->table->search();
 			
 			if(!array_key_exists(0,$res)){
 				return $this->setApiResult(false, true, ' no paiements found');
@@ -167,14 +167,14 @@ class Application_Controllers_Paiements extends Library_Core_Controllers{
 			if($paiement_link==null){return $this->setApiResult(false, true, 'param \'paiement_link\' undefined');}
 			
 			// Préparation de la requete
-			$this->paiementsTable->addNewField("paiement_name",$paiement_name);
-			$this->paiementsTable->addNewField("paiement_description",$paiement_description);
-			$this->paiementsTable->addNewField("paiement_prix",$paiement_prix);
-			$this->paiementsTable->addNewField("paiement_link",$paiement_link);
-			$this->paiementsTable->addNewField("paiement_auteur",$paiement_auteur);
-			$this->paiementsTable->addNewField("user_id",$user_id);	
+			$this->table->addNewField("paiement_name",$paiement_name);
+			$this->table->addNewField("paiement_description",$paiement_description);
+			$this->table->addNewField("paiement_prix",$paiement_prix);
+			$this->table->addNewField("paiement_link",$paiement_link);
+			$this->table->addNewField("paiement_auteur",$paiement_auteur);
+			$this->table->addNewField("user_id",$user_id);	
 			
-			$insert = $this->paiementsTable->insert();
+			$insert = $this->table->insert();
 			if($insert!="ok"){
 				return $this->setApiResult(false, true, $insert);
 			}
@@ -216,13 +216,13 @@ class Application_Controllers_Paiements extends Library_Core_Controllers{
 			if($paiement_link==null){return $this->setApiResult(false, true, 'param \'paiement_link\' undefined');}
 			
 			// Préparation de la requete
-			$this->paiementsTable->addNewField("paiement_name",$paiement_name);
-			$this->paiementsTable->addNewField("paiement_description",$paiement_description);
-			$this->paiementsTable->addNewField("paiement_prix",$paiement_prix);
-			$this->paiementsTable->addNewField("paiement_link",$paiement_link);	
+			$this->table->addNewField("paiement_name",$paiement_name);
+			$this->table->addNewField("paiement_description",$paiement_description);
+			$this->table->addNewField("paiement_prix",$paiement_prix);
+			$this->table->addNewField("paiement_link",$paiement_link);	
 			
-			 $this->paiementsTable->addWhere("paiement_id",$paiement_id);
-			$this->paiementsTable->update();
+			 $this->table->addWhere("paiement_id",$paiement_id);
+			$this->table->update();
 		
 			return $this->setApiResult(true);	
 		}
@@ -254,8 +254,8 @@ class Application_Controllers_Paiements extends Library_Core_Controllers{
 			//------------- Test existance en base --------------------------------------------//
 			$exist_paiement = $this->get_paiement(array("paiement_id"=>$paiement_id));
 			if($exist_paiement->apiError==true){ return $this->setApiResult(false,true,'paiement doesn\'t look existt'); }
-			$this->paiementsTable->addWhere("paiement_id",$paiement_id);
-			$this->paiementsTable->delete();
+			$this->table->addWhere("paiement_id",$paiement_id);
+			$this->table->delete();
 			return $this->setApiResult(true);
 		}
 		else

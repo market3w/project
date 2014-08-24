@@ -1,6 +1,6 @@
 <?php
 class Application_Controllers_Articles extends Library_Core_Controllers{
-    private $articlesTable;
+    protected $table;
 	private $as;
 	
 	private $article_vars = array('article_id',
@@ -12,16 +12,16 @@ class Application_Controllers_Articles extends Library_Core_Controllers{
 	
 	public function __construct(){
         global $iDB;
-        $this->articlesTable = new Application_Models_Articles($iDB->getConnexion());
-		$as = $this->articlesTable->getAlias();
+        $this->table = new Application_Models_Articles($iDB->getConnexion());
+		$as = $this->table->getAlias();
 	}
 	
 	public function get_article($data){
         $article_id = (empty ($data['article_id']))?null:$data['article_id'];
         if($article_id==null){return $this->setApiResult(false, true, 'param \'article_id\' undefined');}
         if(!is_numeric($article_id)){return $this->setApiResult(false, true, 'param \'article_id\' is not numeric');}
-		$this->articlesTable->addWhere("article_id",$article_id);
-        $res = (array)$this->articlesTable->search();
+		$this->table->addWhere("article_id",$article_id);
+        $res = (array)$this->table->search();
 		
 		if(!array_key_exists(0,$res)){
 			return $this->setApiResult(false, true, 'article not found');
@@ -31,7 +31,7 @@ class Application_Controllers_Articles extends Library_Core_Controllers{
     }
 
     public function get_allarticle($data){
-        $res = (array)$this->articlesTable->search();
+        $res = (array)$this->table->search();
 		
 		if(!array_key_exists(0,$res)){
 			return $this->setApiResult(false, true, ' no articles found');
@@ -42,8 +42,8 @@ class Application_Controllers_Articles extends Library_Core_Controllers{
 	
 	
 	 public function get_allpdf($data){
-        $this->articlesTable->addWhere("article_type_id","1");
-		$res = (array)$this->articlesTable->search();
+        $this->table->addWhere("article_type_id","1");
+		$res = (array)$this->table->search();
 		
 		if(!array_key_exists(0,$res)){
 			return $this->setApiResult(false, true, ' no pdf found');
@@ -52,8 +52,8 @@ class Application_Controllers_Articles extends Library_Core_Controllers{
     }
 	
 	 public function get_allvideo($data){
-        $this->articlesTable->addWhere("article_type_id","2");
-		$res = (array)$this->articlesTable->search();
+        $this->table->addWhere("article_type_id","2");
+		$res = (array)$this->table->search();
 		
 		if(!array_key_exists(0,$res)){
 			return $this->setApiResult(false, true, ' no videos found');
@@ -85,10 +85,10 @@ class Application_Controllers_Articles extends Library_Core_Controllers{
 				if($article_link==null){return $this->setApiResult(false, true, 'param \'article_link\' undefined');}
 				
 				// Préparation de la requête
-				$this->articlesTable->addNewField("article_name",$article_name);
-				$this->articlesTable->addNewField("article_description",$article_description);
-				$this->articlesTable->addNewField("article_type_id",$article_type_id);
-				$this->articlesTable->addNewField("article_link",$article_link);
+				$this->table->addNewField("article_name",$article_name);
+				$this->table->addNewField("article_description",$article_description);
+				$this->table->addNewField("article_type_id",$article_type_id);
+				$this->table->addNewField("article_link",$article_link);
 				break;
 			
 			default:
@@ -97,7 +97,7 @@ class Application_Controllers_Articles extends Library_Core_Controllers{
 		}
 		
 		
-        $insert = $this->articlesTable->insert();
+        $insert = $this->table->insert();
 		if($insert!="ok"){
 			return $this->setApiResult(false, true, $insert);
 		}
@@ -129,10 +129,10 @@ class Application_Controllers_Articles extends Library_Core_Controllers{
 				if($article_link==null){return $this->setApiResult(false, true, 'param \'article_link\' undefined');}
 				
 				// Préparation de la requête
-				$this->articlesTable->addNewField("article_name",$article_name);
-				$this->articlesTable->addNewField("article_description",$article_description);
-				$this->articlesTable->addNewField("article_type_id",$article_type_id);
-				$this->articlesTable->addNewField("article_link",$article_link);
+				$this->table->addNewField("article_name",$article_name);
+				$this->table->addNewField("article_description",$article_description);
+				$this->table->addNewField("article_type_id",$article_type_id);
+				$this->table->addNewField("article_link",$article_link);
 				break;
 			
 			default:
@@ -140,8 +140,8 @@ class Application_Controllers_Articles extends Library_Core_Controllers{
 				break;
 		}
 		
-		$this->articlesTable->addWhere("article_id",$article_id);
-		$this->articlesTable->update();
+		$this->table->addWhere("article_id",$article_id);
+		$this->table->update();
 		
 		
         return $this->setApiResult(true);
@@ -159,8 +159,8 @@ class Application_Controllers_Articles extends Library_Core_Controllers{
 		$article_user = $this->get_article(array("article_id"=>$article_id));
         if($article_user->apiError==true){ return $this->setApiResult(false,true,'article doesn\'t look existt'); }
         
-		$this->articlesTable->addWhere("article_id",$article_id);
-        $this->articlesTable->delete();
+		$this->table->addWhere("article_id",$article_id);
+        $this->table->delete();
         return $this->setApiResult(true);
     }
 }

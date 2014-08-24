@@ -11,6 +11,7 @@ abstract class Library_Core_Model{
 	protected $whereList = array();
 	protected $whereValueList = array();
 	protected $whereOpeList = array();
+	protected $whereCount = 0;
 	protected $groupList = array();
 	protected $orderList = array();
 	protected $limit = array();
@@ -37,6 +38,10 @@ abstract class Library_Core_Model{
 		}
 		$sql = $this->db->prepare($request);
         $sql->execute($this->whereValueList);
+        $errorInfo = $sql->errorInfo();
+		if($errorInfo[2]!=null){
+			return $errorInfo[2];
+		}
         return $sql->fetchAll();
     }
     
@@ -66,7 +71,12 @@ abstract class Library_Core_Model{
 			$this->printRequest($request);
 		}
         $sql = $this->db->prepare($request);
-        return $sql->execute($values);
+        $sql->execute($values);
+        $errorInfo = $sql->errorInfo();
+		if($errorInfo[2]!=null){
+			return $errorInfo[2];
+		}
+        return "ok";
     }
     
     public function delete($print=false){
@@ -82,7 +92,11 @@ abstract class Library_Core_Model{
 		
         $sql = $this->db->prepare($request);
         $sql->execute($this->whereValueList);
-        return $sql->rowCount();
+        $errorInfo = $sql->errorInfo();
+		if($errorInfo[2]!=null){
+			return $errorInfo[2];
+		}
+        return "ok";
     }
 	
 	public function addField($field="*",$table_as="",$field_as=""){
@@ -111,26 +125,37 @@ abstract class Library_Core_Model{
 		$as = ($table_as=="")?$this->table_as:$table_as;
 		$where_type = ($where_type=="")?" = ":" ".trim(strtoupper($where_type))." ";
 		$where_ope = ($where_ope=="")?" AND ":" ".trim(strtoupper($where_ope))." ";
-		$count = count($this->whereList);
 		$where_str = "";
+		if($this->whereCount>0){
+			$where_str .= $where_ope;
+		}
 		if($where_par!=""){
 			if(!(strpos($where_par,"(")===false)){
 				$where_str .= $where_par;
 			}
-			$where_str .= $as.'.`'.$field_name.'`'.$where_type.':where'.$count;
+			if($where_type==" BETWEEN "){
+				$where_str .= '('.$as.'.`'.$field_name.'`'.$where_type.':where'.$this->whereCount. ' AND :where'.($this->whereCount+1).')';
+			} else {
+				$where_str .= $as.'.`'.$field_name.'`'.$where_type.':where'.$this->whereCount;
+			}
 			if(!(strpos($where_par,")")===false)){
 				$where_str .= $where_par;
 			}
 		} else {
-			$where_str .= $as.'.`'.$field_name.'`'.$where_type.':where'.$count;
+			$where_str .= $as.'.`'.$field_name.'`'.$where_type.':where'.$this->whereCount;
 		}
 		$this->whereList[]=$where_str;
 		if($where_type==" LIKE "){
-			$this->whereValueList['where'.$count]="%".$field_value."%";
+			$this->whereValueList['where'.$this->whereCount]="%".$field_value."%";
+			$this->whereCount++;
+		} elseif($where_type==" BETWEEN "){
+			$this->whereValueList['where'.$this->whereCount]=$field_value[0];
+			$this->whereValueList['where'.($this->whereCount+1)]=$field_value[1];
+			$this->whereCount += 2;
 		} else {
-			$this->whereValueList['where'.$count]=$field_value;
+			$this->whereValueList['where'.$this->whereCount]=$field_value;
+			$this->whereCount++;
 		}
-		$this->whereOpeList['where'.$count]=$where_ope;
 	}
 	
 	public function addGroup($field_name,$table_as=""){
@@ -198,9 +223,7 @@ abstract class Library_Core_Model{
 		
 		$where = "";
 		for($count=0;$count<count($this->whereList);$count++){
-			if($count>0){
-				$where .= $this->whereOpeList["where".$count];
-			} else {
+			if($count==0){
 				$where .= " WHERE ";
 			}
 			$where .= $this->whereList[$count];
@@ -242,6 +265,7 @@ abstract class Library_Core_Model{
 		$this->whereList = array();
 		$this->whereValueList = array();
 		$this->whereOpeList = array();
+		$this->whereCount = 0;
 		$this->groupList = array();
 		$this->orderList = array();
 		$this->limit = array();
@@ -249,5 +273,11 @@ abstract class Library_Core_Model{
 	
 	private function printRequest($request){
 		echo '<p style="border:1px solid #ff0000; color:#ff0000; padding:5px; margin:5px 0 10px; font-weight:bold;"><u>Request :</u><br />'.$request.'</p>';
+		if(count($this->newFieldValueList)!=0){
+			var_dump($this->newFieldValueList);
+		}
+		if(count($this->whereValueList)!=0){
+			var_dump($this->whereValueList);
+		}
 	}
 }

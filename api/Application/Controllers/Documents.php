@@ -1,6 +1,6 @@
 <?php
 class Application_Controllers_Documents extends Library_Core_Controllers{
-    private $documentsTable;
+    protected $table;
 	private $as;
 	
 	private $document_vars = array('document_id',
@@ -13,8 +13,8 @@ class Application_Controllers_Documents extends Library_Core_Controllers{
 	
 	public function __construct(){
         global $iDB;
-        $this->documentsTable = new Application_Models_Documents($iDB->getConnexion());
-		$as = $this->documentsTable->getAlias();
+        $this->table = new Application_Models_Documents($iDB->getConnexion());
+		$as = $this->table->getAlias();
 	}
 	
 	public function get_document($data){
@@ -31,11 +31,11 @@ class Application_Controllers_Documents extends Library_Core_Controllers{
 			  $document_id = (empty ($data['document_id']))?null:$data['document_id'];
 			if($document_id==null){return $this->setApiResult(false, true, 'param \'document_id\' undefined');}
 			if(!is_numeric($document_id)){return $this->setApiResult(false, true, 'param \'document_id\' is not numeric');}
-			$this->documentsTable->addJoin("users","u","user_id","user_id","","left");
-			$this->documentsTable->addWhere("document_id",$document_id);
+			$this->table->addJoin("users","u","user_id","user_id","","left");
+			$this->table->addWhere("document_id",$document_id);
 			//Si un membre veut recupérer un document, on vérifie que celui-ci lui appartienne sinon le document sera "not found"
-			if($role_id==3){$this->documentsTable->addWhere("user_id",$user_id);}
-			$res = (array)$this->documentsTable->search();
+			if($role_id==3){$this->table->addWhere("user_id",$user_id);}
+			$res = (array)$this->table->search();
 			$tab = array();
 			
 			if(!array_key_exists(0,$res)){
@@ -81,8 +81,8 @@ class Application_Controllers_Documents extends Library_Core_Controllers{
 				if(!is_numeric($user_id)){return $this->setApiResult(false, true, 'param \'user_id\' is not numeric');}
 			}
 			
-			$this->documentsTable->addWhere("user_id",$user_id);
-			$res = (array)$this->documentsTable->search();
+			$this->table->addWhere("user_id",$user_id);
+			$res = (array)$this->table->search();
 			
 			if(!array_key_exists(0,$res)){
 				return $this->setApiResult(false, true, ' no documents found');
@@ -98,8 +98,8 @@ class Application_Controllers_Documents extends Library_Core_Controllers{
 	/* PAS FORCEMMENT TRES UTILE CETTE FONCTION
 	public function get_alldocument($data){
 	
-		$this->documentsTable->addJoin("users","u","user_id","user_id","","left");
-        $res = (array)$this->documentsTable->search();
+		$this->table->addJoin("users","u","user_id","user_id","","left");
+        $res = (array)$this->table->search();
 		$tab = array();
 		if(!array_key_exists(0,$res)){
 			return $this->setApiResult(false, true, ' no documents found');
@@ -150,13 +150,13 @@ class Application_Controllers_Documents extends Library_Core_Controllers{
 		
 			
 			// Préparation de la requete
-			$this->documentsTable->addNewField("document_name",$document_name);
-			$this->documentsTable->addNewField("document_description",$document_description);
-			$this->documentsTable->addNewField("document_link",$document_link);
-			$this->documentsTable->addNewField("document_auteur",$document_auteur);
-			$this->documentsTable->addNewField("user_id",$user_id);
+			$this->table->addNewField("document_name",$document_name);
+			$this->table->addNewField("document_description",$document_description);
+			$this->table->addNewField("document_link",$document_link);
+			$this->table->addNewField("document_auteur",$document_auteur);
+			$this->table->addNewField("user_id",$user_id);
 		
-			$insert = $this->documentsTable->insert();
+			$insert = $this->table->insert();
 			if($insert!="ok"){
 				return $this->setApiResult(false, true, $insert);
 			}
@@ -194,15 +194,15 @@ class Application_Controllers_Documents extends Library_Core_Controllers{
 			if($document_link==null){return $this->setApiResult(false, true, 'param \'document_link\' undefined');}
 			
 			// Préparation de la requete
-			$this->documentsTable->addNewField("document_name",$document_name);
-			$this->documentsTable->addNewField("document_description",$document_description);
-			$this->documentsTable->addNewField("document_link",$document_link);
-			$this->documentsTable->addNewField("document_auteur",$document_auteur);
+			$this->table->addNewField("document_name",$document_name);
+			$this->table->addNewField("document_description",$document_description);
+			$this->table->addNewField("document_link",$document_link);
+			$this->table->addNewField("document_auteur",$document_auteur);
 		
 			
-			$this->documentsTable->addWhere("document_id",$document_id);
-			if($role_id==3){$this->documentsTable->addWhere("user_id",$user_id_connecte);}
-			$this->documentsTable->update();
+			$this->table->addWhere("document_id",$document_id);
+			if($role_id==3){$this->table->addWhere("user_id",$user_id_connecte);}
+			$this->table->update();
 		
 			return $this->setApiResult(true);
 		}
@@ -235,9 +235,9 @@ class Application_Controllers_Documents extends Library_Core_Controllers{
 			$exist_document = $this->get_document(array("document_id"=>$document_id));
 			if($exist_document->apiError==true){ return $this->setApiResult(false,true,'document doesn\'t look existt'); }
 			
-			$this->documentsTable->addWhere("document_id",$document_id);
-			if($role_id==3){$this->documentsTable->addWhere("user_id",$user_id_connecte);}
-			$this->documentsTable->delete();
+			$this->table->addWhere("document_id",$document_id);
+			if($role_id==3){$this->table->addWhere("user_id",$user_id_connecte);}
+			$this->table->delete();
 			return $this->setApiResult(true);
 		}
     }
