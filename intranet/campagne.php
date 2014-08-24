@@ -1,9 +1,9 @@
-<?php  $page='video_conference';  ?>
+<?php  $page='campagnes';  ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Vidéo conférence | Market 3W</title>
+<title>Titre campagne | Market 3W</title>
 
 <link href="css/pages/dashboard.css" rel="stylesheet">
 <?php include('include/head.php');
@@ -18,26 +18,23 @@
      	<div class="span12">
 	      	<div id="target-1" class="widget">
 	      		<div class="widget-content">
-	      			<h1 style="margin-bottom:10px;color:#80B3CA;">Vidéo conférence</h1>
-			      		
-			      	<p>Market3w a mis en place un système de vidéo-conférence sophisitiqué afin de vous éviter certains déplacements. Vous pouvez prendre rendez-vous avec l'un de nos webmarketeurs spécialisés dans le référencement afin d'établir un devis, de poser vos quesions ou pour toute autre demande. C'est bien évidemment gratuit. Veuillez prendre rendez-vous seulement si l'objet de votre demande nécessite au moins 30 minutes (durée minimum d'un rendez-vous). N'hésiter pas à nous contacter par le formulaire de notre site si l'objet de votre demande ne nécessite pas la vidéo-conférence.</p>	
+	      			<h1 style="margin-bottom:10px;color:#80B3CA;">Titre de la campagne</h1>
+			      		 <p> Campagne dirigée par nom webmarketeur<br/><i>Dernière modification : 23 juin 2014</i></p>
+			      	
+
+Constituendi autem sunt qui sint in amicitia fines et quasi termini diligendi. De quibus tres video sententias ferri, quarum nullam probo, unam, ut eodem modo erga amicum adfecti simus, quo erga nosmet ipsos, alteram, ut nostra in amicos benevolentia illorum erga nos benevolentiae pariter aequaliterque respondeat, tertiam, ut, quanti quisque se ipse facit, tanti fiat ab amicis.
+</p><p>	
+Quibus occurrere bene pertinax miles explicatis ordinibus parans hastisque feriens scuta qui habitus iram pugnantium concitat et dolorem proximos iam gestu terrebat sed eum in certamen alacriter consurgentem revocavere ductores rati intempestivum anceps subire certamen cum haut longe muri distarent, quorum tutela securitas poterat in solido locari cunctorum.
+</p>	<p>
+Quaestione igitur per multiplices dilatata fortunas cum ambigerentur quaedam, non nulla levius actitata constaret, post multorum clades Apollinares ambo pater et filius in exilium acti cum ad locum Crateras nomine pervenissent, villam scilicet suam quae ab Antiochia vicensimo et quarto disiungitur lapide, ut mandatum est, fractis cruribus occiduntur.
+</p>	
+                   
 			    </div> <!-- /widget-content -->
 		     </div> <!-- /widget -->
 	    </div> <!-- /span12 -->
         
         
-        
-        <div class="widget widget-nopad" style="margin-left:2%;">
-            <div class="widget-header"> <i class="icon-list-alt"></i>
-              <h3>Prendre un rendez-vous</h3>
-            </div>
-            <!-- /widget-header -->
-            <div class="widget-content">
-              <div id='calendar'>
-              </div>
-            </div>
-            <!-- /widget-content --> 
-          </div>
+       
         
       </div>
       <!-- /row --> 

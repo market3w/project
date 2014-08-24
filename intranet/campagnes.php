@@ -18,9 +18,9 @@
       <div class="span4">
 	      	<div id="target-3" class="widget">
 	      		<div class="widget-content">
-	      			<a href="#"><h3 style="margin-bottom:8px;">Campagne semaine du 21/08/14</h3></a>
+	      			<a href="campagne.php"><h3 style="margin-bottom:8px;">Campagne semaine du 21/08/14</h3></a>
 			      	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>	
-			      	<a href="#" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin-top:8px;">Voir la campagne</button></a>
+			      	<a href="campagne.php" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin-top:8px;">Voir la campagne</button></a>
         		</div> <!-- /widget-content -->
 		     </div> <!-- /widget -->
 	     </div> <!-- /span4 -->
@@ -28,9 +28,9 @@
         <div class="span4">
 	      	<div id="target-3" class="widget">
 	      		<div class="widget-content">
-	      			<a href="#"><h3 style="margin-bottom:8px;">Campagne semaine du 21/08/14</h3></a>
+	      			<a href="campagne.php"><h3 style="margin-bottom:8px;">Campagne semaine du 21/08/14</h3></a>
 			      	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>	
-			      	<a href="#" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin-top:8px;">Voir la campagne</button></a>
+			      	<a href="campagne.php" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin-top:8px;">Voir la campagne</button></a>
         		</div> <!-- /widget-content -->
 		     </div> <!-- /widget -->
 	     </div> <!-- /span4 -->
@@ -38,9 +38,9 @@
          <div class="span4">
 	      	<div id="target-3" class="widget">
 	      		<div class="widget-content">
-	      			<a href="#"><h3 style="margin-bottom:8px;">Campagne semaine du 21/08/14</h3></a>
+	      			<a href="campagne.php"><h3 style="margin-bottom:8px;">Campagne semaine du 21/08/14</h3></a>
 			      	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>	
-			      	<a href="#" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin-top:8px;">Voir la campagne</button></a>
+			      	<a href="campagne.php" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin-top:8px;">Voir la campagne</button></a>
         		</div> <!-- /widget-content -->
 		     </div> <!-- /widget -->
 	     </div> <!-- /span4 -->
@@ -48,9 +48,9 @@
      	<div class="span4">
 	      	<div id="target-3" class="widget">
 	      		<div class="widget-content">
-	      			<a href="#"><h3 style="margin-bottom:8px;">Campagne semaine du 21/08/14</h3></a>
+	      			<a href="campagne.php"><h3 style="margin-bottom:8px;">Campagne semaine du 21/08/14</h3></a>
 			      	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>	
-			      	<a href="#" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin-top:8px;">Voir la campagne</button></a>
+			      	<a href="campagne.php" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin-top:8px;">Voir la campagne</button></a>
         		</div> <!-- /widget-content -->
 		     </div> <!-- /widget -->
 	     </div> <!-- /span4 -->
@@ -58,9 +58,9 @@
         <div class="span4">
 	      	<div id="target-3" class="widget">
 	      		<div class="widget-content">
-	      			<a href="#"><h3 style="margin-bottom:8px;">Campagne semaine du 21/08/14</h3></a>
+	      			<a href="campagne.php"><h3 style="margin-bottom:8px;">Campagne semaine du 21/08/14</h3></a>
 			      	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>	
-			      	<a href="#" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin-top:8px;">Voir la campagne</button></a>
+			      	<a href="campagne.php" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin-top:8px;">Voir la campagne</button></a>
         		</div> <!-- /widget-content -->
 		     </div> <!-- /widget -->
 	     </div> <!-- /span4 -->
@@ -68,9 +68,9 @@
          <div class="span4">
 	      	<div id="target-3" class="widget">
 	      		<div class="widget-content">
-	      			<a href="#"><h3 style="margin-bottom:8px;">Campagne semaine du 21/08/14</h3></a>
+	      			<a href="campagne.php"><h3 style="margin-bottom:8px;">Campagne semaine du 21/08/14</h3></a>
 			      	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>	
-			      	<a href="#" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin-top:8px;">Voir la campagne</button></a>
+			      	<a href="campagne.php" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin-top:8px;">Voir la campagne</button></a>
         		</div> <!-- /widget-content -->
 		     </div> <!-- /widget -->
 	     </div> <!-- /span4 -->
