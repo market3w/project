@@ -1,14 +1,15 @@
-<?php  $page='campagnes';  ?>
+<?php  $page='documents';  ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Mes campagnes | Market 3W</title>
+<title>Mes factures | Market 3W</title>
 
 <link href="css/pages/dashboard.css" rel="stylesheet">
 <?php include('include/head.php');
  include('include/header.php');
-  include('include/menu.php'); ?>
+  include('include/menu.php');
+ ?>
 
 <div class="main">
   <div class="main-inner">
@@ -18,10 +19,10 @@
       <div class="span4">
 	      	<div id="target-3" class="widget">
 	      		<div class="widget-content">
-	      			<a href="campagne.php"><h3>Titre de la campagne</h3></a>
-                     <p><i>23 juin 2014</i></p>
+	      			<a href="#"><h3>Nom facture + n°</h3></a>
+                    <p><i>23 juin 2014</i></p>
 			      	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>	
-			      	<a href="campagne.php" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin-top:8px;">Voir la campagne</button></a>
+			      	<a href="#" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin-top:8px;">Télécharger la facture</button></a>
         		</div> <!-- /widget-content -->
 		     </div> <!-- /widget -->
 	     </div> <!-- /span4 -->
@@ -29,10 +30,10 @@
         <div class="span4">
 	      	<div id="target-3" class="widget">
 	      		<div class="widget-content">
-	      			<a href="campagne.php"><h3>Titre de la campagne</h3></a>
+	      			<a href="#"><h3 style="margin-bottom:8px;">Nom facture + n°</h3></a>
                      <p><i>23 juin 2014</i></p>
 			      	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>	
-			      	<a href="campagne.php" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin-top:8px;">Voir la campagne</button></a>
+			      	<a href="#" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin-top:8px;">Télécharger la facture</button></a>
         		</div> <!-- /widget-content -->
 		     </div> <!-- /widget -->
 	     </div> <!-- /span4 -->
@@ -40,20 +41,21 @@
          <div class="span4">
 	      	<div id="target-3" class="widget">
 	      		<div class="widget-content">
-	      			<a href="campagne.php"><h3>Titre de la campagne</h3></a>
+	      			<a href="#"><h3 style="margin-bottom:8px;">Nom facture + n°</h3></a>
                      <p><i>23 juin 2014</i></p>
 			      	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>	
-			      	<a href="campagne.php" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin-top:8px;">Voir la campagne</button></a>
+			      	<a href="#" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin-top:8px;">Télécharger la facture</button></a>
         		</div> <!-- /widget-content -->
 		     </div> <!-- /widget -->
 	     </div> <!-- /span4 -->
       
-     	<div class="span4">
+      <div class="span4">
 	      	<div id="target-3" class="widget">
 	      		<div class="widget-content">
-	      			<a href="campagne.php"><h3>Titre de la campagne</h3></a>
+	      			<a href="#"><h3>Nom facture + n°</h3></a>
+                    <p><i>23 juin 2014</i></p>
 			      	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>	
-			      	<a href="campagne.php" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin-top:8px;">Voir la campagne</button></a>
+			      	<a href="#" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin-top:8px;">Télécharger la facture</button></a>
         		</div> <!-- /widget-content -->
 		     </div> <!-- /widget -->
 	     </div> <!-- /span4 -->
@@ -61,10 +63,10 @@
         <div class="span4">
 	      	<div id="target-3" class="widget">
 	      		<div class="widget-content">
-	      			<a href="campagne.php"><h3>Titre de la campagne</h3></a>
+	      			<a href="#"><h3 style="margin-bottom:8px;">Nom facture + n°</h3></a>
                      <p><i>23 juin 2014</i></p>
 			      	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>	
-			      	<a href="campagne.php" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin-top:8px;">Voir la campagne</button></a>
+			      	<a href="#" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin-top:8px;">Télécharger la facture</button></a>
         		</div> <!-- /widget-content -->
 		     </div> <!-- /widget -->
 	     </div> <!-- /span4 -->
@@ -72,14 +74,13 @@
          <div class="span4">
 	      	<div id="target-3" class="widget">
 	      		<div class="widget-content">
-	      			<a href="campagne.php"><h3>Titre de la campagne</h3></a>
+	      			<a href="#"><h3 style="margin-bottom:8px;">Nom facture + n°</h3></a>
                      <p><i>23 juin 2014</i></p>
 			      	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>	
-			      	<a href="campagne.php" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin-top:8px;">Voir la campagne</button></a>
+			      	<a href="#" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin-top:8px;">Télécharger la facture</button></a>
         		</div> <!-- /widget-content -->
 		     </div> <!-- /widget -->
 	     </div> <!-- /span4 -->
-	      	
         
       </div>
       <!-- /row --> 
