@@ -135,8 +135,8 @@ Market3W étant spécialisé dans le référencement, nous appliquons toutes les
 				</header>
 				<footer>
 					<ul class="buttons">
-						<li><a href="#" class="button">Tutoriels pdf</a></li>
-						<li><a href="#" class="button">Voir les vidéos</a></li>
+						<li><a href="articles.php" class="button">Tutoriels pdf</a></li>
+						<li><a href="videos.php" class="button">Voir les vidéos</a></li>
 					</ul>
 				</footer>
 			
