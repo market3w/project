@@ -10,7 +10,6 @@ abstract class Library_Core_Model{
 	protected $joinsList = array();
 	protected $whereList = array();
 	protected $whereValueList = array();
-	protected $whereOpeList = array();
 	protected $whereCount = 0;
 	protected $groupList = array();
 	protected $orderList = array();
@@ -261,7 +260,6 @@ abstract class Library_Core_Model{
 		$this->joinsList = array();
 		$this->whereList = array();
 		$this->whereValueList = array();
-		$this->whereOpeList = array();
 		$this->whereCount = 0;
 		$this->groupList = array();
 		$this->orderList = array();
