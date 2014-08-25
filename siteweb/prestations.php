@@ -12,7 +12,7 @@
 		<title>Nos prestations | MARKET 3W Agence webmarketing spécialisé en référencement</title>
 		
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<meta name="description" content="Accèdez gratuitement à de nombreux articles pdf (à télécharger gratuitement) pour bien comprendre le référencement Web" />
+		<meta name="description" content="Retrouvez toutes nos prestations sur cette page avec les différentes opérations effectuées." />
 		<meta name="keywords" content="Agence Webmarketing ; Agence de référencement ; SMO ; SEO ; SEA ; SEM ; Référencement seo ; Référencement sea ; Référencement sem ; Référencement réseaux sociaux ; Référencement naturel ; Référencement payant ; Expert en référencement ; Spécialiste en référencement ; Audit référencement ; tutoriels référencement gratuits ; " />
 		
 		<?php 
