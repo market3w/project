@@ -86,9 +86,6 @@ abstract class Library_Core_Model{
         if($print===true){
 			$this->printRequest($request);
 		}
-		foreach($this->whereValueList as $k=>$v){
-			echo $k." : ".$v."\n";
-		}
 		
         $sql = $this->db->prepare($request);
         $sql->execute($this->whereValueList);

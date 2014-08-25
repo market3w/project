@@ -37,7 +37,7 @@ class Application_Controllers_Companies extends Library_Core_Controllers{
 			if(!is_numeric($company_id)){return $this->setApiResult(false, true, 'param \'company_id\' is not numeric');}
 			// Jointure
 			$this->table->addJoin("users","u","company_id","company_id","","left");
-			$this->table->addJoin("roles","r","role_id","role_id","u"); 
+			$this->table->addJoin("roles","r","role_id","role_id","u","left"); 
 			// Condition
 			$this->table->addWhere("company_id",$company_id);
 			//Si c'est un client on regarde si c'est sa société sinon "company not found"
@@ -352,20 +352,61 @@ class Application_Controllers_Companies extends Library_Core_Controllers{
 		//Si c'est un administrateur il peut supprimer une société
 		if($role_id==1)
 		{
-			
 			$company_id = (empty ($data['company_id']))?null:$data['company_id'];
 			
 			//------------- Test existance en base --------------------------------------------//
 			$exist_company = $this->get_company(array("company_id"=>$company_id));
 			if($exist_company->apiError==true){ return $this->setApiResult(false,true,$exist_company->apiErrorMessage); }
-			$update = array();
+			$deleteMethod = true;
+			$users = array();
+			if(count($exist_company->response["company_users"])!=0){
+				foreach($exist_company->response["company_users"] as $k=>$v){
+					if(!is_null($v["user_id"])){
+						$users[] = $v["user_id"];
+						if($v["user_role"]["role_id"]==4){
+							$deleteMethod = false;
+						}
+					}
+				}
+			}
+			$this->table->resetObject();
+			$this->table->addWhere("company_id",$company_id);
+			if($deleteMethod===true){
+				$delete = $this->table->delete();
+			} else {
+				$this->table->addNewField("company_active",0);
+				$delete = $this->table->update();
+			}
+		
+			if($delete!="ok"){
+				return $this->setApiResult(false, true, $delete);
+			}
 			
-			$this->table->delete();
+			if(count($users)!=0){
+				if($this->delete_company_users($users)===false){
+					return $this->setApiResult(false, true, 'There is an error during users deletion');
+				}
+			}
+			
 			return $this->setApiResult(true);
 		}
 		else
 		{
-			return $this->setApiResult(false, true, 'You aren\'t authorized to access this page');
+			return $this->setApiResult(false, true, 'You can\'t delete this company');
 		}
     }
+	
+	private function delete_company_users($ids){
+		$users = new Application_Controllers_Users();
+		$usersTable = $users->get_table();
+		foreach($ids as $k=>$id){
+			$usersTable->resetObject();
+			$delete = $users->delete_user(array("user_id"=>$id));
+			if($delete->apiError==true){ 
+				var_dump($delete->apiErrorMessage);
+				return false; 
+			}
+		}
+		return true;
+	}
 }

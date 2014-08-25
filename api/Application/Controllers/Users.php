@@ -217,7 +217,7 @@ class Application_Controllers_Users extends Library_Core_Controllers{
         return $this->setApiResult($tab);
     }
 	
-	public function get_login($data){
+	public function post_login($data){
 		// Récupération des paramètres utiles
 		$user_email = (empty ($data['user_email']))?null:$data['user_email'];
 		$user_password = (empty ($data['user_password']))?null:$data['user_password'];
@@ -227,6 +227,7 @@ class Application_Controllers_Users extends Library_Core_Controllers{
 		// Ajout des champs de recherche
 		$this->table->addWhere("user_email",$user_email);
 		$this->table->addWhere("user_password",md5($user_email.SALT_USER_PWD.$user_password));
+		$this->table->addWhere("user_active",1);
         $res = (array)$this->table->search();
 		if(empty($res)){
 			return $this->setApiResult(false, true, 'Login incorrect');
@@ -412,7 +413,9 @@ class Application_Controllers_Users extends Library_Core_Controllers{
 			$exist_user = $this->get_user(array("user_id"=>$user_id));
 			if($exist_user->apiError==true){ return $this->setApiResult(false,true,'User not found'); }
 			
+			$role->get_table()->resetObject();
 			$role_res = $role->get_userrole(array("user_id"=>$user_id));
+			$role_id = $role_res->response[0]->role_id;
 		} elseif($user_id!=$_SESSION['market3w_user_id'] && $role_current_id<2){
 			return $this->setApiResult(false,true,'You can\'t update this user');
 		} else {
@@ -472,7 +475,9 @@ class Application_Controllers_Users extends Library_Core_Controllers{
 			$exist_user = $this->get_user(array("user_id"=>$user_id));
 			if($exist_user->apiError==true){ return $this->setApiResult(false,true,'User not found'); }
 			
+			$role->get_table()->resetObject();
 			$role_res = $role->get_userrole(array("user_id"=>$user_id));
+			$role_id = $role_res->response[0]->role_id;
 		} elseif($user_id!=$_SESSION['market3w_user_id'] && $role_current_id!=1){
 			return $this->setApiResult(false,true,'You can\'t delete this user');
 		} else {
@@ -489,22 +494,31 @@ class Application_Controllers_Users extends Library_Core_Controllers{
 				break;
 			case 2 :  case 3 :
 				if($role_current_id == 1){
-					$this->table->delete();
-					return $this->setApiResult(true);
+					$deleteMethod = true;
 				} else {
 					return $this->setApiResult(false,true,'Delete impossible');
 				}
 				break;
 			case 4 : 
 				$this->table->addNewField("user_active",0);
-				$this->table->update();
+				$deleteMethod = false;
 				break;
 			case 5 : case 6 :
-				$this->table->delete();
-				return $this->setApiResult(true);
+				$deleteMethod = true;
 				break;
 			default :
 				break;
 		}
+		
+		if($deleteMethod===true){
+			$delete = $this->table->delete();
+		} else {
+			$delete = $this->table->update();
+		}
+		
+		if($delete!="ok"){
+			return $this->setApiResult(false, true, $delete);
+		}
+		return $this->setApiResult(true);
     }
 }
