@@ -3,44 +3,34 @@
     <div class="container">
       <div class="row">
                     <div class="span6">
-                        
-                    <a href="index.php">Tableau de bord</a>
-                              <a href="campagnes.php">Campagnes</a>
-                              <a href="documents.php">Documents</a>
-                            <a href="factures.php">Factures</a>
-                             <a href="profil.php">Profil</a>
-                            <a href="rdv.php">Rendez-vous</a>
+                         <h4>Administration</h4>
+                    <a href="index.php" style="margin-right:15px;">Tableau de bord</a>
+                              <a href="campagnes.php" style="margin-right:15px;">Campagnes</a>
+                              <a href="documents.php" style="margin-right:15px;">Documents</a>
+                            <a href="factures.php" style="margin-right:15px;">Factures</a>
+                             <a href="profil.php" style="margin-right:15px;">Profil</a>
+                            <a href="rdv.php" style="margin-right:15px;">Rendez-vous</a>
                           
-                            
-                            
-                           <a href="contact.php">Contact</a>
+                          <br/><br/><a href="contact.php" style="margin-right:15px;">Contact</a> 
+                          <a href="cgu.php" style="margin-right:15px;">CGU</a> 
                             
                            
                         </ul>
                     </div>
                     
                     <!-- /span3 -->
-                    <div class="span3">
+                    <div class="span6">
                        <h4>Nous suivre</h4>
-                        <ul>
-                          <li><a href="">Facebook</a></li>
-                            <li><a href="">Google +</a></li>
-                            <li><a href="">Twitter</a></li>
-                            <li><a href="">Facebook</a></li>
-                            <li><a href="">Google +</a></li>
-                            <li><a href="">Twitter</a></li>
-                        </ul>
-                    </div>
-                    <!-- /span3 -->
-                    <div class="span3">
+                       
+                          <a href="" style="margin-right:15px;">Facebook</a>
+                          <a href="" style="margin-right:15px;">Google +</a>
+                          <a href="" style="margin-right:15px;">Twitter</a>
+                          <a href="" style="margin-right:15px;">Youtube</a>
+                          <a href="" style="margin-right:15px;">LinkedIn</a>
+                          <a href="" style="margin-right:15px;">Viadeo</a>
                         
-                        <ul>
-                            <li><a href="">Youtube</a></li>
-                            <li><a href="">LinkedIn</a></li>
-                            <li><a href="">Viadeo</a></li>
-                        </ul>
                     </div>
-                    <!-- /span3 -->
+                   
                 </div>
       <!-- /row --> 
     </div>
