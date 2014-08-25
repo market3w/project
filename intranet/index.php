@@ -216,7 +216,7 @@
                   
                     <div class="news-item-detail"> <a href="#" class="news-item-title" target="_blank">Facture n°12454434</a>
                     <p class="news-item-preview">Ici petite description date ce que tu veux mmon grand eze f r f zr f r er  fe r f er tg tr  gr r g rt</p>
-                      <div style="text-align:center;margin-top:10px;"><a href="#" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info">Voir la facture</button></a></div>
+                      <div style="text-align:center;margin-top:10px;"><a href="#" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info">Télécharger la facture</button></a></div>
            
                   </div>
                   
@@ -225,7 +225,7 @@
                   
                      <div class="news-item-detail"> <a href="#" class="news-item-title" target="_blank">Facture n°12454434</a>
                     <p class="news-item-preview">Ici petite description date ce que tu veux mmon grand test etet tetet ttet tetet tt tet t</p>
-                      <div style="text-align:center;margin-top:10px;"><a href="#" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info">Voir la facture</button></a></div>
+                      <div style="text-align:center;margin-top:10px;"><a href="#" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info">Télécharger la facture</button></a></div>
            
                   </div>
                   
@@ -234,12 +234,12 @@
                   
                     <div class="news-item-detail"> <a href="#" class="news-item-title" target="_blank">Facture n°12454434</a>
                     <p class="news-item-preview">Ici petite description date ce que tu veux mmon grandhh fhshsf fsfj dsfdjsdjkfsj jjjjjjj  jjjjj</p>
-                      <div style="text-align:center;margin-top:10px;"><a href="#" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info">Voir la facture</button></a></div>
+                      <div style="text-align:center;margin-top:10px;"><a href="#" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info">Télécharger la facture</button></a></div>
            
                   </div>
                   
                 </li>
-                 <div style="text-align:center;margin-top:20px;margin-bottom:20px;"><a href="#" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info">Voir toutes les factures</button></a></div>
+                 <div style="text-align:center;margin-top:20px;margin-bottom:20px;"><a href="factures.php" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info">Voir toutes les factures</button></a></div>
            
               </ul>
             </div>

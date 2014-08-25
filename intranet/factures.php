@@ -1,4 +1,4 @@
-<?php  $page='documents';  ?>
+<?php  $page='factures';  ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
