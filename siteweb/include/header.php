@@ -30,6 +30,7 @@
 								<li><a href="<?php echo WEB_ROOT; ?>">Accueil</a></li>
                             <li><a href="<?php echo WEB_ROOT; ?>societe.php">La société</a></li>
 								<li><a href="<?php echo WEB_ROOT; ?>services.php">Nos services</a></li>
+								<li><a href="<?php echo WEB_ROOT; ?>prestations.php">Nos prestations</a></li>
 								
 								<li class="submenu">
 									<a href="<?php echo WEB_ROOT; ?>tutoriels.php">Les tutoriels</a>
