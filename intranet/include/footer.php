@@ -11,13 +11,13 @@
                              <a href="profil.php" style="margin-right:15px;">Profil</a>
                             <a href="rdv.php" style="margin-right:15px;">Rendez-vous</a>
                           
-                          <br/><br/><a href="contact.php" style="margin-right:15px;">Contact</a> 
+                          <br/><a href="contact.php" style="margin-right:15px;">Contact</a> 
                           <a href="cgu.php" style="margin-right:15px;">CGU</a> 
                             
                            
                         </ul>
                     </div>
-                    
+                    <div class="margin_basic"></div>
                     <!-- /span3 -->
                     <div class="span6">
                        <h4>Nous suivre</h4>

@@ -1313,3 +1313,8 @@ color: #333;
 	
 }
 
+ .margin_basic{height:15px;display:none;}
+	 @media (max-width: 767px) {
+		 .margin_basic{display:block;}
+	 }
+	 
