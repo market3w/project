@@ -272,6 +272,7 @@ class Application_Controllers_Appointments extends Library_Core_Controllers{
 		switch($role_current_id){
 			case 1:
 				$this->table->addWhere("appointment_id",$appointment_id);
+				$this->table->addWhere("appointment_active",1);
 				$status_id = 2;
 				$res = $this->table->search();
 				if(!array_key_exists(0,$res)){
@@ -281,6 +282,7 @@ class Application_Controllers_Appointments extends Library_Core_Controllers{
 			case 2:
 				$this->table->addWhere("appointment_id",$appointment_id);
 				$this->table->addWhere("webmarketter_id",$_SESSION['market3w_user_id']);
+				$this->table->addWhere("appointment_active",1);
 				$status_id = 2;
 				$res = $this->table->search();
 				if(!array_key_exists(0,$res)){
@@ -291,6 +293,7 @@ class Application_Controllers_Appointments extends Library_Core_Controllers{
 			case 5: 
 				$this->table->addWhere("appointment_id",$appointment_id);
 				$this->table->addWhere("user_id",$_SESSION['market3w_user_id']);
+				$this->table->addWhere("appointment_active",1);
 				$status_id = 1;
 				$res = $this->table->search();
 				if(!array_key_exists(0,$res)){
@@ -409,6 +412,7 @@ class Application_Controllers_Appointments extends Library_Core_Controllers{
 		switch($role_current_id){
 			case 1:
 				$this->table->addWhere("appointment_id",$appointment_id);
+				$this->table->addWhere("appointment_active",1);
 				break;
 			case 2:
 			case 4: 
@@ -416,6 +420,7 @@ class Application_Controllers_Appointments extends Library_Core_Controllers{
 				$this->table->addWhere("appointment_id",$appointment_id);
 				$this->table->addWhere("user_id",$_SESSION['market3w_user_id'],"","","","(");
 				$this->table->addWhere("webmarketter_id",$_SESSION['market3w_user_id'],"","","or",")");
+				$this->table->addWhere("appointment_active",1);
 				$res = $this->table->search();
 				if(!array_key_exists(0,$res)){
 					return $this->setApiResult(false,true,'You can\'t close this appointment');
@@ -465,6 +470,7 @@ class Application_Controllers_Appointments extends Library_Core_Controllers{
 		switch($role_current_id){
 			case 1:
 				$this->table->addWhere("appointment_id",$appointment_id);
+				$this->table->addWhere("appointment_active",1);
 				break;
 			case 2:
 			case 4: 
@@ -472,6 +478,7 @@ class Application_Controllers_Appointments extends Library_Core_Controllers{
 				$this->table->addWhere("appointment_id",$appointment_id);
 				$this->table->addWhere("user_id",$_SESSION['market3w_user_id'],"","","","(");
 				$this->table->addWhere("webmarketter_id",$_SESSION['market3w_user_id'],"","","or",")");
+				$this->table->addWhere("appointment_active",1);
 				$res = $this->table->search();
 				if(!array_key_exists(0,$res)){
 					return $this->setApiResult(false,true,'You can\'t cancel this appointment');
