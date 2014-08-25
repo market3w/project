@@ -106,12 +106,12 @@ Market3W étant spécialisé dans le référencement, nous appliquons toutes les
 						<div class="row">
 							<div class="12u" style="text-align:center;">
 								
-									<a href="#" ><img src="images/pic01.jpg" style="max-width:200px;" alt="" /></a>
-                                    <a href="#"><img src="images/pic01.jpg" style="max-width:200px;" alt="" /></a>
-                                    <a href="#"><img src="images/pic01.jpg" style="max-width:200px;" alt="" /></a>
-                                    <a href="#"><img src="images/pic01.jpg" style="max-width:200px;" alt="" /></a>
+									<a href="prestation.php" ><img src="images/pic01.jpg" style="max-width:200px;" alt="" /></a>
+                                    <a href="prestation.php"><img src="images/pic01.jpg" style="max-width:200px;" alt="" /></a>
+                                    <a href="prestation.php"><img src="images/pic01.jpg" style="max-width:200px;" alt="" /></a>
+                                    <a href="prestation.php"><img src="images/pic01.jpg" style="max-width:200px;" alt="" /></a>
 									
-                                  <div> <a href="#" class="button" style="margin-top:20px;">Voir nos prestations</a></div>
+                                  <div> <a href="prestations.php" class="button" style="margin-top:20px;">Voir nos prestations</a></div>
                                         
                         </div>
 							
