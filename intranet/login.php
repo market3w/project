@@ -3,7 +3,7 @@
   
 <head>
     <meta charset="utf-8">
-    <title>Login - Bootstrap Admin Template</title>
+    <title>Connexion - Market 3W</title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes"> 
@@ -33,16 +33,16 @@
 				<span class="icon-bar"></span>
 			</a>
 			
-			<a class="brand" href="index.html">
-				Bootstrap Admin Template				
+			<a class="brand" href="#">
+				<img src="img/logo_mini.png" width="130" />			
 			</a>		
 			
 			<div class="nav-collapse">
 				<ul class="nav pull-right">
 					
 					<li class="">						
-						<a href="signup.html" class="">
-							Don't have an account?
+						<a href="#" class="">
+							Inscription
 						</a>
 						
 					</li>
@@ -50,7 +50,7 @@
 					<li class="">						
 						<a href="index.html" class="">
 							<i class="icon-chevron-left"></i>
-							Back to Homepage
+							Revenir  au site
 						</a>
 						
 					</li>
@@ -72,20 +72,20 @@
 		
 		<form action="#" method="post">
 		
-			<h1>Member Login</h1>		
+			<h1>Connexion</h1>		
 			
 			<div class="login-fields">
 				
-				<p>Please provide your details</p>
+				<p>Rentrer vos identifiants</p>
 				
 				<div class="field">
-					<label for="username">Username</label>
-					<input type="text" id="username" name="username" value="" placeholder="Username" class="login username-field" />
+					<label for="username">Adresse email</label>
+					<input type="text" id="username" name="username" value="" placeholder="Email" class="login username-field" />
 				</div> <!-- /field -->
 				
 				<div class="field">
-					<label for="password">Password:</label>
-					<input type="password" id="password" name="password" value="" placeholder="Password" class="login password-field"/>
+					<label for="password">Mot de passe</label>
+					<input type="password" id="password" name="password" value="" placeholder="Mot de passe" class="login password-field"/>
 				</div> <!-- /password -->
 				
 			</div> <!-- /login-fields -->
@@ -94,10 +94,10 @@
 				
 				<span class="login-checkbox">
 					<input id="Field" name="Field" type="checkbox" class="field login-checkbox" value="First Choice" tabindex="4" />
-					<label class="choice" for="Field">Keep me signed in</label>
+					<label class="choice" for="Field">Rester connecté</label>
 				</span>
 									
-				<button class="button btn btn-success btn-large">Sign In</button>
+				<button class="button btn btn-info btn-large" style="">Se connecter</button>
 				
 			</div> <!-- .actions -->
 			
@@ -112,7 +112,7 @@
 
 
 <div class="login-extra">
-	<a href="#">Reset Password</a>
+	<a href="#">Mot de passe oublié ?</a>
 </div> <!-- /login-extra -->
 
 
