@@ -68,7 +68,7 @@ Market3W étant spécialisé dans le référencement, nous appliquons toutes les
 
 
   </p>
-                    	<br/><a href="services.php" class="button fit scrolly" style="width:400px;">Voir tous nos services</a>
+                    	<a href="services.php" class="button" style="width:400px; margin-top:20px;">Voir nos services</a>
 				</header>
 					
 					
@@ -106,20 +106,21 @@ Market3W étant spécialisé dans le référencement, nous appliquons toutes les
 						<div class="row">
 							<div class="12u" style="text-align:center;">
 								
-									<a href="#" class="image"><img src="images/pic01.jpg" style="max-width:200px;" alt="" /></a>
-                                    <a href="#" class="image"><img src="images/pic01.jpg" style="max-width:200px;" alt="" /></a>
-                                    <a href="#" class="image"><img src="images/pic01.jpg" style="max-width:200px;" alt="" /></a>
-                                    <a href="#" class="image"><img src="images/pic01.jpg" style="max-width:200px;" alt="" /></a>
-							</div>
+									<a href="#" ><img src="images/pic01.jpg" style="max-width:200px;" alt="" /></a>
+                                    <a href="#"><img src="images/pic01.jpg" style="max-width:200px;" alt="" /></a>
+                                    <a href="#"><img src="images/pic01.jpg" style="max-width:200px;" alt="" /></a>
+                                    <a href="#"><img src="images/pic01.jpg" style="max-width:200px;" alt="" /></a>
+									
+                                  <div> <a href="#" class="button" style="margin-top:20px;">Voir nos prestations</a></div>
+                                        
+                        </div>
 							
 						</div>
                         
 						
-						<footer class="major">
-							<ul class="buttons">
-								<li><a href="#" class="button">Voir toutes les prestations</a></li>
-							</ul>
-						</footer>
+						
+						
+						
 					
 					</section>
 					
