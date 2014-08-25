@@ -104,25 +104,12 @@ Market3W étant spécialisé dans le référencement, nous appliquons toutes les
 						</header>
 						
 						<div class="row">
-							<div class="3u">
-								<section>
-									<a href="#" class="image feature"><img src="images/pic01.jpg" alt="" /></a>
-								</section>
-							</div>
-                            <div class="3u">
-								<section>
-									<a href="#" class="image feature"><img src="images/pic02.jpg" alt="" /></a>
-								</section>
-							</div>
-                            <div class="3u">
-								<section>
-									<a href="#" class="image feature"><img src="images/pic03.jpg" alt="" /></a>
-								</section>
-							</div>
-                             <div class="3u">
-								<section>
-									<a href="#" class="image feature"><img src="images/pic04.jpg" alt="" /></a>
-								</section>
+							<div class="12u" style="text-align:center;">
+								
+									<a href="#" class="image"><img src="images/pic01.jpg" style="max-width:200px;" alt="" /></a>
+                                    <a href="#" class="image"><img src="images/pic01.jpg" style="max-width:200px;" alt="" /></a>
+                                    <a href="#" class="image"><img src="images/pic01.jpg" style="max-width:200px;" alt="" /></a>
+                                    <a href="#" class="image"><img src="images/pic01.jpg" style="max-width:200px;" alt="" /></a>
 							</div>
 							
 						</div>
@@ -130,7 +117,7 @@ Market3W étant spécialisé dans le référencement, nous appliquons toutes les
 						
 						<footer class="major">
 							<ul class="buttons">
-								<li><a href="#" class="button">En Savoir +</a></li>
+								<li><a href="#" class="button">Voir toutes les prestations</a></li>
 							</ul>
 						</footer>
 					

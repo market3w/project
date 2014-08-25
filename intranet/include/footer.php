@@ -2,46 +2,42 @@
   <div class="extra-inner">
     <div class="container">
       <div class="row">
+                    <div class="span6">
+                        
+                    <a href="index.php">Tableau de bord</a>
+                              <a href="campagnes.php">Campagnes</a>
+                              <a href="documents.php">Documents</a>
+                            <a href="factures.php">Factures</a>
+                             <a href="profil.php">Profil</a>
+                            <a href="rdv.php">Rendez-vous</a>
+                          
+                            
+                            
+                           <a href="contact.php">Contact</a>
+                            
+                           
+                        </ul>
+                    </div>
+                    
+                    <!-- /span3 -->
                     <div class="span3">
-                        <h4>
-                            About Free Admin Template</h4>
+                       <h4>Nous suivre</h4>
                         <ul>
-                            <li><a href="javascript:;">EGrappler.com</a></li>
-                            <li><a href="javascript:;">Web Development Resources</a></li>
-                            <li><a href="javascript:;">Responsive HTML5 Portfolio Templates</a></li>
-                            <li><a href="javascript:;">Free Resources and Scripts</a></li>
+                          <li><a href="">Facebook</a></li>
+                            <li><a href="">Google +</a></li>
+                            <li><a href="">Twitter</a></li>
+                            <li><a href="">Facebook</a></li>
+                            <li><a href="">Google +</a></li>
+                            <li><a href="">Twitter</a></li>
                         </ul>
                     </div>
                     <!-- /span3 -->
                     <div class="span3">
-                        <h4>
-                            Support</h4>
+                        
                         <ul>
-                            <li><a href="javascript:;">Frequently Asked Questions</a></li>
-                            <li><a href="javascript:;">Ask a Question</a></li>
-                            <li><a href="javascript:;">Video Tutorial</a></li>
-                            <li><a href="javascript:;">Feedback</a></li>
-                        </ul>
-                    </div>
-                    <!-- /span3 -->
-                    <div class="span3">
-                        <h4>
-                            Something Legal</h4>
-                        <ul>
-                            <li><a href="javascript:;">Read License</a></li>
-                            <li><a href="javascript:;">Terms of Use</a></li>
-                            <li><a href="javascript:;">Privacy Policy</a></li>
-                        </ul>
-                    </div>
-                    <!-- /span3 -->
-                    <div class="span3">
-                        <h4>
-                            Open Source jQuery Plugins</h4>
-                        <ul>
-                            <li><a href="http://www.egrappler.com">Open Source jQuery Plugins</a></li>
-                            <li><a href="http://www.egrappler.com;">HTML5 Responsive Tempaltes</a></li>
-                            <li><a href="http://www.egrappler.com;">Free Contact Form Plugin</a></li>
-                            <li><a href="http://www.egrappler.com;">Flat UI PSD</a></li>
+                            <li><a href="">Youtube</a></li>
+                            <li><a href="">LinkedIn</a></li>
+                            <li><a href="">Viadeo</a></li>
                         </ul>
                     </div>
                     <!-- /span3 -->
@@ -58,7 +54,7 @@
   <div class="footer-inner">
     <div class="container">
       <div class="row">
-        <div class="span12"> &copy; 2013 <a href="http://www.egrappler.com/">Bootstrap Responsive Admin Template</a>. </div>
+        <div class="span12"> &copy; 2014 <a href="http://www.market3w.com/">Market 3W</a>. RCS, SIRET... </div>
         <!-- /span12 --> 
       </div>
       <!-- /row --> 

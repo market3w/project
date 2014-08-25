@@ -37,6 +37,7 @@ if(isset($_GET['aff']) && $_GET['aff']!=''){$aff = $_GET['aff'];}else{$aff='info
 						<ul class="nav nav-tabs">
 						  <li  <?php if($aff=='infos_perso'){echo 'class="active"';} ?> > <a href="#infos_perso" data-toggle="tab">Infos personnelles</a></li>
     					  <li  <?php if($aff=='entreprise'){echo 'class="active"';} ?>><a href="#entre" data-toggle="tab">Entreprise</a></li>
+                          <li  <?php if($aff=='rdv'){echo 'class="active"';} ?>><a href="#rdv" data-toggle="tab">Rendez-vous</a></li>
                            <li  <?php if($aff=='document'){echo 'class="active"';} ?>><a href="#doc" data-toggle="tab">Télécharger un Document</a></li>
 						    <li  <?php if($aff=='campagnes'){echo 'class="active"';} ?>><a href="#campagnes" data-toggle="tab">Ses campagnes</a></li>
                              <li  <?php if($aff=='ajout_campagne'){echo 'class="active"';} ?>><a href="#ajout_campagne" data-toggle="tab">Ajouter une campagne</a></li>
@@ -240,6 +241,23 @@ if(isset($_GET['aff']) && $_GET['aff']!=''){$aff = $_GET['aff'];}else{$aff='info
 								</form>
 								</div>
                                 
+                                 <div class="tab-pane <?php if($aff=='rdv'){echo 'active';} ?>" id="rdv">
+							
+								<table width="100%" style="margin-top:-25px;"><tr><td>Intitulé rendez-vous</td><td>date</td><td>Webmarketeur</td>
+                                <tr><td><a href="#">RDV 1</a></td><td>22 juin 2014</td><td>Jordan</td></tr>
+                                <tr><td><a href="#">RDV 2</a></td><td>22 juin 2014</td><td>Jordan</td></tr>
+                               <tr><td><a href="#">RDV 3</a></td><td>22 juin 2014</td><td>Jordan</td></tr>
+                               <tr><td><a href="#">RDV 4</a></td><td>22 juin 2014</td><td>Jordan</td></tr>
+                               <tr><td><a href="#">RDV 5</a></td><td>22 juin 2014</td><td>Jordan</td></tr>
+                               <tr><td><a href="#">RDV 6</a></td><td>22 juin 2014</td><td>Jordan</td></tr>
+                               <tr><td><a href="#">RDV 7</a></td><td>22 juin 2014</td><td>Jordan</td></tr>
+                               <tr><td><a href="#">RDV 8</a></td><td>22 juin 2014</td><td>Jordan</td></tr>
+                               <tr><td><a href="#">RDV 9</a></td><td>22 juin 2014</td><td>Jordan</td></tr>
+                               <tr><td><a href="#">RDV 10</a></td><td>22 juin 2014</td><td>Jordan</td></tr>
+                             </table>
+								</div>
+                                
+                                
                                 <div class="tab-pane <?php if($aff=='document'){echo 'active';} ?>" id="doc">
 									<form id="edit-profile" class="form-horizontal">
 									<fieldset>
@@ -282,16 +300,16 @@ if(isset($_GET['aff']) && $_GET['aff']!=''){$aff = $_GET['aff'];}else{$aff='info
                                 <div class="tab-pane <?php if($aff=='campagnes'){echo 'active';} ?>" id="campagnes">
 							
 								<table width="100%" style="margin-top:-25px;"><tr><td>Nom campagne</td><td>date</td>
-                                <tr><td><a href="#">Campagne 1</a></td><td><a href="#">22 juin 2014</a></td></tr>
-                                <tr><td><a href="#">Campagne 2</a></td><td><a href="#">22 juin 2014</a></td></tr>
-                               <tr><td><a href="#">Campagne 3</a></td><td><a href="#">22 juin 2014</a></td></tr>
-                               <tr><td><a href="#">Campagne 4</a></td><td><a href="#">22 juin 2014</a></td></tr>
-                               <tr><td><a href="#">Campagne 5</a></td><td><a href="#">22 juin 2014</a></td></tr>
-                               <tr><td><a href="#">Campagne 6</a></td><td><a href="#">22 juin 2014</a></td></tr>
-                               <tr><td><a href="#">Campagne 7</a></td><td><a href="#">22 juin 2014</a></td></tr>
-                               <tr><td><a href="#">Campagne 8</a></td><td><a href="#">22 juin 2014</a></td></tr>
-                               <tr><td><a href="#">Campagne 9</a></td><td><a href="#">22 juin 2014</a></td></tr>
-                               <tr><td><a href="#">Campagne 10</a></td><td><a href="#">22 juin 2014</a></td></tr>
+                                <tr><td><a href="#">Campagne 1</a></td><td>22 juin 2014</td></tr>
+                                <tr><td><a href="#">Campagne 2</a></td><td>22 juin 2014</td></tr>
+                               <tr><td><a href="#">Campagne 3</a></td><td>22 juin 2014</td></tr>
+                               <tr><td><a href="#">Campagne 4</a></td><td>22 juin 2014</td></tr>
+                               <tr><td><a href="#">Campagne 5</a></td><td>22 juin 2014</td></tr>
+                               <tr><td><a href="#">Campagne 6</a></td><td>22 juin 2014</td></tr>
+                               <tr><td><a href="#">Campagne 7</a></td><td>22 juin 2014</td></tr>
+                               <tr><td><a href="#">Campagne 8</a></td><td>22 juin 2014</td></tr>
+                               <tr><td><a href="#">Campagne 9</a></td><td>22 juin 2014</td></tr>
+                               <tr><td><a href="#">Campagne 10</a></td><td>22 juin 2014</td></tr>
                              </table>
 								</div>
                                 
@@ -329,16 +347,16 @@ if(isset($_GET['aff']) && $_GET['aff']!=''){$aff = $_GET['aff'];}else{$aff='info
                                  <div class="tab-pane <?php if($aff=='factures'){echo 'active';} ?>" id="factures">
 							
 								<table width="100%" style="margin-top:-25px;"><tr><td>Nom facture</td><td>date</td>
-                                <tr><td><a href="#">Facture 1</a></td><td><a href="#">22 juin 2014</a></td></tr>
-                                <tr><td><a href="#">Facture 2</a></td><td><a href="#">22 juin 2014</a></td></tr>
-                               <tr><td><a href="#">Facture 3</a></td><td><a href="#">22 juin 2014</a></td></tr>
-                               <tr><td><a href="#">Facture 4</a></td><td><a href="#">22 juin 2014</a></td></tr>
-                               <tr><td><a href="#">Facture 5</a></td><td><a href="#">22 juin 2014</a></td></tr>
-                               <tr><td><a href="#">Facture 6</a></td><td><a href="#">22 juin 2014</a></td></tr>
-                               <tr><td><a href="#">Facture 7</a></td><td><a href="#">22 juin 2014</a></td></tr>
-                               <tr><td><a href="#">Facture 8</a></td><td><a href="#">22 juin 2014</a></td></tr>
-                               <tr><td><a href="#">Facture 9</a></td><td><a href="#">22 juin 2014</a></td></tr>
-                               <tr><td><a href="#">Facture 10</a></td><td><a href="#">22 juin 2014</a></td></tr>
+                                <tr><td><a href="#">Facture 1</a></td><td>22 juin 2014</td></tr>
+                                <tr><td><a href="#">Facture 2</a></td><td>22 juin 2014</td></tr>
+                               <tr><td><a href="#">Facture 3</a></td><td>22 juin 2014</td></tr>
+                               <tr><td><a href="#">Facture 4</a></td><td>22 juin 2014</td></tr>
+                               <tr><td><a href="#">Facture 5</a></td><td>22 juin 2014</td></tr>
+                               <tr><td><a href="#">Facture 6</a></td><td>22 juin 2014</td></tr>
+                               <tr><td><a href="#">Facture 7</a></td><td>22 juin 2014</td></tr>
+                               <tr><td><a href="#">Facture 8</a></td><td>22 juin 2014</td></tr>
+                               <tr><td><a href="#">Facture 9</a></td><td>22 juin 2014</td></tr>
+                               <tr><td><a href="#">Facture 10</a></td><td>22 juin 2014</td></tr>
                              </table>
 								</div>
                                 

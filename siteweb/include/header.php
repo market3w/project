@@ -8,13 +8,13 @@
                  <?php if($_SESSION["market3w_user"]!=""){ ?>
               <div class="em_tablette" statut="ferme" style="">
               <center><b> Bonjour <?php echo $_SESSION["market3w_user"]; ?></b></center>
-              <div style="margin-top:10px;"><a href="#" style="color:#ffffff;">Accéder à votre espace membre</a> <br/><a href="#" id="deconnexion" style="color:#ffffff;">Se déconnecter</a></div>
+              <div style="margin-top:10px;"><a href="#" style="color:#ffffff;">Accéder à votre espace membre</a> <br/><a href="#" class="deconnexion" style="color:#ffffff;">Se déconnecter</a></div>
               </div>
                 <?php } ?>
                 <header id="header">
                 <?php if($_SESSION["market3w_user"]!=""){ ?>
                 <div class="espace_membre_pc" style="position:fixed; left:140px; top:14px; font-size:22px; width:auto; color:#ffffff; text-align:center;"><span style="cursor:pointer;"><img src="images/em.png" style="width:18px;margin-top:5px;"/> Bonjour <?php echo $_SESSION["market3w_user"]; ?></span></div>
-                <div class="clic_espace_membre_pc" style="position:fixed; left:140px; top:14px; font-size:18px; width:auto; color:#ffffff; text-align:center; display:none;"><a href="#" style="color:#ffffff;">Accéder à votre espace membre</a> | <a href="#" id="deconnexion" style="color:#ffffff;">Se déconnecter</a></div>
+                <div class="clic_espace_membre_pc" style="position:fixed; left:140px; top:14px; font-size:18px; width:auto; color:#ffffff; text-align:center; display:none;"><a href="#" style="color:#ffffff;">Accéder à votre espace membre</a> | <a href="#" class="deconnexion" style="color:#ffffff;">Se déconnecter</a></div>
                 <form action="<?php echo WEB_ROOT; ?>" name="deconnexionForm" id="deconnexionForm" method="POST">
                     <input type="hidden" name="method" value="logout"/>
                 </form>
@@ -125,7 +125,7 @@
 				$(".clic_espace_membre_pc").fadeOut(500);
 				
 			});
-	   		$("#deconnexion").on('click', function(){
+	   		$(".deconnexion").on('click', function(){
 				$("#deconnexionForm").submit();
 				return false;
 			});
