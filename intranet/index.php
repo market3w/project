@@ -151,7 +151,7 @@
                   </div>
                 </li>
                <center><a href="profil.php?aff=document" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info">Télécharger un document</button></a>
-               <a href="documents.php" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info">Voir tous les documents</button></a></center>
+               <a href="documents.php" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin:15px;">Voir tous les documents</button></a></center>
               </ul>
             </div>
             <!-- /widget-content --> 
