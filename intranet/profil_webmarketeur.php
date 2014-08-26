@@ -1,4 +1,7 @@
-<?php  $page='index';
+<?php  
+include_once "include/config.php";
+$users = $client->get_all_users();
+$page='index';
 
 if(isset($_GET['aff']) && $_GET['aff']!=''){$aff = $_GET['aff'];}else{$aff='clients';} ?>
 <!DOCTYPE html>
@@ -45,43 +48,47 @@ if(isset($_GET['aff']) && $_GET['aff']!=''){$aff = $_GET['aff'];}else{$aff='clie
 						<br>
 						
 							<div class="tab-content">
-								<div class="tab-pane <?php if($aff=='clients'){echo 'active';} ?>" id="clients">
-							
-								<table width="100%" style="margin-top:-25px;"><tr><td>Nom client</td><td>Société</td>
-                                <tr><td><a href="#">Florient delavie</a></td><td><a href="#">Apple</a></td></tr>
-                                <tr><td><a href="#">Antoine trompette</a></td><td><a href="#">Samsung</a></td></tr>
-                                <tr><td><a href="#">Jordan Cross</a></td><td><a href="#">SNCF</a></td></tr>
-                                <tr><td><a href="#">Fils de flute</a></td><td><a href="#">Casino</a></td></tr>
-                                <tr><td><a href="#">Rigole pas</a></td><td><a href="#">Leader price</a></td></tr>
-                                <tr><td><a href="#">Mr connard</a></td><td><a href="#">Gucci</a></td></tr>
-                                <tr><td><a href="#">Donald Duck</a></td><td><a href="#">Disney</a></td></tr>
-                                <tr><td><a href="#">Pika Chu</a></td><td><a href="#">Pokemon company</a></td></tr></table>
+                           		<div class="tab-pane <?php if($aff=='clients'){echo 'active';} ?>" id="clients">
+									<?php if(count($users["clients"])>0){ ?>
+                                    
+                                
+                                    <table width="100%" style="margin-top:-25px;"><tr><td>Nom client</td><td>Société</td></tr>
+                                    <?php foreach($users["clients"] as $key=>$value){ ?>
+                                    <tr><td><a href="#"><?php echo $value->user_firstname; ?> <?php echo $value->user_name; ?></a></td><td><a href="#"><?php echo $value->user_company->company_name; ?></a></td></tr>
+                                    <?php } ?>
+                                    
+                                    </table>
+                                    
+                                    <?php }else{echo'Pas de clients encore inscrit';} ?>
 								</div>
-								
+                                
                                 <div class="tab-pane <?php if($aff=='prospects'){echo 'active';} ?>" id="prospects">
-										
-								<table width="100%" style="margin-top:-25px;"><tr><td>Nom prospect</td><td>Société</td>
-                                <tr><td><a href="#">Florient delavie</a></td><td><a href="#">Apple</a></td></tr>
-                                <tr><td><a href="#">Antoine trompette</a></td><td><a href="#">Samsung</a></td></tr>
-                                <tr><td><a href="#">Jordan Cross</a></td><td><a href="#">SNCF</a></td></tr>
-                                <tr><td><a href="#">Fils de flute</a></td><td><a href="#">Casino</a></td></tr>
-                                <tr><td><a href="#">Rigole pas</a></td><td><a href="#">Leader price</a></td></tr>
-                                <tr><td><a href="#">Mr connard</a></td><td><a href="#">Gucci</a></td></tr>
-                                <tr><td><a href="#">Donald Duck</a></td><td><a href="#">Disney</a></td></tr>
-                                <tr><td><a href="#">Pika Chu</a></td><td><a href="#">Pokemon company</a></td></tr></table>
+									<?php if(count($users["prospects"])>0){ ?>
+                                    
+                                    <table width="100%" style="margin-top:-25px;"><tr><td>Nom client</td><td>Société</td></tr>
+                                    <?php foreach($users["prospects"] as $key=>$value){ ?>
+                                    <tr><td><a href="#"><?php echo $value->user_firstname; ?> <?php echo $value->user_name; ?></a></td><td><a href="#"><?php echo $value->user_company->company_name; ?></a></td></tr>
+                                    <?php } ?>
+                                    
+                                    </table>
+                                    
+                                    <?php }else{echo'Pas de prospects encore inscrit';} ?>
+
 								</div>
                                 
                                  <div class="tab-pane <?php if($aff=='visiteurs'){echo 'active';} ?>" id="visiteurs">
 										
-								<table width="100%" style="margin-top:-25px;"><tr><td>Nom visiteur</td><td>Société</td>
-                                <tr><td><a href="#">Florient delavie</a></td><td><a href="#">Apple</a></td></tr>
-                                <tr><td><a href="#">Antoine trompette</a></td><td><a href="#">Samsung</a></td></tr>
-                                <tr><td><a href="#">Jordan Cross</a></td><td><a href="#">SNCF</a></td></tr>
-                                <tr><td><a href="#">Fils de flute</a></td><td><a href="#">Casino</a></td></tr>
-                                <tr><td><a href="#">Rigole pas</a></td><td><a href="#">Leader price</a></td></tr>
-                                <tr><td><a href="#">Mr connard</a></td><td><a href="#">Gucci</a></td></tr>
-                                <tr><td><a href="#">Donald Duck</a></td><td><a href="#">Disney</a></td></tr>
-                                <tr><td><a href="#">Pika Chu</a></td><td><a href="#">Pokemon company</a></td></tr></table>
+									<?php if(count($users["visiteurs"])>0){ ?>
+                                    
+                                    <table width="100%" style="margin-top:-25px;"><tr><td>Nom client</td></tr>
+                                    <?php foreach($users["visiteurs"] as $key=>$value){ ?>
+                                    <tr><td><a href="#"><?php echo $value->user_firstname; ?> <?php echo $value->user_name; ?></a></td></tr>
+                                    <?php } ?>
+                                    
+                                    </table>
+                                    
+                                    <?php }else{echo'Pas de visiteurs encore inscrit';} ?>
+
 								</div>
                                 
 								<div class="tab-pane <?php if($aff=='entreprise'){echo 'active';} ?>" id="entre">

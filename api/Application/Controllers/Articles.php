@@ -29,7 +29,51 @@ class Application_Controllers_Articles extends Library_Core_Controllers{
 	
         return $this->setApiResult($res);
     }
-
+	
+	public function get_next_article($data)
+	{
+        $article_id = (empty ($data['article_id']))?null:$data['article_id'];
+        if($article_id==null){return $this->setApiResult(false, true, 'param \'article_id\' undefined');}
+        if(!is_numeric($article_id)){return $this->setApiResult(false, true, 'param \'article_id\' is not numeric');}
+		
+		$type = (empty ($data['type']))?null:$data['type'];
+		if($type==null){return $this->setApiResult(false, true, 'param \'type\' undefined');}
+        if(!is_numeric($type) && $type!=1 && $type!=2 ){return $this->setApiResult(false, true, 'param \'type\' is not correct (value:1 or 2)');}
+		
+		$this->table->addWhere("article_id", $article_id,"",$where_type=">");
+		$this->table->addWhere("article_type_id", $type);
+		
+        $res = (array)$this->table->search();
+		
+		if(!array_key_exists(0,$res)){
+			return $this->setApiResult(false, true, 'article not found');
+		}
+	
+        return $this->setApiResult($res);
+    }
+	
+	public function get_prev_article($data)
+	{
+        $article_id = (empty ($data['article_id']))?null:$data['article_id'];
+        if($article_id==null){return $this->setApiResult(false, true, 'param \'article_id\' undefined');}
+        if(!is_numeric($article_id)){return $this->setApiResult(false, true, 'param \'article_id\' is not numeric');}
+		
+		$type = (empty ($data['type']))?null:$data['type'];
+		if($type==null){return $this->setApiResult(false, true, 'param \'type\' undefined');}
+        if(!is_numeric($type) && $type!=1 && $type!=2 ){return $this->setApiResult(false, true, 'param \'type\' is not correct (value:1 or 2)');}
+		
+		$this->table->addWhere("article_id", $article_id,"",$where_type="<");
+		$this->table->addWhere("article_type_id", $type);
+		//$this->table->getOrder("article_id DESC");
+        $res = (array)$this->table->search();
+		
+		if(!array_key_exists(0,$res)){
+			return $this->setApiResult(false, true, 'article not found');
+		}
+	
+        return $this->setApiResult($res);
+    }
+	
     public function get_allarticle($data){
         $res = (array)$this->table->search();
 		
@@ -60,6 +104,47 @@ class Application_Controllers_Articles extends Library_Core_Controllers{
 		}
         return $this->setApiResult($res);
     }
+	
+	public function get_other_articles($data){
+		
+         $article_id = (empty ($data['article_id']))?null:$data['article_id'];
+        if($article_id==null){return $this->setApiResult(false, true, 'param \'article_id\' undefined');}
+        if(!is_numeric($article_id)){return $this->setApiResult(false, true, 'param \'article_id\' is not numeric');}
+		
+         $article_limit = (empty ($data['article_limit']))?null:$data['article_limit'];
+        if($article_limit==null){return $this->setApiResult(false, true, 'param \'article_limit\' undefined');}
+        if(!is_numeric($article_limit)){return $this->setApiResult(false, true, 'param \'article_limit\' is not numeric');}
+		
+		 $type = (empty ($data['type']))?null:$data['type'];
+        if($type==null){return $this->setApiResult(false, true, 'param \'type\' undefined');}
+        if(!is_numeric($type)){return $this->setApiResult(false, true, 'param \'type\' is not correct (value:1 or 2);');}
+		
+		$this->table->addWhere("article_type_id", $type);
+		$this->table->addWhere("article_id", $article_id,"",$where_type="!=");
+		
+		$res = (array)$this->table->search();
+		
+		if(!array_key_exists(0,$res)){
+			return $this->setApiResult(false, true, ' no pdf found');
+		}
+		$nb = count($res);
+		$rd_article = array();
+		$last = array();
+		if($nb>$article_limit){
+			for($current=0;$current<$article_limit;$current++){
+				do{
+					$rd_num = rand(0,$nb-1);
+				}while(in_array($rd_num,$last));
+				$rd_article[] = $res[$rd_num];
+				$last[] = $rd_num;
+			}
+		} else {
+			$rd_article = $res;
+		}
+		
+        return $this->setApiResult($rd_article);
+    }
+	
 	
 	
  public function post_article($data){

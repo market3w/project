@@ -39,7 +39,7 @@
 								<section>
                               
                                 <center>
-                                  <div class="menu_societe"><a class="onglet_societe" href="#">Qui sommes nous ?</a><a class="onglet_societe" href="#equipe">L'équipe</a><a class="onglet_societe" href="#valeurs">Nos valeurs</a><a class="onglet_societe" href="#mot">Coordonnées</a></div>
+                                  <div class="menu_societe"><a class="onglet_societe" href="#">Qui sommes nous ?</a><a class="onglet_societe" href="#equipe">L'équipe</a><a class="onglet_societe" href="#valeurs">Valeurs</a><a class="onglet_societe" href="#mot">Coordonnées</a></div>
                                
                                 <h1 style="font-weight:500;" >Qui sommes nous ?</h1>
 <img src="images/panora.jpg" width="100%" alt="image société" /><br/><br/>

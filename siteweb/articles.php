@@ -1,5 +1,7 @@
 <?php
 	include('include/config.php');
+	$articles = $client->get_all_articles();
+
 ?>
 <!DOCTYPE HTML>
 <!--
@@ -34,55 +36,30 @@
 				
 				<!-- Two -->
 					<section class="wrapper style1 container special">
-						<div class="row">
-							<div class="4u">
+						<div class="row" style="margin-top:-50px;">
+							<?php if(count($articles["pdf"])>0){ ?>
+                                 <?php foreach($articles["pdf"] as $key=>$value){ 
+                                 echo '<div class="4u" style="margin-top:30px;">
 							
 								<section>
 									<header>
-										<h3>Un article sur le référencement</h3>
+										<h3>'.$value->article_name.'</h3>
 									</header>
-									<p>
-                                    Ici il y aura la description du article sur le référencement. bla bla bli blo bluib lbllb obolbl lbl bblbl bbbb.</p>
+									<p>'.substr($value->article_courte_description, 0, 100).'...</p>
 									<footer>
 										<ul class="buttons">
-											<li><a href="article.php" class="button small">Voir</a></li>
+											<li><a href="article.php?id='.$value->article_id.'" class="button small">Voir</a></li>
 										</ul>
 									</footer>
 								</section>
 							
-							</div>
-							<div class="4u">
+							</div>';
+                               } ?>
+                                
+                              
+                                    
+                             <?php }else{echo'Pas d\'articles pdf';} ?>
 							
-								<section>
-									<header>
-										<h3>Un article sur le référencement</h3>
-									</header>
-									<p>
-                                    Ici il y aura la description du article sur le référencement. bla bla bli blo bluib lbllb obolbl lbl bblbl bbbb.</p>
-									<footer>
-										<ul class="buttons">
-											<li><a href="article.php" class="button small">Voir</a></li>
-										</ul>
-									</footer>
-								</section>
-							
-							</div>
-							<div class="4u">
-							
-								<section>
-									<header>
-										<h3>Un article sur le référencement</h3>
-									</header>
-									<p>
-                                    Ici il y aura la description du article sur le référencement. bla bla bli blo bluib lbllb obolbl lbl bblbl bbbb.</p>
-									<footer>
-										<ul class="buttons">
-											<li><a href="article.php" class="button small">Voir</a></li>
-										</ul>
-									</footer>
-								</section>
-							
-							</div>
 						</div>
 					</section>
 					

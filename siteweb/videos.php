@@ -1,5 +1,6 @@
 <?php
 	include('include/config.php');
+	$videos = $client->get_all_articles();
 ?>
 <!DOCTYPE HTML>
 <!--
@@ -32,55 +33,28 @@
 				
 				<!-- Two -->
 					<section class="wrapper style1 container special">
-						<div class="row">
-							<div class="4u">
+						<div class="row" style="margin-top:-50px;">
+							<?php if(count($videos["videos"])>0){ ?>
+                                 <?php foreach($videos["videos"] as $key=>$value){ ?>
+                                 <div class="4u" style="margin-top:30px;">
 							
 								<section>
 									<header>
-										<h3>Une vidéo</h3>
+										<h3><?php echo $value->article_name; ?></h3>
 									</header>
-									<p>
-                                    Ici il y aura la description d'une vidéo. bla bla bli blo bluib lbllb obolbl lbl bblbl bbbb.</p>
+									<p><?php echo substr($value->article_courte_description, 0, 100); ?>...</p>
 									<footer>
 										<ul class="buttons">
-											<li><a href="video.php" class="button small">Voir</a></li>
+											<li><a href="video.php?id=<?php echo $value->article_id; ?>" class="button small">Voir</a></li>
 										</ul>
 									</footer>
 								</section>
 							
 							</div>
-							<div class="4u">
+                             <?php  } ?>
+                            <?php }else{echo'Pas de vidéos';} ?>
 							
-								<section>
-									<header>
-										<h3>Autre vidéo</h3>
-									</header>
-									<p>
-                                    Ici il y aura la description d'une autre vidéo. bla bla bli blo bluib lbllb obolbl lbl bblbl bbbb.</p>
-									<footer>
-										<ul class="buttons">
-											<li><a href="video.php" class="button small">Voir</a></li>
-										</ul>
-									</footer>
-								</section>
 							
-							</div>
-							<div class="4u">
-							
-								<section>
-									<header>
-										<h3>Autre vidéo</h3>
-									</header>
-									<p>
-                                    Ici il y aura la description d'une autre vidéo. bla bla bli blo bluib lbllb obolbl lbl bblbl bbbb.</p>
-									<footer>
-										<ul class="buttons">
-											<li><a href="video.php" class="button small">Voir</a></li>
-										</ul>
-									</footer>
-								</section>
-							
-							</div>
 						</div>
 					</section>
 					
