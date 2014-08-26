@@ -30,3 +30,14 @@
 		$_SESSION["method"]=$method;
 		$client->$method($_POST);
 	}
+	
+	if($_SESSION["market3w_user"]!="")
+	{
+		$currentuser = $client->get_currentuser();
+		$currentuser_id = $currentuser->user_id;
+		$currentuser_role_id = $currentuser->user_role->role_id;
+	}
+	else
+	{
+		header("Location: login.php"); 
+	} 

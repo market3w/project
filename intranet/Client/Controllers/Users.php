@@ -82,4 +82,16 @@ class Client_Controllers_Users extends Client_Core_Controllers{
 		}
 		return $users;
 	}
+	
+	public function get_currentuser($data=""){
+		/* Recupérer les pdf */
+		$this->parseQueryResult(json_decode($this->_client->query("GET","method=currentuser")));
+		$error = $this->getError();
+		if($error===false){
+			$user = $this->getResponse();
+			return $user;
+		}
+				
+		return array();
+	}
 }
