@@ -1,5 +1,5 @@
 <?php  $page='profil';
-
+include('include/config.php');
 if(isset($_GET['aff']) && $_GET['aff']!=''){$aff = $_GET['aff'];}else{$aff='info_perso';} ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,9 +46,12 @@ if(isset($_GET['aff']) && $_GET['aff']!=''){$aff = $_GET['aff'];}else{$aff='info
 						
 							<div class="tab-content">
 								<div class="tab-pane <?php if($aff=='info_perso'){echo 'active';} ?>" id="inform">
-								<form id="edit-profile" class="form-horizontal">
+                                <span class="responseError" id="loginError"><?php echo $_SESSION["errorMessage"]; ?></span>
+								<form id="edit-profile" class="form-horizontal" action="profil.php?aff=info_perso" method="post">
 									<fieldset>
-										
+										<input type="hidden" name="method" value="put_user" />
+                                        <input type="hidden" name="user_id" value="<?php echo $currentuser_id; ?>" />
+                                          <input type="hidden" name="company_id" value="1" />
 										<!--<div class="control-group">											
 											<label class="control-label" for="username">Username</label>
 											<div class="controls">
@@ -61,7 +64,7 @@ if(isset($_GET['aff']) && $_GET['aff']!=''){$aff = $_GET['aff'];}else{$aff='info
 										<div class="control-group">											
 											<label class="control-label" for="user_name">Nom</label>
 											<div class="controls">
-												<input type="text" class="span4" id="user_name" value="John">
+												<input type="text" class="span4" name="user_name" value="<?php echo $currentuser->user_name; ?>">
 											</div> <!-- /controls -->				
 										</div> <!-- /control-group -->
 										
@@ -69,7 +72,7 @@ if(isset($_GET['aff']) && $_GET['aff']!=''){$aff = $_GET['aff'];}else{$aff='info
 										<div class="control-group">											
 											<label class="control-label" for="user_firstname">Prénom</label>
 											<div class="controls">
-												<input type="text" class="span4" id="user_firstname" value="Donga">
+												<input type="text" class="span4" name="user_firstname" value="<?php echo $currentuser->user_firstname; ?>">
 											</div> <!-- /controls -->				
 										</div> <!-- /control-group -->
 										
@@ -77,14 +80,14 @@ if(isset($_GET['aff']) && $_GET['aff']!=''){$aff = $_GET['aff'];}else{$aff='info
 										<div class="control-group">											
 											<label class="control-label" for="email">Adresse email</label>
 											<div class="controls">
-												<input type="text" class="span4" id="email" value="john.donga@egrappler.com">
+												<input type="text" class="span4" name="user_email" value="<?php echo $currentuser->user_email; ?>">
 											</div> <!-- /controls -->				
 										</div> <!-- /control-group -->
 										
                                         <div class="control-group">											
 											<label class="control-label" for="user_adress">Adresse</label>
 											<div class="controls">
-												<input type="text" class="span4" id="user_adress" value="11 Rue de l'éléphant">
+												<input type="text" class="span4" name="user_adress" value="<?php echo $currentuser->user_adress; ?>">
 											</div> <!-- /controls -->				
 										</div> <!-- /control-group -->
 										
@@ -92,63 +95,47 @@ if(isset($_GET['aff']) && $_GET['aff']!=''){$aff = $_GET['aff'];}else{$aff='info
 										<div class="control-group">											
 											<label class="control-label" for="user_adress2">Adresse 2 <i>(falcultatif)</i></label>
 											<div class="controls">
-												<input type="text" class="span4" id="user_adress2" value="Dans la fôret">
+												<input type="text" class="span4" name="user_adress2" value="<?php echo $currentuser->user_adress2; ?>">
 											</div> <!-- /controls -->				
 										</div> <!-- /control-group -->
                                         
                                         <div class="control-group">											
 											<label class="control-label" for="user_town">Ville</label>
 											<div class="controls">
-												<input type="text" class="span4" id="user_town" value="Paris">
+												<input type="text" class="span4" name="user_town" value="<?php echo $currentuser->user_town; ?>">
 											</div> <!-- /controls -->				
 										</div> <!-- /control-group -->
                                         
                                         <div class="control-group">											
 											<label class="control-label" for="user_zipcode">Code postal</label>
 											<div class="controls">
-												<input type="text" class="span4" id="user_zipcode" value="75123">
+												<input type="text" class="span4" name="user_zipcode" value="<?php echo $currentuser->user_zipcode; ?>">
 											</div> <!-- /controls -->				
 										</div> <!-- /control-group -->
                                         
                                         <div class="control-group">											
 											<label class="control-label" for="user_phone">Téléphone</label>
 											<div class="controls">
-												<input type="text" class="span4" id="user_phone" value="0102030405">
+												<input type="text" class="span4" name="user_phone" value="<?php echo $currentuser->user_phone; ?>">
 											</div> <!-- /controls -->				
 										</div> <!-- /control-group -->
                                         
                                         <div class="control-group">											
 											<label class="control-label" for="user_mobile">Portable</label>
 											<div class="controls">
-												<input type="text" class="span4" id="user_mobile" value="0601020304">
+												<input type="text" class="span4" name="user_mobile" value="<?php echo $currentuser->user_mobile; ?>">
 											</div> <!-- /controls -->				
 										</div> <!-- /control-group -->
                                         
                                           <div class="control-group">											
 											<label class="control-label" for="user_function">Poste occupé</label>
 											<div class="controls">
-												<input type="text" class="span4" id="user_function" value="75123">
+												<input type="text" class="span4" name="user_function" value="<?php echo $currentuser->user_function; ?>">
 											</div> <!-- /controls -->				
 										</div> <!-- /control-group -->
                                   		
                                         <br/>
-                                        <div class="control-group">											
-											<label class="control-label" for="user_password">Mot de passe</label>
-											<div class="controls">
-												<input type="password" class="span4" id="user_password" value="thisispassword">
-											</div> <!-- /controls -->				
-										</div> <!-- /control-group -->
-										
-										
-										<div class="control-group">											
-											<label class="control-label" for="user_password2">Confirmer</label>
-											<div class="controls">
-												<input type="password" class="span4" id="user_password2" value="thisispassword">
-											</div> <!-- /controls -->				
-										</div> <!-- /control-group -->
-										
-                                        <br/>
-                                        
+                                       
                                         <div class="control-group">											
 											<label class="control-label">Inscription à la newsletter</label>
 											
@@ -174,6 +161,22 @@ if(isset($_GET['aff']) && $_GET['aff']!=''){$aff = $_GET['aff'];}else{$aff='info
 										</div> <!-- /form-actions -->
 									</fieldset>
 								</form>
+                                <form action="" method="post">
+                                 		<div class="control-group">											
+											<label class="control-label" for="user_password">Mot de passe</label>
+											<div class="controls">
+												<input type="password" class="span4" id="user_password" value="thisispassword">
+											</div> <!-- /controls -->				
+										</div> <!-- /control-group -->
+										
+										
+										<div class="control-group">											
+											<label class="control-label" for="user_password2">Confirmer</label>
+											<div class="controls">
+												<input type="password" class="span4" id="user_password2" value="thisispassword">
+											</div> <!-- /controls -->				
+										</div> <!-- /control-group -->
+                                </form>
 								</div>
 								
 								<div class="tab-pane <?php if($aff=='entreprise'){echo 'active';} ?>" id="entre">

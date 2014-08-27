@@ -385,8 +385,6 @@ class Application_Controllers_Users extends Library_Core_Controllers{
 		$user_name = (empty ($data['user_name']))?null:$data['user_name'];
 		$user_firstname = (empty ($data['user_firstname']))?null:$data['user_firstname'];
 		$user_email = (empty ($data['user_email']))?null:$data['user_email'];
-		$user_password = (empty ($data['user_password']))?null:$data['user_password'];
-		$user_password2 = (empty ($data['user_password']))?null:$data['user_password2'];
 		$user_function = (empty ($data['user_function']))?null:$data['user_function'];
 		$user_phone = (empty ($data['user_phone']))?null:$data['user_phone'];
 		$user_mobile = (empty ($data['user_mobile']))?null:$data['user_mobile'];
@@ -398,6 +396,9 @@ class Application_Controllers_Users extends Library_Core_Controllers{
 		
         if($user_id==null){return $this->setApiResult(false, true, 'param \'user_id\' undefined');}
         if(!is_numeric($user_id)){return $this->setApiResult(false, true, 'param \'user_id\' is not numeric');}
+		if($user_name==null){return $this->setApiResult(false, true, 'param \'user_name\' undefined');}
+		if($user_firstname==null){return $this->setApiResult(false, true, 'param \'user_firstname\' undefined');}
+		if($user_email==null){return $this->setApiResult(false, true, 'param \'user_email\' undefined');}
 		
 		//------------- Test existance en base --------------------------------------------//
 		$exist_user = $this->get_currentuser();
@@ -406,8 +407,9 @@ class Application_Controllers_Users extends Library_Core_Controllers{
 		$role = new Application_Controllers_Roles();
 		$role_res = $role->get_currentrole();
 		$role_current_id = $role_res->response[0]->role_id;
-			
-		if($user_id!=$_SESSION['market3w_user_id'] && $role_current_id>=2){
+		
+		//Si c'est un admin ou un webmarkeut ils peuvent modifier ainsi que l'user concerné
+		if(($user_id!=$_SESSION['market3w_user_id'] && $role_current_id>=2) || $user_id==$_SESSION['market3w_user_id'] ){
 			$this->table->resetObject();
 			//------------- Test existance en base --------------------------------------------//
 			$exist_user = $this->get_user(array("user_id"=>$user_id));
@@ -416,7 +418,8 @@ class Application_Controllers_Users extends Library_Core_Controllers{
 			$role->get_table()->resetObject();
 			$role_res = $role->get_userrole(array("user_id"=>$user_id));
 			$role_id = $role_res->response[0]->role_id;
-		} elseif($user_id!=$_SESSION['market3w_user_id'] && $role_current_id<2){
+		}
+		elseif($user_id!=$_SESSION['market3w_user_id'] && $role_current_id<2){
 			return $this->setApiResult(false,true,'You can\'t update this user');
 		} else {
 			$role_id = $role_current_id;
@@ -436,9 +439,9 @@ class Application_Controllers_Users extends Library_Core_Controllers{
 		if($user_email!=null){
 			$this->table->addNewField("user_email",$user_email);
 		}
-		if($user_password!=null && $user_password==$user_password2){
+		/*if($user_password!=null && $user_password==$user_password2){
 			$this->table->addNewField("user_password",md5($user_email.SALT_USER_PWD.$user_password));
-		}
+		}*/
 		$this->table->addNewField("user_function",$user_function);
 		$this->table->addNewField("user_phone",$user_phone);
 		$this->table->addNewField("user_mobile",$user_mobile);
