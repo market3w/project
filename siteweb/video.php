@@ -1,5 +1,16 @@
 <?php
 	include('include/config.php');
+	if(isset($_GET['id']) && is_numeric($_GET['id']))
+	{
+		$videos = $client->get_article(array("id"=>$_GET['id']));
+		$other_articles = $client->get_other_articles(array("article_id"=>$_GET['id'],"article_limit"=>3,"type"=>2));
+		$next_video = $client->get_next_article(array("article_id"=>$_GET['id'],"type"=>2 ));
+		$prev_video = $client->get_prev_article(array("article_id"=>$_GET['id'],"type"=>2 ));
+	} else {
+		header("location:".WEB_ROOT."videos.php");
+		die();
+	}
+	
 ?>
 <!DOCTYPE HTML>
 <!--
@@ -9,7 +20,7 @@
 -->
 <html>
 	<head>
-		<title>Nom vidéo | MARKET 3W Agence webmarketing spécialisé en référencement</title>
+		<title><?php echo $videos->article_name; ?> | MARKET 3W Agence webmarketing spécialisé en référencement</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
@@ -26,7 +37,7 @@
 			<article id="main">
 
 				<div style="text-align:center;">
-					<h2>Exemple de vidéo</h2>
+					<h2><?php echo $videos->article_name; ?></h2>
 				</div>
 					
 				<!-- One -->
@@ -38,10 +49,13 @@
                                 
 									
                                     <center>
-                                   <a class="button" href="#">< vidéo précédente</a><a class="button special_violet" href="videos.php">Toutes les vidéos</a><a class="button" href="#">Vidéo suivante ></a><br/><br/></center>
-                                  	<br/><iframe width="100%" height="300" src="//www.youtube.com/embed/zts7sBh_Arw" frameborder="0" allowfullscreen></iframe>
+                                   <?php if(isset($prev_video->article_id) && is_numeric($prev_video->article_id)){ ?><a class="button" href="video.php?id=<?php if(isset($prev_video->article_id) && is_numeric($prev_video->article_id)){echo $prev_video->article_id;} ?>">< vidéo précédente</a><?php } ?>
+                                   <a class="button special_violet" href="videos.php">Toutes les vidéos</a>
+                                   <?php if(isset($next_video->article_id) && is_numeric($next_video->article_id)){ ?><a class="button" href="video.php?id=<?php if(isset($next_video->article_id) && is_numeric($next_video->article_id)){echo $next_video->article_id;} ?>">Vidéo suivante ></a><?php } ?><br/><br/></center>
+                                   
+                                  	<br/><iframe width="100%" height="300" src="<?php echo $videos->article_link; ?>" frameborder="0" allowfullscreen></iframe>
                                     
-                                    ici sera la description de la vidéo.
+                                    <?php echo $videos->article_description; ?>
 								</section>
 							</div>
 
@@ -50,54 +64,28 @@
 				<!-- Two -->
 					<section class="wrapper style1 container special">
 						<div class="row">
-							<div class="4u">
+							  <?php if(count($other_articles)>0){ ?>
+                                 <?php foreach($other_articles as $key=>$value){ ?>
+                                 <div class="4u" style="margin-top:-30px;">
 							
 								<section>
 									<header>
-										<h3>Autre vidéo</h3>
+										<h3><?php echo $value->article_name; ?></h3>
 									</header>
-									<p>
-                                    Ici il y aura la description d'une autre vidéo. bla bla bli blo bluib lbllb obolbl lbl bblbl bbbb.</p>
+									<p><?php echo substr($value->article_courte_description, 0, 100); ?></p>
 									<footer>
 										<ul class="buttons">
-											<li><a href="#" class="button small">Voir</a></li>
+											<li><a href="video.php?id=<?php echo $value->article_id; ?>" class="button small">Voir</a></li>
 										</ul>
 									</footer>
 								</section>
 							
 							</div>
-							<div class="4u">
-							
-								<section>
-									<header>
-										<h3>Autre vidéo</h3>
-									</header>
-									<p>
-                                    Ici il y aura la description d'une autre vidéo. bla bla bli blo bluib lbllb obolbl lbl bblbl bbbb.</p>
-									<footer>
-										<ul class="buttons">
-											<li><a href="#" class="button small">Voir</a></li>
-										</ul>
-									</footer>
-								</section>
-							
-							</div>
-							<div class="4u">
-							
-								<section>
-									<header>
-										<h3>Autre vidéo</h3>
-									</header>
-									<p>
-                                    Ici il y aura la description d'une autre vidéo. bla bla bli blo bluib lbllb obolbl lbl bblbl bbbb.</p>
-									<footer>
-										<ul class="buttons">
-											<li><a href="#" class="button small">Voir</a></li>
-										</ul>
-									</footer>
-								</section>
-							
-							</div>
+                              <?php } ?>
+                                
+                              
+                                    
+                             <?php }else{echo'Pas d\'autres pdf';} ?>
 						</div>
 					</section>
 					
