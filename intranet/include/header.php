@@ -7,9 +7,9 @@
         <ul class="nav pull-right">
         
           <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
-                            class="icon-user"></i> nom prenom <b class="caret"></b></a>
+                            class="icon-user"></i> <?php echo $currentuser->user_name; ?>  <?php echo $currentuser->user_firstname; ?><b class="caret"></b></a>
             <ul class="dropdown-menu">
-            <li><a href="javascript:;">Revenir au site</a></li>
+            <li><a href="../siteweb/index.php">Revenir au site</a></li>
               <li><a href="javascript:;">Informations personnelles</a></li>
               <li><a href="javascript:;">Déconnexion</a></li>
             </ul>

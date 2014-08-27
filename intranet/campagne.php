@@ -1,4 +1,14 @@
-<?php  $page='campagnes';  ?>
+<?php  
+include('include/config.php');
+$page='campagnes';
+if(isset($_GET['id']) && is_numeric($_GET['id']))
+{
+	$campagne = $client->get_campain(array("campain_id"=>$_GET['id']));
+} else {
+	header("location:".WEB_ROOT."videos.php");
+	die();
+}
+  ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,16 +28,13 @@
      	<div class="span12">
 	      	<div id="target-1" class="widget">
 	      		<div class="widget-content">
-	      			<h1 style="margin-bottom:10px;color:#80B3CA;">Titre de la campagne</h1>
-			      		 <p> Campagne dirigée par nom webmarketeur<br/><i>Dernière modification : 23 juin 2014</i></p>
+	      			<h1 style="margin-bottom:10px;color:#80B3CA;"><?php echo $campagne->campain_name; ?></h1>
+			      		 <div style="border:1px solid #80B3CA; padding:10px; margin-bottom:10px;"> Campagne dirigée par <?php echo $campagne->campain_webmarketter->webmarketter_name; ?><br/>
+                         <i>Date création : <?php echo $campagne->campain_date; ?></i><br/>
+                         <i>Dernière modification : <?php echo $campagne->campain_date_modif; ?></i></div>
 			      	
 
-Constituendi autem sunt qui sint in amicitia fines et quasi termini diligendi. De quibus tres video sententias ferri, quarum nullam probo, unam, ut eodem modo erga amicum adfecti simus, quo erga nosmet ipsos, alteram, ut nostra in amicos benevolentia illorum erga nos benevolentiae pariter aequaliterque respondeat, tertiam, ut, quanti quisque se ipse facit, tanti fiat ab amicis.
-</p><p>	
-Quibus occurrere bene pertinax miles explicatis ordinibus parans hastisque feriens scuta qui habitus iram pugnantium concitat et dolorem proximos iam gestu terrebat sed eum in certamen alacriter consurgentem revocavere ductores rati intempestivum anceps subire certamen cum haut longe muri distarent, quorum tutela securitas poterat in solido locari cunctorum.
-</p>	<p>
-Quaestione igitur per multiplices dilatata fortunas cum ambigerentur quaedam, non nulla levius actitata constaret, post multorum clades Apollinares ambo pater et filius in exilium acti cum ad locum Crateras nomine pervenissent, villam scilicet suam quae ab Antiochia vicensimo et quarto disiungitur lapide, ut mandatum est, fractis cruribus occiduntur.
-</p>	
+						<?php echo $campagne->campain_description; ?>
                    
 			    </div> <!-- /widget-content -->
 		     </div> <!-- /widget -->

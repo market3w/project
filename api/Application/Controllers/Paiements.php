@@ -68,17 +68,20 @@ class Application_Controllers_Paiements extends Library_Core_Controllers{
 		
 	public function get_allpaiement($data){
 		//!!!Seulement l'admin a cette fonction
-		 $user_id = ($_SESSION['market3w_user_id']==-1)?null:$_SESSION['market3w_user_id'];
+		$user_id = ($_SESSION['market3w_user_id']==-1)?null:$_SESSION['market3w_user_id'];
 		 if($user_id==null){return $this->setApiResult(false, true, 'you are not logged');}
 		 
 		$role = new Application_Controllers_Roles();
 		$role_res = $role->get_currentrole();
 		$role_id = $role_res->response[0]->role_id;
+		
 		//Si admin alors OK
-		if($role_id==1)
+		if($role_id==1 || $role_id==2 || $role_id==4)
 		{
 			$this->table->addJoin("users","u","user_id","user_id","","left");
+			if($role_id==4){$this->table->addWhere("user_id", $user_id);}
 			$res = (array)$this->table->search();
+			
 			$tab = array();
 			if(!array_key_exists(0,$res)){
 				return $this->setApiResult(false, true, ' no paiements found');

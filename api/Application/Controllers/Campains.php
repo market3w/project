@@ -5,11 +5,13 @@ class Application_Controllers_Campains extends Library_Core_Controllers{
 	
 	private $campain_vars = array('campain_id',
 					   		      'campain_name',
+								  'campain_courte_description',
 							      'campain_description',
 							      'campain_prix',
 							      'company_id',
 							      'campain_completion',
-					   		      'campain_date');
+					   		      'campain_date',
+								  'campain_date_modif');
 	
 	public function __construct(){
         global $iDB;
@@ -26,7 +28,7 @@ class Application_Controllers_Campains extends Library_Core_Controllers{
 		$role_id = $role_res->response[0]->role_id;
 		
 		//Si c'est un administrateur ou webmarketeur ils récupére le document et leur utilisateurs// Sinon si c'est un client il ne peut que recuperer ses documents
-		if($role_id==1 || $role_id==2 || $role_id==3 )
+		if($role_id==1 || $role_id==2 || $role_id==4 )
 		{
 			$campain_id = (empty ($data['campain_id']))?null:$data['campain_id'];
 			if($campain_id==null){return $this->setApiResult(false, true, 'param \'campain_id\' undefined');}
@@ -53,6 +55,8 @@ class Application_Controllers_Campains extends Library_Core_Controllers{
 			
 			// Condition
 			$this->table->addWhere("campain_id",$campain_id);
+			if($role_id==4){ $this->table->addWhere("contact_id",$user_id); }
+			
 			//Si un membre veut recupérer une campagne, on vérifie que celui-ci lui appartienne sinon la campagne sera "not found"
 			if($role_id==3){$this->documentsTable->addWhere("user_id",$user_id);}
 			$res = (array)$this->table->search();
@@ -166,7 +170,7 @@ class Application_Controllers_Campains extends Library_Core_Controllers{
 		$role_id = $role_res->response[0]->role_id;
 		
 		//Si c'est un administrateur peut récupérer toutes les campagnes en court
-		if($role_id==1)
+		if($role_id==1 || $role_id==2 || $role_id==4)
 		{
 			// Selectionner tous les champs de la table campains
 			$this->table->addField("*");
@@ -186,6 +190,12 @@ class Application_Controllers_Campains extends Library_Core_Controllers{
 			$this->table->addJoin("users","u","user_id","contact_id","","left");
 			$this->table->addJoin("companies","c","company_id","company_id","u","left");
 			$this->table->addJoin("users","w","user_id","webmarketter_id","","left");
+			
+			if($role_id==4)
+			{
+				$this->table->addWhere("contact_id", $user_id);
+			}
+			
 			$res = (array)$this->table->search();
 			$tab = array();
 			if(!array_key_exists(0,$res)){

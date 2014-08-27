@@ -1,4 +1,7 @@
-<?php  $page='campagnes';  ?>
+<?php  
+include('include/config.php');
+$page='campagnes'; 
+$campagnes = $client->get_allcampain(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,72 +17,22 @@
   <div class="main-inner">
     <div class="container">
       <div class="row">
-      
-      <div class="span4">
-	      	<div id="target-3" class="widget">
-	      		<div class="widget-content">
-	      			<a href="campagne.php"><h3>Titre de la campagne</h3></a>
-                     <p><i>23 juin 2014</i></p>
-			      	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>	
-			      	<a href="campagne.php" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin-top:8px;">Voir la campagne</button></a>
-        		</div> <!-- /widget-content -->
-		     </div> <!-- /widget -->
-	     </div> <!-- /span4 -->
-      	
-        <div class="span4">
-	      	<div id="target-3" class="widget">
-	      		<div class="widget-content">
-	      			<a href="campagne.php"><h3>Titre de la campagne</h3></a>
-                     <p><i>23 juin 2014</i></p>
-			      	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>	
-			      	<a href="campagne.php" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin-top:8px;">Voir la campagne</button></a>
-        		</div> <!-- /widget-content -->
-		     </div> <!-- /widget -->
-	     </div> <!-- /span4 -->
-         
+      <?php if(count($campagnes)>0){ ?>
+		 <?php foreach($campagnes as $key=>$value){ ?>
          <div class="span4">
 	      	<div id="target-3" class="widget">
 	      		<div class="widget-content">
-	      			<a href="campagne.php"><h3>Titre de la campagne</h3></a>
-                     <p><i>23 juin 2014</i></p>
-			      	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>	
-			      	<a href="campagne.php" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin-top:8px;">Voir la campagne</button></a>
+	      			<a href="<?php echo $value->document_link; ?>"><h3><?php echo $value->document_name; ?> </h3></a>
+                     <p><i><?php echo $value->document_date; ?></i></p>
+			      	<p><?php echo $value->document_description; ?></p>	
+			      	<a href="<?php echo $value->document_link; ?>" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin-top:8px;">Voir la campagne</button></a>
         		</div> <!-- /widget-content -->
 		     </div> <!-- /widget -->
 	     </div> <!-- /span4 -->
-      
-     	<div class="span4">
-	      	<div id="target-3" class="widget">
-	      		<div class="widget-content">
-	      			<a href="campagne.php"><h3>Titre de la campagne</h3></a>
-			      	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>	
-			      	<a href="campagne.php" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin-top:8px;">Voir la campagne</button></a>
-        		</div> <!-- /widget-content -->
-		     </div> <!-- /widget -->
-	     </div> <!-- /span4 -->
-      	
-        <div class="span4">
-	      	<div id="target-3" class="widget">
-	      		<div class="widget-content">
-	      			<a href="campagne.php"><h3>Titre de la campagne</h3></a>
-                     <p><i>23 juin 2014</i></p>
-			      	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>	
-			      	<a href="campagne.php" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin-top:8px;">Voir la campagne</button></a>
-        		</div> <!-- /widget-content -->
-		     </div> <!-- /widget -->
-	     </div> <!-- /span4 -->
-         
-         <div class="span4">
-	      	<div id="target-3" class="widget">
-	      		<div class="widget-content">
-	      			<a href="campagne.php"><h3>Titre de la campagne</h3></a>
-                     <p><i>23 juin 2014</i></p>
-			      	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>	
-			      	<a href="campagne.php" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin-top:8px;">Voir la campagne</button></a>
-        		</div> <!-- /widget-content -->
-		     </div> <!-- /widget -->
-	     </div> <!-- /span4 -->
-	      	
+     <?php  } ?>
+    <?php }else{echo'Pas de campagnes';} ?>
+    
+      	      	
         
       </div>
       <!-- /row --> 

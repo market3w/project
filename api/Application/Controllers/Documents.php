@@ -9,7 +9,8 @@ class Application_Controllers_Documents extends Library_Core_Controllers{
 							   'document_link',
 					   		   'document_date',
 							   'document_auteur',
-							   'user_id');
+							   'user_id',
+							   'author_id');
 	
 	public function __construct(){
         global $iDB;
@@ -71,10 +72,10 @@ class Application_Controllers_Documents extends Library_Core_Controllers{
 		$role_id = $role_res->response[0]->role_id;
 		
 		//Si c'est un administrateur ou webmarketeur ils récupére les documents et leur utilisateurs// Sinon si c'est un client il ne peut que recuperer ses documents
-		if($role_id==1 || $role_id==2 || $role_id==3 )
+		if($role_id==1 || $role_id==2 || $role_id==4 )
 		{
 			//Si c'est un admin ou webmarketeur qui accéde aux dossier du client, il devra renseigne l'id du client
-			if($role_id!=3)
+			if($role_id!=4)
 			{
 				$user_id = (empty ($data['user_id']))?null:$data['user_id'];
 				if($user_id==null){return $this->setApiResult(false, true, 'param \'user_id\' undefined');}

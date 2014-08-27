@@ -1,4 +1,7 @@
-<?php  $page='documents';  ?>
+<?php  
+include('include/config.php');
+$page='documents'; 
+$documents = $client->get_alldocument(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,72 +18,23 @@
   <div class="main-inner">
     <div class="container">
       <div class="row">
+       <?php if(count($documents)>0){ ?>
+			 <?php for($i=0; $i < count($documents); $i++){ ?>
+             
+              <div class="span4">
+	      	<div id="target-3" class="widget">
+	      		<div class="widget-content">
+	      			<a href="<?php echo $documents[$i]->document_link; ?>"><h3><?php echo $documents[$i]->document_name; ?></h3></a>
+                    <p><i><?php echo $documents[$i]->document_date; ?></i></p>
+			      	<p><?php echo $documents[$i]->document_description; ?></p>	
+			      	<form action="<?php echo $documents[$i]->document_link; ?>"><input type="submit" class="btn btn-info" style="margin-top:8px;" value="Télécharger le document" /></form>
+        		</div> <!-- /widget-content -->
+		     </div> <!-- /widget -->
+	     </div> <!-- /span4 -->
+                 
+			 <?php  } ?>
+            <?php }else{echo'Pas de documents';} ?>
       
-      <div class="span4">
-	      	<div id="target-3" class="widget">
-	      		<div class="widget-content">
-	      			<a href="#"><h3>PDF | explicatif machin chose</h3></a>
-                    <p><i>23 juin 2014</i></p>
-			      	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>	
-			      	<a href="#" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin-top:8px;">Télécharger le document</button></a>
-        		</div> <!-- /widget-content -->
-		     </div> <!-- /widget -->
-	     </div> <!-- /span4 -->
-      	
-        <div class="span4">
-	      	<div id="target-3" class="widget">
-	      		<div class="widget-content">
-	      			<a href="#"><h3 style="margin-bottom:8px;">WORD | historique de mon cou</h3></a>
-                     <p><i>23 juin 2014</i></p>
-			      	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>	
-			      	<a href="#" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin-top:8px;">Télécharger le document</button></a>
-        		</div> <!-- /widget-content -->
-		     </div> <!-- /widget -->
-	     </div> <!-- /span4 -->
-         
-         <div class="span4">
-	      	<div id="target-3" class="widget">
-	      		<div class="widget-content">
-	      			<a href="#"><h3 style="margin-bottom:8px;">EXCEL | statistiques de girafe </h3></a>
-                     <p><i>23 juin 2014</i></p>
-			      	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>	
-			      	<a href="#" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin-top:8px;">Télécharger le document</button></a>
-        		</div> <!-- /widget-content -->
-		     </div> <!-- /widget -->
-	     </div> <!-- /span4 -->
-      
-      <div class="span4">
-	      	<div id="target-3" class="widget">
-	      		<div class="widget-content">
-	      			<a href="#"><h3>PDF | explicatif machin chose</h3></a>
-                    <p><i>23 juin 2014</i></p>
-			      	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>	
-			      	<a href="#" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin-top:8px;">Télécharger le document</button></a>
-        		</div> <!-- /widget-content -->
-		     </div> <!-- /widget -->
-	     </div> <!-- /span4 -->
-      	
-        <div class="span4">
-	      	<div id="target-3" class="widget">
-	      		<div class="widget-content">
-	      			<a href="#"><h3 style="margin-bottom:8px;">WORD | historique de mon cou</h3></a>
-                     <p><i>23 juin 2014</i></p>
-			      	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>	
-			      	<a href="#" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin-top:8px;">Télécharger le document</button></a>
-        		</div> <!-- /widget-content -->
-		     </div> <!-- /widget -->
-	     </div> <!-- /span4 -->
-         
-         <div class="span4">
-	      	<div id="target-3" class="widget">
-	      		<div class="widget-content">
-	      			<a href="#"><h3 style="margin-bottom:8px;">EXCEL | statistiques de girafe </h3></a>
-                     <p><i>23 juin 2014</i></p>
-			      	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>	
-			      	<a href="#" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin-top:8px;">Télécharger le document</button></a>
-        		</div> <!-- /widget-content -->
-		     </div> <!-- /widget -->
-	     </div> <!-- /span4 -->
         
       </div>
       <!-- /row --> 
