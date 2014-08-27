@@ -67,7 +67,7 @@ $documents = $client->get_alldocument(); ?>
 				  ?>
              
               <?php //echo (($documents->author_id==$_SESSION["market3w_user"]) ? "from_user left" : "by_myself right"); ?>
-             <li class="<?php echo (($documents[$i]->author_id==$_SESSION["market3w_user"]) ? "from_user left" : "by_myself right"); ?>"> <a href="#" class="avatar"><img src="img/message_avatar<?php echo (($documents[$i]->author_id==$_SESSION["market3w_user"]) ? "1" : "2"); ?>.png"/></a>
+             <li class="<?php echo (($documents[$i]->author_id==$currentuser_id) ? "from_user left" : "by_myself right"); ?>"> <a href="#" class="avatar"><img src="img/message_avatar<?php echo (($documents[$i]->author_id==$currentuser_id) ? "1" : "2"); ?>.png"/></a>
                   <div class="message_wrap"> <span class="arrow"></span>
                     <div class="info"> <a class="name">Nom Prénom</a> <span class="time">il y a 1 jour</span>
                       <div class="options_arrow">

@@ -95,44 +95,7 @@ class Client_Controllers_Users extends Client_Core_Controllers{
 		return array();
 	}
 	
-	public function contact($data){
-		$user_name = (empty ($data['user_name']))?null:$data['user_name'];
-		$user_firstname = (empty ($data['user_firstname']))?null:$data['user_firstname'];
-		$user_email = (empty ($data['user_email']))?null:$data['user_email'];
-		$objet = (empty ($data['objet']))?null:$data['objet'];
-		$message_form = (empty ($data['message']))?null:$data['message'];
-		
-		$temp = $this->parseQueryResult(json_decode($this->_client->query("POST","method=contact&user_name=".$user_name."&user_firstname=".$user_firstname."&user_email=".$user_email."&objet=".$objet."&message=".$message_form)));
-		$error = $this->getError();
-		if($error===false){
-			$response = $this->getResponse();
-			$_SESSION["market3w_user"] = trim($response[0]->user_firstname." ".$response[0]->user_name);
-		} elseif($error["errorType"]=="API ERROR") {
-			switch($error["errorMessage"]){
-				
-				case "param 'user_email' undefined" :      $_SESSION["errorMessage"] = "Veuillez renseigner votre email";
-														   break;
-														 
-				case "param 'user_name' undefined" :   $_SESSION["errorMessage"] = "Veuillez renseigner votre nom";
-														   break;
-				
-				case "param 'user_firstname' undefined" :   $_SESSION["errorMessage"] = "Veuillez renseigner votre prénom";
-														   break;
-														   
-				case "param 'objet' undefined" :   $_SESSION["errorMessage"] = "Veuillez renseigner l'objet de votre message";
-														   break;
-				
-				case "param 'message' undefined" :   $_SESSION["errorMessage"] = "Veuillez renseigner votre message";
-														   break;
-														 
-				default : 								   $_SESSION["errorMessage"] = "Erreur de saisie";
-														   break;
-										 
-			}
-		} elseif($error["errorType"]=="SERVER ERROR") {
-			$_SESSION["errorServer"]=$error["errorMessage"];
-		}
-	}
+
 	
 	public function put_user($data){
 		$user_id = (empty ($data['user_id']))?null:$data['user_id'];
@@ -152,7 +115,7 @@ class Client_Controllers_Users extends Client_Core_Controllers{
 		$error = $this->getError();
 		if($error===false){
 			$response = $this->getResponse();
-			$_SESSION["market3w_user"] = trim($response[0]->user_firstname." ".$response[0]->user_name);
+		
 		} elseif($error["errorType"]=="API ERROR") {
 			switch($error["errorMessage"]){
 				case "param 'user_id' undefined" :
@@ -173,6 +136,84 @@ class Client_Controllers_Users extends Client_Core_Controllers{
 															
 				case "You can't update this user" :  $_SESSION["errorMessage"] = "Vous n'avez pas les droits pour modifier ce profil";
 				   											break;
+														 
+				default : 								   $_SESSION["errorMessage"] = "Erreur de saisie";
+														   break;
+										 
+			}
+		} elseif($error["errorType"]=="SERVER ERROR") {
+			$_SESSION["errorServer"]=$error["errorMessage"];
+		}
+	}
+	
+	public function put_password($data){
+		$user_password = (empty ($data['user_password']))?null:$data['user_password'];
+		$user_password2 = (empty ($data['user_password2']))?null:$data['user_password2'];
+		$user_email = (empty ($data['user_email']))?null:$data['user_email'];
+		
+		$temp = $this->parseQueryResult(json_decode($this->_client->query("PUT","method=password&user_password=".$user_password."&user_password2=".$user_password2."&user_email=".$user_email)));
+		$error = $this->getError();
+		if($error===false){
+			$response = $this->getResponse();
+			
+		} elseif($error["errorType"]=="API ERROR") {
+			switch($error["errorMessage"]){
+				
+				case "you are not logged" :					$_SESSION["errorMessage"] = "Vous n'êtes pas connecté";
+														   break;
+				
+				case "param 'user_id' undefined" : 
+				case "param 'user_id' is not numeric" : 
+				     										$_SESSION["errorMessage"] = "Votre identifiant n'a pas été trouvé";
+														   break;
+														   				 
+				case "param 'user_password' undefined" :   $_SESSION["errorMessage"] = "Veuillez renseigner votre mot de passe";
+														   break;
+				
+				case "param 'user_password2' undefined" :   $_SESSION["errorMessage"] = "Veuillez confirmer votre mot de passe";
+														   break;
+														   
+				case "param 'user_email' undefined" :   $_SESSION["errorMessage"] = "Adresse mail manquante";
+														   break;										   
+			
+				default : 								   $_SESSION["errorMessage"] = "Erreur de saisie";
+														   break;
+										 
+			}
+		} elseif($error["errorType"]=="SERVER ERROR") {
+			$_SESSION["errorServer"]=$error["errorMessage"];
+		}
+	}
+	
+		public function contact($data){
+		$user_name = (empty ($data['user_name']))?null:$data['user_name'];
+		$user_firstname = (empty ($data['user_firstname']))?null:$data['user_firstname'];
+		$user_email = (empty ($data['user_email']))?null:$data['user_email'];
+		$objet = (empty ($data['objet']))?null:$data['objet'];
+		$message_form = (empty ($data['message']))?null:$data['message'];
+		
+		$temp = $this->parseQueryResult(json_decode($this->_client->query("POST","method=contact&user_name=".$user_name."&user_firstname=".$user_firstname."&user_email=".$user_email."&objet=".$objet."&message=".$message_form)));
+		$error = $this->getError();
+		if($error===false){
+			$response = $this->getResponse();
+		
+		} elseif($error["errorType"]=="API ERROR") {
+			switch($error["errorMessage"]){
+				
+				case "param 'user_email' undefined" :      $_SESSION["errorMessage"] = "Veuillez renseigner votre email";
+														   break;
+														 
+				case "param 'user_name' undefined" :   $_SESSION["errorMessage"] = "Veuillez renseigner votre nom";
+														   break;
+				
+				case "param 'user_firstname' undefined" :   $_SESSION["errorMessage"] = "Veuillez renseigner votre prénom";
+														   break;
+														   
+				case "param 'objet' undefined" :   $_SESSION["errorMessage"] = "Veuillez renseigner l'objet de votre message";
+														   break;
+				
+				case "param 'message' undefined" :   $_SESSION["errorMessage"] = "Veuillez renseigner votre message";
+														   break;
 														 
 				default : 								   $_SESSION["errorMessage"] = "Erreur de saisie";
 														   break;

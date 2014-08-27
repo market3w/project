@@ -453,7 +453,32 @@ class Application_Controllers_Users extends Library_Core_Controllers{
 		if($company_id!=null){
 			$this->table->addNewField("company_id",$company_id);
 		}
+		$this->table->addWhere("user_id", $user_id);
+        $this->table->update();
+        return $this->setApiResult(true);
+    }
+	
+	 public function put_password($data){
+        $user_id = ($_SESSION['market3w_user_id']==-1)?null:$_SESSION['market3w_user_id'];
+		 if($user_id==null){return $this->setApiResult(false, true, 'you are not logged');}
+		 
+		$user_password = (empty ($data['user_password']))?null:$data['user_password'];
+		$user_password2 = (empty ($data['user_password']))?null:$data['user_password'];
+		$user_email = (empty ($data['user_email']))?null:$data['user_email'];
 		
+		 if($user_id==null){return $this->setApiResult(false, true, 'param \'user_id\' undefined');}
+        if(!is_numeric($user_id)){return $this->setApiResult(false, true, 'param \'user_id\' is not numeric');}
+		if($user_password==null){return $this->setApiResult(false, true, 'param \'user_password\' undefined');}
+		if($user_password2==null){return $this->setApiResult(false, true, 'param \'user_password2\' undefined');}
+		if($user_email==null){return $this->setApiResult(false, true, 'param \'user_email\' undefined');}
+		
+		$this->table->resetObject();
+		
+		
+		if($user_password!=null && $user_password==$user_password2){
+			$this->table->addNewField("user_password",md5($user_email.SALT_USER_PWD.$user_password));
+		}
+		$this->table->addWhere("user_id", $user_id);
         $this->table->update();
         return $this->setApiResult(true);
     }

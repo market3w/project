@@ -39,7 +39,8 @@ if(isset($_GET['aff']) && $_GET['aff']!=''){$aff = $_GET['aff'];}else{$aff='info
 						    <a href="#inform" data-toggle="tab">Mes informations</a>
 						  </li>
 						  <li  <?php if($aff=='entreprise'){echo 'class="active"';} ?>><a href="#entre" data-toggle="tab">Entreprise</a></li>
-                           <li  <?php if($aff=='document'){echo 'class="active"';} ?>><a href="#doc" data-toggle="tab">Télécharger un Document</a></li>
+                           <li  <?php if($aff=='mdp'){echo 'class="active"';} ?>><a href="#mdp" data-toggle="tab">Mot de passe</a></li>
+                          <li  <?php if($aff=='document'){echo 'class="active"';} ?>><a href="#doc" data-toggle="tab">Télécharger un Document</a></li>
 						</ul>
 						
 						<br>
@@ -161,102 +162,49 @@ if(isset($_GET['aff']) && $_GET['aff']!=''){$aff = $_GET['aff'];}else{$aff='info
 										</div> <!-- /form-actions -->
 									</fieldset>
 								</form>
-                                <form action="" method="post">
-                                 		<div class="control-group">											
-											<label class="control-label" for="user_password">Mot de passe</label>
-											<div class="controls">
-												<input type="password" class="span4" id="user_password" value="thisispassword">
-											</div> <!-- /controls -->				
-										</div> <!-- /control-group -->
-										
-										
-										<div class="control-group">											
-											<label class="control-label" for="user_password2">Confirmer</label>
-											<div class="controls">
-												<input type="password" class="span4" id="user_password2" value="thisispassword">
-											</div> <!-- /controls -->				
-										</div> <!-- /control-group -->
-                                </form>
+                                
 								</div>
 								
 								<div class="tab-pane <?php if($aff=='entreprise'){echo 'active';} ?>" id="entre">
-									<form id="edit-profile" class="form-horizontal">
-									<fieldset>
-										
+                                	<table width="100%">
+									<tr><td style="width:40%">Nom entreprise :</td><td> <b><?php echo ($currentuser->user_company->company_name!='') ? $currentuser->user_company->company_name : ''; ?></b></td></tr>
+                                    <tr><td>Siret :</td><td> <b><?php echo ($currentuser->user_company->company_siret!='') ? $currentuser->user_company->company_siret : ''; ?></b></td></tr>
+                                    <tr><td>Siren :</td><td> <b><?php echo ($currentuser->user_company->company_siren!='') ? $currentuser->user_company->company_siren : ''; ?></b></td></tr>
+                                    <tr><td>Adresse :</td><td> <b><?php echo ($currentuser->user_company->company_adress!='') ? $currentuser->user_company->company_adress : ''; ?></b></td></tr>
+                                    <tr><td>Adresse complémentaire <i>(facultatif)</i> :</td><td> <b><?php echo ($currentuser->user_company->company_adress2!='') ? $currentuser->user_company->company_adress2 : '<i>non renseigné</i>';  ?></b></td></tr>
+                                    <tr><td>Ville </td><td> <b><?php echo ($currentuser->user_company->company_town!='') ? $currentuser->user_company->company_town : '<i>non renseigné</i>';  ?></b></td></tr>
+                                    <tr><td>Code postal :</td><td><b><?php ($currentuser->user_company->company_zipcode!='') ? $currentuser->user_company->company_zipcode : '<i>non renseigné</i>';  ?></b></td></tr>
+                                    <tr><td>Nombre d'employés :</td><td> <b><?php echo ($currentuser->user_company->company_nb_employees!='') ? $currentuser->user_company->company_nb_employees : '<i>non renseigné</i>';  ?></b></td></tr>
+									</table>
+                                    
+                                   <br/><br/> Si les données de votre entreprise ne sont plus à jour, merci de nous en infomer via le <a href="contact.php">formuaire de contact</a>. 
+                                </div>
+                                <div class="tab-pane <?php if($aff=='mdp'){echo 'active';} ?>" id="mdp">
+                                 <span class="responseError" id="loginError"><?php echo $_SESSION["errorMessage"]; ?></span>
+                                 <?php if(isset($_POST['method']) && $_POST['method']=='put_password' && $_SESSION["errorMessage"]==''){echo'mot de passe modifié.';} ?>
+                                	<form action="profil.php?aff=mdp" method="post">
+                                    <input type="hidden" name="method" value="put_password" />
+                                    <input type="hidden" name="user_email" value="<?php echo $currentuser->user_email; ?>" />
+                                 		<div class="control-group">											
+											<label class="control-label" for="user_password">Nouveau mot de passe</label>
+											<div class="controls">
+												<input type="password" class="span4" name="user_password" value="" placeholder="Tapez votre nouveau mot de passe">
+											</div> <!-- /controls -->				
+										</div> <!-- /control-group -->
 										<div class="control-group">											
-											<label class="control-label" for="campany_name">Nom</label>
+											<label class="control-label" for="user_password">Confirmer mot de passe</label>
 											<div class="controls">
-												<input type="text" class="span4 disabled" id="campany_name" value="Apple" disabled>
+												<input type="password" class="span4" name="user_password2" value="" placeholder="Confirmez votre nouveau mot de passe">
 											</div> <!-- /controls -->				
 										</div> <!-- /control-group -->
-										
-										
-										<div class="control-group">											
-											<label class="control-label" for="campany_siret">Siret</label>
-											<div class="controls">
-												<input type="text" class="span4 disabled" id="campany_siret" value="2544545775656" disabled>
-											</div> <!-- /controls -->				
-										</div> <!-- /control-group -->
-										
-										
-										<div class="control-group">											
-											<label class="control-label" for="campany_siren">Siren</label>
-											<div class="controls">
-												<input type="text" class="span4 disabled" id="campany_siren" value="323423423533" disabled>
-											</div> <!-- /controls -->				
-										</div> <!-- /control-group -->
-										
-                                        <div class="control-group">											
-											<label class="control-label" for="campany_adress">Adresse</label>
-											<div class="controls">
-												<input type="text" class="span4 disabled" id="campany_adress" value="11 Rue de l'éléphant" disabled>
-											</div> <!-- /controls -->				
-										</div> <!-- /control-group -->
-										
-										
-										<div class="control-group">											
-											<label class="control-label" for="campany_adress2">Adresse 2 <i>(falcultatif)</i></label>
-											<div class="controls">
-												<input type="text" class="span4 disabled" id="campany_adress2" value="Dans la fôret" disabled>
-											</div> <!-- /controls -->				
-										</div> <!-- /control-group -->
-                                        
-                                        <div class="control-group">											
-											<label class="control-label" for="campany_town">Ville</label>
-											<div class="controls">
-												<input type="text" class="span4 disabled" id="campany_town" value="Paris" disabled>
-											</div> <!-- /controls -->				
-										</div> <!-- /control-group -->
-                                        
-                                        <div class="control-group">											
-											<label class="control-label" for="campany_zipcode">Code postal</label>
-											<div class="controls">
-												<input type="text" class="span4 disabled" id="campany_zipcode" value="75123" disabled>
-											</div> <!-- /controls -->				
-										</div> <!-- /control-group -->
-                                        
-                                        <div class="control-group">											
-											<label class="control-label" for="campany_nb_employees">Nombre d'employés</label>
-											<div class="controls">
-												<input type="text" class="span4 disabled" id="campany_nb_employees" value="40" disabled>
-											</div> <!-- /controls -->				
-										</div> <!-- /control-group -->
-                                        
-                                        
-                                        
-										 <br />
-										Les données de votre entreprise ne sont plus à jour : <a href="#">contacter-nous</a> afin de mettre à jour les informations
+                                        <button type="submit" class="btn btn-primary">Modifier</button> 
 											
-										<div class="form-actions">
-											<center><button type="submit" class="btn btn-primary disabled">Enregistrer</button> </center>
-											<!--<button class="btn">Cancel</button>-->
-										</div> <!-- /form-actions -->
-									</fieldset>
-								</form>
-								</div>
-                                
+										
+                                </form>
+                                    
+                                 </div>
                                 <div class="tab-pane <?php if($aff=='document'){echo 'active';} ?>" id="doc">
-									<form id="edit-profile" class="form-horizontal">
+									<form class="form-horizontal">
 									<fieldset>
 										
 										<div class="control-group">											
