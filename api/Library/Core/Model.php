@@ -319,65 +319,89 @@ abstract class Library_Core_Model{
         return $join;
     }
 
+    /**
+     * Formatte et retourne la chaine de caractères de la condition
+     * @param string $mode
+     * @return string
+     */
     private function getWhere($mode=""){
-            $is_select = ($mode==="")?false:true;
+        $is_select = ($mode==="")?false:true;
 
-            $where = "";
-            for($count=0;$count<count($this->whereList);$count++){
-                    if($count==0){
-                            $where .= " WHERE ";
-                    }
-                    $where .= $this->whereList[$count];
+        $where = "";
+        for($count=0;$count<count($this->whereList);$count++){
+            if($count==0){
+                $where .= " WHERE ";
             }
+            $where .= $this->whereList[$count];
+        }
 
-            if(!$is_select){
-                    $where = str_replace($this->table_as.".","",$where);
-            }
+        if(!$is_select){
+            $where = str_replace($this->table_as.".","",$where);
+        }
 
-            return $where;
+        return $where;
     }
 
+    /**
+     * Formatte et retourne la chaine de caractères pour le GROUP BY
+     * @return string
+     */
     private function getGroup(){
-            $group = "";
-    if(!count($this->groupList)==0){
-                    $group = " GROUP BY ".implode(",",$this->groupList);
-            }
-            return $group;
+        $group = "";
+        if(!count($this->groupList)==0){
+            $group = " GROUP BY ".implode(",",$this->groupList);
+        }
+        return $group;
     }
 
+    /**
+     * Formatte et retourne la chaine de caractères pour le ORDER BY
+     * @return string
+     */
     private function getOrder(){
-            $order = "";
-    if(!count($this->orderList)==0){
-                    $order = " ORDER BY ".implode(",",$this->orderList);
-            }
-            return $order;
+        $order = "";
+        if(!count($this->orderList)==0){
+            $order = " ORDER BY ".implode(",",$this->orderList);
+        }
+        return $order;
     }
 
+    /**
+     * Formatte et retourne la chaine de caractères pour le LIMIT
+     * @return string
+     */
     private function getLimit(){
-            $limit = (empty ($this->limit))?'':$this->limit;
-            return $limit;
+        $limit = (empty ($this->limit))?'':$this->limit;
+        return $limit;
     }
 
+    /**
+     * Réinitialise toutes variables de la classe (sauf $db, $table, $table_as et $primary)
+     */
     public function resetObject(){
-            $this->fieldsList = array();
-            $this->newFieldList = array();
-            $this->newFieldValueList = array();
-            $this->joinsList = array();
-            $this->whereList = array();
-            $this->whereValueList = array();
-            $this->whereCount = 0;
-            $this->groupList = array();
-            $this->orderList = array();
-            $this->limit = array();
+        $this->fieldsList = array();
+        $this->newFieldList = array();
+        $this->newFieldValueList = array();
+        $this->joinsList = array();
+        $this->whereList = array();
+        $this->whereValueList = array();
+        $this->whereCount = 0;
+        $this->groupList = array();
+        $this->orderList = array();
+        $this->limit = array();
     }
 
+    /**
+     * Affiche la requête sql et les valeurs associées
+     * @param string $request   Requête sql au format PDO
+     */
     private function printRequest($request){
-            echo '<p style="border:1px solid #ff0000; color:#ff0000; padding:5px; margin:5px 0 10px; font-weight:bold;"><u>Request :</u><br />'.$request.'</p>';
-            if(count($this->newFieldValueList)!=0){
-                    var_dump($this->newFieldValueList);
-            }
-            if(count($this->whereValueList)!=0){
-                    var_dump($this->whereValueList);
-            }
+        echo '<p style="border:1px solid #ff0000; color:#ff0000; padding:5px; margin:5px 0 10px; font-weight:bold;"><u>Request :</u><br />'.$request.'</p>';
+        if(count($this->newFieldValueList)!=0){
+            var_dump($this->newFieldValueList);
+        }
+        if(count($this->whereValueList)!=0){
+            var_dump($this->whereValueList);
+        }
     }
 }
