@@ -22,10 +22,10 @@ $campagnes = $client->get_allcampain(); ?>
          <div class="span4">
 	      	<div id="target-3" class="widget">
 	      		<div class="widget-content">
-	      			<a href="<?php echo $value->document_link; ?>"><h3><?php echo $value->document_name; ?> </h3></a>
-                     <p><i><?php echo $value->document_date; ?></i></p>
-			      	<p><?php echo $value->document_description; ?></p>	
-			      	<a href="<?php echo $value->document_link; ?>" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin-top:8px;">Voir la campagne</button></a>
+	      			<a href="campagne.php?id=<?php echo $value->campain_id; ?>"><h3><?php echo $value->campain_name; ?> </h3></a>
+                     <p><i><?php echo $value->campain_date; ?></i></p>
+			      	<p><?php echo $value->campain_description; ?></p>	
+			      	<a href="campagne.php?id=<?php echo $value->campain_id; ?>" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info" style="margin-top:8px;">Voir la campagne</button></a>
         		</div> <!-- /widget-content -->
 		     </div> <!-- /widget -->
 	     </div> <!-- /span4 -->

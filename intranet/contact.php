@@ -1,4 +1,6 @@
-<?php  $page='contact';  ?>
+<?php  
+include('include/config.php');
+$page='contact';  ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,13 +23,15 @@
 	      			<h1 style="margin-bottom:10px;color:#80B3CA;">Contacter-nous</h1>
 			      		
 			      	<p>N'hésiter pas à nous contacter par le formulaire pour toute question ou demande, un de nos webmarketeurs vous répondra dans les plus brefs délais.</p>	<br/><br/>
-                   <form id="contact" class="form-horizontal">
+                   <form id="contact" action="contact.php" class="form-horizontal" method="post">
+                   <input type="hidden" name="method" value="contact"/>
+                   <span class="responseError" id="loginError"><?php echo $_SESSION["errorMessage"]; ?></span>
                     <fieldset>
                         
                         <div class="control-group">											
                             <label class="control-label" for="user_name">Nom</label>
                             <div class="controls">
-                                <input type="text" class="span4 disabled" id="user_name" value="John" disabled>
+                                <input type="text" class="span4" name="user_name" value="<?php echo $currentuser->user_name; ?>" >
                             </div> <!-- /controls -->				
                         </div> <!-- /control-group -->
                         
@@ -35,7 +39,7 @@
                         <div class="control-group">											
                             <label class="control-label" for="user_firstname">Prénom</label>
                             <div class="controls">
-                                <input type="text" class="span4 disabled" id="user_firstname" value="Donga" disabled>
+                                <input type="text" class="span4" name="user_firstname" value="<?php echo $currentuser->user_firstname; ?>">
                             </div> <!-- /controls -->				
                         </div> <!-- /control-group -->
                         
@@ -43,21 +47,21 @@
                         <div class="control-group">											
                             <label class="control-label" for="email">Adresse email</label>
                             <div class="controls">
-                                <input type="text" class="span4 disabled" id="email" value="john.donga@egrappler.com" disabled>
+                                <input type="text" class="span4" name="user_email" value="<?php echo $currentuser->user_email; ?>">
                             </div> <!-- /controls -->				
                         </div> <!-- /control-group -->
                         
                         <div class="control-group">											
                             <label class="control-label" for="objet">Objet</label>
                             <div class="controls">
-                                <input type="text" class="span4" id="objet" value="" placeholder="Indiquer l'objet du contact">
+                                <input type="text" class="span4" name="objet" value="<?php echo (array_key_exists("objet",$_POST))?$_POST["objet"]:""; ?>" placeholder="Indiquer l'objet du contact">
                             </div> <!-- /controls -->				
                         </div> <!-- /control-group -->
                         
                       <div class="control-group">											
                             <label class="control-label" for="message">Message</label>
                             <div class="controls">
-                                <textarea class="span4" id="message" placeholder="Indiquer votre message"></textarea>
+                                <textarea class="span4" name="message" placeholder="Indiquer votre message"><?php echo (array_key_exists("message",$_POST))?$_POST["message"]:""; ?></textarea>
                             </div> <!-- /controls -->				
                         </div> <!-- /control-group -->
                             
