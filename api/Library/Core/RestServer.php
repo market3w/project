@@ -1,5 +1,21 @@
 <?php
+/**
+ * La classe Library_Core_RestServer est le premier controlleur appelé
+ * Celui-ci lance le service et exécute les différentes méthodes du webservice
+ * 
+ * @author Group FKVJ <group.fkvj@gmail.com>
+ * @copyright (c) 2014, Group FKVJ
+ */
 class Library_Core_RestServer{
+    /**
+     * @var object $service             Contient le service
+     * @var string $httpMethod          Type de methode (GET | POST | PUT | DELETE)
+     * @var string $classMethod         Nom de la méthode à appeler dans le service (elle sera concaténée avec en préfixe $httpMethod en minuscules et "_")
+     * @var array $requestParam         Liste des paramètres fournis à la méthode du service
+     * @var string $clientUserAgent     Contient le User Agent du client
+     * @var string $clientHttpAccept    Contient le Http Accept du client
+     * @var object $json                Contient la réponse à afficher au format json
+     */
     private $service;
     private $httpMethod;
     private $classMethod;
@@ -9,10 +25,15 @@ class Library_Core_RestServer{
     
     private $json;
     
+    /**
+     * 
+     * @param string $service
+     * @param boolean $json
+     */
     public function __construct($service,$json){
-		if($json===true){
-        	header('Content-type: application/json');
-		}
+        if($json===true){
+            header('Content-type: application/json');
+        }
         $this->json                     = new stdClass();
         $this->json->response           = "";
         $this->json->apiError           = false;
