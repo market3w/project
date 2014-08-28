@@ -13,11 +13,13 @@
 	spl_autoload_register('class_autoload');
 	
 	if($_SERVER['SERVER_NAME']=="127.0.0.1" || $_SERVER['SERVER_NAME']=="localhost"){
-		define("WEB_ROOT", preg_replace("/([a-zA-Z0-9-_]*).php/", "", "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME']));
-		define("SERVER_ROOT", preg_replace("/intranet\/([a-zA-Z0-9-_]*).php/", "api/", "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME']));
+            define("WEB_ROOT", preg_replace("/([a-zA-Z0-9-_]*).php/", "", "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME']));
+            define("SERVER_ROOT", preg_replace("/intranet\/([a-zA-Z0-9-_]*).php/", "api/", "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME']));
+            define("VITRINE_ROOT", preg_replace("/intranet\/([a-zA-Z0-9-_]*).php/", "siteweb/", "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME']));
 	} else {
-		define("WEB_ROOT", "http://".$_SERVER['SERVER_NAME']."/");
-		define("SERVER_ROOT", preg_replace("/([^test]*)market3w(.*)/", "http://api.market3w$2/", $_SERVER['SERVER_NAME']));
+            define("WEB_ROOT", "http://".$_SERVER['SERVER_NAME']."/");
+            define("SERVER_ROOT", preg_replace("/([^test]*)market3w(.*)/", "http://api.market3w$2/", $_SERVER['SERVER_NAME']));
+            define("VITRINE_ROOT", preg_replace("/([^test]*)market3w(.*)/", "http://www.market3w$2/", $_SERVER['SERVER_NAME']));
 	}
 	$currentPage = ("http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME']==WEB_ROOT.'index.php')? WEB_ROOT:"http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'];
 	define("CURRENT_PAGE",$currentPage);

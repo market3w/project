@@ -1,7 +1,22 @@
 <?php
+/**
+ * La classe Application_Controllers_Documents effectue tous les contôles des données liées aux documents
+ * Cette classe fait appel à Application_Models_Documents pour agir sur la base de données
+ * 
+ * @author Group FKVJ <group.fkvj@gmail.com>
+ * @copyright (c) 2014, Group FKVJ
+ */
 class Application_Controllers_Documents extends Library_Core_Controllers{
+    /**
+     * Stocke le modèle de la table
+     * @var object
+     */
     protected $table;
-	private $as;
+    /**
+     * Stocke l'alias de la table
+     * @var string
+     */
+    private $as;
 	
 	private $document_vars = array('document_id',
 					   		   'document_name',

@@ -1,7 +1,22 @@
 <?php
+/**
+ * La classe Application_Controllers_Companies effectue tous les contÃ´les des donnÃ©es liÃ©es aux sociÃ©tÃ©s
+ * Cette classe fait appel Ã  Application_Models_Companies pour agir sur la base de donnÃ©es
+ * 
+ * @author Group FKVJ <group.fkvj@gmail.com>
+ * @copyright (c) 2014, Group FKVJ
+ */
 class Application_Controllers_Companies extends Library_Core_Controllers{
+    /**
+     * Stocke le modÃ¨le de la table
+     * @var object
+     */
     protected $table;
-	private $as;
+    /**
+     * Stocke l'alias de la table
+     * @var string
+     */
+    private $as;
 	
 	private $company_vars = array('company_id',
 					   		      'company_siret',
@@ -28,7 +43,7 @@ class Application_Controllers_Companies extends Library_Core_Controllers{
 		$role_res = $role->get_currentrole();
 		$role_id = $role_res->response[0]->role_id;
 		
-		//Si c'est un administrateur ou webmarketeur ils récupére la société et leur utilisateurs// Sinon si c'est un client il ne peut que recuperer sa société
+		//Si c'est un administrateur ou webmarketeur ils rï¿½cupï¿½re la sociï¿½tï¿½ et leur utilisateurs// Sinon si c'est un client il ne peut que recuperer sa sociï¿½tï¿½
 		if($role_id==1 || $role_id==2 || $role_id==3 )
 		{
 			
@@ -40,7 +55,7 @@ class Application_Controllers_Companies extends Library_Core_Controllers{
 			$this->table->addJoin("roles","r","role_id","role_id","u","left"); 
 			// Condition
 			$this->table->addWhere("company_id",$company_id);
-			//Si c'est un client on regarde si c'est sa société sinon "company not found"
+			//Si c'est un client on regarde si c'est sa sociï¿½tï¿½ sinon "company not found"
 			//if($role_id==3){$this->table->addWhere("u.user_id",$user_id);}
 			$res = (array)$this->table->search();
 			
@@ -109,7 +124,7 @@ class Application_Controllers_Companies extends Library_Core_Controllers{
 		$role_res = $role->get_currentrole();
 		$role_id = $role_res->response[0]->role_id;
 		
-		//Si c'est un administrateur ou webmarketeur ils peuvent récupérer toutes les sociétés
+		//Si c'est un administrateur ou webmarketeur ils peuvent rï¿½cupï¿½rer toutes les sociï¿½tï¿½s
 		if($role_id==1 || $role_id==2)
 		{
 			// Jointure
@@ -208,7 +223,7 @@ class Application_Controllers_Companies extends Library_Core_Controllers{
 			//Administrateur, peut poster une compagnie autant qu'il veut
 			case "administrateur": case "webmarketteur":
 			
-					// Récupération des parametres
+					// Rï¿½cupï¿½ration des parametres
 					$company_siret = (empty ($data['company_siret']))?null:$data['company_siret'];
 					$company_siren = (empty ($data['company_siren']))?null:$data['company_siren'];
 					$company_name = (empty ($data['company_name']))?null:$data['company_name'];
@@ -229,7 +244,7 @@ class Application_Controllers_Companies extends Library_Core_Controllers{
 					if($company_town==null){return $this->setApiResult(false, true, 'param \'company_town\' undefined');}
 					if(!is_numeric($company_nb_employees)){return $this->setApiResult(false, true, 'param \'company_nb_employees\' unvalid');}
 					
-					// Préparation de la requete
+					// Prï¿½paration de la requete
 					$this->table->addNewField("company_siret",$company_siret);
 					$this->table->addNewField("company_siren",$company_siren);
 					$this->table->addNewField("company_name",$company_name);
@@ -245,7 +260,7 @@ class Application_Controllers_Companies extends Library_Core_Controllers{
 			// Cas pour prendre des RDV
 			case "client": case "prospet":
 				
-					// Récupération des parametres
+					// Rï¿½cupï¿½ration des parametres
 					$company_siret = (empty ($data['company_siret']))?null:$data['company_siret'];
 					$company_siren = (empty ($data['company_siren']))?null:$data['company_siren'];
 					$company_name = (empty ($data['company_name']))?null:$data['company_name'];
@@ -267,7 +282,7 @@ class Application_Controllers_Companies extends Library_Core_Controllers{
 					if($company_nb_employees==null){return $this->setApiResult(false, true, 'param \'company_nb_employees\' undefined');}
 					if(!is_numeric($company_nb_employees)){return $this->setApiResult(false, true, 'param \'company_nb_employees\' unvalid');}
 					
-					// Préparation de la requete
+					// Prï¿½paration de la requete
 					$this->table->addNewField("company_siret",$company_siret);
 					$this->table->addNewField("company_siren",$company_siren);
 					$this->table->addNewField("company_name",$company_name);
@@ -297,7 +312,7 @@ class Application_Controllers_Companies extends Library_Core_Controllers{
     
     public function put_company($data){
         
-		// Récupération des parametres
+		// Rï¿½cupï¿½ration des parametres
 		$company_id = (empty ($data['company_id']))?null:$data['company_id'];
 		$company_siret = (empty ($data['company_siret']))?null:$data['company_siret'];
 		$company_siren = (empty ($data['company_siren']))?null:$data['company_siren'];
@@ -349,7 +364,7 @@ class Application_Controllers_Companies extends Library_Core_Controllers{
 		$role_res = $role->get_currentrole();
 		$role_id = $role_res->response[0]->role_id;
 		
-		//Si c'est un administrateur il peut supprimer une société
+		//Si c'est un administrateur il peut supprimer une sociï¿½tï¿½
 		if($role_id==1)
 		{
 			$company_id = (empty ($data['company_id']))?null:$data['company_id'];
