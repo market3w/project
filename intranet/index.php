@@ -117,5 +117,21 @@ $(document).ready(function() {
 	
 });
 </script><!-- /Calendar -->
+
+ <script type="text/javascript">
+	$(document).ready(function() {
+
+	//Afficher / Cacher bonne div en fonction du type d'article sélectionné
+	
+	
+	$("[name=article_type]").each(function(i) { 
+    $(this).change(function(){ 
+     var value = $(this).attr("value");
+      $(".bloc_type").hide(); 
+      $("#bloc_type"+value).show('slow'); 
+    }); 
+  }); 
+});
+ </script>  
 </body>
 </html>
