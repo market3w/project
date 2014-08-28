@@ -204,29 +204,30 @@ if(isset($_GET['aff']) && $_GET['aff']!=''){$aff = $_GET['aff'];}else{$aff='info
                                     
                                  </div>
                                 <div class="tab-pane <?php if($aff=='document'){echo 'active';} ?>" id="doc">
-									<form class="form-horizontal">
+                                <span class="responseError" id="loginError"><?php echo $_SESSION["errorMessage"]; ?></span>
+									<form class="form-horizontal" action="profil.php?aff=document" enctype="multipart/form-data" method="post">
 									<fieldset>
-										
+										<input type="hidden" name="method" value="post_document" />
 										<div class="control-group">											
-											<label class="control-label" for="document_name">Nom</label>
+											<label class="control-label" for="document_name">Nom document</label>
 											<div class="controls">
-												<input type="text" class="span4" id="document_name" value="John">
+												<input type="text" class="span4" name="document_name" value="<?php echo (array_key_exists("document_name",$_POST))?$_POST["document_name"]:""; ?>">
 											</div> <!-- /controls -->				
 										</div> <!-- /control-group -->
 										
 										
 										<div class="control-group">											
-											<label class="control-label" for="document_description">Description</label>
+											<label class="control-label" for="document_description"></label>
 											<div class="controls">
-												<textarea class="span4" id="document_description"></textarea>
+												<textarea class="span4" name="document_description"><?php echo (array_key_exists("document_description",$_POST))?$_POST["document_description"]:""; ?></textarea>
 											</div> <!-- /controls -->				
 										</div> <!-- /control-group -->
 										
 										
 										<div class="control-group">											
-											<label class="control-label" for="document_description">Télécharger</label>
+											<label class="control-label" for="document_téléchargement">Télécharger </label>
 											<div class="controls">
-												<input type="file" />
+												<input type="file" name="document" />
 											</div> <!-- /controls -->				
 										</div> <!-- /control-group -->
                                         
@@ -234,10 +235,7 @@ if(isset($_GET['aff']) && $_GET['aff']!=''){$aff = $_GET['aff'];}else{$aff='info
                                         
 										 <br />
 								
-										<div class="form-actions">
-											<center><button type="submit" class="btn btn-primary disabled">Télécharger</button> </center>
-											<!--<button class="btn">Cancel</button>-->
-										</div> <!-- /form-actions -->
+										<button type="submit" class="btn btn-primary">Télécharger</button>
 									</fieldset>
 								</form>
 								</div>
