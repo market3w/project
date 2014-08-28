@@ -26,6 +26,8 @@ $page='contact';  ?>
                    <form id="contact" action="contact.php" class="form-horizontal" method="post">
                    <input type="hidden" name="method" value="contact"/>
                    <span class="responseError" id="loginError"><?php echo $_SESSION["errorMessage"]; ?></span>
+                   <?php if(isset($_SESSION["method"]) && $_SESSION["method"]=='contact' && $_SESSION["errorMessage"]==''){echo'Message envoyé avec succés';} ?>
+                              
                     <fieldset>
                         
                         <div class="control-group">											

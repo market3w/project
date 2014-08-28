@@ -205,6 +205,8 @@ if(isset($_GET['aff']) && $_GET['aff']!=''){$aff = $_GET['aff'];}else{$aff='info
                                  </div>
                                 <div class="tab-pane <?php if($aff=='document'){echo 'active';} ?>" id="doc">
                                 <span class="responseError" id="loginError"><?php echo $_SESSION["errorMessage"]; ?></span>
+                                 <?php if(isset($_SESSION["method"]) && $_SESSION["method"]=='put_password' && $_SESSION["errorMessage"]==''){echo'mot de passe modifié.';} ?>
+                             
 									<form class="form-horizontal" action="profil.php?aff=document" enctype="multipart/form-data" method="post">
 									<fieldset>
 										<input type="hidden" name="method" value="post_document" />
