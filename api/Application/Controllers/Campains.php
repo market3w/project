@@ -1,7 +1,22 @@
 <?php
+/**
+ * La classe Application_Controllers_Campains effectue tous les contÃ´les des donnÃ©es liÃ©es aux campagnes
+ * Cette classe fait appel Ã  Application_Models_Campains pour agir sur la base de donnÃ©es
+ * 
+ * @author Group FKVJ <group.fkvj@gmail.com>
+ * @copyright (c) 2014, Group FKVJ
+ */
 class Application_Controllers_Campains extends Library_Core_Controllers{
+    /**
+     * Stocke le modÃ¨le de la table
+     * @var object
+     */
     protected $table;
-	private $as;
+    /**
+     * Stocke l'alias de la table
+     * @var string
+     */
+    private $as;
 	
 	private $campain_vars = array('campain_id',
 					   		      'campain_name',
@@ -27,7 +42,7 @@ class Application_Controllers_Campains extends Library_Core_Controllers{
 		$role_res = $role->get_currentrole();
 		$role_id = $role_res->response[0]->role_id;
 		
-		//Si c'est un administrateur ou webmarketeur ils récupére le document et leur utilisateurs// Sinon si c'est un client il ne peut que recuperer ses documents
+		//Si c'est un administrateur ou webmarketeur ils rï¿½cupï¿½re le document et leur utilisateurs// Sinon si c'est un client il ne peut que recuperer ses documents
 		if($role_id==1 || $role_id==2 || $role_id==4 )
 		{
 			$campain_id = (empty ($data['campain_id']))?null:$data['campain_id'];
@@ -57,7 +72,7 @@ class Application_Controllers_Campains extends Library_Core_Controllers{
 			$this->table->addWhere("campain_id",$campain_id);
 			if($role_id==4){ $this->table->addWhere("contact_id",$user_id); }
 			
-			//Si un membre veut recupérer une campagne, on vérifie que celui-ci lui appartienne sinon la campagne sera "not found"
+			//Si un membre veut recupï¿½rer une campagne, on vï¿½rifie que celui-ci lui appartienne sinon la campagne sera "not found"
 			if($role_id==3){$this->documentsTable->addWhere("user_id",$user_id);}
 			$res = (array)$this->table->search();
 			$tab = array();
@@ -102,7 +117,7 @@ class Application_Controllers_Campains extends Library_Core_Controllers{
 		$role_res = $role->get_currentrole();
 		$role_id = $role_res->response[0]->role_id;
 		
-		//Si c'est un administrateur ou webmarketeur ils récupére les campagnes et leur compagnies// Sinon si c'est un client il ne peut que recuperer les campagnes de leur société
+		//Si c'est un administrateur ou webmarketeur ils rï¿½cupï¿½re les campagnes et leur compagnies// Sinon si c'est un client il ne peut que recuperer les campagnes de leur sociï¿½tï¿½
 		if($role_id==1 || $role_id==2 || $role_id==3 )
 		{
 				
@@ -169,7 +184,7 @@ class Application_Controllers_Campains extends Library_Core_Controllers{
 		$role_res = $role->get_currentrole();
 		$role_id = $role_res->response[0]->role_id;
 		
-		//Si c'est un administrateur peut récupérer toutes les campagnes en court
+		//Si c'est un administrateur peut rï¿½cupï¿½rer toutes les campagnes en court
 		if($role_id==1 || $role_id==2 || $role_id==4)
 		{
 			// Selectionner tous les champs de la table campains
@@ -240,7 +255,7 @@ class Application_Controllers_Campains extends Library_Core_Controllers{
 		$role_res = $role->get_currentrole();
 		$role_id = $role_res->response[0]->role_id;
 		
-		//Si c'est un administrateur ou un webmarketteur il peut publier une campagne pour société
+		//Si c'est un administrateur ou un webmarketteur il peut publier une campagne pour sociï¿½tï¿½
 		if($role_id==1 || $role_id==2)
 		{
 			$campain_name = (empty ($data['campain_name']))?null:$data['campain_name'];
@@ -262,7 +277,7 @@ class Application_Controllers_Campains extends Library_Core_Controllers{
 			if(!is_numeric($webmarketter_id)){return $this->setApiResult(false, true, 'param \'webmarketter_id\' must be numeric');}
 			if($campain_completion==null){return $this->setApiResult(false, true, 'param \'campain_completion\' undefined');}
 			
-			// Préparation de la requete
+			// Prï¿½paration de la requete
 			$this->table->addNewField("campain_name",$campain_name);
 			$this->table->addNewField("campain_description",$campain_description);
 			$this->table->addNewField("campain_prix",$campain_prix);
@@ -290,10 +305,10 @@ class Application_Controllers_Campains extends Library_Core_Controllers{
 		$role_res = $role->get_currentrole();
 		$role_id = $role_res->response[0]->role_id;
 		
-		//Si c'est un administrateur ou un webmarketteur il peut publier une campagne pour société
+		//Si c'est un administrateur ou un webmarketteur il peut publier une campagne pour sociï¿½tï¿½
 		if($role_id==1 || $role_id==2)
 		{
-			// Récupération des parametres utiles
+			// Rï¿½cupï¿½ration des parametres utiles
 			$campain_id = (empty ($data['campain_id']))?null:$data['campain_id'];
 			$campain_name = (empty ($data['campain_name']))?null:$data['campain_name'];
 			$campain_description = (empty ($data['campain_description']))?null:$data['campain_description'];
@@ -312,7 +327,7 @@ class Application_Controllers_Campains extends Library_Core_Controllers{
 			if(!is_numeric($company_id)){return $this->setApiResult(false, true, 'param \'company_id\' must be numeric');}
 			if($campain_completion==null){return $this->setApiResult(false, true, 'param \'campain_completion\' undefined');}
 			
-			// Préparation de la requete
+			// Prï¿½paration de la requete
 			$this->table->addNewField("campain_name",$campain_name);
 			$this->table->addNewField("campain_description",$campain_description);
 			$this->table->addNewField("campain_prix",$campain_prix);
@@ -342,10 +357,10 @@ class Application_Controllers_Campains extends Library_Core_Controllers{
 		$role_res = $role->get_currentrole();
 		$role_id = $role_res->response[0]->role_id;
 		
-		//Si c'est un administrateur il peut supprimer une campagne pour société
+		//Si c'est un administrateur il peut supprimer une campagne pour sociï¿½tï¿½
 		if($role_id==1)
 		{
-			// Récupération des parametres utiles
+			// Rï¿½cupï¿½ration des parametres utiles
 			$campain_id = (empty ($data['campain_id']))?null:$data['campain_id'];
 					
 			// Tests des variables

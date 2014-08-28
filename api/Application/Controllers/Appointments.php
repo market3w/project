@@ -1,7 +1,22 @@
 <?php
+/**
+ * La classe Application_Controllers_Appointments effectue tous les contôles des données liées aux rendez-vous
+ * Cette classe fait appel à Application_Models_Appointments pour agir sur la base de données
+ * 
+ * @author Group FKVJ <group.fkvj@gmail.com>
+ * @copyright (c) 2014, Group FKVJ
+ */
 class Application_Controllers_Appointments extends Library_Core_Controllers{
+    /**
+     * Stocke le modèle de la table
+     * @var object
+     */
     protected $table;
-	private $as;
+    /**
+     * Stocke l'alias de la table
+     * @var string
+     */
+    private $as;
 	
 	private $appointment_vars = array('appointment_id',
 					   		   		   'appointment_date',

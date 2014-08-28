@@ -1,7 +1,22 @@
 <?php
+/**
+ * La classe Application_Controllers_Paiements effectue tous les contÃ´les des donnÃ©es liÃ©es aux paiements
+ * Cette classe fait appel Ã  Application_Models_Paiements pour agir sur la base de donnÃ©es
+ * 
+ * @author Group FKVJ <group.fkvj@gmail.com>
+ * @copyright (c) 2014, Group FKVJ
+ */
 class Application_Controllers_Paiements extends Library_Core_Controllers{
+    /**
+     * Stocke le modÃ¨le de la table
+     * @var object
+     */
     protected $table;
-	private $as;
+    /**
+     * Stocke l'alias de la table
+     * @var string
+     */
+    private $as;
 	
 	private $paiement_vars = array('paiement_id',
 					   		   'paiement_name',
@@ -25,7 +40,7 @@ class Application_Controllers_Paiements extends Library_Core_Controllers{
 		$role_res = $role->get_currentrole();
 		$role_id = $role_res->response[0]->role_id;
 		
-		//Si c'est un administrateur ou webmarketeur ils récupére le paiement et leur utilisateurs// Sinon si c'est un client il ne peut que recuperer ses paiemets
+		//Si c'est un administrateur ou webmarketeur ils rï¿½cupï¿½re le paiement et leur utilisateurs// Sinon si c'est un client il ne peut que recuperer ses paiemets
 		if($role_id==1 || $role_id==2 || $role_id==3 )
 		{
 			 $paiement_id = (empty ($data['paiement_id']))?null:$data['paiement_id'];
@@ -33,7 +48,7 @@ class Application_Controllers_Paiements extends Library_Core_Controllers{
 			if(!is_numeric($paiement_id)){return $this->setApiResult(false, true, 'param \'paiement_id\' is not numeric');}
 			$this->table->addJoin("users","u","user_id","user_id","","left");
 			$this->table->addWhere("paiement_id",$paiement_id);
-			//Si un membre veut recupérer un paiement, on vérifie que celui-ci lui appartienne sinon le paiement sera "not found"
+			//Si un membre veut recupï¿½rer un paiement, on vï¿½rifie que celui-ci lui appartienne sinon le paiement sera "not found"
 			if($role_id==3){$this->table->addWhere("user_id",$user_id);}
 			
 			$res = (array)$this->table->search();
@@ -115,10 +130,10 @@ class Application_Controllers_Paiements extends Library_Core_Controllers{
 		$role_res = $role->get_currentrole();
 		$role_id = $role_res->response[0]->role_id;
 		
-		//Si c'est un administrateur ou webmarketeur ils récupére les paiements et leur utilisateurs// Sinon si c'est un client il ne peut que recuperer ses paiements
+		//Si c'est un administrateur ou webmarketeur ils rï¿½cupï¿½re les paiements et leur utilisateurs// Sinon si c'est un client il ne peut que recuperer ses paiements
 		if($role_id==1 || $role_id==2 || $role_id==3 )
 		{
-			//Si c'est un admin ou webmarketeur  qui accéde aux paiements du client, il devra renseigne l'id du client
+			//Si c'est un admin ou webmarketeur  qui accï¿½de aux paiements du client, il devra renseigne l'id du client
 			if($role!=3)
 			{
 				$user_id = (empty ($data['user_id']))?null:$data['user_id'];
@@ -152,7 +167,7 @@ class Application_Controllers_Paiements extends Library_Core_Controllers{
 		//Si c'est un admin ou un webmarketteur il peut alors poster un paiement.
 		if($role_id==1 || $role_id==2)
 		{
-			// Récupération des parametres utiles
+			// Rï¿½cupï¿½ration des parametres utiles
 			$user_id = (empty ($data['user_id']))?null:$data['user_id'];
 			$paiement_name = (empty ($data['paiement_name']))?null:$data['paiement_name'];
 			$paiement_description = (empty ($data['paiement_description']))?null:$data['paiement_description'];
@@ -169,7 +184,7 @@ class Application_Controllers_Paiements extends Library_Core_Controllers{
 			if(!is_numeric($paiement_prix)){return $this->setApiResult(false, true, 'param \'paiement_prix\' must be numeric');}
 			if($paiement_link==null){return $this->setApiResult(false, true, 'param \'paiement_link\' undefined');}
 			
-			// Préparation de la requete
+			// Prï¿½paration de la requete
 			$this->table->addNewField("paiement_name",$paiement_name);
 			$this->table->addNewField("paiement_description",$paiement_description);
 			$this->table->addNewField("paiement_prix",$paiement_prix);
@@ -201,7 +216,7 @@ class Application_Controllers_Paiements extends Library_Core_Controllers{
 		//Si c'est un admin lui seul peut modifier un paiement.
 		if($role_id==1)
 		{
-			// Récupération des parametres utiles
+			// Rï¿½cupï¿½ration des parametres utiles
 			$paiement_id = (empty ($data['paiement_id']))?null:$data['paiement_id'];
 			$paiement_name = (empty ($data['paiement_name']))?null:$data['paiement_name'];
 			$paiement_description = (empty ($data['paiement_description']))?null:$data['paiement_description'];
@@ -218,7 +233,7 @@ class Application_Controllers_Paiements extends Library_Core_Controllers{
 			if(!is_numeric($paiement_prix)){return $this->setApiResult(false, true, 'param \'paiement_prix\' must be numeric');}
 			if($paiement_link==null){return $this->setApiResult(false, true, 'param \'paiement_link\' undefined');}
 			
-			// Préparation de la requete
+			// Prï¿½paration de la requete
 			$this->table->addNewField("paiement_name",$paiement_name);
 			$this->table->addNewField("paiement_description",$paiement_description);
 			$this->table->addNewField("paiement_prix",$paiement_prix);
@@ -247,7 +262,7 @@ class Application_Controllers_Paiements extends Library_Core_Controllers{
 		//Si c'est un admin lui seul peut supprimer un paiement.
 		if($role_id==1)
 		{
-			// Récupération des parametres utiles
+			// Rï¿½cupï¿½ration des parametres utiles
 			$paiement_id = (empty ($data['paiement_id']))?null:$data['paiement_id'];
 					
 			// Tests des variables

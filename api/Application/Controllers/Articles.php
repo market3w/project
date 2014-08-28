@@ -1,7 +1,22 @@
 <?php
+/**
+ * La classe Application_Controllers_Articles effectue tous les contôles des données liées aux articles
+ * Cette classe fait appel à Application_Articles_Roles pour agir sur la base de données
+ * 
+ * @author Group FKVJ <group.fkvj@gmail.com>
+ * @copyright (c) 2014, Group FKVJ
+ */
 class Application_Controllers_Articles extends Library_Core_Controllers{
+    /**
+     * Stocke le modèle de la table
+     * @var object
+     */
     protected $table;
-	private $as;
+    /**
+     * Stocke l'alias de la table
+     * @var string
+     */
+    private $as;
 	
 	private $article_vars = array('article_id',
 					   		   'article_name',

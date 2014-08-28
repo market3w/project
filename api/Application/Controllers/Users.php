@@ -1,7 +1,22 @@
 <?php
+/**
+ * La classe Application_Controllers_Users effectue tous les contôles des données liées aux utilisateurs
+ * Cette classe fait appel à Application_Models_Users pour agir sur la base de données
+ * 
+ * @author Group FKVJ <group.fkvj@gmail.com>
+ * @copyright (c) 2014, Group FKVJ
+ */
 class Application_Controllers_Users extends Library_Core_Controllers{
+    /**
+     * Stocke le modèle de la table
+     * @var object
+     */
     protected $table;
-	private $as;
+    /**
+     * Stocke l'alias de la table
+     * @var string
+     */
+    private $as;
 	
 	private $user_vars = array('user_id',
 					   		   'user_name',
