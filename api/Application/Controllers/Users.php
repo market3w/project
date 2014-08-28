@@ -563,7 +563,7 @@ class Application_Controllers_Users extends Library_Core_Controllers{
 		$user_name = htmlentities($user_name, ENT_NOQUOTES, "UTF-8");
 		$user_firstname = htmlentities($user_firstname, ENT_NOQUOTES, "UTF-8");
 		$user_email = htmlentities($user_email, ENT_NOQUOTES, "UTF-8");
-		//$objet = htmlentities($objet, ENT_NOQUOTES, "UTF-8");
+		$objet= $this->format_subject($objet);
 		$message_form = htmlentities($message_form, ENT_NOQUOTES, "UTF-8");
 		
 		// Tests des variables
@@ -573,7 +573,8 @@ class Application_Controllers_Users extends Library_Core_Controllers{
 		if($objet==null){return $this->setApiResult(false, true, 'param \'objet\' undefined');}
 		if($message_form==null){return $this->setApiResult(false, true, 'param \'message_form\' undefined');}
 		
-		$mail = 'weaponsb@mail.fr'; // Déclaration de l'adresse de destination.
+		//$mail = 'weaponsb@mail.fr'; // Déclaration de l'adresse de destination.
+		$mail = 'thierryflorian@free.fr';
 		
 		if (!preg_match("#^[a-z0-9._-]+@(hotmail|live|msn).[a-z]{2,4}$#", $mail)) // On filtre les serveurs qui rencontrent des bogues.
 		{
@@ -597,8 +598,8 @@ class Application_Controllers_Users extends Library_Core_Controllers{
 		//=========
 		 
 		//=====Création du header de l'e-mail.
-		$header = "From: \"".$user_name." ".$user_firstname."\"<".$user_emails.">".$passage_ligne;
-		$header.= "Reply-to: \"".$user_name." ".$user_firstname."\" <".$user_emails.">".$passage_ligne;
+		$header = "From: \"".$user_name." ".$user_firstname."\"<".$user_email.">".$passage_ligne;
+		$header.= "Reply-to: \"".$user_name." ".$user_firstname."\" <".$user_email.">".$passage_ligne;
 		$header.= "MIME-Version: 1.0".$passage_ligne;
 		$header.= "Content-Type: multipart/alternative;".$passage_ligne." boundary=\"$boundary\"".$passage_ligne;
 		//==========

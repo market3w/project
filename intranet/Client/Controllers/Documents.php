@@ -39,19 +39,19 @@ class Client_Controllers_Documents extends Client_Core_Controllers{
 		} elseif($error["errorType"]=="API ERROR") {
 			switch($error["errorMessage"]){
 				case "param 'user_id' undefined" :
-				case "param 'user_id' is not numeric" :	   $_SESSION["errorMessage"] = "Votre requete ne peut aboutir, il y a un probleme avec la reconnaissance de votre identité";
+				case "param 'user_id' is not numeric" :	   $_SESSION["errorMessage"] = "Votre requete ne peut aboutir, il y a un probleme avec la reconnaissance de votre identitÃ©";
 														   break;
 														 
 				case "param 'user_name' undefined" :   		$_SESSION["errorMessage"] = "Veuillez renseigner votre nom";
 														   break;
 														   
-				case "param 'user_firstname' undefined" :  $_SESSION["errorMessage"] = "Veuillez renseigner votre prénom";
+				case "param 'user_firstname' undefined" :  $_SESSION["errorMessage"] = "Veuillez renseigner votre prÃ©nom";
 														   break;
 														 
 				case "param 'user_email' undefined" :  $_SESSION["errorMessage"] = "Veuillez renseigner votre email";
 				   											break;
 											
-				case "User not found" :  $_SESSION["errorMessage"] = "Utilisateur non trouvé";
+				case "User not found" :  $_SESSION["errorMessage"] = "Utilisateur non trouvÃ©";
 				   											break;
 															
 				case "You can't update this user" :  $_SESSION["errorMessage"] = "Vous n'avez pas les droits pour modifier ce profil";
@@ -68,9 +68,10 @@ class Client_Controllers_Documents extends Client_Core_Controllers{
 	
 	public function post_document($data){
 		$document_name = (empty ($data['document_name']))?null:$data['document_name'];
-			$document_description = (empty ($data['document_description']))?null:$data['document_description'];
+		$document_description = (empty ($data['document_description']))?null:$data['document_description'];
+		$document_file = $this->set_file();
 		
-		$temp = $this->parseQueryResult(json_decode($this->_client->query("POST","method=document&document_name=".$document_name."&document_description=".$document_description)));
+		$temp = $this->parseQueryResult(json_decode($this->_client->query("POST","method=document&document_name=".$document_name."&document_description=".$document_description."&document_file=".$document_file)));
 		$error = $this->getError();
 		if($error===false){
 			$response = $this->getResponse();
@@ -78,12 +79,12 @@ class Client_Controllers_Documents extends Client_Core_Controllers{
 		} elseif($error["errorType"]=="API ERROR") {
 			switch($error["errorMessage"]){
 				
-				case "you are not logged" :					$_SESSION["errorMessage"] = "Vous n'etes pas connecté";
+				case "you are not logged" :					$_SESSION["errorMessage"] = "Vous n'etes pas connectÃ©";
 														   break;
 				
 				case "param 'user_id' undefined" : 
 				case "param 'user_id' is not numeric" : 
-				     										$_SESSION["errorMessage"] = "Votre identifiant n'a pas été trouvé";
+				     										$_SESSION["errorMessage"] = "Votre identifiant n'a pas Ã©tÃ© trouvÃ©";
 														   break;
 														   				 
 				case "param 'document_name' undefined" :   $_SESSION["errorMessage"] = "Veuillez renseigner votre le nom du document";
@@ -93,13 +94,13 @@ class Client_Controllers_Documents extends Client_Core_Controllers{
 														   break;
 														   
 
-				case "bad extension" :   $_SESSION["errorMessage"] = "Vous avez téléchargez un fichier avec une mauvaise extension (extensions autorisées : gif, jpeg, png)";
+				case "bad extension" :   $_SESSION["errorMessage"] = "Vous avez tÃ©lÃ©chargez un fichier avec une mauvaise extension (extensions autorisÃ©es : gif, jpeg, png)";
 														   break;	
 														   									   
-				case "document too big" :   $_SESSION["errorMessage"] = "Vous avez téléchargez un fichier trop lourd";
+				case "document too big" :   $_SESSION["errorMessage"] = "Vous avez tÃ©lÃ©chargez un fichier trop lourd";
 														   break;	
 														   									   
-				case "download fail" :   $_SESSION["errorMessage"] = "Une erreur s'est produite durant le téléchargement";
+				case "download fail" :   $_SESSION["errorMessage"] = "Une erreur s'est produite durant le tÃ©lÃ©chargement";
 														   break;										   
 			
 				default : 								   $_SESSION["errorMessage"] = "Erreur de saisie";

@@ -181,7 +181,7 @@ if(isset($_GET['aff']) && $_GET['aff']!=''){$aff = $_GET['aff'];}else{$aff='info
                                 </div>
                                 <div class="tab-pane <?php if($aff=='mdp'){echo 'active';} ?>" id="mdp">
                                  <span class="responseError" id="loginError"><?php echo $_SESSION["errorMessage"]; ?></span>
-                                 <?php if(isset($_POST['method']) && $_POST['method']=='put_password' && $_SESSION["errorMessage"]==''){echo'mot de passe modifié.';} ?>
+                                 <?php if(isset($_SESSION["method"]) && $_SESSION["method"]=='put_password' && $_SESSION["errorMessage"]==''){echo'mot de passe modifié.';} ?>
                                 	<form action="profil.php?aff=mdp" method="post">
                                     <input type="hidden" name="method" value="put_password" />
                                     <input type="hidden" name="user_email" value="<?php echo $currentuser->user_email; ?>" />

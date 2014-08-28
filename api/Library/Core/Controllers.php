@@ -40,4 +40,20 @@ class Library_Core_Controllers{
     public function get_table(){
         return $this->table;
     }
+	
+    /**
+     * Retourne les informations du fichier sous forme de tableau ou null
+     * @return array|null
+     */
+    public function get_file($file){
+        return (empty($file))?null:unserialize($file);
+    }
+	
+    /**
+     * Retourne le sujet du mail bien formaté
+     * @return string
+     */
+    public function format_subject($subject){
+        return '=?utf-8?B?'.base64_encode($subject).'?=';
+    }
 }

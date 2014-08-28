@@ -19,4 +19,8 @@ class Client_Core_Controllers{
 	public function getError(){
 		return ($this->error===false)? false:array("errorType"=>$this->errorType,"errorMessage"=>$this->errorMessage);
 	}
+	
+	public function set_file(){
+		return (empty($_FILES))?null:serialize($_FILES);
+	}
 }

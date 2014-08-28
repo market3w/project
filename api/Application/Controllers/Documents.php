@@ -121,6 +121,8 @@ class Application_Controllers_Documents extends Library_Core_Controllers{
 	}
 	*/
 	 public function post_document($data){
+		$document_file = $this->get_file($data['document_file']);
+		
 		
 	 $user_id_connecte = ($_SESSION['market3w_user_id']==-1)?null:$_SESSION['market3w_user_id'];
 		 if($user_id_connecte==null){return $this->setApiResult(false, true, 'you are not logged');}
