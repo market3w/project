@@ -8,7 +8,7 @@
                  <?php if($_SESSION["market3w_user"]!=""){ ?>
               <div class="em_tablette" statut="ferme" style="">
               <center><b> Bonjour <?php echo $_SESSION["market3w_user"]; ?></b></center>
-              <div style="margin-top:10px;"><a href="../intranet/index.php" style="color:#ffffff;">Accéder à votre espace membre</a> <br/><a href="#test" class="deconnexion" style="color:#ffffff;">Se déconnecter</a></div>
+              <div style="margin-top:10px;"><a href="../intranet/index.php" style="color:#ffffff;">Accéder à votre espace membre</a> <br/><a href="#" class="deconnexion" style="color:#ffffff;">Se déconnecter</a></div>
               </div>
                 <?php } ?>
                 <header id="header">

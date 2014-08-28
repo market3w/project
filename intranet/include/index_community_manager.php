@@ -4,7 +4,8 @@ if(isset($_GET['article_id']) && is_numeric($_GET['article_id'])){
 	
 }
 $allpdf = $client->get_allpdf();
-$allvideo = $client->get_allvideo(); ?>
+$allvideo = $client->get_allvideo();
+$allrss = $client->get_allrss();  ?>
 <div class="main">
 	
 	<div class="main-inner">
@@ -15,7 +16,7 @@ $allvideo = $client->get_allvideo(); ?>
           
          <?php 
 		 //Si modification d'un pdf ou video
-		 	if(($aff=='pdf' ||$aff=='videos')  && isset($article) && is_numeric($article->article_id)){ 
+		 	if(($aff=='pdf' ||$aff=='videos'||$aff=='rss')  && isset($article) && is_numeric($article->article_id)){ 
 	      		?>
                 <div class="span12">  
                <div class="widget ">
@@ -67,6 +68,16 @@ $allvideo = $client->get_allvideo(); ?>
                                 </div> <!-- /controls -->				
                             </div> <!-- /control-group -->
                             <?php } ?>
+                             <?php if($aff=='pdf')
+							{ ?>
+                            
+                            <div class="control-group">											
+                                <label class="control-label" for="article_link">Lien</label>
+                                <div class="controls">
+                                    <input type="file" class="span4" name="document""/>
+                                </div> <!-- /controls -->				
+                            </div> <!-- /control-group -->
+                            <?php } ?>
                             
                             
                             
@@ -97,10 +108,11 @@ $allvideo = $client->get_allvideo(); ?>
 						<ul class="nav nav-tabs">
 						  <li  <?php if($aff=='pdf'){echo 'class="active"';} ?> > <a href="#pdf" data-toggle="tab">PDF</a></li>
                            <li  <?php if($aff=='videos'){echo 'class="active"';} ?> > <a href="#videos" data-toggle="tab">Videos</a></li>
-						  <li  <?php if($aff=='add_article'){echo 'class="active"';} ?> > <a href="#add_article" data-toggle="tab">Ajouter un article</a></li>
+						 	 <li  <?php if($aff=='rss'){echo 'class="active"';} ?>><a href="#rss" data-toggle="tab">RSS</a></li>
+                      		
+                          <li  <?php if($aff=='add_article'){echo 'class="active"';} ?> > <a href="#add_article" data-toggle="tab">Ajouter un article</a></li>
 						 
-                          <li  <?php if($aff=='entreprise'){echo 'class="active"';} ?>><a href="#entre" data-toggle="tab">Ajouter une entreprise</a></li>
-                      		   </ul>
+                            </ul>
 						
 						<br>
 						
@@ -109,10 +121,15 @@ $allvideo = $client->get_allvideo(); ?>
 									<?php if(count($allpdf)>0){ ?>
                                     
                                 
-                                    <table width="100%" style="margin-top:-25px;"><tr><td>Nom pdf</td><td>Options</td></tr>
+                                    <table width="100%" style="margin-top:-25px;"><tr><td>Nom pdf</td><td>Options</td><td style="width:5px;"></td></tr>
                                     <?php foreach($allpdf as $key=>$value){ ?>
                                     <tr><td><?php echo $value->article_name; ?></td>
-                                    <td><a href="../siteweb/article.php?id=<?php echo $value->article_id; ?>" target="_blank"><?php echo 'voir' ?></a><a href="index.php?aff=pdf&article_id=<?php echo $value->article_id; ?>"><?php echo 'Modifier' ?></a></td></tr>
+                                    <td><a href="../siteweb/article.php?id=<?php echo $value->article_id; ?>" target="_blank"><img src="img/voir.png" style="height:25px;margin-right:5px;" /></a><a href="index.php?aff=pdf&article_id=<?php echo $value->article_id; ?>"><img src="img/modif.png" style="height:25px;margin-right:5px;" /></a><a href="#" class="delete_article" article_id="<?php echo $value->article_id; ?>"><img src="img/suppr.png" style="height:25px;" /></a>
+                                    
+                                    </td><td><form action="index.php?aff=pdf" name="delete_articleForm<?php echo $value->article_id; ?>" id="delete_articleForm<?php echo $value->article_id; ?>" method="POST">
+                                        <input type="hidden" name="method" value="delete_article"/>
+                                        <input type="hidden" name="article_id" value="<?php echo $value->article_id; ?>"/>
+                                     </form></td></tr>
                                     <?php } ?>
                                     
                                     </table>
@@ -125,17 +142,38 @@ $allvideo = $client->get_allvideo(); ?>
 									<?php if(count($allvideo)>0){ ?>
                                     
                                 
-                                    <table width="100%" style="margin-top:-25px;"><tr><td>Nom video</td><td>Options</td></tr>
+                                    <table width="100%" style="margin-top:-25px;"><tr><td>Nom video</td><td>Options</td><td style="width:5px;"></td></tr>
                                     <?php foreach($allvideo as $key=>$value){ ?>
                                     <tr><td><?php echo $value->article_name; ?></td>
-                                    <td><a href="../siteweb/video.php?id=<?php echo $value->article_id; ?>" target="_blank"><?php echo 'voir' ?></a><a href="index.php?aff=videos&article_id=<?php echo $value->article_id; ?>"><?php echo 'Modifier' ?></a></td></tr>
+                                     <td><a href="../siteweb/video.php?id=<?php echo $value->article_id; ?>" target="_blank"><img src="img/voir.png" style="height:25px;margin-right:5px;" /></a><a href="index.php?aff=videos&article_id=<?php echo $value->article_id; ?>"><img src="img/modif.png" style="height:25px;margin-right:5px;" /></a><a href="#" class="delete_article" article_id="<?php echo $value->article_id; ?>"><img src="img/suppr.png" style="height:25px;" /></a>
+                                     </td><td><form action="index.php?aff=videos" name="delete_articleForm<?php echo $value->article_id; ?>" id="delete_articleForm<?php echo $value->article_id; ?>" method="POST">
+                                        <input type="hidden" name="method" value="delete_article"/>
+                                        <input type="hidden" name="article_id" value="<?php echo $value->article_id; ?>"/>
+                                     </form></td></tr>
                                     <?php } ?>
                                     
                                     </table>
                                     
                                     <?php }else{echo'Pas de pdf';} ?>
 								</div>
+                                <div class="tab-pane <?php if($aff=='rss'){echo 'active';} ?>" id="rss">
+									<?php if(count($allrss)>0){ ?>
+                                    
                                 
+                                    <table width="100%" style="margin-top:-25px;"><tr><td>Nom pdf</td><td>Options</td><td style="width:5px;"></td></tr>
+                                    <?php foreach($allrss as $key=>$value){ ?>
+                                    <tr><td><?php echo $value->article_name; ?></td>
+                                    <td><a href="../siteweb/rss.php?id=<?php echo $value->article_id; ?>" target="_blank"><img src="img/voir.png" style="height:25px;margin-right:5px;" /></a><a href="index.php?aff=rss&article_id=<?php echo $value->article_id; ?>"><img src="img/modif.png" style="height:25px;margin-right:5px;" /></a><a href="#" class="delete_article" article_id="<?php echo $value->article_id; ?>"><img src="img/suppr.png" style="height:25px;" /></a>
+                                    </td> <td><form action="index.php?aff=rss" name="delete_articleForm<?php echo $value->article_id; ?>" id="delete_articleForm<?php echo $value->article_id; ?>" method="POST">
+                                        <input type="hidden" name="method" value="delete_article"/>
+                                        <input type="hidden" name="article_id" value="<?php echo $value->article_id; ?>"/>
+                                     </form></td></tr>
+                                    <?php } ?>
+                                    
+                                    </table>
+                                    
+                                    <?php }else{echo'Pas de rss';} ?>
+								</div>
                                  <div class="tab-pane <?php if($aff=='add_article'){echo 'active';} ?>" id="add_article">
 										
 									<span class="responseError" id="loginError"><?php echo $_SESSION["errorMessage"]; ?></span>
@@ -155,7 +193,8 @@ $allvideo = $client->get_allvideo(); ?>
                                         <label class="control-label" for="article_name">Type article</label>
                                         <div class="controls">
                                             <input type="radio" class="btn_radio_type" id="btn1" name="type" value="1"/> PDF<br/>
-                                            <input type="radio" class="btn_radio_type" id="btn2" name="type" value="2"/> Vidéo
+                                            <input type="radio" class="btn_radio_type" id="btn2" name="type" value="2"/> Vidéo<br/>
+                                              <input type="radio" class="btn_radio_type" id="btn3" name="type" value="3"/> RSS
                                         </div> <!-- /controls -->				
                                     </div> <!-- /control-group -->
                                     
@@ -204,81 +243,7 @@ $allvideo = $client->get_allvideo(); ?>
 								</div>
                                
                                 
-								<div class="tab-pane <?php if($aff=='entreprise'){echo 'active';} ?>" id="entre">
-									<form id="edit-profile" class="form-horizontal">
-									<fieldset>
-										
-										<div class="control-group">											
-											<label class="control-label" for="campany_name">Nom</label>
-											<div class="controls">
-												<input type="text" class="span4" id="campany_name" value="">
-											</div> <!-- /controls -->				
-										</div> <!-- /control-group -->
-										
-										
-										<div class="control-group">											
-											<label class="control-label" for="campany_siret">Siret</label>
-											<div class="controls">
-												<input type="text" class="span4" id="campany_siret" value="">
-											</div> <!-- /controls -->				
-										</div> <!-- /control-group -->
-										
-										
-										<div class="control-group">											
-											<label class="control-label" for="campany_siren">Siren</label>
-											<div class="controls">
-												<input type="text" class="span4" id="campany_siren" value="">
-											</div> <!-- /controls -->				
-										</div> <!-- /control-group -->
-										
-                                        <div class="control-group">											
-											<label class="control-label" for="campany_adress">Adresse</label>
-											<div class="controls">
-												<input type="text" class="span4" id="campany_adress" value="">
-											</div> <!-- /controls -->				
-										</div> <!-- /control-group -->
-										
-										
-										<div class="control-group">											
-											<label class="control-label" for="campany_adress2">Adresse 2 <i>(falcultatif)</i></label>
-											<div class="controls">
-												<input type="text" class="span4" id="campany_adress2" value="">
-											</div> <!-- /controls -->				
-										</div> <!-- /control-group -->
-                                        
-                                        <div class="control-group">											
-											<label class="control-label" for="campany_town">Ville</label>
-											<div class="controls">
-												<input type="text" class="span4" id="campany_town" value="">
-											</div> <!-- /controls -->				
-										</div> <!-- /control-group -->
-                                        
-                                        <div class="control-group">											
-											<label class="control-label" for="campany_zipcode">Code postal</label>
-											<div class="controls">
-												<input type="text" class="span4" id="campany_zipcode" value="">
-											</div> <!-- /controls -->				
-										</div> <!-- /control-group -->
-                                        
-                                        <div class="control-group">											
-											<label class="control-label" for="campany_nb_employees">Nombre d'employés</label>
-											<div class="controls">
-												<input type="text" class="span4" id="campany_nb_employees" value="">
-											</div> <!-- /controls -->				
-										</div> <!-- /control-group -->
-                                        
-                                        
-                                        
-										 <br />
-										
-										<div class="form-actions">
-											<center><button type="submit" class="btn btn-primary">Ajouter</button> </center>
-											<!--<button class="btn">Cancel</button>-->
-										</div> <!-- /form-actions -->
-									</fieldset>
-								</form>
-								</div>
-                                
+								
                                
 								
 							</div>

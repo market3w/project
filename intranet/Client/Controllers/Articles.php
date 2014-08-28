@@ -30,6 +30,18 @@ class Client_Controllers_Articles extends Client_Core_Controllers{
 		
 	}
 	
+	public function get_allrss($data=""){
+		
+		$this->parseQueryResult(json_decode($this->_client->query("GET","method=allrss")));
+		$error = $this->getError();
+		if($error===false){
+			$pdf = $this->getResponse();
+			return $pdf;
+		}
+		
+		
+	}
+	
 	public function get_article($data){
 		$id_article = (isset($data["id"]) && is_numeric($data["id"]))? $data["id"]:null;
 		
@@ -50,14 +62,21 @@ class Client_Controllers_Articles extends Client_Core_Controllers{
 		$article_courte_description = (empty ($data['article_courte_description']))?null:$data['article_courte_description'];
 		$article_description = (empty ($data['article_description']))?null:$data['article_description'];
 		$type = (empty ($data['type']))?null:$data['type'];
-		
+		//Si pdf
 		if($type==1)
 		{
 			$document_file = $this->set_file();
+			$article_link = '';
 		}
+		//Si vidéo on attends un lien
 		elseif($type==2)
 		{
 			$article_link = (empty ($data['article_link']))?null:$data['article_link'];
+		}
+		//Si rss pas de lien
+		elseif($type==3)
+		{
+			$article_link = '';
 		}
 		
 		$temp = $this->parseQueryResult(json_decode($this->_client->query("POST","method=article&article_name=".$article_name."&article_courte_description=".$article_courte_description."&article_description=".$article_description."&type=".$type.(($type==1) ? "&document=".$document_file : "").(($type==2) ? "&article_link=".$article_link : ""))));
@@ -111,6 +130,10 @@ class Client_Controllers_Articles extends Client_Core_Controllers{
 		{
 			$article_link = (empty ($data['article_link']))?null:$data['article_link'];
 		}
+		else
+		{
+			$article_link = '';
+		}
 		
 		$temp = $this->parseQueryResult(json_decode($this->_client->query("PUT","method=article&article_id=".$article_id."&article_name=".$article_name."&article_courte_description=".$article_courte_description."&article_description=".$article_description."&type=".$type.(($type=='videos') ? "&article_link=".$article_link : ""))));
 		
@@ -155,5 +178,40 @@ class Client_Controllers_Articles extends Client_Core_Controllers{
 		}
 	}
 	
+	public function delete_article($data){
+		$article_id = (empty ($data['article_id']))?null:$data['article_id'];
+		
+		
+		$temp = $this->parseQueryResult(json_decode($this->_client->query("DELETE","method=article&article_id=".$article_id)));
+		
+		$error = $this->getError();
+		if($error===false){
+			$response = $this->getResponse();
+		
+		} elseif($error["errorType"]=="API ERROR") {
+			switch($error["errorMessage"]){
+				
+				case "You are not logged" :  $_SESSION["errorMessage"] = "Vous devez être connecté";
+				   											break;
+				
+				case "param 'article_id' undefined" :
+				case "param 'article_id' is not numeric" :	   $_SESSION["errorMessage"] = "Votre requête ne peut aboutir, il y a un problème avec la reconnaissance de votre article_id";
+														   break;
+														 
+				case "article doesn't look exist" :   		$_SESSION["errorMessage"] = "L'article n'a pas l'air d'exister";
+														   break;
+														   
+			
+				case "Not authorized" :  $_SESSION["errorMessage"] = "Vous n'êtes pas authorisé à voir ce contenu";
+				   											break;
+														 
+				default : 								   $_SESSION["errorMessage"] = "Erreur de saisie";
+														   break;
+										 
+			}
+		} elseif($error["errorType"]=="SERVER ERROR") {
+			$_SESSION["errorServer"]=$error["errorMessage"];
+		}
+	}
 	
 }

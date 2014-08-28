@@ -121,6 +121,16 @@ class Application_Controllers_Articles extends Library_Core_Controllers{
         return $this->setApiResult($res);
     }
 	
+	public function get_allrss($data){
+        $this->table->addWhere("article_type_id","3");
+		$res = (array)$this->table->search();
+		
+		if(!array_key_exists(0,$res)){
+			return $this->setApiResult(false, true, ' no rss found');
+		}
+        return $this->setApiResult($res);
+    }
+	
 	public function get_other_articles($data){
 		
          $article_id = (empty ($data['article_id']))?null:$data['article_id'];
@@ -279,19 +289,34 @@ class Application_Controllers_Articles extends Library_Core_Controllers{
     }
   
    public function delete_article($data){
-		// Récupération des paramètres utiles
-		$article_id = (empty ($data['article_id']))?null:$data['article_id'];
-				
-		// Tests des variables
-		if($article_id==null){return $this->setApiResult(false, true, 'param \'article_id\' undefined');}
-		if(!is_numeric($article_id)){return $this->setApiResult(false, true, 'param \'article_id\' not numeric');}
+	   $user_id = ($_SESSION['market3w_user_id']==-1)?null:$_SESSION['market3w_user_id'];
+		 if($user_id==null){return $this->setApiResult(false, true, 'you are not logged');}
+		 
+		$role = new Application_Controllers_Roles();
+		$role_res = $role->get_currentrole();
+		$role_id = $role_res->response[0]->role_id;
 		
-		//------------- Test existance en base --------------------------------------------//
-		$article_user = $this->get_article(array("article_id"=>$article_id));
-        if($article_user->apiError==true){ return $this->setApiResult(false,true,'article doesn\'t look existt'); }
-        
-		$this->table->addWhere("article_id",$article_id);
-        $this->table->delete();
-        return $this->setApiResult(true);
+		if($role_id==1 || $role_id==3)
+		{	
+		
+			// Récupération des paramètres utiles
+			$article_id = (empty ($data['article_id']))?null:$data['article_id'];
+					
+			// Tests des variables
+			if($article_id==null){return $this->setApiResult(false, true, 'param \'article_id\' undefined');}
+			if(!is_numeric($article_id)){return $this->setApiResult(false, true, 'param \'article_id\' not numeric');}
+			
+			//------------- Test existance en base --------------------------------------------//
+			$article_user = $this->get_article(array("article_id"=>$article_id));
+			if($article_user->apiError==true){ return $this->setApiResult(false,true,'article doesn\'t look exist'); }
+			
+			$this->table->addWhere("article_id",$article_id);
+			$this->table->delete();
+			return $this->setApiResult(true);
+		}
+		else
+		{
+			return $this->setApiResult(false,true,'Not authorized');
+		}
     }
 }

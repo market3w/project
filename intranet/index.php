@@ -121,6 +121,14 @@ $(document).ready(function() {
  <script type="text/javascript">
 	$(document).ready(function() {
 
+	$(".delete_article").on('click', function(){
+		
+		 var article_id = $(this).attr("article_id");
+				$("#delete_articleForm"+article_id).submit();
+				return false;
+			});
+
+
 	//Afficher / Cacher bonne div en fonction du type d'article sélectionné
 	
 	
