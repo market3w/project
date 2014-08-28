@@ -136,9 +136,8 @@ class Application_Controllers_Documents extends Library_Core_Controllers{
 	}
 	*/
 	 public function post_document($data){
-		$document_file = $this->get_file($data['document_file']);
 		
-		
+	
 	 $user_id_connecte = ($_SESSION['market3w_user_id']==-1)?null:$_SESSION['market3w_user_id'];
 		 if($user_id_connecte==null){return $this->setApiResult(false, true, 'you are not logged');}
 		 
@@ -149,10 +148,9 @@ class Application_Controllers_Documents extends Library_Core_Controllers{
 		//Si c'est un administrateur ou webmarketeur ou client ils peuvent ajouter des docs 
 		if($role_id==1 || $role_id==2 || $role_id==4 )
 		{
-			// Récupération des parametres utiles
-			
 			$document_name = (empty ($data['document_name']))?null:$data['document_name'];
 			$document_description = (empty ($data['document_description']))?null:$data['document_description'];
+			$document_file = $this->get_file($data['document_file']);
 			//$document_link = (empty ($data['document_link']))?null:$data['document_link'];
 			$document_auteur =  $user_id_connecte;
 			//Si admin ou webmarketeur on attend un id de client ou prospect pour indiquer quel client 
@@ -161,22 +159,25 @@ class Application_Controllers_Documents extends Library_Core_Controllers{
 			// Tests des variables
 			
 			if($document_name==null){return $this->setApiResult(false, true, 'param \'document_name\' undefined');}
+			if($document_file==null){return $this->setApiResult(false, true, 'param \'document_file\' undefined');}
 			if($document_description==null){return $this->setApiResult(false, true, 'param \'document_description\' undefined');}
 			//if($document_link==null){return $this->setApiResult(false, true, 'param \'document_link\' undefined');}
 			if($user_id==null){return $this->setApiResult(false, true, 'param \'user_id\' undefined');}
 			if(!is_numeric($user_id)){return $this->setApiResult(false, true, 'param \'user_id\' must be numeric');}
 			
-			$dossier = 'upload/';
-			$fichier = basename($_FILES['document']['name']);
 			
-			$fichier = basename($data['document']['name']);
-			$taille_maxi = 100000;
+			$dossier = '../../../intranet/upload/';
+			$fichier = basename($document_file['document']['name']);
 			
-			$taille = filesize($_FILES['document']['tmp_name']);
+			
+			$taille_maxi = 1000000;
+			
+			$taille = filesize($document_file['document']['tmp_name']);
 			
 			$extensions = array('.png', '.gif', '.jpg', '.jpeg');
 			
-			$extension = strrchr($_FILES['document']['name'], '.'); 
+			$extension = strrchr($document_file['document']['name'], '.'); 
+			
 			
 			//Début des vérifications de sécurité...
 			if(!in_array($extension, $extensions)) //Si l'extension n'est pas dans le tableau
@@ -187,26 +188,21 @@ class Application_Controllers_Documents extends Library_Core_Controllers{
 			{
 				 return $this->setApiResult(false, true, 'document too big');
 			}
-			if(!isset($erreur)) //S'il n'y a pas d'erreur, on upload
-			{
-				 //On formate le nom du fichier ici...
-				 $fichier = strtr($fichier, 
-					  'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ', 
-					  'AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy');
-				 $fichier = preg_replace('/([^.a-z0-9]+)/i', '-', $fichier);
-				 if(move_uploaded_file($_FILES['avatar']['tmp_name'], $dossier . $fichier)) //Si la fonction renvoie TRUE, c'est que ça a fonctionné...
-				 {
-					  echo 'Upload effectué avec succès !';
-				 }
-				 else //Sinon (la fonction renvoie FALSE).
-				 {
-					  return $this->setApiResult(false, true, 'download fail');
-				 }
-			}
-			else
-			{
-				 echo $erreur;
-			}
+			
+			 //On formate le nom du fichier ici...
+			 $fichier = strtr($fichier, 
+				  'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ', 
+				  'AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy');
+			$fichier = preg_replace('/([^.a-z0-9]+)/i', '-', $fichier);
+			
+			 if(move_uploaded_file($document_file['document']['tmp_name'], $dossier . $fichier)) //Si la fonction renvoie TRUE, c'est que ça a fonctionné...
+			 {
+				 // echo 'Upload effectué avec succès !';
+			 }
+			 else //Sinon (la fonction renvoie FALSE).
+			 {
+				  return $this->setApiResult(false, true, 'download fail');
+			 }
 			
 			// Préparation de la requete
 			$this->table->addNewField("document_name",$document_name);
