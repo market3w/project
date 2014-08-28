@@ -560,12 +560,6 @@ class Application_Controllers_Users extends Library_Core_Controllers{
 		$objet = (empty ($data['objet']))?null:$data['objet'];
 		$message_form = (empty ($data['message']))?null:$data['message'];
 		
-		$user_name = htmlentities($user_name, ENT_NOQUOTES, "UTF-8");
-		$user_firstname = htmlentities($user_firstname, ENT_NOQUOTES, "UTF-8");
-		$user_email = htmlentities($user_email, ENT_NOQUOTES, "UTF-8");
-		$objet= $this->format_subject($objet);
-		$message_form = htmlentities($message_form, ENT_NOQUOTES, "UTF-8");
-		
 		// Tests des variables
 		if($user_name==null){return $this->setApiResult(false, true, 'param \'user_name\' undefined');}
 		if($user_firstname==null){return $this->setApiResult(false, true, 'param \'user_firstname\' undefined');}
@@ -576,55 +570,10 @@ class Application_Controllers_Users extends Library_Core_Controllers{
 		//$mail = 'weaponsb@mail.fr'; // Déclaration de l'adresse de destination.
 		$mail = 'thierryflorian@free.fr';
 		
-		if (!preg_match("#^[a-z0-9._-]+@(hotmail|live|msn).[a-z]{2,4}$#", $mail)) // On filtre les serveurs qui rencontrent des bogues.
-		{
-			$passage_ligne = "\r\n";
+		if($this->send_mail($user_name, $user_firstname, $user_email, $objet, $message_form, $mail)===true){
+			return $this->setApiResult(true);
+		} else {
+			return $this->setApiResult(false, true, "An error occurred while sending your email");
 		}
-		else
-		{
-			$passage_ligne = "\n";
-		}
-		//=====Déclaration des messages au format texte et au format HTML.
-		$message_txt = $message_form;
-		$message_html = $message_form;
-		//==========
-		 
-		//=====Création de la boundary
-		$boundary = "-----=".md5(rand());
-		//==========
-		 
-		//=====Définition du sujet.
-		$sujet = $objet;
-		//=========
-		 
-		//=====Création du header de l'e-mail.
-		$header = "From: \"".$user_name." ".$user_firstname."\"<".$user_email.">".$passage_ligne;
-		$header.= "Reply-to: \"".$user_name." ".$user_firstname."\" <".$user_email.">".$passage_ligne;
-		$header.= "MIME-Version: 1.0".$passage_ligne;
-		$header.= "Content-Type: multipart/alternative;".$passage_ligne." boundary=\"$boundary\"".$passage_ligne;
-		//==========
-		 
-		//=====Création du message.
-		$message = $passage_ligne."--".$boundary.$passage_ligne;
-		//=====Ajout du message au format texte.
-		$message.= "Content-Type: text/plain; charset=\"utf-8\"".$passage_ligne;
-		$message.= "Content-Transfer-Encoding: 8bit".$passage_ligne;
-		$message.= $passage_ligne.$message_txt.$passage_ligne;
-		//==========
-		$message.= $passage_ligne."--".$boundary.$passage_ligne;
-		//=====Ajout du message au format HTML
-		$message.= "Content-Type: text/html; charset=\"utf-8\"".$passage_ligne;
-		$message.= "Content-Transfer-Encoding: 8bit".$passage_ligne;
-		$message.= $passage_ligne.$message_html.$passage_ligne;
-		//==========
-		$message.= $passage_ligne."--".$boundary."--".$passage_ligne;
-		$message.= $passage_ligne."--".$boundary."--".$passage_ligne;
-		//==========
-		 
-		//=====Envoi de l'e-mail.
-		mail($mail,$sujet,$message,$header);
-		//==========
-		
-        return $this->setApiResult(true);
 	}
 }

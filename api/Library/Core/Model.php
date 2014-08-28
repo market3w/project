@@ -7,34 +7,74 @@
  */
 abstract class Library_Core_Model{
     /**
-     * @var object $db                  Contient la connexion à la base de données
-     * @var string $table               Contient le nom de la table
-     * @var string $table_as            Contient l'alias de la table
-     * @var array|string $primary       Contient la/les clefs primaires
-     * @var array $fieldsList           Contient la liste des champs à retourner
-     * @var array $newFieldList         Contient la liste des champs à ajouter ou modifier
-     * @var array $newFieldValueList    Contient la liste des valeurs des champs à ajouter ou modifier
-     * @var array $joinsList            Contient la liste des jointures
-     * @var array $whereList            Contient la liste des conditions
-     * @var array $whereValueList       Contient la liste des valeurs des conditions
-     * @var integer $whereCount         Contient le nombre de conditions
-     * @var array $groupList            Contient la liste des groupes
-     * @var array $orderList            Contient la liste de tris
-     * @var string $limit               Contient la limite de la recherche
+     * Contient la connexion à la base de données
+     * @var object
      */
     protected $db;
+    /**
+     * Nom de la table liée
+     * @var string
+     */
     protected $table;
+    /**
+     * Alias de la table liée
+     * @var string
+     */
     protected $table_as;
+    /**
+     * Clefs primaires de la table liée
+     * @var array
+     */
     protected $primary;
+    /**
+     * Contient la liste des champs à retourner
+     * @var array
+     */
     protected $fieldsList = array();
+    /**
+     * Contient la liste des champs à ajouter ou modifier
+     * @var array
+     */
     protected $newFieldList = array();
+    /**
+     * Contient la liste des valeurs des champs à ajouter ou modifier
+     * @var array
+     */
     protected $newFieldValueList = array();
+    /**
+     * Contient la liste des jointures
+     * @var array
+     */
     protected $joinsList = array();
+    /**
+     * Contient la liste des conditions
+     * @var array
+     */
     protected $whereList = array();
+    /**
+     * Contient la liste des valeurs des conditions
+     * @var array
+     */
     protected $whereValueList = array();
+    /**
+     * Contient le nombre de conditions
+     * @var integer
+     */
     protected $whereCount = 0;
+    /**
+     * Contient la liste des groupes
+     * @var array
+     */
     protected $groupList = array();
+    /**
+     * Contient la liste de tris
+     * @var array
+     */
     protected $orderList = array();
+    /**
+     * Contient la limite de la recherche
+     * @var string
+     */
     protected $limit = "";
     
     /**

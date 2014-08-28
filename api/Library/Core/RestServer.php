@@ -8,27 +8,50 @@
  */
 class Library_Core_RestServer{
     /**
-     * @var object $service             Contient le service
-     * @var string $httpMethod          Type de methode (GET | POST | PUT | DELETE)
-     * @var string $classMethod         Nom de la méthode à appeler dans le service (elle sera concaténée avec en préfixe $httpMethod en minuscules et "_")
-     * @var array $requestParam         Liste des paramètres fournis à la méthode du service
-     * @var string $clientUserAgent     Contient le User Agent du client
-     * @var string $clientHttpAccept    Contient le Http Accept du client
-     * @var object $json                Contient la réponse à afficher au format json
+     * Contient le service à appeler
+     * @var object
      */
     private $service;
+    /**
+     * Type de methode 
+     * valeurs possibles : GET, POST, PUT, DELETE
+     * @var string
+     */
     private $httpMethod;
+    /**
+     * Nom de la méthode à appeler dans le service 
+     * Elle sera préfixer $httpMethod en minuscules et "_"
+     * @var string
+     */
     private $classMethod;
+    /**
+     * Liste des paramètres fournis à la méthode du service
+     * @var array
+     */
     private $requestParam;
+    /**
+     * Contient le User Agent du client
+     * @var string
+     */
     private $clientUserAgent;
+    /**
+     * Contient le Http Accept du client
+     * @var string
+     */
     private $clientHttpAccept;
-    
+    /**
+     * Contient la réponse à afficher au format json
+     * @var object
+     */
     private $json;
     
     /**
-     * 
-     * @param string $service
-     * @param boolean $json
+     * Méthode magique __construct()
+     * Formatte le type de retour
+     * Initialise la réponse
+     * Exécute la méthode du service
+     * @param string $service Contient le nom du service à appeler
+     * @param boolean $json Défini si le type de retour est json (true) ou html (false)
      */
     public function __construct($service,$json){
         if($json===true){
@@ -69,10 +92,18 @@ class Library_Core_RestServer{
         }
     }
     
+    /**
+     * Méthode magique __destruct()
+     * Affiche le contenu de la variable de classe $json formattée
+     */
     public function __destruct() {
         echo json_encode($this->json, JSON_PRETTY_PRINT | JSON_NUMERIC_CHECK);
     }
     
+    /**
+     * Exécute la méthode du service
+     * Stocke la réponse dans la variable de classe $json
+     */
     public function handle(){
         $res = call_user_func(array($this->service, $this->classMethod),  $this->requestParam);
         $this->json->response              = $res->response;
@@ -83,10 +114,19 @@ class Library_Core_RestServer{
         exit;
     }
     
+    /**
+     * Formatte et stocke le nom de la méthode
+     * @param string $methodName
+     */
     private function setClassMethod($methodName){
         $this->classMethod = strtolower("{$this->httpMethod}_$methodName");
     }
     
+    /**
+     * Met le statut serverError à true
+     * Stocke le message d'erreur
+     * @param string $message
+     */
     private function showErrorServer($message){
         $this->json->serverError        = true;
         $this->json->serverErrorMessage = $message;
