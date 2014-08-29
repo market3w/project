@@ -18,8 +18,8 @@ class Application_Configs_Settings{
             define("VITRINE_ROOT", str_replace("api/index.php", "siteweb/", "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME']));
         } else {
             define("RTC_ROOT", str_replace("api", "videoconference", "http://".$_SERVER['SERVER_NAME']));
-            define("INTRANET_ROOT", str_replace("api", "intranet", "http://".$_SERVER['SERVER_NAME']));
-            define("VITRINE_ROOT", str_replace("api", "www", "http://".$_SERVER['SERVER_NAME']));
+            define("INTRANET_ROOT", str_replace("api", "intranet", "http://".$_SERVER['SERVER_NAME'])."/");
+            define("VITRINE_ROOT", str_replace("api", "www", "http://".$_SERVER['SERVER_NAME'])."/");
         }
         
         define("DB_HOST",   "localhost");
