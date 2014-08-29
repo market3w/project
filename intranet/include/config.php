@@ -1,5 +1,12 @@
 <?php
 	session_start();
+        
+        $temp = str_replace($_SERVER['DOCUMENT_ROOT'], "", $_SERVER['SCRIPT_FILENAME']);
+        $temp = explode("/",$temp);
+        if(count($temp)<=1){
+            $temp = explode("\\",$temp);
+        }
+        $folder = $temp[0];
 	
 	$_SESSION["market3w_user"] = (array_key_exists("market3w_user",$_SESSION) && $_SESSION["market3w_user"]!="")? $_SESSION["market3w_user"]:"";
 	$_SESSION["errorMessage"]="";
@@ -16,7 +23,7 @@
             define("WEB_ROOT", preg_replace("/([a-zA-Z0-9-_]*).php/", "", "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME']));
             define("SERVER_ROOT", preg_replace("/intranet\/([a-zA-Z0-9-_]*).php/", "api/", "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME']));
             define("VITRINE_ROOT", preg_replace("/intranet\/([a-zA-Z0-9-_]*).php/", "siteweb/", "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME']));
-            define("UPLOAD_ROOT", $_SERVER['DOCUMENT_ROOT']."market3w/intranet/upload/");
+            define("UPLOAD_ROOT", $_SERVER['DOCUMENT_ROOT'].$folder."/intranet/upload/");
 	} else {
             define("WEB_ROOT", "http://".$_SERVER['SERVER_NAME']."/");
             define("SERVER_ROOT", preg_replace("/([^test]*)market3w(.*)/", "http://api.market3w$2/", $_SERVER['SERVER_NAME']));
