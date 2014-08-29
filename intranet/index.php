@@ -117,5 +117,29 @@ $(document).ready(function() {
 	
 });
 </script><!-- /Calendar -->
+
+ <script type="text/javascript">
+	$(document).ready(function() {
+
+	$(".delete_article").on('click', function(){
+		
+		 var article_id = $(this).attr("article_id");
+				$("#delete_articleForm"+article_id).submit();
+				return false;
+			});
+
+
+	//Afficher / Cacher bonne div en fonction du type d'article sélectionné
+	
+	
+	$("[name=article_type]").each(function(i) { 
+    $(this).change(function(){ 
+     var value = $(this).attr("value");
+      $(".bloc_type").hide(); 
+      $("#bloc_type"+value).show('slow'); 
+    }); 
+  }); 
+});
+ </script>  
 </body>
 </html>

@@ -48,6 +48,7 @@ if(isset($_GET['aff']) && $_GET['aff']!=''){$aff = $_GET['aff'];}else{$aff='info
 							<div class="tab-content">
 								<div class="tab-pane <?php if($aff=='info_perso'){echo 'active';} ?>" id="inform">
                                 <span class="responseError" id="loginError"><?php echo $_SESSION["errorMessage"]; ?></span>
+                                <?php if(isset($_SESSION['method']) && $_SESSION['method']=='put_user'){echo'modification enregistrée avec succés';} ?>
 								<form id="edit-profile" class="form-horizontal" action="profil.php?aff=info_perso" method="post">
 									<fieldset>
 										<input type="hidden" name="method" value="put_user" />
