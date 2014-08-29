@@ -6,7 +6,7 @@
         if(count($temp)<=1){
             $temp = explode("\\",$temp);
         }
-        $folder = $temp[0];
+        $folder = (array_key_exists(0, $temp) && $temp[0]!="")?$temp[0]:(array_key_exists(0, $temp) && array_key_exists(1, $temp) && $temp[0]=="" && $temp[1]!="")?"/".$temp[1]:null;
 	
 	$_SESSION["market3w_user"] = (array_key_exists("market3w_user",$_SESSION) && $_SESSION["market3w_user"]!="")? $_SESSION["market3w_user"]:"";
 	$_SESSION["errorMessage"]="";
