@@ -17,7 +17,10 @@ class Application_Controllers_Documents extends Library_Core_Controllers{
      * @var string
      */
     private $as;
-	
+    /**
+     * Liste des champs à récupérer de la table liée
+     * @var array
+     */
     private $document_vars = array('document_id',
                                     'document_name',
                                     'document_description',
@@ -27,12 +30,24 @@ class Application_Controllers_Documents extends Library_Core_Controllers{
                                     'user_id',
                                     'author_id');
 	
+    /**
+     * Méthode magique __construct()
+     * Stocke la liaision avec la table
+     * Récupère l'alias de la table
+     * @global object $iDB
+     */
     public function __construct(){
         global $iDB;
         $this->table = new Application_Models_Documents($iDB->getConnexion());
             $as = $this->table->getAlias();
     }
 	
+    /**
+     * Récupère un document en fonction de son id
+     * Récupère les détails du client lié
+     * @param array $data
+     * @return object
+     */
     public function get_document($data){
         $user_id = ($_SESSION['market3w_user_id']==-1)?null:$_SESSION['market3w_user_id'];
         if($user_id==null){return $this->setApiResult(false, true, 'you are not logged');}
@@ -78,6 +93,12 @@ class Application_Controllers_Documents extends Library_Core_Controllers{
         }
     }
 	
+    /**
+     * Récupère tous les documents d'un client
+     * Récupère les détails du client lié
+     * @param array $data
+     * @return object
+     */
     public function get_alldocument_user($data){
         $user_id = ($_SESSION['market3w_user_id']==-1)?null:$_SESSION['market3w_user_id'];
         if($user_id==null){return $this->setApiResult(false, true, 'you are not logged');}
@@ -137,6 +158,11 @@ class Application_Controllers_Documents extends Library_Core_Controllers{
     }
     */
     
+    /**
+     * Ajoute un document
+     * @param array $data
+     * @return object
+     */
     public function post_document($data){
         $user_id_connecte = ($_SESSION['market3w_user_id']==-1)?null:$_SESSION['market3w_user_id'];
         if($user_id_connecte==null){return $this->setApiResult(false, true, 'you are not logged');}
@@ -247,79 +273,87 @@ class Application_Controllers_Documents extends Library_Core_Controllers{
         }
     }
 
- public function put_document($data){
-		 $user_id_connecte = ($_SESSION['market3w_user_id']==-1)?null:$_SESSION['market3w_user_id'];
-		 if($user_id_connecte==null){return $this->setApiResult(false, true, 'you are not logged');}
-		 
-		$role = new Application_Controllers_Roles();
-		$role_res = $role->get_currentrole();
-		$role_id = $role_res->response[0]->role_id;
-		
-		//Si c'est un administrateur ou webmarketeur ou client ils peuvent modifier leur docs 
-		if($role_id==1 || $role_id==2 || $role_id==3 )
-		{
-			// Récupération des parametres utiles
-			$document_id = (empty ($data['document_id']))?null:$data['document_id'];
-			$document_name = (empty ($data['document_name']))?null:$data['document_name'];
-			$document_description = (empty ($data['document_description']))?null:$data['document_description'];
-			$document_link = (empty ($data['document_link']))?null:$data['document_link'];
-			
-			
-			// Tests des variables
-			if($document_id==null){return $this->setApiResult(false, true, 'param \'document_id\' undefined');}
-			if(!is_numeric($document_id)){return $this->setApiResult(false, true, 'param \'document_id\' must be numeric');}
-			if($document_name==null){return $this->setApiResult(false, true, 'param \'document_name\' undefined');}
-			if($document_description==null){return $this->setApiResult(false, true, 'param \'document_description\' undefined');}
-			if($document_link==null){return $this->setApiResult(false, true, 'param \'document_link\' undefined');}
-			
-			// Préparation de la requete
-			$this->table->addNewField("document_name",$document_name);
-			$this->table->addNewField("document_description",$document_description);
-			$this->table->addNewField("document_link",$document_link);
-			$this->table->addNewField("document_auteur",$document_auteur);
-		
-			
-			$this->table->addWhere("document_id",$document_id);
-			if($role_id==3){$this->table->addWhere("user_id",$user_id_connecte);}
-			$this->table->update();
-		
-			return $this->setApiResult(true);
-		}
-		else
-		{
-			return $this->setApiResult(false, true, 'You aren\'t authorized to access this page');
-		}
+    /**
+     * Modifie un document
+     * @param array $data
+     * @return object
+     */
+    public function put_document($data){
+        $user_id_connecte = ($_SESSION['market3w_user_id']==-1)?null:$_SESSION['market3w_user_id'];
+        if($user_id_connecte==null){return $this->setApiResult(false, true, 'you are not logged');}
+
+        $role = new Application_Controllers_Roles();
+        $role_res = $role->get_currentrole();
+        $role_id = $role_res->response[0]->role_id;
+
+        //Si c'est un administrateur ou webmarketeur ou client ils peuvent modifier leur docs 
+        if($role_id==1 || $role_id==2 || $role_id==3 )
+        {
+            // Récupération des parametres utiles
+            $document_id = (empty ($data['document_id']))?null:$data['document_id'];
+            $document_name = (empty ($data['document_name']))?null:$data['document_name'];
+            $document_description = (empty ($data['document_description']))?null:$data['document_description'];
+            $document_link = (empty ($data['document_link']))?null:$data['document_link'];
+
+
+            // Tests des variables
+            if($document_id==null){return $this->setApiResult(false, true, 'param \'document_id\' undefined');}
+            if(!is_numeric($document_id)){return $this->setApiResult(false, true, 'param \'document_id\' must be numeric');}
+            if($document_name==null){return $this->setApiResult(false, true, 'param \'document_name\' undefined');}
+            if($document_description==null){return $this->setApiResult(false, true, 'param \'document_description\' undefined');}
+            if($document_link==null){return $this->setApiResult(false, true, 'param \'document_link\' undefined');}
+
+            // Préparation de la requete
+            $this->table->addNewField("document_name",$document_name);
+            $this->table->addNewField("document_description",$document_description);
+            $this->table->addNewField("document_link",$document_link);
+            $this->table->addNewField("document_auteur",$document_auteur);
+
+
+            $this->table->addWhere("document_id",$document_id);
+            if($role_id==3){$this->table->addWhere("user_id",$user_id_connecte);}
+            $this->table->update();
+
+            return $this->setApiResult(true);
+        }
+        else
+        {
+            return $this->setApiResult(false, true, 'You aren\'t authorized to access this page');
+        }
     }
 	
-	 public function delete_document($data){
-		 // l'admin, le ebmarketteur , le client et le prospect pourront supprimer leur document
-		  $user_id_connecte = ($_SESSION['market3w_user_id']==-1)?null:$_SESSION['market3w_user_id'];
-		 if($user_id_connecte==null){return $this->setApiResult(false, true, 'you are not logged');}
-		 
-		$role = new Application_Controllers_Roles();
-		$role_res = $role->get_currentrole();
-		$role_id = $role_res->response[0]->role_id;
-		
-		//Si c'est un administrateur ou webmarketeur ils récupére le document et leur utilisateurs// Sinon si c'est un client il ne peut que recuperer ses documents
-		if($role_id==1 || $role_id==2 || $role_id==3 )
-		{
-			// Récupération des parametres utiles
-			$document_id = (empty ($data['document_id']))?null:$data['document_id'];
-					
-			// Tests des variables
-			if($document_id==null){return $this->setApiResult(false, true, 'param \'document_id\' undefined');}
-			if(!is_numeric($document_id)){return $this->setApiResult(false, true, 'param \'document_id\' not numeric');}
-			
-			//------------- Test existance en base --------------------------------------------//
-			$exist_document = $this->get_document(array("document_id"=>$document_id));
-			if($exist_document->apiError==true){ return $this->setApiResult(false,true,'document doesn\'t look existt'); }
-			
-			$this->table->addWhere("document_id",$document_id);
-			if($role_id==3){$this->table->addWhere("user_id",$user_id_connecte);}
-			$this->table->delete();
-			return $this->setApiResult(true);
-		}
-    }
+    /**
+     * Delete un document
+     * @param array $data
+     * @return object
+     */
+    public function delete_document($data){
+        // l'admin, le ebmarketteur , le client et le prospect pourront supprimer leur document
+        $user_id_connecte = ($_SESSION['market3w_user_id']==-1)?null:$_SESSION['market3w_user_id'];
+        if($user_id_connecte==null){return $this->setApiResult(false, true, 'you are not logged');}
 
- 
+        $role = new Application_Controllers_Roles();
+        $role_res = $role->get_currentrole();
+        $role_id = $role_res->response[0]->role_id;
+
+        //Si c'est un administrateur ou webmarketeur ils récupére le document et leur utilisateurs// Sinon si c'est un client il ne peut que recuperer ses documents
+        if($role_id==1 || $role_id==2 || $role_id==3 )
+        {
+            // Récupération des parametres utiles
+            $document_id = (empty ($data['document_id']))?null:$data['document_id'];
+
+            // Tests des variables
+            if($document_id==null){return $this->setApiResult(false, true, 'param \'document_id\' undefined');}
+            if(!is_numeric($document_id)){return $this->setApiResult(false, true, 'param \'document_id\' not numeric');}
+
+            //------------- Test existance en base --------------------------------------------//
+            $exist_document = $this->get_document(array("document_id"=>$document_id));
+            if($exist_document->apiError==true){ return $this->setApiResult(false,true,'document doesn\'t look existt'); }
+
+            $this->table->addWhere("document_id",$document_id);
+            if($role_id==3){$this->table->addWhere("user_id",$user_id_connecte);}
+            $this->table->delete();
+            return $this->setApiResult(true);
+        }
+    }
 }

@@ -332,6 +332,9 @@ class Application_Controllers_Users extends Library_Core_Controllers{
         switch($add_user_method){
             // Ajouter un compte visiteur
             case "visitor":
+                    $exist_user = $this->get_currentuser();
+                    if($exist_user->apiError==false){ return $this->setApiResult(false,true,'You are already logged'); }
+                    $this->table->resetObject();
                     // Récupération des paramètres utiles
                     $user_name = (empty ($data['user_name']))?null:$data['user_name'];
                     $user_firstname = (empty ($data['user_firstname']))?null:$data['user_firstname'];
