@@ -136,6 +136,11 @@ $(document).ready(function() {
 				return false;
 			});
 
+	$(".deconnexion").on('click', function(){
+		$("#deconnexionForm").submit();
+			return false;
+	});
+		
 	//Afficher / Cacher bonne div en fonction du type d'article sélectionné
 	
 	
@@ -147,6 +152,16 @@ $(document).ready(function() {
     }); 
   }); 
 });
- </script>  
+ </script>
+ 
+ <script type="text/javascript">
+	$(document).ready(function() {
+
+	$(".deconnexion").on('click', function(){
+		$("#deconnexionForm"+document_id).submit();
+			return false;
+	}); 
+});
+</script> 
 </body>
 </html>

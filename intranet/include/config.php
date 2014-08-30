@@ -49,7 +49,4 @@
 		$currentuser_id = $currentuser->user_id;
 		$currentuser_role_id = $currentuser->user_role->role_id;
 	}
-	else
-	{
-		header("Location: login.php"); 
-	} 
+	 
