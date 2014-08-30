@@ -123,4 +123,48 @@ class Client_Controllers_Users extends Client_Core_Controllers{
 			$_SESSION["errorServer"]=$error["errorMessage"];
 		}
 	}
+	
+	 public function post_userdownload($data){
+       $user_name = (empty ($data['user_name']))?null:$data['user_name'];
+		$user_firstname = (empty ($data['user_firstname']))?null:$data['user_firstname'];
+		$user_email = (empty ($data['user_email']))?null:$data['user_email'];
+		$user_password = (empty ($data['user_password']))?null:$data['user_password'];
+		$user_password2 = (empty ($data['user_password2']))?null:$data['user_password2'];
+        $temp = $this->parseQueryResult(json_decode($this->_client->query("POST","method=userdownload&user_name=".$user_name."&user_firstname=".$user_firstname."&user_email=".$user_email."&user_password=".$user_password."&user_password2=".$user_password2)));
+
+        $error = $this->getError();
+        if($error===false){
+            $response = $this->getResponse();
+
+        } elseif($error["errorType"]=="API ERROR") {
+            switch($error["errorMessage"]){
+                case "you are not logged" :
+                        $_SESSION["errorMessage"] = "Vous n'etes pas connecté";
+                        break;
+
+                case "param 'user_name' undefined" :         
+                        $_SESSION["errorMessage"] = "Veuillez renseigner votre nom";
+                        break;
+
+                case "param 'user_firstname' undefined" :     
+                        $_SESSION["errorMessage"] = "Veuillez renseigner votre prénom";
+                        break;
+						
+				case "param 'user_email' undefined" :     
+                        $_SESSION["errorMessage"] = "Veuillez renseigner votre email";
+                        break;
+				
+				case "param 'user_password' undefined" :     
+                        $_SESSION["errorMessage"] = "Veuillez renseigner votre mot de passe";
+                        break;
+						
+
+                default : 								   
+                        $_SESSION["errorMessage"] = "Erreur de saisie";
+                        break;								 
+            }
+        } elseif($error["errorType"]=="SERVER ERROR") {
+            $_SESSION["errorServer"]=$error["errorMessage"];
+        }
+    }
 }

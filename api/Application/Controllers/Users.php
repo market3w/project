@@ -320,7 +320,7 @@ class Application_Controllers_Users extends Library_Core_Controllers{
     }
     
     /**
-     * Ajoute ou modifie un compte utilisateur
+     * Ajoute un compte prospect ou compléte un visiteur pour devenir prospect
      * @param array $data
      * @return object
      */
@@ -391,6 +391,50 @@ class Application_Controllers_Users extends Library_Core_Controllers{
 			$role_id = $role_res->response[0]->role_id;
 		} 
         
+    }
+	
+	/**
+     * Ajoute un compte visiteur pour télécharger gratuitement les pdf
+     * @param array $data
+     * @return object
+     */
+    public function post_userdownload($data){
+       
+      	 $user_id_connecte = ($_SESSION['market3w_user_id']==-1)?null:$_SESSION['market3w_user_id'];
+		 
+		 //Si visiteur non connecté et donc  non inscrits
+        if($user_id_connecte==null)
+		{
+			// Récupération des paramètres utiles
+			$user_name = (empty ($data['user_name']))?null:$data['user_name'];
+			$user_firstname = (empty ($data['user_firstname']))?null:$data['user_firstname'];
+			$user_email = (empty ($data['user_email']))?null:$data['user_email'];
+			$user_password = (empty ($data['user_password']))?null:$data['user_password'];
+			$role_id = 6;
+			//$company_id = (empty ($data['company_id']))?null:$data['company_id'];
+			// Tests des variables
+			if($user_name==null){return $this->setApiResult(false, true, 'param \'user_name\' undefined');}
+			if($user_firstname==null){return $this->setApiResult(false, true, 'param \'user_firstname\' undefined');}
+			if($user_email==null){return $this->setApiResult(false, true, 'param \'user_email\' undefined');}
+			if($user_password==null){return $this->setApiResult(false, true, 'param \'user_password\' undefined');}
+			if(!array_key_exists('user_password2',$data) || $user_password!=$data['user_password2']){return $this->setApiResult(false, true, 'Enter 2 same passwords');}
+			if(!is_numeric($role_id)){return $this->setApiResult(false, true, 'param \'role_id\' unvalid');}
+			// Préparation de la requête
+			$this->table->addNewField("user_name",$user_name);
+			$this->table->addNewField("user_firstname",$user_firstname);
+			$this->table->addNewField("user_email",$user_email);
+			$this->table->addNewField("user_password",md5($user_email.SALT_USER_PWD.$user_password));
+			$this->table->addNewField("role_id",$role_id);
+			//$this->table->addNewField("company_id",$company_id);
+			
+			$insert = $this->table->insert();
+       
+			if($insert!="ok"){
+				return $this->setApiResult(false, true, $insert);
+			}
+			return $this->setApiResult(true);
+		}
+		
     }
     
     /**
