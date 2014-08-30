@@ -98,6 +98,7 @@ class Application_Controllers_Documents extends Library_Core_Controllers{
             }
 
             $this->table->addWhere("user_id",$user_id);
+			$this->table->addOrder('document_date' , "desc");
             $res = (array)$this->table->search();
 
             if(!array_key_exists(0,$res)){
@@ -143,7 +144,8 @@ class Application_Controllers_Documents extends Library_Core_Controllers{
         $role = new Application_Controllers_Roles();
         $role_res = $role->get_currentrole();
         $role_id = $role_res->response[0]->role_id;
-
+		
+		
         //Si c'est un administrateur ou webmarketeur ou client ils peuvent ajouter des docs 
         if($role_id==1 || $role_id==2 || $role_id==4 )
         {
@@ -194,18 +196,37 @@ class Application_Controllers_Documents extends Library_Core_Controllers{
                       'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ', 
                       'AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy');
             $fichier = preg_replace('/([^.a-z0-9]+)/i', '-', $fichier);
-
-            if(copy($document_file['document']['tmp_name'], $dossier . $fichier)) //Si la fonction renvoie TRUE, c'est que ça a fonctionné...
-            {
-                unlink($document_file['document']['tmp_name']); //Supprime le fichier temporaire
-                // echo 'Upload effectué avec succès !';
-            }
-            else //Sinon (la fonction renvoie FALSE).
-            {
-                unlink($document_file['document']['tmp_name']); //Supprime le fichier temporaire
-                return $this->setApiResult(false, true, 'download fail');
-            }
-            $document_link = INTRANET_ROOT . "upload/" . $fichier;
+			
+			if(!file_exists($dossier.$user_id))
+			{
+				mkdir($dossier.$user_id, 0777);
+			}
+			if(!file_exists($dossier.$user_id.'/documents'))
+			{
+				mkdir($dossier.$user_id.'/documents', 0777);
+			}
+				
+			if(!file_exists($dossier.$user_id.'/documents/'.$fichier))
+			{
+				
+				if(copy($document_file['document']['tmp_name'], $dossier .$user_id.'/documents/'. $fichier)) //Si la fonction renvoie TRUE, c'est que ça a fonctionné...
+				{
+					unlink($document_file['document']['tmp_name']); //Supprime le fichier temporaire
+					// echo 'Upload effectué avec succès !';
+				}
+				else //Sinon (la fonction renvoie FALSE).
+				{
+					unlink($document_file['document']['tmp_name']); //Supprime le fichier temporaire
+					return $this->setApiResult(false, true, 'download fail');
+				}
+			}
+			//Si le fichier existe on indique une erreur
+			else
+			{
+				return $this->setApiResult(false, true, 'file already exist');
+			}
+			
+            $document_link = INTRANET_ROOT . "upload/".$user_id.'/documents/' . $fichier;
 
             // Préparation de la requete
             $this->table->addNewField("document_name",$document_name);
@@ -213,7 +234,7 @@ class Application_Controllers_Documents extends Library_Core_Controllers{
             $this->table->addNewField("document_link",$document_link);
             //$this->table->addNewField("document_auteur",$document_auteur);
             $this->table->addNewField("user_id",$user_id);
-
+			$this->table->addNewField("author_id",$user_id_connecte);
             $insert = $this->table->insert();
             if($insert!="ok"){
                 return $this->setApiResult(false, true, $insert);

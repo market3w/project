@@ -68,8 +68,8 @@ $documents = $client->get_alldocument(); ?>
              
               <?php //echo (($documents->author_id==$_SESSION["market3w_user"]) ? "from_user left" : "by_myself right"); ?>
              <li class="<?php echo (($documents[$i]->author_id==$currentuser_id) ? "from_user left" : "by_myself right"); ?>"> <a href="#" class="avatar"><img src="img/message_avatar<?php echo (($documents[$i]->author_id==$currentuser_id) ? "1" : "2"); ?>.png"/></a>
-                  <div class="message_wrap"> <span class="arrow"></span>
-                    <div class="info"> <a class="name">Nom Prénom</a> <span class="time">il y a 1 jour</span>
+                  <div class="message_wrap" style="width:auto;"> <span class="arrow"></span>
+                    <div class="info"> <a class="name"><?php echo $documents[$i]->document_name; ?></a> <span class="time"><?php echo $documents[$i]->document_date; ?></span><?php echo (($documents[$i]->author_id==$currentuser_id) ? "from_user left" : "by_myself right"); ?>
                       <div class="options_arrow">
                         <div class="dropdown pull-right"> <a class="dropdown-toggle " id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#"> <i class=" icon-caret-down"></i> </a>
                           <ul class="dropdown-menu " role="menu" aria-labelledby="dLabel">
@@ -81,7 +81,7 @@ $documents = $client->get_alldocument(); ?>
                         </div>
                       </div>
                     </div>
-                    <div class="text">Ici description du document téléchargé en mettant ce qu'il y a dedans bla blal bla. </div>
+                    <div class="text" style="min-width:100%;">Ici description du document télé.dfgdgd gddgdbgfdj hbhbdbb hjgbhjghjdbhgfdbhd bh </div>
                   </div>
                 </li>
              

@@ -55,7 +55,11 @@ class Client_Controllers_Documents extends Client_Core_Controllers{
 
                 case "download fail" :   
                         $_SESSION["errorMessage"] = "Une erreur s'est produite durant le téléchargement";
-                        break;										   
+                        break;
+				
+				case "file already exist" :   
+                        $_SESSION["errorMessage"] = "Le fichier que vous voulez télécharger existe déjà, veuillez supprimer le fichier avec le même nom ou renommer votre fichier";
+                        break;										   									   
 
                 default : 								   
                         $_SESSION["errorMessage"] = "Erreur de saisie";
