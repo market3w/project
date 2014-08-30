@@ -129,6 +129,13 @@ $(document).ready(function() {
 			});
 
 
+	$(".delete_document").on('click', function(){
+		
+		 var document_id = $(this).attr("document_id");
+				$("#delete_documentForm"+document_id).submit();
+				return false;
+			});
+
 	//Afficher / Cacher bonne div en fonction du type d'article sélectionné
 	
 	
