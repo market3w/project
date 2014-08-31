@@ -22,7 +22,10 @@ class Application_Controllers_Appointments extends Library_Core_Controllers{
      * @var array
      */
     private $appointment_vars = array('appointment_id',
-                                        'appointment_date',
+                                        'appointment_name',
+                                        'appointment_description',
+                                        'appointment_start_date',
+                                        'appointment_end_date',
                                         'appointment_places',
                                         'appointment_active');
 

@@ -27,8 +27,7 @@ class Client_Core_Client extends Client_Core_Extensions{
                             'Client_Controllers_Paiements',
                             'Client_Controllers_Documents',
                             'Client_Controllers_Articles',
-							'Client_Controllers_Companies');
-
+							'Client_Controllers_Appointments',							'Client_Controllers_Companies');
         parent::__construct($extensions,$this->_client);
     }
 }

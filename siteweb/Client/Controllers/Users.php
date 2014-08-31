@@ -14,8 +14,10 @@ class Client_Controllers_Users extends Client_Core_Controllers{
 		$error = $this->getError();
 		if($error===false){
 			$response = $this->getResponse();
-			$_SESSION["market3w_user"] = trim($response[0]->user_firstname." ".$response[0]->user_name);
-			header("location: ".INTRANET_ROOT);
+			$_SESSION["market3w_user"] = trim($response[0]->user_firstname." ".$response[0]->user_name);echo "<br /><br /><br />";
+                        if($response[0]->role_id<6){
+                            header("location: ".INTRANET_ROOT);
+                        }
 		} elseif($error["errorType"]=="API ERROR") {
 			switch($error["errorMessage"]){
 				case "Login incorrect" : 				   $_SESSION["errorMessage"] = "Email et/ou mot de passe incorrecte";
@@ -84,7 +86,7 @@ class Client_Controllers_Users extends Client_Core_Controllers{
 				case "param 'user_name' undefined" :      $_SESSION["errorMessage"] = "Veuillez renseigner votre nom";
 														   break;
 														 										 
-				case "param 'user_firstname' undefined" :      $_SESSION["errorMessage"] = "Veuillez renseigner votre prénom";
+				case "param 'user_firstname' undefined" :      $_SESSION["errorMessage"] = "Veuillez renseigner votre prï¿½nom";
 														   break;
 														 										 
 				case "param 'user_email' undefined" :      $_SESSION["errorMessage"] = "Veuillez renseigner votre email";
@@ -93,7 +95,7 @@ class Client_Controllers_Users extends Client_Core_Controllers{
 				case "param 'user_password' undefined" :      $_SESSION["errorMessage"] = "Veuillez renseigner votre mot de passe";
 														   break;
 														   
-				case "Enter 2 same passwords" :      		$_SESSION["errorMessage"] = "Vous n'avez pas indiqué le meme mot de passe ";
+				case "Enter 2 same passwords" :      		$_SESSION["errorMessage"] = "Vous n'avez pas indiquï¿½ le meme mot de passe ";
 														   break;
 														   								 
 				case "param 'user_function' undefined" :      $_SESSION["errorMessage"] = "Veuillez renseigner votre profession";
@@ -139,7 +141,7 @@ class Client_Controllers_Users extends Client_Core_Controllers{
         } elseif($error["errorType"]=="API ERROR") {
             switch($error["errorMessage"]){
                 case "you are not logged" :
-                        $_SESSION["errorMessage"] = "Vous n'etes pas connecté";
+                        $_SESSION["errorMessage"] = "Vous n'etes pas connectï¿½";
                         break;
 
                 case "param 'user_name' undefined" :         
@@ -147,7 +149,7 @@ class Client_Controllers_Users extends Client_Core_Controllers{
                         break;
 
                 case "param 'user_firstname' undefined" :     
-                        $_SESSION["errorMessage"] = "Veuillez renseigner votre prénom";
+                        $_SESSION["errorMessage"] = "Veuillez renseigner votre prï¿½nom";
                         break;
 						
 				case "param 'user_email' undefined" :     
