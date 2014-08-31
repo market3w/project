@@ -25,6 +25,7 @@ class Application_Controllers_Paiements extends Library_Core_Controllers{
                                     'paiement_name',
                                     'paiement_description',
                                     'paiement_prix',
+									'user_id',
                                     'paiement_link',
                                     'paiement_date');
 	
@@ -100,18 +101,28 @@ class Application_Controllers_Paiements extends Library_Core_Controllers{
      */	
     public function get_allpaiement($data){
         //!!!Seulement l'admin a cette fonction
-        $user_id = ($_SESSION['market3w_user_id']==-1)?null:$_SESSION['market3w_user_id'];
-         if($user_id==null){return $this->setApiResult(false, true, 'you are not logged');}
+        $user_id_connecte = ($_SESSION['market3w_user_id']==-1)?null:$_SESSION['market3w_user_id'];
+         if($user_id_connecte==null){return $this->setApiResult(false, true, 'you are not logged');}
 
         $role = new Application_Controllers_Roles();
         $role_res = $role->get_currentrole();
         $role_id = $role_res->response[0]->role_id;
 
-        //Si admin alors OK
+        //Si admin alors ou webmarketeur ou client ok
         if($role_id==1 || $role_id==2 || $role_id==4)
         {
+			//Si c'est un admin ou webmarketeur qui accéde aux dossier du client, il devra renseigne l'id du client ou prospect
+            if($role_id!=4)
+            {
+                $user_id = (empty ($data['user_id']))?null:$data['user_id'];
+            }
+			//Sinon cest un client ou prospect, il récupére que ses campagnes le concernant
+			else
+			{
+				$user_id = $user_id_connecte;
+			}
             $this->table->addJoin("users","u","user_id","user_id","","left");
-            if($role_id==4){$this->table->addWhere("user_id", $user_id);}
+            $this->table->addWhere("user_id", $user_id);
             $res = (array)$this->table->search();
 
             $tab = array();

@@ -6,6 +6,8 @@
 	$user = $client->get_user(array("user_id"=>$view_user_id));
 	$allappointmentuser = $client->get_allappointmentuser(array("user_id"=>$view_user_id));
 	$alldocumentuser = $client->get_alldocument(array("user_id"=>$view_user_id));
+	$allcampainuser = $client->get_allcampain(array("user_id"=>$view_user_id));
+	$allfactureuser = $client->get_allpaiement(array("user_id"=>$view_user_id));
 }
 $users = $client->get_all_users(); ?>
 <div class="main">
@@ -54,10 +56,8 @@ $users = $client->get_all_users(); ?>
     					  <li  <?php if($aff=='entreprise'){echo 'class="active"';} ?>><a href="#entre" data-toggle="tab">Entreprise</a></li>
                           <li  <?php if($aff=='rdv'){echo 'class="active"';} ?>><a href="#rdv" data-toggle="tab">Rendez-vous</a></li>
                            <li  <?php if($aff=='documents'){echo 'class="active"';} ?>><a href="#doc" data-toggle="tab">Documents</a></li>
-						    <li  <?php if($aff=='campagnes'){echo 'class="active"';} ?>><a href="#campagnes" data-toggle="tab">Ses campagnes</a></li>
-                             <li  <?php if($aff=='ajout_campagne'){echo 'class="active"';} ?>><a href="#ajout_campagne" data-toggle="tab">Ajouter une campagne</a></li>
-					<li  <?php if($aff=='factures'){echo 'class="active"';} ?>><a href="#factures" data-toggle="tab">Ses factures</a></li>
-                             <li  <?php if($aff=='ajout_facture'){echo 'class="active"';} ?>><a href="#ajout_facture" data-toggle="tab">Ajouter une facture</a></li>
+						    <li  <?php if($aff=='campagnes'){echo 'class="active"';} ?>><a href="#campagnes" data-toggle="tab">Campagnes</a></li>
+                            <li  <?php if($aff=='factures'){echo 'class="active"';} ?>><a href="#factures" data-toggle="tab">Factures</a></li>
 						</ul>
 						
 						<br>
@@ -293,108 +293,34 @@ $users = $client->get_all_users(); ?>
 								
                                 
                                 <div class="tab-pane <?php if($aff=='campagnes'){echo 'active';} ?>" id="campagnes">
-							
-								<table width="100%" style="margin-top:-25px;"><tr><td>Nom campagne</td><td>date</td>
-                                <tr><td><a href="#">Campagne 1</a></td><td>22 juin 2014</td></tr>
-                                <tr><td><a href="#">Campagne 2</a></td><td>22 juin 2014</td></tr>
-                               <tr><td><a href="#">Campagne 3</a></td><td>22 juin 2014</td></tr>
-                               <tr><td><a href="#">Campagne 4</a></td><td>22 juin 2014</td></tr>
-                               <tr><td><a href="#">Campagne 5</a></td><td>22 juin 2014</td></tr>
-                               <tr><td><a href="#">Campagne 6</a></td><td>22 juin 2014</td></tr>
-                               <tr><td><a href="#">Campagne 7</a></td><td>22 juin 2014</td></tr>
-                               <tr><td><a href="#">Campagne 8</a></td><td>22 juin 2014</td></tr>
-                               <tr><td><a href="#">Campagne 9</a></td><td>22 juin 2014</td></tr>
-                               <tr><td><a href="#">Campagne 10</a></td><td>22 juin 2014</td></tr>
-                             </table>
+							 	<?php if(count($allcampainuser)>0){ ?>
+                                    
+								 <table width="100%" style="margin-top:-25px;"><tr><td>Intitulé campagne</td><td>Dernière modification</td></tr>
+                                    <?php foreach($allcampainuser as $key=>$value){ ?>
+                                    <tr><td><a href="index.php?aff=campagnes&view_user_id=<?php echo $value->contact_id; ?>"><?php echo $value->campain_name; ?></a></td><td><?php echo $value->campain_date_modif; ?></td></tr>
+                                    <?php } ?>
+                                    
+                                    </table>
+                                    
+                                    <?php }else{echo'Pas de campagnes effectués ou en préparation pour cet utilisateur.';} ?>
 								</div>
                                 
-                                
-                                  <div class="tab-pane <?php if($aff=='ajout_campagne'){echo 'active';} ?>" id="ajout_campagne">
-									<form id="add_campains" class="form-horizontal">
-									<fieldset>
-										
-										<div class="control-group">											
-											<label class="control-label" for="facture_name">Nom Campagne</label>
-											<div class="controls">
-												<input type="text" class="span4" id="facture_name" value="">
-											</div> <!-- /controls -->				
-										</div> <!-- /control-group -->
-										
-										
-										<div class="control-group">											
-											<label class="control-label" for="facture_description">Description</label>
-											<div class="controls">
-												<textarea class="span4" id="facture_description"></textarea>
-											</div> <!-- /controls -->				
-										</div> <!-- /control-group -->
-										
-								
-										 <br />
-								
-										<div class="form-actions">
-											<center><button type="submit" class="btn btn-primary">Ajouter une campagne</button> </center>
-											<!--<button class="btn">Cancel</button>-->
-										</div> <!-- /form-actions -->
-									</fieldset>
-								</form>
-								</div>
 								
                                  <div class="tab-pane <?php if($aff=='factures'){echo 'active';} ?>" id="factures">
 							
-								<table width="100%" style="margin-top:-25px;"><tr><td>Nom facture</td><td>date</td>
-                                <tr><td><a href="#">Facture 1</a></td><td>22 juin 2014</td></tr>
-                                <tr><td><a href="#">Facture 2</a></td><td>22 juin 2014</td></tr>
-                               <tr><td><a href="#">Facture 3</a></td><td>22 juin 2014</td></tr>
-                               <tr><td><a href="#">Facture 4</a></td><td>22 juin 2014</td></tr>
-                               <tr><td><a href="#">Facture 5</a></td><td>22 juin 2014</td></tr>
-                               <tr><td><a href="#">Facture 6</a></td><td>22 juin 2014</td></tr>
-                               <tr><td><a href="#">Facture 7</a></td><td>22 juin 2014</td></tr>
-                               <tr><td><a href="#">Facture 8</a></td><td>22 juin 2014</td></tr>
-                               <tr><td><a href="#">Facture 9</a></td><td>22 juin 2014</td></tr>
-                               <tr><td><a href="#">Facture 10</a></td><td>22 juin 2014</td></tr>
-                             </table>
+								<?php if(count($allfactureuser)>0){ ?>
+                                    
+								 <table width="100%" style="margin-top:-25px;"><tr><td>Intitulé facture</td><td>Date</td></tr>
+                                    <?php foreach($allfactureuser as $key=>$value){ ?>
+                                    <tr><td><a href="index.php?aff=factures&view_user_id=<?php echo $view_user_id; ?>"><?php echo $value->paiement_name; ?></a></td><td><?php echo $value->paiement_date; ?></td></tr>
+                                    <?php } ?>
+                                    
+                                    </table>
+                                    
+                                    <?php }else{echo'Pas de fatures enregistrés pour cet utilisateur.';} ?>
 								</div>
                                 
                                 
-                                  <div class="tab-pane <?php if($aff=='ajout_facture'){echo 'active';} ?>" id="ajout_facture">
-									<form id="add_campains" class="form-horizontal">
-									<fieldset>
-										
-										<div class="control-group">											
-											<label class="control-label" for="facture_name">Nom facture</label>
-											<div class="controls">
-												<input type="text" class="span4" id="facture_name" value="">
-											</div> <!-- /controls -->				
-										</div> <!-- /control-group -->
-										
-										
-										<div class="control-group">											
-											<label class="control-label" for="facture_description">Description</label>
-											<div class="controls">
-												<textarea class="span4" id="facture_description"></textarea>
-											</div> <!-- /controls -->				
-										</div> <!-- /control-group -->
-										
-										
-										<div class="control-group">											
-											<label class="control-label" for="facture_download">Télécharger</label>
-											<div class="controls">
-												<input type="file" />
-											</div> <!-- /controls -->				
-										</div> <!-- /control-group -->
-                                        
-                                        
-                                        
-										 <br />
-								
-										<div class="form-actions">
-											<center><button type="submit" class="btn btn-primary">Ajouter la facture</button> </center>
-											<!--<button class="btn">Cancel</button>-->
-										</div> <!-- /form-actions -->
-									</fieldset>
-								</form>
-								</div>
-								
 							</div>
 						  
 						  

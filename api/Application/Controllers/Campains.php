@@ -27,6 +27,7 @@ class Application_Controllers_Campains extends Library_Core_Controllers{
                                     'campain_description',
                                     'campain_prix',
                                     'company_id',
+									'contact_id',
                                     'campain_completion',
                                     'campain_date',
                                     'campain_date_modif');
@@ -139,7 +140,7 @@ class Application_Controllers_Campains extends Library_Core_Controllers{
         $role_id = $role_res->response[0]->role_id;
 
         //Si c'est un administrateur ou webmarketeur ils récupère les campagnes et leur compagnies// Sinon si c'est un client il ne peut que recuperer les campagnes de leur société
-        if($role_id==1 || $role_id==2 || $role_id==3 )
+        if($role_id==1 || $role_id==2 || $role_id==4 )
         {	
             $company_id = (empty ($data['company_id']))?null:$data['company_id'];
             if($company_id==null){return $this->setApiResult(false, true, 'param \'company_id\' undefined');}
@@ -203,16 +204,28 @@ class Application_Controllers_Campains extends Library_Core_Controllers{
      * @return object
      */
     public function get_allcampain($data){
-        $user_id = ($_SESSION['market3w_user_id']==-1)?null:$_SESSION['market3w_user_id'];
-        if($user_id==null){return $this->setApiResult(false, true, 'you are not logged');}
-
+        $user_id_connecte = ($_SESSION['market3w_user_id']==-1)?null:$_SESSION['market3w_user_id'];
+        if($user_id_connecte==null){return $this->setApiResult(false, true, 'you are not logged');}
+		
         $role = new Application_Controllers_Roles();
         $role_res = $role->get_currentrole();
         $role_id = $role_res->response[0]->role_id;
-
+		
         //Si c'est un administrateur peut récupèrer toutes les campagnes en court
         if($role_id==1 || $role_id==2 || $role_id==4)
         {
+			//Si c'est un admin ou webmarketeur qui accéde aux dossier du client, il devra renseigne l'id du client ou prospect
+            if($role_id!=4)
+            {
+                $user_id = (empty ($data['user_id']))?null:$data['user_id'];
+            }
+			//Sinon cest un client ou prospect, il récupére que ses campagnes le concernant
+			else
+			{
+				$user_id = $user_id_connecte;
+			}
+			 if($user_id==null){return $this->setApiResult(false, true, 'param \'user_id\' undefined');}
+             if(!is_numeric($user_id)){return $this->setApiResult(false, true, 'param \'user_id\' is not numeric');}
             // Selectionner tous les champs de la table campains
             $this->table->addField("*");
             // Selectionner tous les champs de la table users pour le client
@@ -232,10 +245,9 @@ class Application_Controllers_Campains extends Library_Core_Controllers{
             $this->table->addJoin("companies","c","company_id","company_id","u","left");
             $this->table->addJoin("users","w","user_id","webmarketter_id","","left");
 
-            if($role_id==4)
-            {
-                $this->table->addWhere("contact_id", $user_id);
-            }
+           
+            $this->table->addWhere("contact_id", $user_id);
+            
 
             $res = (array)$this->table->search();
             $tab = array();
