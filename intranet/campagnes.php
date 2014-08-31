@@ -1,7 +1,7 @@
 <?php  
 include('include/config.php');
 $page='campagnes'; 
-$campagnes = $client->get_allcampain(); ?>
+$campagnes = $client->get_allcampain(array("user_id"=>$currentuser_id)); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
