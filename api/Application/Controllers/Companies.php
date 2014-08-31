@@ -371,9 +371,7 @@ class Application_Controllers_Companies extends Library_Core_Controllers{
         if($company_zipcode==null){return $this->setApiResult(false, true, 'param \'company_zipcode\' undefined');}
         if(!is_numeric($company_zipcode)){return $this->setApiResult(false, true, 'param \'company_zipcode\' unvalid');}
         if($company_town==null){return $this->setApiResult(false, true, 'param \'company_town\' undefined');}
-        if($company_nb_employees==null){return $this->setApiResult(false, true, 'param \'company_nb_employees\' undefined');}
-        if(!is_numeric($company_nb_employees)){return $this->setApiResult(false, true, 'param \'company_nb_employees\' unvalid');}
-
+       
         //------------- Test existance en base --------------------------------------------//
         $exist_company = $this->get_company(array("company_id"=>$company_id));
         if($exist_company->apiError==true){ return $this->setApiResult(false,true,$exist_company->apiErrorMessage); }
