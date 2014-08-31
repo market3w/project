@@ -5,7 +5,7 @@ if(isset($_GET['id']) && is_numeric($_GET['id']))
 {
 	$campagne = $client->get_campain(array("campain_id"=>$_GET['id']));
 } else {
-	header("location:".WEB_ROOT."videos.php");
+	header("location:".WEB_ROOT."campagnes.php");
 	die();
 }
   ?>
