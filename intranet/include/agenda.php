@@ -63,8 +63,10 @@ $(document).ready(function() {
             {
                 id: <?php echo $appointment->appointment_id; ?>,
                 title: '<?php echo $appointment->appointment_name; ?>',
+                description: '<?php echo $appointment->appointment_description; ?>',
                 start: new Date(<?php echo $startDate; ?>),
                 end: new Date(<?php echo $endDate; ?>),
+                <?php if(isset($appointment->type)){ ?>type: '<?php echo $appointment->type; ?>',<?php } ?>
                 allDay: false
             }
             <?php } ?>
