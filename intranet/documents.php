@@ -1,7 +1,7 @@
 <?php  
 include('include/config.php');
 $page='documents'; 
-$documents = $client->get_alldocument(); ?>
+$documents = $client->get_alldocument(array("user_id"=>$currentuser_id)); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
