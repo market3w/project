@@ -136,9 +136,7 @@ class Application_Controllers_Appointments extends Library_Core_Controllers{
      * @param array $data
      * @return object
      */
-    public function get_allappointment($data){
-		
-		
+    public function get_allappointment($data){	
         // Selectionner tous les champs de la table appointments
         $this->table->addField("*");
         // Selectionner tous les champs de la table users pour le client

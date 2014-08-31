@@ -6,9 +6,13 @@ class Client_Controllers_Documents extends Client_Core_Controllers{
         $this->_client = $_client;
     }
 
-    public function get_alldocument($data){
-		$user_id = (empty ($data['user_id']))?null:$data['user_id'];
-        $this->parseQueryResult(json_decode($this->_client->query("GET","method=alldocument_user&user_id=".$user_id)));
+    public function get_alldocument($data=array()){
+	$user_id = (empty ($data['user_id']))?null:$data['user_id'];
+        if(is_null($user_id)){
+            $this->parseQueryResult(json_decode($this->_client->query("GET","method=alldocument")));
+        } else {
+            $this->parseQueryResult(json_decode($this->_client->query("GET","method=alldocument_user&user_id=".$user_id)));
+        }
         $error = $this->getError();
         if($error===false){
             $documents = $this->getResponse();

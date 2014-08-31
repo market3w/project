@@ -115,7 +115,7 @@ class Library_Core_RestServer{
         $res = call_user_func(array($this->service, $this->classMethod),  $this->requestParam);
         $nbRes = count($res->response);
         $response = array();
-        if(array_key_exists($nbRes, $res)){
+        if(is_array($res->response) && array_key_exists($nbRes-1, $res->response)){
             $response = $res->response;
             $index = (is_null($res->response[$nbRes-1]))?($nbRes-1):$nbRes;
         } else {

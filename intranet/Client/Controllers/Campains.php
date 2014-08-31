@@ -6,11 +6,15 @@ class Client_Controllers_Campains extends Client_Core_Controllers{
 		$this->_client = $_client;
 	}
 	
-	public function get_allcampain($data){
+	public function get_allcampain($data=array()){
 	 
-		/* Recupérer les vidéos */
+		/* Recupï¿½rer les vidï¿½os */
 		$user_id = (empty ($data['user_id']))?null:$data['user_id'];
-		$this->parseQueryResult(json_decode($this->_client->query("GET","method=allcampain&user_id=".$user_id)));
+                if(is_null($user_id)){
+                    $this->parseQueryResult(json_decode($this->_client->query("GET","method=allcampain")));
+                } else {
+                    $this->parseQueryResult(json_decode($this->_client->query("GET","method=allcampain&user_id=".$user_id)));
+                }
 		$error = $this->getError();
 		if($error===false){
 			$campains = $this->getResponse();
@@ -21,7 +25,7 @@ class Client_Controllers_Campains extends Client_Core_Controllers{
 	public function get_campain($data){
 		 $campain_id = (isset($data["campain_id"]) && is_numeric($data["campain_id"]))? $data["campain_id"]:null;
 	
-		/* Recupérer les vidéos */
+		/* Recupï¿½rer les vidï¿½os */
 		$this->parseQueryResult(json_decode($this->_client->query("GET","method=campain&campain_id=".$campain_id)));
 		$error = $this->getError();
 		if($error===false){
