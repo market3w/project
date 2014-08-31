@@ -104,24 +104,28 @@ class Application_Controllers_Documents extends Library_Core_Controllers{
      * @return object
      */
     public function get_alldocument_user($data){
-        $user_id = ($_SESSION['market3w_user_id']==-1)?null:$_SESSION['market3w_user_id'];
-        if($user_id==null){return $this->setApiResult(false, true, 'you are not logged');}
+        $user_id_connecte = ($_SESSION['market3w_user_id']==-1)?null:$_SESSION['market3w_user_id'];
+        if($user_id_connecte==null){return $this->setApiResult(false, true, 'you are not logged');}
 
         $role = new Application_Controllers_Roles();
         $role_res = $role->get_currentrole();
         $role_id = $role_res->response[0]->role_id;
 
         //Si c'est un administrateur ou webmarketeur ils récupére les documents et leur utilisateurs// Sinon si c'est un client il ne peut que recuperer ses documents
-        if($role_id==1 || $role_id==2 || $role_id==4 )
+        if($role_id==1 || $role_id==2 || $role_id==4 || $role_id==5 )
         {
-            //Si c'est un admin ou webmarketeur qui accéde aux dossier du client, il devra renseigne l'id du client
-            if($role_id!=4)
+            //Si c'est un admin ou webmarketeur qui accéde aux dossier du client, il devra renseigne l'id du client ou prospect
+            if($role_id!=4 && $role_id!=5)
             {
                 $user_id = (empty ($data['user_id']))?null:$data['user_id'];
-                if($user_id==null){return $this->setApiResult(false, true, 'param \'user_id\' undefined');}
-                if(!is_numeric($user_id)){return $this->setApiResult(false, true, 'param \'user_id\' is not numeric');}
             }
-
+			//Sinon cest un client ou prospect, il récupére que ses documents le concernant
+			else
+			{
+				$user_id = $user_id_connecte;
+			}
+			 if($user_id==null){return $this->setApiResult(false, true, 'param \'user_id\' undefined');}
+             if(!is_numeric($user_id)){return $this->setApiResult(false, true, 'param \'user_id\' is not numeric');}
             $this->table->addWhere("user_id",$user_id);
 			$this->table->addOrder('document_date' , "desc");
             $res = (array)$this->table->search();

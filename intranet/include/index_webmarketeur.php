@@ -5,6 +5,7 @@
 {
 	$user = $client->get_user(array("user_id"=>$view_user_id));
 	$allappointmentuser = $client->get_allappointmentuser(array("user_id"=>$view_user_id));
+	$alldocumentuser = $client->get_alldocument(array("user_id"=>$view_user_id));
 }
 $users = $client->get_all_users(); ?>
 <div class="main">
@@ -52,7 +53,7 @@ $users = $client->get_all_users(); ?>
 						  <li  <?php if($aff=='infos_perso'){echo 'class="active"';} ?> > <a href="#infos_perso" data-toggle="tab">Infos personnelles</a></li>
     					  <li  <?php if($aff=='entreprise'){echo 'class="active"';} ?>><a href="#entre" data-toggle="tab">Entreprise</a></li>
                           <li  <?php if($aff=='rdv'){echo 'class="active"';} ?>><a href="#rdv" data-toggle="tab">Rendez-vous</a></li>
-                           <li  <?php if($aff=='document'){echo 'class="active"';} ?>><a href="#doc" data-toggle="tab">Télécharger un Document</a></li>
+                           <li  <?php if($aff=='documents'){echo 'class="active"';} ?>><a href="#doc" data-toggle="tab">Documents</a></li>
 						    <li  <?php if($aff=='campagnes'){echo 'class="active"';} ?>><a href="#campagnes" data-toggle="tab">Ses campagnes</a></li>
                              <li  <?php if($aff=='ajout_campagne'){echo 'class="active"';} ?>><a href="#ajout_campagne" data-toggle="tab">Ajouter une campagne</a></li>
 					<li  <?php if($aff=='factures'){echo 'class="active"';} ?>><a href="#factures" data-toggle="tab">Ses factures</a></li>
@@ -275,44 +276,21 @@ $users = $client->get_all_users(); ?>
 								</div>
                                 
                                 
-                                <div class="tab-pane <?php if($aff=='document'){echo 'active';} ?>" id="doc">
-									<form id="edit-profile" class="form-horizontal">
-									<fieldset>
-										
-										<div class="control-group">											
-											<label class="control-label" for="document_name">Nom</label>
-											<div class="controls">
-												<input type="text" class="span4" id="document_name" value="John">
-											</div> <!-- /controls -->				
-										</div> <!-- /control-group -->
-										
-										
-										<div class="control-group">											
-											<label class="control-label" for="document_description">Description</label>
-											<div class="controls">
-												<textarea class="span4" id="document_description"></textarea>
-											</div> <!-- /controls -->				
-										</div> <!-- /control-group -->
-										
-										
-										<div class="control-group">											
-											<label class="control-label" for="document_description">Télécharger</label>
-											<div class="controls">
-												<input type="file" />
-											</div> <!-- /controls -->				
-										</div> <!-- /control-group -->
-                                        
-                                        
-                                        
-										 <br />
+                                <div class="tab-pane <?php if($aff=='documents'){echo 'active';} ?>" id="doc">
 								
-										<div class="form-actions">
-											<center><button type="submit" class="btn btn-primary">Télécharger le document</button> </center>
-											<!--<button class="btn">Cancel</button>-->
-										</div> <!-- /form-actions -->
-									</fieldset>
-								</form>
+                                <?php if(count($alldocumentuser)>0){ ?>
+                                    
+                                    <table width="100%" style="margin-top:-25px;"><tr><td>Intitulé document</td><td>Date</td></tr>
+                                    <?php foreach($alldocumentuser as $key=>$value){ ?>
+                                    <tr><td><a href="index.php?aff=documents&view_user_id=<?php echo $value->user_id; ?>"><?php echo $value->document_name; ?></a></td><td><?php echo $value->document_date; ?></td></tr>
+                                    <?php } ?>
+                                    
+                                    </table>
+                                    
+                                    <?php }else{echo'Pas de documents téléchargés pour cet utilisateur.';} ?>
 								</div>
+                                
+								
                                 
                                 <div class="tab-pane <?php if($aff=='campagnes'){echo 'active';} ?>" id="campagnes">
 							
