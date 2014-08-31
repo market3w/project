@@ -149,7 +149,7 @@ $documents = $client->get_alldocument(); ?>
              
              <li  style="width:90%;">
                   
-                    <div class="news-item-detail"> <a href="<?php echo $paiements[$i]->paiement_link; ?>" class="news-item-title" target="_blank"><?php echo $campagnes[$i]->campain_name; ?></a>
+                    <div class="news-item-detail"> <a href="<?php echo $paiements[$i]->paiement_link; ?>" class="news-item-title" target="_blank"><?php echo $paiements[$i]->paiement_name; ?></a>
                     <p class="news-item-preview"><?php echo $paiements[$i]->paiement_description; ?></p>
                       <div style="text-align:center;margin-top:10px;"><a href="<?php echo $paiements[$i]->paiement_link; ?>" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info">Télécharger la facture</button></a></div>
            
