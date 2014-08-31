@@ -4,6 +4,7 @@
  if(is_numeric($view_user_id))
 {
 	$user = $client->get_user(array("user_id"=>$view_user_id));
+	$allappointmentuser = $client->get_allappointmentuser(array("user_id"=>$view_user_id));
 }
 $users = $client->get_all_users(); ?>
 <div class="main">
@@ -261,18 +262,16 @@ $users = $client->get_all_users(); ?>
                                 
                                  <div class="tab-pane <?php if($aff=='rdv'){echo 'active';} ?>" id="rdv">
 							
-								<table width="100%" style="margin-top:-25px;"><tr><td>Intitulé rendez-vous</td><td>date</td><td>Webmarketeur</td>
-                                <tr><td><a href="#">RDV 1</a></td><td>22 juin 2014</td><td>Jordan</td></tr>
-                                <tr><td><a href="#">RDV 2</a></td><td>22 juin 2014</td><td>Jordan</td></tr>
-                               <tr><td><a href="#">RDV 3</a></td><td>22 juin 2014</td><td>Jordan</td></tr>
-                               <tr><td><a href="#">RDV 4</a></td><td>22 juin 2014</td><td>Jordan</td></tr>
-                               <tr><td><a href="#">RDV 5</a></td><td>22 juin 2014</td><td>Jordan</td></tr>
-                               <tr><td><a href="#">RDV 6</a></td><td>22 juin 2014</td><td>Jordan</td></tr>
-                               <tr><td><a href="#">RDV 7</a></td><td>22 juin 2014</td><td>Jordan</td></tr>
-                               <tr><td><a href="#">RDV 8</a></td><td>22 juin 2014</td><td>Jordan</td></tr>
-                               <tr><td><a href="#">RDV 9</a></td><td>22 juin 2014</td><td>Jordan</td></tr>
-                               <tr><td><a href="#">RDV 10</a></td><td>22 juin 2014</td><td>Jordan</td></tr>
-                             </table>
+								<?php if(count($allappointmentuser)>0){ ?>
+                                    
+                                    <table width="100%" style="margin-top:-25px;"><tr><td>Intitulé rendez-vous</td><td>Début rendez-vous</td><td>Fin rendez-vous</td><td>Webmarketeur</td><td>Statut</td></tr>
+                                    <?php foreach($allappointmentuser as $key=>$value){ ?>
+                                    <tr><td><a href="index.php?aff=rdv&view_user_id=<?php echo $value->appointment_user->user_id; ?>"><?php echo $value->appointment_name; ?></a></td><td><?php echo $value->appointment_start_date; ?></td><td><?php echo $value->appointment_end_date; ?></td><td><?php echo $value->appointment_webmarketter->webmarketter_name.' '.$value->appointment_webmarketter->webmarketter_firstname; ?></td><td>A changer</td></tr>
+                                    <?php } ?>
+                                    
+                                    </table>
+                                    
+                                    <?php }else{echo'Pas de rendez-vous programmés ou réalisés pour cet utilisateur.';} ?>
 								</div>
                                 
                                 

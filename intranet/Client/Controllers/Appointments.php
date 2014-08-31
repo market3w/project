@@ -14,4 +14,14 @@ class Client_Controllers_Appointments extends Client_Core_Controllers{
             return $videos;
         }
     }
+	
+	 public function get_allappointmentuser($data){
+		 $user_id = (empty ($data['user_id']))?null:$data['user_id'];
+        $this->parseQueryResult(json_decode($this->_client->query("GET","method=allappointmentuser&user_id=".$user_id)));
+        $error = $this->getError();
+        if($error===false){
+            $videos = $this->getResponse();
+            return $videos;
+        }
+    }
 }

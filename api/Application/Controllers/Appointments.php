@@ -137,6 +137,8 @@ class Application_Controllers_Appointments extends Library_Core_Controllers{
      * @return object
      */
     public function get_allappointment($data){
+		
+		
         // Selectionner tous les champs de la table appointments
         $this->table->addField("*");
         // Selectionner tous les champs de la table users pour le client
@@ -172,6 +174,81 @@ class Application_Controllers_Appointments extends Library_Core_Controllers{
             }
         }
         return $this->setApiResult($tab);
+    }
+	
+	/**
+     * Récupère tous les rendez-vous d'un user
+     * Récupère les détails des utilisateurs, des sociétés et des webmarketeurs liés
+     * @param array $data
+     * @return object
+     */
+	 public function get_allappointmentuser($data){
+		$user_id_connecte = ($_SESSION['market3w_user_id']==-1)?null:$_SESSION['market3w_user_id'];
+		if($user_id_connecte==null){return $this->setApiResult(false, true, 'you are not logged');}
+		
+		
+        $role = new Application_Controllers_Roles();
+        $role_res = $role->get_currentrole();
+        $role_id = $role_res->response[0]->role_id;
+
+        //Si c'est un administrateur ou webmarketeur ils récupére les rdvs et leur utilisateurs// Sinon si c'est un client il ne peut que recuperer ses documentsiés a m'utilisateur sélectionner ou si c'est le mec lui même qui consulte
+        if($role_id==1 || $role_id==2 || $role_id==4 || $role_id==5)
+        {
+			//Si client ou prspect ils peuvent recupérer que leur rdv
+			if($role_id==4 || $role_id==5)
+			{
+				$user_id= $user_id_connecte;
+			}
+			//Sinon admin ou webmarketeurs peuvent regarder rdv d'un suer defini
+			else
+			{
+				$user_id = (empty ($data['user_id']))?null:$data['user_id'];
+			}
+			
+			if($user_id==null){return $this->setApiResult(false, true, 'param \'user_id\' undefined');}
+			if(!is_numeric($user_id)){return $this->setApiResult(false, true, 'param \'user_id\' is not numeric');}
+				
+			// Selectionner tous les champs de la table appointments
+			$this->table->addField("*");
+			// Selectionner tous les champs de la table users pour le client
+			$this->table->addField("*","u");
+			// Selectionner tous les champs de la table users pour le webmarketter
+			$this->table->addField("user_id","w","webmarketter_id");
+			$this->table->addField("user_name","w","webmarketter_name");
+			$this->table->addField("user_firstname","w","webmarketter_firstname");
+			$this->table->addField("user_email","w","webmarketter_email");
+			$this->table->addField("user_phone","w","webmarketter_phone");
+			$this->table->addField("user_mobile","w","webmarketter_mobile");
+			// Jointure
+			$this->table->addJoin("users","u","user_id","user_id","","left");
+			$this->table->addJoin("users","w","user_id","webmarketter_id","","left");
+			$this->table->addWhere("user_id", $user_id);
+			$res = (array)$this->table->search();
+			$tab = array();
+			if(!array_key_exists(0,$res)){
+				return $this->setApiResult(false, true, ' no  found');
+			}
+			foreach($res as $k=>$v){
+				foreach($v as $k2=>$v2){
+					if(!(strpos($k2,"user")===false)){
+						$tab[$k]['appointment_user'][$k2]=$v2;
+					} elseif(!(strpos($k2,"webmarketter")===false)){
+						$tab[$k]['appointment_webmarketter'][$k2]=$v2;
+					} elseif($k2=='appointment_token') {
+						if($res[$k]->appointment_active==1){
+							$tab[$k]['appointment_url']=RTC_ROOT.'#'.$v2;
+						}
+					} elseif(in_array($k2,$this->appointment_vars)) {
+						$tab[$k][$k2] = $v2;
+					}
+				}
+			}
+			return $this->setApiResult($tab);
+		}
+		 else
+        {
+            return $this->setApiResult(false, true, 'You aren\'t authorized to access this page');
+        }
     }
     
     /**
