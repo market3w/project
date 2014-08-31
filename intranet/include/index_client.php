@@ -40,18 +40,10 @@ $documents = $client->get_alldocument(); ?>
               </div>
             </div>
           </div>
-          <!-- /widget -->
-          <div class="widget widget-nopad">
-            <div class="widget-header"> <i class="icon-list-alt"></i>
-              <h3>Agenda</h3>
-            </div>
-            <!-- /widget-header -->
-            <div class="widget-content">
-              <div id='calendar'>
-              </div>
-            </div>
-            <!-- /widget-content --> 
-          </div>
+          <?php 
+          $agenda_titre = "Agenda";
+          include_once 'include/agenda.php'; 
+          ?>
           <!-- /widget -->
           <div class="widget">
             <div class="widget-header"> <i class="icon-file"></i>
