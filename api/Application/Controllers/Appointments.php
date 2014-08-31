@@ -553,6 +553,10 @@ class Application_Controllers_Appointments extends Library_Core_Controllers{
         return $this->setApiResult(true);
     }
 	
+    /**
+     * Génère un token unique
+     * @return string
+     */
     private function generateToken(){		
         // Faire ... Tant que le token est invalide (au moins une execution)
         do{

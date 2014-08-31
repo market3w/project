@@ -29,5 +29,9 @@ class Application_Configs_Settings{
         define("DB_CHARSET","utf8");
         
         define("SALT_USER_PWD", '=+/e-Kue/vW--y?cj:,54rsfgh:lm&d5eE>tl#rmzh./M+Jz47a,sz>BARyXrRXZ4P~%');
+        
+        date_default_timezone_set("Europe/Paris");
+        ini_set('session.gc_maxlifetime', 7200);
+        ini_set('session.cookie_lifetime', 7200);
     }
 }

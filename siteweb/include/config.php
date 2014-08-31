@@ -1,5 +1,10 @@
 <?php
+    if(!($_SERVER['SERVER_NAME']=="127.0.0.1" || $_SERVER['SERVER_NAME']=="localhost")){
+        session_set_cookie_params(0, '/', preg_replace("/([a-z.]*)market3w(.*)/", ".market3w$2", $_SERVER['SERVER_NAME']));
+    }
 	session_start();
+        ini_set('session.gc_maxlifetime', 7200);
+        ini_set('session.cookie_lifetime', 7200);
 	
 	$_SESSION["market3w_user"] = (array_key_exists("market3w_user",$_SESSION) && $_SESSION["market3w_user"]!="")? $_SESSION["market3w_user"]:"";
 	$_SESSION["errorMessage"]="";

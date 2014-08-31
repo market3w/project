@@ -15,6 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
 }
 
+if(!($_SERVER['SERVER_NAME']=="127.0.0.1" || $_SERVER['SERVER_NAME']=="localhost")){
+    session_set_cookie_params(0, '/', preg_replace("/([a-z.]*)market3w(.*)/", ".market3w$2", $_SERVER['SERVER_NAME']));
+}
 session_start();
 
 function class_autoload($class){

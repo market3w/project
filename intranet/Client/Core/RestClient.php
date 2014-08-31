@@ -1,12 +1,44 @@
 <?php
+/**
+ * La classe Client_Core_RestClient permet d'intéragir avec le webservice
+ * 
+ * @author Group FKVJ <group.fkvj@gmail.com>
+ * @copyright (c) 2014, Group FKVJ
+ */
 class Client_Core_RestClient{
-    
+    /**
+     * Nom du User Agent
+     * @var string
+     */
     private $userAgent;
+    /**
+     * URL du webservice
+     * @var string
+     */
     private $requestUrl;
+    /**
+     * Requête à soumettre au webservice
+     * @var string
+     */
     private $requestBody;
+    /**
+     * Résultat de la requête
+     * @var object
+     */
     private $responseBody;
+    /**
+     * Informations sur l'exécution de la requête
+     * @var object 
+     */
     private $responseHeader;
     
+    /**
+     * Méthode magique __construct
+     * Initialise la session et les variables de la classe
+     * Vérifie la validation de l'URL du webservice
+     * @param string $serverUrl
+     * @throws Exception
+     */
     public function __construct($serverUrl) {
         if(!isset ($_SESSION)){
             session_start();
@@ -23,6 +55,14 @@ class Client_Core_RestClient{
         $this->responseHeader = null;
     }
     
+    /**
+     * Initialise la requête curl
+     * Exécute la méthode qui va effectuer la requête
+     * @param string $httpMethod
+     * @param null|string $request
+     * @return object
+     * @throws Exception
+     */
     public function query($httpMethod='GET', $request=null){
         $this->responseBody   = null;
         $this->responseHeader = null;
@@ -30,7 +70,8 @@ class Client_Core_RestClient{
         if(is_null($request)){
             throw new Exception("Erreur Client Request invalid");
         }
-        $this->requestBody = $request;
+        $token = (array_key_exists("market3w_api_token",$_SESSION))?$_SESSION["market3w_api_token"]:null;
+        $this->requestBody = $request."&session_token=".$token;
         
         $ch = curl_init($this->requestUrl);
         
@@ -47,13 +88,21 @@ class Client_Core_RestClient{
         return $this->responseBody;
     }
     
+    /**
+     * Modifie le User Agent
+     * @param string $value
+     */
     public function setUserAgent($value){
         if(!empty ($value)){
             $this->userAgent = $value;
         }
     }
 
-
+    /**
+     * Exécute la requête curl
+     * Stocke la réponse
+     * @param object $ch
+     */
     private function doExecute(&$ch){
         $strCookie = session_name()."=".session_id();
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept: Application/json'));
@@ -68,18 +117,29 @@ class Client_Core_RestClient{
         $this->responseHeader = curl_getinfo($ch);
     }
 
-
+    /**
+     * Prépare une requête de type GET 
+     * @param object $ch
+     */
     private function methodGet(&$ch){
         curl_setopt($ch, CURLOPT_URL, $this->requestUrl."?".$this->requestBody);
         $this->doExecute($ch);
     }
     
+    /**
+     * Prépare une requête de type POST 
+     * @param object $ch
+     */
     private function methodPost(&$ch){
         curl_setopt($ch, CURLOPT_POSTFIELDS, $this->requestBody);
         curl_setopt($ch, CURLOPT_POST, true);
         $this->doExecute($ch);
     }
     
+    /**
+     * Prépare une requête de type PUT 
+     * @param object $ch
+     */
     private function methodPut(&$ch){
         $f = fopen('php://temp', 'rw');
         fwrite($f, $this->requestBody);
@@ -92,6 +152,10 @@ class Client_Core_RestClient{
         fclose($f);
     }
     
+    /**
+     * Prépare une requête de type DELETE 
+     * @param object $ch
+     */
     private function methodDelete(&$ch){
         curl_setopt($ch, CURLOPT_POSTFIELDS, $this->requestBody);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
