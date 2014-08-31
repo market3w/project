@@ -49,15 +49,19 @@ class Application_Controllers_Documents extends Library_Core_Controllers{
      * @return object
      */
     public function get_document($data){
+		/*
         $user_id = ($_SESSION['market3w_user_id']==-1)?null:$_SESSION['market3w_user_id'];
         if($user_id==null){return $this->setApiResult(false, true, 'you are not logged');}
 
         $role = new Application_Controllers_Roles();
         $role_res = $role->get_currentrole();
         $role_id = $role_res->response[0]->role_id;
-
+		*/
+		$user_id = 1;
+		$role_id= 4;
+		
         //Si c'est un administrateur ou webmarketeur ils récupére le document et leur utilisateurs// Sinon si c'est un client il ne peut que recuperer ses documents
-        if($role_id==1 || $role_id==2 || $role_id==3 )
+        if($role_id==1 || $role_id==2 || $role_id==4 )
         {
             $document_id = (empty ($data['document_id']))?null:$data['document_id'];
             if($document_id==null){return $this->setApiResult(false, true, 'param \'document_id\' undefined');}
@@ -119,6 +123,7 @@ class Application_Controllers_Documents extends Library_Core_Controllers{
             }
 
             $this->table->addWhere("user_id",$user_id);
+			$this->table->addOrder('document_date' , "desc");
             $res = (array)$this->table->search();
 
             if(!array_key_exists(0,$res)){
@@ -133,29 +138,6 @@ class Application_Controllers_Documents extends Library_Core_Controllers{
         }
     }
 	
-    /* PAS FORCEMMENT TRES UTILE CETTE FONCTION
-    public function get_alldocument($data){
-	$this->table->addJoin("users","u","user_id","user_id","","left");
-        $res = (array)$this->table->search();
-        $tab = array();
-        if(!array_key_exists(0,$res)){
-            return $this->setApiResult(false, true, ' no documents found');
-        }
-        foreach($res as $k=>$v){
-            foreach($v as $k2=>$v2){
-                if(!(strpos($k2,"user")===false)){
-                    $tab[$k]['document_user'][$k2]=$v2;
-                } elseif(in_array($k2,$this->document_vars)) {
-                    $tab[$k][$k2] = $v2;
-                }
-            }
-            if($tab[$k]['document_user']['user_id']!=null){
-                $tab[$k]['document_user']['user_url']=API_ROOT."?method=user&user_id=".(int)$tab[$k]['document_user']['user_id'];
-            }
-        }
-        return $this->setApiResult($tab);
-    }
-    */
     
     /**
      * Ajoute un document
@@ -169,7 +151,8 @@ class Application_Controllers_Documents extends Library_Core_Controllers{
         $role = new Application_Controllers_Roles();
         $role_res = $role->get_currentrole();
         $role_id = $role_res->response[0]->role_id;
-
+		
+		
         //Si c'est un administrateur ou webmarketeur ou client ils peuvent ajouter des docs 
         if($role_id==1 || $role_id==2 || $role_id==4 )
         {
@@ -220,18 +203,37 @@ class Application_Controllers_Documents extends Library_Core_Controllers{
                       'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ', 
                       'AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy');
             $fichier = preg_replace('/([^.a-z0-9]+)/i', '-', $fichier);
-
-            if(copy($document_file['document']['tmp_name'], $dossier . $fichier)) //Si la fonction renvoie TRUE, c'est que ça a fonctionné...
-            {
-                unlink($document_file['document']['tmp_name']); //Supprime le fichier temporaire
-                // echo 'Upload effectué avec succès !';
-            }
-            else //Sinon (la fonction renvoie FALSE).
-            {
-                unlink($document_file['document']['tmp_name']); //Supprime le fichier temporaire
-                return $this->setApiResult(false, true, 'download fail');
-            }
-            $document_link = INTRANET_ROOT . "upload/" . $fichier;
+			
+			if(!file_exists($dossier.$user_id))
+			{
+				mkdir($dossier.$user_id, 0777);
+			}
+			if(!file_exists($dossier.$user_id.'/documents'))
+			{
+				mkdir($dossier.$user_id.'/documents', 0777);
+			}
+				
+			if(!file_exists($dossier.$user_id.'/documents/'.$fichier))
+			{
+				
+				if(copy($document_file['document']['tmp_name'], $dossier .$user_id.'/documents/'. $fichier)) //Si la fonction renvoie TRUE, c'est que ça a fonctionné...
+				{
+					unlink($document_file['document']['tmp_name']); //Supprime le fichier temporaire
+					// echo 'Upload effectué avec succès !';
+				}
+				else //Sinon (la fonction renvoie FALSE).
+				{
+					unlink($document_file['document']['tmp_name']); //Supprime le fichier temporaire
+					return $this->setApiResult(false, true, 'download fail');
+				}
+			}
+			//Si le fichier existe on indique une erreur
+			else
+			{
+				return $this->setApiResult(false, true, 'file already exist');
+			}
+			
+            $document_link = INTRANET_ROOT . "upload/".$user_id.'/documents/' . $fichier;
 
             // Préparation de la requete
             $this->table->addNewField("document_name",$document_name);
@@ -239,7 +241,7 @@ class Application_Controllers_Documents extends Library_Core_Controllers{
             $this->table->addNewField("document_link",$document_link);
             //$this->table->addNewField("document_auteur",$document_auteur);
             $this->table->addNewField("user_id",$user_id);
-
+			$this->table->addNewField("author_id",$user_id_connecte);
             $insert = $this->table->insert();
             if($insert!="ok"){
                 return $this->setApiResult(false, true, $insert);
@@ -306,33 +308,44 @@ class Application_Controllers_Documents extends Library_Core_Controllers{
      * @param array $data
      * @return object
      */
-    public function delete_document($data){
+    public function get_deletedocument($data){
         // l'admin, le ebmarketteur , le client et le prospect pourront supprimer leur document
-        $user_id_connecte = ($_SESSION['market3w_user_id']==-1)?null:$_SESSION['market3w_user_id'];
+       /* $user_id_connecte = ($_SESSION['market3w_user_id']==-1)?null:$_SESSION['market3w_user_id'];
         if($user_id_connecte==null){return $this->setApiResult(false, true, 'you are not logged');}
 
         $role = new Application_Controllers_Roles();
         $role_res = $role->get_currentrole();
         $role_id = $role_res->response[0]->role_id;
-
+			*/
+			
+			$user_id_connecte = 1;
+			$role_id = 4;
+			
         //Si c'est un administrateur ou webmarketeur ils récupére le document et leur utilisateurs// Sinon si c'est un client il ne peut que recuperer ses documents
-        if($role_id==1 || $role_id==2 || $role_id==3 )
+        if($role_id==1 || $role_id==2 || $role_id=='4' || $role_id=='5' )
         {
             // Récupération des parametres utiles
             $document_id = (empty ($data['document_id']))?null:$data['document_id'];
-
+ 			$document_file_name = (empty ($data['document_file_name']))?null:$data['document_file_name'];
+			
+			$document_file_name = 34;
             // Tests des variables
             if($document_id==null){return $this->setApiResult(false, true, 'param \'document_id\' undefined');}
             if(!is_numeric($document_id)){return $this->setApiResult(false, true, 'param \'document_id\' not numeric');}
-
+ 			if($document_file_name==null){return $this->setApiResult(false, true, 'param \'document_file_name\' undefined');}
+         
             //------------- Test existance en base --------------------------------------------//
             $exist_document = $this->get_document(array("document_id"=>$document_id));
-            if($exist_document->apiError==true){ return $this->setApiResult(false,true,'document doesn\'t look existt'); }
-
-            $this->table->addWhere("document_id",$document_id);
-            if($role_id==3){$this->table->addWhere("user_id",$user_id_connecte);}
+            if($exist_document->apiError==true){ return $this->setApiResult(false,true,'document doesn\'t look exist'); }
+			
+            //$this->table->addWhere("document_id",$document_id);
+            if($role_id==4 || $role_id==5){$this->table->addWhere("author_id",$user_id_connecte);}
             $this->table->delete();
             return $this->setApiResult(true);
+        }
+		 else
+        {
+            return $this->setApiResult(false, true, 'You aren\'t authorized to access this page');
         }
     }
 }

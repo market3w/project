@@ -55,7 +55,65 @@ class Client_Controllers_Documents extends Client_Core_Controllers{
 
                 case "download fail" :   
                         $_SESSION["errorMessage"] = "Une erreur s'est produite durant le téléchargement";
-                        break;										   
+                        break;
+				
+				case "file already exist" :   
+                        $_SESSION["errorMessage"] = "Le fichier que vous voulez télécharger existe déjà, veuillez supprimer le fichier avec le même nom ou renommer votre fichier";
+                        break;										   									   
+
+                default : 								   
+                        $_SESSION["errorMessage"] = "Erreur de saisie";
+                        break;								 
+            }
+        } elseif($error["errorType"]=="SERVER ERROR") {
+            $_SESSION["errorServer"]=$error["errorMessage"];
+        }
+    }
+	
+	 public function delete_document($data){
+        $document_id = (empty ($data['document_id']))?null:$data['document_id'];
+ 		$document_file_name = (empty ($data['document_file_name']))?null:$data['document_file_name'];
+
+        $temp = $this->parseQueryResult(json_decode($this->_client->query("POST","method=document&document_id=".$document_id."&document_file_name=".$document_file_name)));
+ 		var_dump($this->getResponse());
+        $error = $this->getError();
+        if($error===false){
+            $response = $this->getResponse();
+
+        } elseif($error["errorType"]=="API ERROR") {
+            switch($error["errorMessage"]){
+                case "you are not logged" :
+                        $_SESSION["errorMessage"] = "Vous n'etes pas connecté";
+                        break;
+
+                case "param 'document_id' undefined" : 
+                case "param 'document_id' is not numeric" : 
+                        $_SESSION["errorMessage"] = "L' identifiant du document est incorrect";
+                        break;
+
+                case "document doesn't look existt" :         
+                        $_SESSION["errorMessage"] = "Le document n'a pas été trouvé dans les bases de données";
+                        break;
+
+                case "param 'document_file_name' undefined" :     
+                        $_SESSION["errorMessage"] = "Le lien du document à supprimer n'est pas défini";
+                        break;
+
+                case "bad extension" :   
+                        $_SESSION["errorMessage"] = "Vous avez téléchargez un fichier avec une mauvaise extension (extensions autorisées : gif, jpeg, png)";
+                        break;	
+
+                case "document too big" :   
+                        $_SESSION["errorMessage"] = "Vous avez téléchargez un fichier trop lourd";
+                        break;	
+
+                case "download fail" :   
+                        $_SESSION["errorMessage"] = "Une erreur s'est produite durant le téléchargement";
+                        break;
+				
+				case "file already exist" :   
+                        $_SESSION["errorMessage"] = "Le fichier que vous voulez télécharger existe déjà, veuillez supprimer le fichier avec le même nom ou renommer votre fichier";
+                        break;										   									   
 
                 default : 								   
                         $_SESSION["errorMessage"] = "Erreur de saisie";

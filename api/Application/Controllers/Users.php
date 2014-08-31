@@ -349,149 +349,121 @@ class Application_Controllers_Users extends Library_Core_Controllers{
     }
     
     /**
-     * Ajoute ou modifie un compte utilisateur
+     * Ajoute un compte prospect ou compléte un visiteur pour devenir prospect
      * @param array $data
      * @return object
      */
     public function post_user($data){
-        $post = true;
-        $add_user_method = (empty ($data['add_user_method']))?null:$data['add_user_method'];
-        if($add_user_method==null){return $this->setApiResult(false, true, 'param \'add_user_method\' undefined');}
+       
+      	 $user_id_connecte = ($_SESSION['market3w_user_id']==-1)?null:$_SESSION['market3w_user_id'];
+		 
+		 //Si visiteur non connecté et donc  non inscrits
+        if($user_id_connecte==null)
+		{
+			// Récupération des paramètres utiles
+			$user_name = (empty ($data['user_name']))?null:$data['user_name'];
+			$user_firstname = (empty ($data['user_firstname']))?null:$data['user_firstname'];
+			$user_email = (empty ($data['user_email']))?null:$data['user_email'];
+			$user_password = (empty ($data['user_password']))?null:$data['user_password'];
+			$user_function = (empty ($data['user_function']))?null:$data['user_function'];
+			$user_phone = (empty ($data['user_phone']))?null:$data['user_phone'];
+			$user_mobile = (empty ($data['user_mobile']))?null:$data['user_mobile'];
+			$user_adress = (empty ($data['user_adress']))?null:$data['user_adress'];
+			$user_adress2 = (empty ($data['user_adress2']))?null:$data['user_adress2'];
+			$user_zipcode = (empty ($data['user_zipcode']))?null:$data['user_zipcode'];
+			$user_town = (empty ($data['user_town']))?null:$data['user_town'];
+			$role_id = 5;
+			//$company_id = (empty ($data['company_id']))?null:$data['company_id'];
+			// Tests des variables
+			if($user_name==null){return $this->setApiResult(false, true, 'param \'user_name\' undefined');}
+			if($user_firstname==null){return $this->setApiResult(false, true, 'param \'user_firstname\' undefined');}
+			if($user_email==null){return $this->setApiResult(false, true, 'param \'user_email\' undefined');}
+			if($user_password==null){return $this->setApiResult(false, true, 'param \'user_password\' undefined');}
+			if(!array_key_exists('user_password2',$data) || $user_password!=$data['user_password2']){return $this->setApiResult(false, true, 'Enter 2 same passwords');}
+			if($user_function==null){return $this->setApiResult(false, true, 'param \'user_function\' undefined');}
+			if($user_phone==null){return $this->setApiResult(false, true, 'param \'user_phone\' undefined');}
+			if($user_mobile==null){return $this->setApiResult(false, true, 'param \'user_mobile\' undefined');}
+			if($user_adress==null){return $this->setApiResult(false, true, 'param \'user_adress\' undefined');}
+			if($user_zipcode==null){return $this->setApiResult(false, true, 'param \'user_zipcode\' undefined');}
+			if(!is_numeric($user_zipcode)){return $this->setApiResult(false, true, 'param \'user_zipcode\' unvalid');}
+			if($user_town==null){return $this->setApiResult(false, true, 'param \'user_town\' undefined');}
+			//if($company_id==null){return $this->setApiResult(false, true, 'param \'company_id\' undefined');}
+			//if(!is_numeric($company_id)){return $this->setApiResult(false, true, 'param \'company_id\' unvalid');}
+			if(!is_numeric($role_id)){return $this->setApiResult(false, true, 'param \'role_id\' unvalid');}
+			// Préparation de la requête
+			$this->table->addNewField("user_name",$user_name);
+			$this->table->addNewField("user_firstname",$user_firstname);
+			$this->table->addNewField("user_email",$user_email);
+			$this->table->addNewField("user_password",md5($user_email.SALT_USER_PWD.$user_password));
+			$this->table->addNewField("user_function",$user_function);
+			$this->table->addNewField("user_phone",$user_phone);
+			$this->table->addNewField("user_mobile",$user_mobile);
+			$this->table->addNewField("user_adress",$user_adress);
+			$this->table->addNewField("user_adress2",$user_adress2);
+			$this->table->addNewField("user_zipcode",$user_zipcode);
+			$this->table->addNewField("user_town",$user_town);
+			$this->table->addNewField("role_id",$role_id);
+			//$this->table->addNewField("company_id",$company_id);
+			
+			$insert = $this->table->insert();
+       
+			if($insert!="ok"){
+				return $this->setApiResult(false, true, $insert);
+			}
+			return $this->setApiResult(true);
+		}
+		//Sinon connecté
+		else
+		{
+			 $role = new Application_Controllers_Roles();
+			$role_res = $role->get_currentrole();
+			$role_id = $role_res->response[0]->role_id;
+		} 
+        
+    }
+	
+	/**
+     * Ajoute un compte visiteur pour télécharger gratuitement les pdf
+     * @param array $data
+     * @return object
+     */
+    public function post_userdownload($data){
+       
+      	 $user_id_connecte = ($_SESSION['market3w_user_id']==-1)?null:$_SESSION['market3w_user_id'];
+		 
+		 //Si visiteur non connecté et donc  non inscrits
+        if($user_id_connecte==null)
+		{
+			// Récupération des paramètres utiles
+			$user_name = (empty ($data['user_name']))?null:$data['user_name'];
+			$user_firstname = (empty ($data['user_firstname']))?null:$data['user_firstname'];
+			$user_email = (empty ($data['user_email']))?null:$data['user_email'];
+			$user_password = (empty ($data['user_password']))?null:$data['user_password'];
+			$role_id = 6;
+			//$company_id = (empty ($data['company_id']))?null:$data['company_id'];
+			// Tests des variables
+			if($user_name==null){return $this->setApiResult(false, true, 'param \'user_name\' undefined');}
+			if($user_firstname==null){return $this->setApiResult(false, true, 'param \'user_firstname\' undefined');}
+			if($user_email==null){return $this->setApiResult(false, true, 'param \'user_email\' undefined');}
+			if($user_password==null){return $this->setApiResult(false, true, 'param \'user_password\' undefined');}
+			if(!array_key_exists('user_password2',$data) || $user_password!=$data['user_password2']){return $this->setApiResult(false, true, 'Enter 2 same passwords');}
+			if(!is_numeric($role_id)){return $this->setApiResult(false, true, 'param \'role_id\' unvalid');}
+			// Préparation de la requête
+			$this->table->addNewField("user_name",$user_name);
+			$this->table->addNewField("user_firstname",$user_firstname);
+			$this->table->addNewField("user_email",$user_email);
+			$this->table->addNewField("user_password",md5($user_email.SALT_USER_PWD.$user_password));
+			$this->table->addNewField("role_id",$role_id);
+			//$this->table->addNewField("company_id",$company_id);
+			
+			$insert = $this->table->insert();
+       
+			if($insert!="ok"){
+				return $this->setApiResult(false, true, $insert);
+			}
+			return $this->setApiResult(true);
+		}
 		
-        switch($add_user_method){
-            // Ajouter un compte visiteur
-            case "visitor":
-                    $exist_user = $this->get_currentuser();
-                    if($exist_user->apiError==false){ return $this->setApiResult(false,true,'You are already logged'); }
-                    $this->table->resetObject();
-                    // Récupération des paramètres utiles
-                    $user_name = (empty ($data['user_name']))?null:$data['user_name'];
-                    $user_firstname = (empty ($data['user_firstname']))?null:$data['user_firstname'];
-                    $user_email = (empty ($data['user_email']))?null:$data['user_email'];
-                    $user_password = (empty ($data['user_password']))?null:$data['user_password'];
-                    // Tests des variables
-                    if($user_name==null){return $this->setApiResult(false, true, 'param \'user_name\' undefined');}
-                    if($user_firstname==null){return $this->setApiResult(false, true, 'param \'user_firstname\' undefined');}
-                    if($user_email==null){return $this->setApiResult(false, true, 'param \'user_email\' undefined');}
-                    if($user_password==null){return $this->setApiResult(false, true, 'param \'user_password\' undefined');}
-                    if(!array_key_exists('user_password2',$data) || $user_password!=$data['user_password2']){return $this->setApiResult(false, true, 'Enter 2 same passwords');}
-                    // Préparation de la requête
-                    $this->table->addNewField("user_name",$user_name);
-                    $this->table->addNewField("user_firstname",$user_firstname);
-                    $this->table->addNewField("user_email",$user_email);
-                    $this->table->addNewField("user_password",md5($user_email.SALT_USER_PWD.$user_password));
-                    break;
-            // Ajouter un compte prospet ou client
-            case "prospet_client":
-                    $exist_user = $this->get_currentuser();
-                    if($exist_user->apiError==true) {
-                        // Récupération des paramètres utiles
-                        $user_name = (empty ($data['user_name']))?null:$data['user_name'];
-                        $user_firstname = (empty ($data['user_firstname']))?null:$data['user_firstname'];
-                        $user_email = (empty ($data['user_email']))?null:$data['user_email'];
-                        $user_password = (empty ($data['user_password']))?null:$data['user_password'];
-                        // Tests des variables
-                        if($user_name==null){return $this->setApiResult(false, true, 'param \'user_name\' undefined');}
-                        if($user_firstname==null){return $this->setApiResult(false, true, 'param \'user_firstname\' undefined');}
-                        if($user_email==null){return $this->setApiResult(false, true, 'param \'user_email\' undefined');}
-                        if($user_password==null){return $this->setApiResult(false, true, 'param \'user_password\' undefined');}
-                        if(!array_key_exists('user_password2',$data) || $user_password!=$data['user_password2']){return $this->setApiResult(false, true, 'Enter 2 same passwords');}
-                        // Préparation de la requête
-                        $this->table->addNewField("user_name",$user_name);
-                        $this->table->addNewField("user_firstname",$user_firstname);
-                        $this->table->addNewField("user_email",$user_email);
-                        $this->table->addNewField("user_password",md5($user_email.SALT_USER_PWD.$user_password));
-                    } else {
-                        $post = false;
-                        // Conditions
-                        $this->table->addWhere("user_id",$_SESSSION['market3w_user_id']);
-                    }
-                    // Récupération des paramètres supplémentaires utiles
-                    $user_function = (empty ($data['user_function']))?null:$data['user_function'];
-                    $user_phone = (empty ($data['user_phone']))?null:$data['user_phone'];
-                    $user_mobile = (empty ($data['user_mobile']))?null:$data['user_mobile'];
-                    $user_adress = (empty ($data['user_adress']))?null:$data['user_adress'];
-                    $user_adress2 = (empty ($data['user_adress2']))?null:$data['user_adress2'];
-                    $user_zipcode = (empty ($data['user_zipcode']))?null:$data['user_zipcode'];
-                    $user_town = (empty ($data['user_town']))?null:$data['user_town'];
-                    $role_id = (empty ($data['role_id']))?5:$data['role_id'];
-                    $company_id = (empty ($data['company_id']))?null:$data['company_id'];
-                    // Tests des variables
-                    if($user_function==null){return $this->setApiResult(false, true, 'param \'user_function\' undefined');}
-                    if($user_phone==null){return $this->setApiResult(false, true, 'param \'user_phone\' undefined');}
-                    if($user_mobile==null){return $this->setApiResult(false, true, 'param \'user_mobile\' undefined');}
-                    if($user_adress==null){return $this->setApiResult(false, true, 'param \'user_adress\' undefined');}
-                    if($user_zipcode==null){return $this->setApiResult(false, true, 'param \'user_zipcode\' undefined');}
-                    if(!is_numeric($user_zipcode)){return $this->setApiResult(false, true, 'param \'user_zipcode\' unvalid');}
-                    if($user_town==null){return $this->setApiResult(false, true, 'param \'user_town\' undefined');}
-                    if($company_id==null){return $this->setApiResult(false, true, 'param \'company_id\' undefined');}
-                    if(!is_numeric($company_id)){return $this->setApiResult(false, true, 'param \'company_id\' unvalid');}
-                    if(!is_numeric($role_id)){return $this->setApiResult(false, true, 'param \'role_id\' unvalid');}
-
-                    // Préparation de la requête
-                    $this->table->addNewField("user_function",$user_function);
-                    $this->table->addNewField("user_phone",$user_phone);
-                    $this->table->addNewField("user_mobile",$user_mobile);
-                    $this->table->addNewField("user_adress",$user_adress);
-                    $this->table->addNewField("user_adress2",$user_adress2);
-                    $this->table->addNewField("user_zipcode",$user_zipcode);
-                    $this->table->addNewField("user_town",$user_town);
-                    $this->table->addNewField("role_id",$role_id);
-                    $this->table->addNewField("company_id",$company_id);
-                    break;
-            // Ajouter un webmarketeur ou un community manager
-            case "webmarketer_community_manager":
-                    $exist_user = $this->get_currentuser();
-                    if($exist_user->apiError==true){ return $this->setApiResult(false,true,'You are not logged'); }
-
-                    $role = new Application_Controllers_Roles();
-                    $role_res = $role->get_currentrole();
-                    $role_current_id = $role_res->response[0]->role_id;
-                    if($role_current_id!=1){ return $this->setApiResult(false,true,'You can\'t add this account'); }
-
-                    $this->table->resetObject();
-
-                    $user_name = (empty ($data['user_name']))?null:$data['user_name'];
-                    $user_firstname = (empty ($data['user_firstname']))?null:$data['user_firstname'];
-                    $user_email = (empty ($data['user_email']))?null:$data['user_email'];
-                    $user_password = (empty ($data['user_password']))?null:$data['user_password'];
-                    $user_phone = (empty ($data['user_phone']))?null:$data['user_phone'];
-                    $user_mobile = (empty ($data['user_mobile']))?null:$data['user_mobile'];
-                    $role_id = (empty ($data['role_id']))?null:$data['role_id'];
-
-                    if($user_name==null){return $this->setApiResult(false, true, 'param \'user_name\' undefined');}
-                    if($user_firstname==null){return $this->setApiResult(false, true, 'param \'user_firstname\' undefined');}
-                    if($user_email==null){return $this->setApiResult(false, true, 'param \'user_email\' undefined');}
-                    if($user_password==null){return $this->setApiResult(false, true, 'param \'user_password\' undefined');}
-                    if(!array_key_exists('user_password2',$data) || $user_password!=$data['user_password2']){return $this->setApiResult(false, true, 'Enter 2 same passwords');}
-                    if($user_phone==null){return $this->setApiResult(false, true, 'param \'user_phone\' undefined');}
-                    if($user_mobile==null){return $this->setApiResult(false, true, 'param \'user_mobile\' undefined');}
-                    if($role_id==null){return $this->setApiResult(false, true, 'param \'role_id\' undefined');}
-                    if(!is_numeric($role_id)){return $this->setApiResult(false, true, 'param \'role_id\' unvalid');}
-
-                    $this->table->addNewField("user_name",$user_name);
-                    $this->table->addNewField("user_firstname",$user_firstname);
-                    $this->table->addNewField("user_email",$user_email);
-                    $this->table->addNewField("user_password",md5($user_email.SALT_USER_PWD.$user_password));
-                    $this->table->addNewField("user_phone",$user_phone);
-                    $this->table->addNewField("user_mobile",$user_mobile);
-                    $this->table->addNewField("role_id",$role_id);
-                    break;
-            default:
-                    return $this->setApiResult(false, true, 'param \'add_user_method\' value is different to "visitor", "prospet_client" or "webmarketer_community_manager"');
-                    break;
-        }
-
-        if($post===true){
-            $insert = $this->table->insert();
-        } else {
-            $insert = $this->table->update();
-        }
-		
-        if($insert!="ok"){
-            return $this->setApiResult(false, true, $insert);
-        }
-        return $this->setApiResult(true);
     }
     
     /**

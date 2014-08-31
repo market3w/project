@@ -1,3 +1,4 @@
+<?php require_once('include/config.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
   
@@ -33,7 +34,7 @@
 				<span class="icon-bar"></span>
 			</a>
 			
-			<a class="brand" href="#">
+			<a class="brand" href="<?php echo VITRINE_ROOT; ?>">
 				<img src="img/logo_mini.png" width="130" />			
 			</a>		
 			
@@ -41,14 +42,14 @@
 				<ul class="nav pull-right">
 					
 					<li class="">						
-						<a href="#" class="">
+						<a href="<?php echo VITRINE_ROOT.'inscription.php'; ?>" class="">
 							Inscription
 						</a>
 						
 					</li>
 					
 					<li class="">						
-						<a href="index.html" class="">
+						<a href="<?php echo VITRINE_ROOT.'index.php'; ?>" class="">
 							<i class="icon-chevron-left"></i>
 							Revenir  au site
 						</a>
@@ -69,35 +70,33 @@
 <div class="account-container">
 	
 	<div class="content clearfix">
-		
-		<form action="#" method="post">
+		<?php if(isset($_SESSION['method']) && $_SESSION['method']=='login'){header("Location: index.php");die;} ?>
+					
+		 <form action="login.php" method="post">
+   <input type="hidden" name="method" value="login"/>
 		
 			<h1>Connexion</h1>		
 			
 			<div class="login-fields">
-				
+				<span class="responseError" id="loginError"><?php echo $_SESSION["errorMessage"]; ?></span>
+		
 				<p>Rentrer vos identifiants</p>
-				
 				<div class="field">
 					<label for="username">Adresse email</label>
-					<input type="text" id="username" name="username" value="" placeholder="Email" class="login username-field" />
+					<input type="text" name="login" value="<?php echo (array_key_exists("login",$_POST))?$_POST["login"]:""; ?>"  placeholder="Email" class="login username-field" />
 				</div> <!-- /field -->
 				
 				<div class="field">
 					<label for="password">Mot de passe</label>
-					<input type="password" id="password" name="password" value="" placeholder="Mot de passe" class="login password-field"/>
+					<input type="password" name="password" value="" placeholder="Mot de passe" class="login password-field"/>
 				</div> <!-- /password -->
 				
 			</div> <!-- /login-fields -->
 			
 			<div class="login-actions">
 				
-				<span class="login-checkbox">
-					<input id="Field" name="Field" type="checkbox" class="field login-checkbox" value="First Choice" tabindex="4" />
-					<label class="choice" for="Field">Rester connecté</label>
-				</span>
 									
-				<button class="button btn btn-info btn-large" style="">Se connecter</button>
+				<input type="submit" name="submit" class="button btn btn-info btn-large" value="Se connecter" />
 				
 			</div> <!-- .actions -->
 			

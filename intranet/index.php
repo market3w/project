@@ -50,14 +50,7 @@ else
 <!-- Le javascript
 ================================================== --> 
 <!-- Placed at the end of the document so the pages load faster --> 
-<script src="js/jquery-1.7.2.min.js"></script> 
-<script src="js/excanvas.min.js"></script> 
-<script src="js/chart.min.js" type="text/javascript"></script> 
-<script src="js/bootstrap.js"></script>
-<script language="javascript" type="text/javascript" src="js/full-calendar/fullcalendar.js"></script>
-<script language="javascript" type="text/javascript" src="js/full-calendar/actions.js"></script>
- 
-<script src="js/base.js"></script> 
+<?php include('include/end_javascript.php'); ?>
 <script> 
 $(document).ready(function() {
 	var date = new Date();
@@ -129,6 +122,14 @@ $(document).ready(function() {
 			});
 
 
+	$(".delete_document").on('click', function(){
+		
+		 var document_id = $(this).attr("document_id");
+				$("#delete_documentForm"+document_id).submit();
+				return false;
+			});
+
+		
 	//Afficher / Cacher bonne div en fonction du type d'article sélectionné
 	
 	
@@ -140,6 +141,8 @@ $(document).ready(function() {
     }); 
   }); 
 });
- </script>  
+ </script>
+ 
+ 
 </body>
 </html>
