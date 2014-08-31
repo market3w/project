@@ -1,7 +1,7 @@
 <?php  
 include('include/config.php');
 $page='factures'; 
-$paiements = $client->get_allpaiement(array("user_id"=>$currentuser_id)); ?>
+$paiements = $client->get_allpaiement(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -1,6 +1,6 @@
-<?php $campagnes = $client->get_allcampain(array("user_id"=>$currentuser_id));
-$paiements = $client->get_allpaiement(array("user_id"=>$currentuser_id));
-$documents = $client->get_alldocument(array("user_id"=>$currentuser_id)); ?>
+<?php $campagnes = $client->get_allcampain();
+$paiements = $client->get_allpaiement();
+$documents = $client->get_alldocument(); ?>
 <div class="main">
   <div class="main-inner">
     <div class="container">
@@ -149,7 +149,7 @@ $documents = $client->get_alldocument(array("user_id"=>$currentuser_id)); ?>
              
              <li  style="width:90%;">
                   
-                    <div class="news-item-detail"> <a href="<?php echo $paiements[$i]->paiement_link; ?>" class="news-item-title" target="_blank"><?php echo $paiements[$i]->paiement_name; ?></a>
+                    <div class="news-item-detail"> <a href="<?php echo $paiements[$i]->paiement_link; ?>" class="news-item-title" target="_blank"><?php echo $campagnes[$i]->campain_name; ?></a>
                     <p class="news-item-preview"><?php echo $paiements[$i]->paiement_description; ?></p>
                       <div style="text-align:center;margin-top:10px;"><a href="<?php echo $paiements[$i]->paiement_link; ?>" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info">Télécharger la facture</button></a></div>
            
