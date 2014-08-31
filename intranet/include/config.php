@@ -30,8 +30,8 @@
             define("UPLOAD_ROOT", $_SERVER['DOCUMENT_ROOT'].$folder."/intranet/upload/");
 	} else {
             define("WEB_ROOT", "http://".$_SERVER['SERVER_NAME']."/");
-            define("SERVER_ROOT", preg_replace("/([^test]*)market3w(.*)/", "http://api.market3w$2/", $_SERVER['SERVER_NAME']));
-            define("VITRINE_ROOT", preg_replace("/([^test]*)market3w(.*)/", "http://www.market3w$2/", $_SERVER['SERVER_NAME']));
+            define("SERVER_ROOT", preg_replace("/([a-z.]*)market3w(.*)/", "http://api.market3w$2/", $_SERVER['SERVER_NAME']));
+            define("VITRINE_ROOT", preg_replace("/([a-z.]*)market3w(.*)/", "http://www.market3w$2/", $_SERVER['SERVER_NAME']));
             define("UPLOAD_ROOT", $_SERVER['DOCUMENT_ROOT']."upload/");
 	}
 	$currentPage = ("http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME']==WEB_ROOT.'index.php')? WEB_ROOT:"http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'];

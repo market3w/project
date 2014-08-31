@@ -123,9 +123,17 @@ class Library_Core_RestServer{
             $index = 1;
         }
         if($index==1){
-            $temp = $response[0];
-            unset($response[0]);
-            $response[0] = (array_key_exists(0, $temp))?$temp[0]:$temp;
+            if(array_key_exists(0, $response)){
+                $temp = $response[0];
+                unset($response[0]);
+            } else {
+                $temp = $response;
+            }
+            if(is_array($temp)){
+                $response[0] = (array_key_exists(0, $temp))?$temp[0]:$temp;
+            } else {
+                $response[0]= $temp;
+            }
         }
         $response[$index]["token"]=$_SESSION["token"];
         $this->json->response              = $response;
