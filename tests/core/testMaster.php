@@ -11,6 +11,8 @@ class TestMaster extends PHPUnit_Framework_TestCase {
     }
     
     public function class_autoload($class){
-        require_once BASE_SRC.FOLDER."/".str_replace("_", "/", $class).".php";
+        if($class!="Affiche"){
+            require_once BASE_SRC.FOLDER."/".str_replace("_", "/", $class).".php";
+        }
     }
 }

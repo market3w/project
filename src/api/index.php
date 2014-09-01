@@ -21,9 +21,7 @@ if(!($_SERVER['SERVER_NAME']=="127.0.0.1" || $_SERVER['SERVER_NAME']=="localhost
 session_start();
 
 function class_autoload($class){
-    if($class!="Affiche"){
-        require_once(str_replace("index", str_replace("_", "/", $class), $_SERVER['SCRIPT_FILENAME']));
-    }
+    require_once(str_replace("index", str_replace("_", "/", $class), $_SERVER['SCRIPT_FILENAME']));
 }
 
 spl_autoload_register('class_autoload');
