@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require_once preg_replace("/(?:tests\/)([a-z]+)\/([a-zA-Z0-9-_]*).php/", "tests/core/testMaster.php", $_SERVER['SCRIPT_FILENAME']);
+require_once $base."core/testMaster.php";
 
 $folder = explode("/",preg_replace("/(?:tests\/)([a-z]+)\/([a-zA-Z0-9-_]*).php/", "$1", $_SERVER['SCRIPT_FILENAME']));
 $folder = str_replace($_SERVER, "", $folder[count($folder)-1]);
@@ -15,8 +15,8 @@ switch($folder){
 }
 
 function apiIndexReplace(){
-    require_once preg_replace("/(?:tests\/)api\/([a-zA-Z0-9-_]*).php/", "src/api/Application/Configs/Settings.php", $_SERVER['SCRIPT_FILENAME']);
-    require_once preg_replace("/(?:tests\/)api\/([a-zA-Z0-9-_]*).php/", "src/api/Library/Core/Connexion.php", $_SERVER['SCRIPT_FILENAME']);
+    require_once str_replace("tests", "src", $base."api/Application/Configs/Settings.php");
+    require_once preg_replace("tests", "src", $base."api/Library/Core/Connexion.php");
     
     $iSettings = new Application_Configs_Settings();
 

@@ -1,6 +1,6 @@
 <?php
-die(var_dump($_SERVER['SCRIPT_FILENAME'],preg_replace("/(?:tests\/)([a-z]+)\/([a-zA-Z0-9-_]*).php/", "tests/core/indexReplace.php", $_SERVER['SCRIPT_FILENAME'])));
-require_once preg_replace("/(?:tests\/)([a-z]+)\/([a-zA-Z0-9-_]*).php/", "tests/core/indexReplace.php", $_SERVER['SCRIPT_FILENAME']);
+$base = (file_exists("C:/wamp/www/market3w-test/tests/core/indexReplace.php"))?"C:/wamp/www/market3w-test/tests/":"/var/lib/jenkins/jobs/market3w-test/workspace/tests/";
+require_once $base."core/indexReplace.php";
 
 class AppointmentsTest extends TestMaster {
 
