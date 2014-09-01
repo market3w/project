@@ -3,7 +3,7 @@ session_start();
 
 require_once BASE_TEST."core/testMaster.php";
 
-switch($folder){
+switch(FOLDER){
     case 'api':
             $iDB = apiIndexReplace();
             break;

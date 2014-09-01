@@ -11,6 +11,6 @@ class TestMaster extends PHPUnit_Framework_TestCase {
     }
     
     public function class_autoload($class){
-        require_once preg_replace("/(?:tests\/)([a-z]+)\/([a-zA-Z0-9-_]*).php/", "src/$1/".str_replace("_", "/", $class).".php", $_SERVER['SCRIPT_FILENAME']);
+        require_once BASE_SRC.FOLDER."/".str_replace("_", "/", $class).".php";
     }
 }
