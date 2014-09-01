@@ -370,7 +370,7 @@ class Application_Controllers_Campains extends Library_Core_Controllers{
 
             // Préparation de la requete
             $this->table->addNewField("campain_name",$campain_name);
-			 $this->table->addNewField("campain_description",$campain_courte_description);
+			 $this->table->addNewField("campain_courte_description",$campain_courte_description);
             $this->table->addNewField("campain_description",$campain_description);
             $this->table->addNewField("campain_completion",$campain_completion);
 

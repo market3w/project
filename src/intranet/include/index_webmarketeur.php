@@ -109,8 +109,8 @@ $users = $client->get_all_users(); ?>
                    <!-- Si on est dans une modification on afficher formulaire-->
                    <?php if($option=="modifier"){ ?>
                    <span class="responseError" id="loginError"><?php echo $_SESSION["errorMessage"]; ?></span>
-                  <?php if(isset($_SESSION['method']) && $_SESSION['method']=='put_user'  && $_SESSION["errorMessage"]==''){echo'modification enregistrée avec succés';} ?>
-					<form class="form-horizontal" action="index.php.?aff=<?php echo $aff; ?>&view_user_id=<?php echo $user->user_id; ?>&option=<?php echo $option; ?>option_id=&" method="post">
+                  <?php if(isset($_SESSION['method']) && $_SESSION['method']=='put_campain'  && $_SESSION["errorMessage"]==''){echo'modification enregistrée avec succés';} ?>
+					<form class="form-horizontal" action="index.php.?aff=campagnes&view_user_id=<?php echo $view_user_id; ?>&option=modifier&option_id=<?php echo $option_id; ?>" method="post">
 						<fieldset>
 							<input type="hidden" name="method" value="put_campain" />
                              <input type="hidden" name="campain_id" value="<?php echo $option_id; ?>" />
@@ -149,13 +149,13 @@ $users = $client->get_all_users(); ?>
 					}
 					else
 					{
-						echo  $campagneselectuser[0]->campain_description.'!';;
+						echo  $campagneselectuser[0]->campain_description;;
 					} ?>
                     </td></tr>
                    <tr><td><b>Complément d'informations :</b></td><td>
                    <?php if($option=="modifier")
 					{ ?>
-						<textarea class="span8" name="campain_completion" style="min-height:60px;"><?php echo $campagneselectuser[0]->campain_completion.'!'; ?></textarea>
+						<textarea class="span8" name="campain_completion" style="min-height:60px;"><?php echo $campagneselectuser[0]->campain_completion; ?></textarea>
                        <?php					
 					}
 					else
@@ -171,7 +171,12 @@ $users = $client->get_all_users(); ?>
                     <br/> <center><input type="submit" class="btn" value="Modifier" /></center>
                   	</fieldset>
                     </form>
-                    <?php } ?>
+                    <?php }
+					else
+					{
+						echo' <a href="index.php.?aff='.$aff.'&view_user_id='.$user->user_id.'&option=modifier&option_id='.$option_id.'">Modifier</a>'; 
+					}
+                    ?>
                     </div>
                     </div></div>
 				<?php		
