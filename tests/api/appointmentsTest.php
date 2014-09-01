@@ -1,5 +1,5 @@
 <?php
-die($_SERVER['SCRIPT_FILENAME']."<br />".preg_replace("/(?:tests\/)([a-z]+)\/([a-zA-Z0-9-_]*).php/", "tests/core/indexReplace.php", $_SERVER['SCRIPT_FILENAME']));
+die(var_dump($_SERVER['SCRIPT_FILENAME'],preg_replace("/(?:tests\/)([a-z]+)\/([a-zA-Z0-9-_]*).php/", "tests/core/indexReplace.php", $_SERVER['SCRIPT_FILENAME'])));
 require_once preg_replace("/(?:tests\/)([a-z]+)\/([a-zA-Z0-9-_]*).php/", "tests/core/indexReplace.php", $_SERVER['SCRIPT_FILENAME']);
 
 class AppointmentsTest extends TestMaster {
