@@ -25,8 +25,6 @@ class Application_Controllers_Campains extends Library_Core_Controllers{
                                     'campain_name',
                                     'campain_courte_description',
                                     'campain_description',
-                                    'campain_prix',
-                                    'company_id',
 									'contact_id',
                                     'campain_completion',
                                     'campain_date',
@@ -358,28 +356,22 @@ class Application_Controllers_Campains extends Library_Core_Controllers{
             // Récupération des parametres utiles
             $campain_id = (empty ($data['campain_id']))?null:$data['campain_id'];
             $campain_name = (empty ($data['campain_name']))?null:$data['campain_name'];
+			$campain_courte_description = (empty ($data['campain_courte_description']))?null:$data['campain_courte_description'];
             $campain_description = (empty ($data['campain_description']))?null:$data['campain_description'];
-            $campain_prix = (empty ($data['campain_prix']))?null:$data['campain_prix'];
-            $company_id = (empty ($data['company_id']))?null:$data['company_id'];
             $campain_completion = (empty ($data['campain_completion']))?null:$data['campain_completion'];
 
             // Tests des variables
             if($campain_id==null){return $this->setApiResult(false, true, 'param \'campain_id\' undefined');}
             if(!is_numeric($campain_id)){return $this->setApiResult(false, true, 'param \'campain_id\' must be numeric');}
             if($campain_name==null){return $this->setApiResult(false, true, 'param \'campain_name\' undefined');}
+			if($campain_courte_description==null){return $this->setApiResult(false, true, 'param \'campain_courte_description\' undefined');}
             if($campain_description==null){return $this->setApiResult(false, true, 'param \'campain_description\' undefined');}
-            if($campain_prix==null){return $this->setApiResult(false, true, 'param \'campain_prix\' undefined');}
-            if(!is_numeric($campain_prix)){return $this->setApiResult(false, true, 'param \'campain_prix\' must be numeric');}
-            if($company_id==null){return $this->setApiResult(false, true, 'param \'company_id\' undefined');}
-            if(!is_numeric($company_id)){return $this->setApiResult(false, true, 'param \'company_id\' must be numeric');}
             if($campain_completion==null){return $this->setApiResult(false, true, 'param \'campain_completion\' undefined');}
 
             // Préparation de la requete
             $this->table->addNewField("campain_name",$campain_name);
+			 $this->table->addNewField("campain_description",$campain_courte_description);
             $this->table->addNewField("campain_description",$campain_description);
-            $this->table->addNewField("campain_prix",$campain_prix);
-            $this->table->addNewField("company_id",$company_id);
-            $this->table->addNewField("webmarketter_id",$webmarketter_id);
             $this->table->addNewField("campain_completion",$campain_completion);
 
             $this->table->addWhere("campain_id",$campain_id);

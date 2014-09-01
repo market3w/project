@@ -21,7 +21,7 @@
 		$documentselectuser = $client->get_document(array("document_id"=>$option_id));
 	}
 	//Si voir détail campagne on appelle get_campain
-	elseif($aff=='campagnes' && $option="voir" && is_numeric($option_id))
+	elseif($aff=='campagnes' && is_numeric($option_id))
 	{
 		$campagneselectuser = $client->get_campain(array("campain_id"=>$option_id));
 	}
@@ -103,17 +103,75 @@ $users = $client->get_all_users(); ?>
 	      				<h3>Campagne </h3>
 	  				</div> <!-- /widget-header -->
 					
+                    
 					<div class="widget-content">
+                   
+                   <!-- Si on est dans une modification on afficher formulaire-->
+                   <?php if($option=="modifier"){ ?>
+                   <span class="responseError" id="loginError"><?php echo $_SESSION["errorMessage"]; ?></span>
+                  <?php if(isset($_SESSION['method']) && $_SESSION['method']=='put_user'  && $_SESSION["errorMessage"]==''){echo'modification enregistrée avec succés';} ?>
+					<form class="form-horizontal" action="index.php.?aff=<?php echo $aff; ?>&view_user_id=<?php echo $user->user_id; ?>&option=<?php echo $option; ?>option_id=&" method="post">
+						<fieldset>
+							<input type="hidden" name="method" value="put_campain" />
+                             <input type="hidden" name="campain_id" value="<?php echo $option_id; ?>" />
+                             
+					<?php } ?>				
+										
                     <table width="100%" cellpadding="5" cellspacing="5">
-                    <tr><td width="30%"><b>Nom campagne</b></td><td> <?php echo $campagneselectuser[0]->campain_name; ?></td></tr>
-                    <tr><td><b>Courte description :</b></td><td>  <?php echo $campagneselectuser[0]->campain_courte_description; ?></td></tr>
-                    <tr><td><b>Description :</b></td><td>  <?php echo $campagneselectuser[0]->campain_description; ?></td></tr>
-                   <tr><td><b>Complément d'informations :</b></td><td>  <?php echo $campagneselectuser[0]->campain_completion; ?></td></tr>
-                    <tr><td><b>Webmarketeur :</b></td><td>  <?php echo $campagneselectuser[0]->campain_webmarketter->webmarketter_name.' '. $campagneselectuser[0]->campain_webmarketter->webmarketter_firstname; ?></td></tr>
+                    <tr><td width="30%"><b>Nom campagne</b></td>
+                    <td> <?php if($option=="modifier")
+					{ ?>
+						 <input type="text" class="span4" name="campain_name" value="<?php echo $campagneselectuser[0]->campain_name; ?>">
+                       <?php					
+					}
+					else
+					{
+						echo  $campagneselectuser[0]->campain_name.'!';;
+					} ?></td></tr>
+                    
+                    <tr><td><b>Courte description :</b></td>
+                    <td> 
+                     <?php if($option=="modifier")
+					{ ?>
+						 <textarea class="span8" name="campain_courte_description" style="min-height:60px;"><?php echo $campagneselectuser[0]->campain_courte_description.'!'; ?></textarea>
+                       <?php					
+					}
+					else
+					{
+						echo  $campagneselectuser[0]->campain_courte_description.'!';;
+					} ?>
+                    </td></tr>
+                    <tr><td><b>Description :</b></td><td>
+                    <?php if($option=="modifier")
+					{ ?>
+						 <textarea class="span8" name="campain_description" style="min-height:120px;"><?php echo $campagneselectuser[0]->campain_description.''; ?></textarea>
+                       <?php					
+					}
+					else
+					{
+						echo  $campagneselectuser[0]->campain_description.'!';;
+					} ?>
+                    </td></tr>
+                   <tr><td><b>Complément d'informations :</b></td><td>
+                   <?php if($option=="modifier")
+					{ ?>
+						<textarea class="span8" name="campain_completion" style="min-height:60px;"><?php echo $campagneselectuser[0]->campain_completion.'!'; ?></textarea>
+                       <?php					
+					}
+					else
+					{
+						echo  $campagneselectuser[0]->campain_completion.'!';;
+					} ?>
+                    </td></tr>
+                    <tr><td><b>Webmarketeur :</b></td><td> <?php echo $campagneselectuser[0]->campain_webmarketter->webmarketter_name.' '. $campagneselectuser[0]->campain_webmarketter->webmarketter_firstname; ?></td></tr>
                     <tr><td><b>Date de création : </b></td><td> <?php echo $campagneselectuser[0]->campain_date; ?></td></tr>
-                      <tr><td><b>Dernière modification : </b></td><td> <?php echo $campagneselectuser[0]->campain_date_modif; ?></td></tr>
+                    <tr><td><b>Dernière modification : </b></td><td> <?php echo $campagneselectuser[0]->campain_date_modif; ?></td></tr>
                      </table>
-                  
+                     <?php if($option=="modifier"){ ?>
+                    <br/> <center><input type="submit" class="btn" value="Modifier" /></center>
+                  	</fieldset>
+                    </form>
+                    <?php } ?>
                     </div>
                     </div></div>
 				<?php		
@@ -201,15 +259,7 @@ $users = $client->get_all_users(); ?>
 										<input type="hidden" name="method" value="put_user" />
                                         <input type="hidden" name="user_id" value="<?php echo $user->user_id; ?>" />
                                           <input type="hidden" name="company_id" value="1" />
-										<!--<div class="control-group">											
-											<label class="control-label" for="username">Username</label>
-											<div class="controls">
-												<input type="text" class="span6 disabled" id="username" value="Example" disabled>
-												<p class="help-block">Your username is for logging in and cannot be changed.</p>
-											</div> <!-- /controls -->				
-										<!--</div> <!-- /control-group -->
-										
-										
+									
 										<div class="control-group">											
 											<label class="control-label" for="user_name">Nom</label>
 											<div class="controls">
