@@ -25,6 +25,11 @@
 	{
 		$campagneselectuser = $client->get_campain(array("campain_id"=>$option_id));
 	}
+	//Si voir détail facture on appelle get_paiements
+	elseif($aff=='factures' && $option="voir" && is_numeric($option_id))
+	{
+		$factureselectuser = $client->get_paiement(array("paiement_id"=>$option_id));
+	}
 }
 $users = $client->get_all_users(); ?>
 <div class="main">
@@ -107,6 +112,31 @@ $users = $client->get_all_users(); ?>
                     <tr><td><b>Webmarketeur :</b></td><td>  <?php echo $campagneselectuser[0]->campain_webmarketter->webmarketter_name.' '. $campagneselectuser[0]->campain_webmarketter->webmarketter_firstname; ?></td></tr>
                     <tr><td><b>Date de création : </b></td><td> <?php echo $campagneselectuser[0]->campain_date; ?></td></tr>
                       <tr><td><b>Dernière modification : </b></td><td> <?php echo $campagneselectuser[0]->campain_date_modif; ?></td></tr>
+                     </table>
+                  
+                    </div>
+                    </div></div>
+				<?php		
+			  }
+			    elseif($aff=="factures")
+			  { ?>
+				  <div class="span12">      		
+	      		
+	      		<div class="widget ">
+	      			
+	      			<div class="widget-header">
+	      				<i class="icon-dashboard"></i>
+	      				<h3>Facture </h3>
+	  				</div> <!-- /widget-header -->
+					
+					<div class="widget-content">
+                    <table width="100%" cellpadding="5" cellspacing="5">
+                    <tr><td width="30%"><b>Nom facture</b></td><td> <?php echo $factureselectuser[0]->paiement_name; ?></td></tr>
+                    <tr><td><b>Description :</b></td><td>  <?php echo $factureselectuser[0]->paiement_description; ?></td></tr>
+                   <tr><td><b>Montant HT :</b></td><td>  <?php echo $factureselectuser[0]->paiement_prix; ?> €</td></tr>
+                     <tr><td><b>Date d'émission : </b></td><td> <?php echo $factureselectuser[0]->paiement_description; ?></td></tr>
+                     <tr><td><b>Télécharger la facture : </b></td><td> <a class="btn" href="<?php echo $factureselectuser[0]->paiement_link; ?>">Télécharger</a></td></tr>
+                   
                      </table>
                   
                     </div>
@@ -411,7 +441,7 @@ $users = $client->get_all_users(); ?>
                                     
 								 <table width="100%" style="margin-top:-25px;"><tr><td>Intitulé facture</td><td>Date</td></tr>
                                     <?php foreach($allfactureuser as $key=>$value){ ?>
-                                    <tr><td><a href="index.php?aff=factures&view_user_id=<?php echo $view_user_id; ?>"><?php echo $value->paiement_name; ?></a></td><td><?php echo $value->paiement_date; ?></td></tr>
+                                    <tr><td><a href="index.php?aff=factures&view_user_id=<?php echo $view_user_id; ?>&option=voir&option_id=<?php echo $value->paiement_id; ?>"><?php echo $value->paiement_name; ?></a></td><td><?php echo $value->paiement_date; ?></td></tr>
                                     <?php } ?>
                                     
                                     </table>

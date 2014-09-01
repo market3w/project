@@ -17,16 +17,15 @@ class Client_Controllers_Paiements extends Client_Core_Controllers{
 		}
 	}
 	
-	public function get_campain($data){
-		 $campain_id = (isset($data["campain_id"]) && is_numeric($data["campain_id"]))? $data["campain_id"]:null;
-	
-		/* Recupérer les vidéos */
-		$this->parseQueryResult(json_decode($this->_client->query("GET","method=campain&campain_id=".$campain_id)));
-		$error = $this->getError();
-		if($error===false){
-			$campain = $this->getResponse();
-			return $campain;
-		}
-	}
+	public function get_paiement($data){
+	  $paiement_id = (empty ($data['paiement_id']))?null:$data['paiement_id'];
+    
+        $this->parseQueryResult(json_decode($this->_client->query("GET","method=paiement&paiement_id=".$paiement_id)));
+        $error = $this->getError();
+        if($error===false){
+            $paiement = $this->getResponse();
+            return $paiement;
+        }
+    }
 	
 }
