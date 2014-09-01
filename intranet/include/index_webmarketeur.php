@@ -20,6 +20,11 @@
 	{
 		$documentselectuser = $client->get_document(array("document_id"=>$option_id));
 	}
+	//Si voir détail campagne on appelle get_campain
+	elseif($aff=='campagnes' && $option="voir" && is_numeric($option_id))
+	{
+		$campagneselectuser = $client->get_campain(array("campain_id"=>$option_id));
+	}
 }
 $users = $client->get_all_users(); ?>
 <div class="main">
@@ -77,6 +82,32 @@ $users = $client->get_all_users(); ?>
                     <tr><td><b>Date : </b></td><td> <?php echo $documentselectuser[0]->document_date; ?></td></tr>
                      <tr><td><b>Télécharger le document : </b></td><td> <a class="btn" href="<?php echo $documentselectuser[0]->document_link; ?>">Télécharger</a></td></tr>
                     </table>
+                  
+                    </div>
+                    </div></div>
+				<?php		
+			  }
+			    elseif($aff=="campagnes")
+			  { ?>
+				  <div class="span12">      		
+	      		
+	      		<div class="widget ">
+	      			
+	      			<div class="widget-header">
+	      				<i class="icon-dashboard"></i>
+	      				<h3>Campagne </h3>
+	  				</div> <!-- /widget-header -->
+					
+					<div class="widget-content">
+                    <table width="100%" cellpadding="5" cellspacing="5">
+                    <tr><td width="30%"><b>Nom campagne</b></td><td> <?php echo $campagneselectuser[0]->campain_name; ?></td></tr>
+                    <tr><td><b>Courte description :</b></td><td>  <?php echo $campagneselectuser[0]->campain_courte_description; ?></td></tr>
+                    <tr><td><b>Description :</b></td><td>  <?php echo $campagneselectuser[0]->campain_description; ?></td></tr>
+                   <tr><td><b>Complément d'informations :</b></td><td>  <?php echo $campagneselectuser[0]->campain_completion; ?></td></tr>
+                    <tr><td><b>Webmarketeur :</b></td><td>  <?php echo $campagneselectuser[0]->campain_webmarketter->webmarketter_name.' '. $campagneselectuser[0]->campain_webmarketter->webmarketter_firstname; ?></td></tr>
+                    <tr><td><b>Date de création : </b></td><td> <?php echo $campagneselectuser[0]->campain_date; ?></td></tr>
+                      <tr><td><b>Dernière modification : </b></td><td> <?php echo $campagneselectuser[0]->campain_date_modif; ?></td></tr>
+                     </table>
                   
                     </div>
                     </div></div>
@@ -365,7 +396,7 @@ $users = $client->get_all_users(); ?>
                                     
 								 <table width="100%" style="margin-top:-25px;"><tr><td>Intitulé campagne</td><td>Dernière modification</td></tr>
                                     <?php foreach($allcampainuser as $key=>$value){ ?>
-                                    <tr><td><a href="index.php?aff=campagnes&view_user_id=<?php echo $value->contact_id; ?>"><?php echo $value->campain_name; ?></a></td><td><?php echo $value->campain_date_modif; ?></td></tr>
+                                    <tr><td><a href="index.php?aff=campagnes&view_user_id=<?php echo $value->contact_id; ?>&option=voir&option_id=<?php echo $value->campain_id; ?>"><?php echo $value->campain_name; ?></a></td><td><?php echo $value->campain_date_modif; ?></td></tr>
                                     <?php } ?>
                                     
                                     </table>

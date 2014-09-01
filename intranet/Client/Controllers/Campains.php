@@ -28,6 +28,7 @@ class Client_Controllers_Campains extends Client_Core_Controllers{
 		/* Recup�rer les vid�os */
 		$this->parseQueryResult(json_decode($this->_client->query("GET","method=campain&campain_id=".$campain_id)));
 		$error = $this->getError();
+		//var_dump($this->getResponse());
 		if($error===false){
 			$campain = $this->getResponse();
 			return $campain;

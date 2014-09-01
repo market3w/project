@@ -11,6 +11,7 @@ class Client_Controllers_Documents extends Client_Core_Controllers{
     
         $this->parseQueryResult(json_decode($this->_client->query("GET","method=document&document_id=".$document_id)));
         $error = $this->getError();
+		
         if($error===false){
             $document = $this->getResponse();
             return $document;
