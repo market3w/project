@@ -12,8 +12,8 @@ class Client_Controllers_Appointments extends Client_Core_Controllers{
         $this->parseQueryResult(json_decode($this->_client->query("GET","method=appointment&appointment_id=".$appointment_id)));
         $error = $this->getError();
         if($error===false){
-            $videos = $this->getResponse();
-            return $videos;
+            $appointment = $this->getResponse();
+            return $appointment;
         }
     }
 	

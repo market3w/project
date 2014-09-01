@@ -15,6 +15,11 @@
 	{
 		$rdvselectuser = $client->get_appointment(array("appointment_id"=>$option_id));
 	}
+	//Si voir détail document on appelle get_document
+	elseif($aff=='documents' && $option="voir" && is_numeric($option_id))
+	{
+		$documentselectuser = $client->get_document(array("document_id"=>$option_id));
+	}
 }
 $users = $client->get_all_users(); ?>
 <div class="main">
@@ -48,6 +53,29 @@ $users = $client->get_all_users(); ?>
                     <tr><td><b>Fin : </b></td><td> <?php echo $rdvselectuser[0]->appointment_end_date; ?></td></tr>
                     <tr><td><b>Webmarketeur :</b></td><td> <?php echo $rdvselectuser[0]->appointment_webmarketter->webmarketter_name; ?></td></tr>
                     <tr><td><b>Statut : </b></td><td><?php echo $rdvselectuser[0]->status_id; ?></td></tr>
+                    </table>
+                  
+                    </div>
+                    </div></div>
+				<?php		
+			  }
+			  elseif($aff=="documents")
+			  { ?>
+				  <div class="span12">      		
+	      		
+	      		<div class="widget ">
+	      			
+	      			<div class="widget-header">
+	      				<i class="icon-dashboard"></i>
+	      				<h3>Document </h3>
+	  				</div> <!-- /widget-header -->
+					
+					<div class="widget-content">
+                    <table width="100%" cellpadding="5" cellspacing="5">
+                    <tr><td width="30%"><b>Nom document</b></td><td> <?php echo $documentselectuser[0]->document_name; ?></td></tr>
+                    <tr><td><b>Description :</b></td><td>  <?php echo $documentselectuser[0]->document_description; ?></td></tr>
+                    <tr><td><b>Date : </b></td><td> <?php echo $documentselectuser[0]->document_date; ?></td></tr>
+                     <tr><td><b>Télécharger le document : </b></td><td> <a class="btn" href="<?php echo $documentselectuser[0]->document_link; ?>">Télécharger</a></td></tr>
                     </table>
                   
                     </div>
@@ -322,7 +350,7 @@ $users = $client->get_all_users(); ?>
                                     
                                     <table width="100%" style="margin-top:-25px;"><tr><td>Intitulé document</td><td>Date</td></tr>
                                     <?php foreach($alldocumentuser as $key=>$value){ ?>
-                                    <tr><td><a href="index.php?aff=documents&view_user_id=<?php echo $value->user_id; ?>"><?php echo $value->document_name; ?></a></td><td><?php echo $value->document_date; ?></td></tr>
+                                    <tr><td><a href="index.php?aff=documents&view_user_id=<?php echo $value->user_id; ?>&option=voir&option_id=<?php echo $value->document_id; ?>"><?php echo $value->document_name; ?></a></td><td><?php echo $value->document_date; ?></td></tr>
                                     <?php } ?>
                                     
                                     </table>

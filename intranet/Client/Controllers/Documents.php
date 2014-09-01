@@ -5,7 +5,18 @@ class Client_Controllers_Documents extends Client_Core_Controllers{
     public function __construct($_client){
         $this->_client = $_client;
     }
-
+	
+	public function get_document($data){
+	  $document_id = (empty ($data['document_id']))?null:$data['document_id'];
+    
+        $this->parseQueryResult(json_decode($this->_client->query("GET","method=document&document_id=".$document_id)));
+        $error = $this->getError();
+        if($error===false){
+            $document = $this->getResponse();
+            return $document;
+        }
+    }
+	
     public function get_alldocument($data=array()){
 	$user_id = (empty ($data['user_id']))?null:$data['user_id'];
         if(is_null($user_id)){
