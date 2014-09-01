@@ -3,8 +3,8 @@ session_start();
 
 require_once $base."core/testMaster.php";
 
-$folder = explode("/",preg_replace("/(?:tests\/)([a-z]+)\/([a-zA-Z0-9-_]*).php/", "$1", $_SERVER['SCRIPT_FILENAME']));
-$folder = str_replace($_SERVER, "", $folder[count($folder)-1]);
+$folder_temp = explode("/",preg_replace("/(?:tests\/)([a-z]+)\/([a-zA-Z0-9-_]*).php/", "$1", $_SERVER['SCRIPT_FILENAME']));
+$folder = $folder_temp[count($folder_temp)-1];
 
 switch($folder){
     case 'api':
