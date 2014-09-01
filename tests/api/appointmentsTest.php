@@ -1,6 +1,9 @@
 <?php
-$base = (file_exists("C:/wamp/www/market3w-test/tests/core/indexReplace.php"))?"C:/wamp/www/market3w-test/tests/":"/var/lib/jenkins/jobs/market3w-test/workspace/tests/";
-require_once $base."core/indexReplace.php";
+define(BASE_TEST, (file_exists("C:/wamp/www/market3w-test/tests/core/indexReplace.php"))?"C:/wamp/www/market3w-test/tests/":"/var/lib/jenkins/jobs/market3w-test/workspace/tests/");
+define(BASE_SRC, str_replace("tests", "src", BASE_TEST));
+$folder="api";
+
+require_once BASE_TEST."core/indexReplace.php";
 
 class AppointmentsTest extends TestMaster {
 

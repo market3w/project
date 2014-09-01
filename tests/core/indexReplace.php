@@ -1,10 +1,7 @@
 <?php
 session_start();
 
-require_once $base."core/testMaster.php";
-
-$folder_temp = explode("/",preg_replace("/(?:tests\/)([a-z]+)\/([a-zA-Z0-9-_]*).php/", "$1", $_SERVER['SCRIPT_FILENAME']));
-$folder = $folder_temp[count($folder_temp)-1];
+require_once BASE_TEST."core/testMaster.php";
 
 switch($folder){
     case 'api':
@@ -15,8 +12,8 @@ switch($folder){
 }
 
 function apiIndexReplace(){
-    require_once str_replace("tests", "src", $base."api/Application/Configs/Settings.php");
-    require_once preg_replace("tests", "src", $base."api/Library/Core/Connexion.php");
+    require_once BASE_SRC."api/Application/Configs/Settings.php";
+    require_once BASE_SRC."api/Library/Core/Connexion.php";
     
     $iSettings = new Application_Configs_Settings();
 
