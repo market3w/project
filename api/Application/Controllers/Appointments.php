@@ -27,6 +27,7 @@ class Application_Controllers_Appointments extends Library_Core_Controllers{
                                         'appointment_start_date',
                                         'appointment_end_date',
                                         'appointment_places',
+										'status_id',
                                         'appointment_active');
 
     /**

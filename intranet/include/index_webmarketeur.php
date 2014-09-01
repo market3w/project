@@ -1,5 +1,7 @@
 <?php if(isset($_GET['aff']) && $_GET['aff']!=''){ $aff = $_GET['aff'];}else{$aff='clients';}
  if(isset($_GET['view_user_id']) && $_GET['view_user_id']!=''){ $view_user_id = $_GET['view_user_id'];}else{$view_user_id = '';}
+  if(isset($_GET['option']) && $_GET['option']!=''){ $option = $_GET['option'];}else{$option = '';}
+  if(isset($_GET['option_id']) && $_GET['option_id']!=''){ $option_id = $_GET['option_id'];}else{$option_id = '';}
  
  if(is_numeric($view_user_id))
 {
@@ -8,6 +10,11 @@
 	$alldocumentuser = $client->get_alldocument(array("user_id"=>$view_user_id));
 	$allcampainuser = $client->get_allcampain(array("user_id"=>$view_user_id));
 	$allfactureuser = $client->get_allpaiement(array("user_id"=>$view_user_id));
+	//Si voir détail rendez vous on appelle get_appointment
+	if($aff=='rdv' && $option="voir" && is_numeric($option_id))
+	{
+		$rdvselectuser = $client->get_appointment(array("appointment_id"=>$option_id));
+	}
 }
 $users = $client->get_all_users(); ?>
 <div class="main">
@@ -17,6 +24,39 @@ $users = $client->get_all_users(); ?>
 	    <div class="container">
 	
 	      <div class="row">
+           <?php 
+		  //Si option sélectionner et si element sélectionner
+		  if($option!='' && is_numeric($option_id))
+		  {
+			  //Si c'est une opton de rendez-vous
+			  if($aff=="rdv")
+			  { ?>
+				  <div class="span12">      		
+	      		
+	      		<div class="widget ">
+	      			
+	      			<div class="widget-header">
+	      				<i class="icon-dashboard"></i>
+	      				<h3>Rendez-vous </h3>
+	  				</div> <!-- /widget-header -->
+					
+					<div class="widget-content">
+                    <table width="100%" cellpadding="5" cellspacing="5">
+                    <tr><td width="30%"><b>Intitulé du rendez-vous :</b></td><td> <?php echo $rdvselectuser[0]->appointment_name; ?></td></tr>
+                    <tr><td><b>Description :</b></td><td>  <?php echo $rdvselectuser[0]->appointment_description; ?></td></tr>
+                    <tr><td><b>Début : </b></td><td> <?php echo $rdvselectuser[0]->appointment_start_date; ?></td></tr>
+                    <tr><td><b>Fin : </b></td><td> <?php echo $rdvselectuser[0]->appointment_end_date; ?></td></tr>
+                    <tr><td><b>Webmarketeur :</b></td><td> <?php echo $rdvselectuser[0]->appointment_webmarketter->webmarketter_name; ?></td></tr>
+                    <tr><td><b>Statut : </b></td><td><?php echo $rdvselectuser[0]->status_id; ?></td></tr>
+                    </table>
+                  
+                    </div>
+                    </div></div>
+				<?php		
+			  }
+		  ?>
+          	
+          <?php } ?>
           
           <?php 
 		  //Si user sélectionné on affiche alors les informations de l'utilisateur
@@ -267,7 +307,7 @@ $users = $client->get_all_users(); ?>
                                     
                                     <table width="100%" style="margin-top:-25px;"><tr><td>Intitulé rendez-vous</td><td>Début rendez-vous</td><td>Fin rendez-vous</td><td>Webmarketeur</td><td>Statut</td></tr>
                                     <?php foreach($allappointmentuser as $key=>$value){ ?>
-                                    <tr><td><a href="index.php?aff=rdv&view_user_id=<?php echo $value->appointment_user->user_id; ?>"><?php echo $value->appointment_name; ?></a></td><td><?php echo $value->appointment_start_date; ?></td><td><?php echo $value->appointment_end_date; ?></td><td><?php echo $value->appointment_webmarketter->webmarketter_name.' '.$value->appointment_webmarketter->webmarketter_firstname; ?></td><td>A changer</td></tr>
+                                    <tr><td><a href="index.php?aff=rdv&view_user_id=<?php echo $value->appointment_user->user_id; ?>&option=voir&option_id=<?php echo $value->appointment_id; ?>"><?php echo $value->appointment_name; ?></a></td><td><?php echo $value->appointment_start_date; ?></td><td><?php echo $value->appointment_end_date; ?></td><td><?php echo $value->appointment_webmarketter->webmarketter_name.' '.$value->appointment_webmarketter->webmarketter_firstname; ?></td><td>A changer</td></tr>
                                     <?php } ?>
                                     
                                     </table>
