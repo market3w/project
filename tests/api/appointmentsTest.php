@@ -35,9 +35,9 @@ class AppointmentsTest extends TestMaster {
     public function testGet_allappointment() {
         $res = $this->object->get_allappointment(array());
         $this->assertFalse($res->apiError);
-        $this->assertNull($res->apiErrorMessage);
+        $this->assertEqual('',$res->apiErrorMessage);
         $this->assertFalse($res->serverError);
-        $this->assertNull($res->apiErrorMessage);
+        $this->assertNull('',$res->apiErrorMessage);
     }
 
 }
