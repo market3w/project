@@ -1,5 +1,5 @@
 <?php
-define("BASE_TEST", (file_exists("C:/wamp/www/market3w-test/tests/core/indexReplace.php"))?"C:/wamp/www/market3w-test/tests/":"/var/lib/jenkins/jobs/market3w-test/workspace/tests/");
+define("BASE_TEST", (file_exists("C:/wamp/www/market3w-prog/tests/core/indexReplace.php"))?"C:/wamp/www/market3w-prog/tests/":"/var/lib/jenkins/jobs/market3w-prog/workspace/tests/");
 define("BASE_SRC", str_replace("tests", "src", BASE_TEST));
 define("FOLDER","api");
 
