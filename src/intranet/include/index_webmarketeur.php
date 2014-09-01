@@ -16,7 +16,7 @@
 		$rdvselectuser = $client->get_appointment(array("appointment_id"=>$option_id));
 	}
 	//Si voir détail document on appelle get_document
-	elseif($aff=='documents' && $option="voir" && is_numeric($option_id))
+	elseif($aff=='documents' && is_numeric($option_id))
 	{
 		$documentselectuser = $client->get_document(array("document_id"=>$option_id));
 	}
@@ -67,29 +67,65 @@ $users = $client->get_all_users(); ?>
                   
                     </div>
                     </div></div>
-				<?php		
-			  }
-			  elseif($aff=="documents")
-			  { ?>
-				  <div class="span12">      		
-	      		
-	      		<div class="widget ">
+				<?php } elseif($aff=="documents") { ?>
+					<div class="span12">   		
+	      				<div class="widget ">
 	      			
-	      			<div class="widget-header">
-	      				<i class="icon-dashboard"></i>
-	      				<h3>Document </h3>
-	  				</div> <!-- /widget-header -->
+                            <div class="widget-header">
+                                <i class="icon-dashboard"></i>
+                                <h3>Document </h3>
+                            </div> <!-- /widget-header -->
 					
-					<div class="widget-content">
-                    <table width="100%" cellpadding="5" cellspacing="5">
-                    <tr><td width="30%"><b>Nom document</b></td><td> <?php echo $documentselectuser[0]->document_name; ?></td></tr>
-                    <tr><td><b>Description :</b></td><td>  <?php echo $documentselectuser[0]->document_description; ?></td></tr>
-                    <tr><td><b>Date : </b></td><td> <?php echo $documentselectuser[0]->document_date; ?></td></tr>
-                     <tr><td><b>Télécharger le document : </b></td><td> <a class="btn" href="<?php echo $documentselectuser[0]->document_link; ?>">Télécharger</a></td></tr>
-                    </table>
-                  
+                            <div class="widget-content">
+                            <?php if($option=="voir"){ ?>
+                            
+                            <table width="100%" cellpadding="5" cellspacing="5">
+                            <tr><td width="30%"><b>Nom document</b></td><td> <?php echo $documentselectuser[0]->document_name; ?></td></tr>
+                            <tr><td><b>Description :</b></td><td>  <?php echo $documentselectuser[0]->document_description; ?></td></tr>
+                            <tr><td><b>Date : </b></td><td> <?php echo $documentselectuser[0]->document_date; ?></td></tr>
+                             <tr><td><b>Télécharger le document : </b></td><td> <a class="btn" href="<?php echo $documentselectuser[0]->document_link; ?>">Télécharger</a></td></tr>
+                            </table>
+                            <?php }else{ ?>
+                            	<span class="responseError" id="loginError"><?php echo $_SESSION["errorMessage"]; ?></span>
+                                 <?php if(isset($_SESSION["method"]) && $_SESSION["method"]=='post_document' && $_SESSION["errorMessage"]==''){echo'mot de passe modifié.';} ?>
+                             
+									<form class="form-horizontal" action="profil.php?aff=documents&view_user_id=<?php echo $view_user_id; ?>&option=ajouter" enctype="multipart/form-data" method="post">
+									<fieldset>
+										<input type="hidden" name="method" value="post_document" />
+										<div class="control-group">											
+											<label class="control-label" for="document_name">Nom document</label>
+											<div class="controls">
+												<input type="text" class="span4" name="document_name" value="<?php echo (array_key_exists("document_name",$_POST))?$_POST["document_name"]:""; ?>">
+											</div> <!-- /controls -->				
+										</div> <!-- /control-group -->
+										
+										
+										<div class="control-group">											
+											<label class="control-label" for="document_description"></label>
+											<div class="controls">
+												<textarea class="span4" name="document_description"><?php echo (array_key_exists("document_description",$_POST))?$_POST["document_description"]:""; ?></textarea>
+											</div> <!-- /controls -->				
+										</div> <!-- /control-group -->
+										
+										
+										<div class="control-group">											
+											<label class="control-label" for="document_téléchargement">Télécharger </label>
+											<div class="controls">
+												<input type="file" name="document" />
+											</div> <!-- /controls -->				
+										</div> <!-- /control-group -->
+                                        
+                                        
+                                        
+										 <br />
+								
+										<button type="submit" class="btn btn-primary">Télécharger</button>
+									</fieldset>
+								</form>
+                            <?php } ?>
+                            </div>
+                    	</div>
                     </div>
-                    </div></div>
 				<?php		
 			  }
 			  elseif($aff=="campagnes")
@@ -482,7 +518,8 @@ $users = $client->get_all_users(); ?>
                                 <div class="tab-pane <?php if($aff=='documents'){echo 'active';} ?>" id="doc">
 								
                                 <?php if(count($alldocumentuser)>0){ ?>
-                                    
+                                      <div style="clear:both;">  <a href="index.php?aff=documents&view_user_id=<?php echo $view_user_id; ?>&option=ajouter" style="float:right;">+ Télécharger un nouveau document</a></div>
+								
                                     <table width="100%" style="margin-top:-25px;"><tr><td>Intitulé document</td><td>Date</td></tr>
                                     <?php foreach($alldocumentuser as $key=>$value){ ?>
                                     <tr><td><a href="index.php?aff=documents&view_user_id=<?php echo $value->user_id; ?>&option=voir&option_id=<?php echo $value->document_id; ?>"><?php echo $value->document_name; ?></a></td><td><?php echo $value->document_date; ?></td></tr>
