@@ -14,9 +14,9 @@ switch(FOLDER){
 function apiIndexReplace(){
     require_once BASE_SRC."api/Library/Core/Connexion.php";
     
-    define("RTC_ROOT", "http://videoconference.market3w.prog.com");
-    define("INTRANET_ROOT", "http://intranet.market3w.prog.com");
-    define("VITRINE_ROOT", "http://www.market3w.prog.com");
+    define("RTC_ROOT", "http://videoconference.market3w".(EXT_SERVER!="")?".".EXT_SERVER.".com":".com");
+    define("INTRANET_ROOT", "http://intranet.market3w".(EXT_SERVER!="")?".".EXT_SERVER.".com":".com");
+    define("VITRINE_ROOT", "http://www.market3w".(EXT_SERVER!="")?".".EXT_SERVER.".com":".com");
         
     define("DB_HOST",   "localhost");
     define("DB_NAME",   "market3w");

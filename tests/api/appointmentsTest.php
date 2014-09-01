@@ -1,9 +1,20 @@
 <?php
-define("BASE_TEST", (file_exists("C:/wamp/www/market3w-prog/tests/core/indexReplace.php"))?"C:/wamp/www/market3w-prog/tests/":"/var/lib/jenkins/jobs/market3w-prog/workspace/tests/");
-define("BASE_SRC", str_replace("tests", "src", BASE_TEST));
+/* extension du serveur  */
+/* exemples :            */
+/* "" pour .com          */
+/* "prog" pour .prog.com */
+define("EXT_SERVER","prog");
+
+/* dossier à tester (api,intranet,siteweb,videoconference) */
 define("FOLDER","api");
 
+/* NE PAS CHANGER - AUTOMATIQUE */
+$ext = (EXT_SERVER!="")? "-".EXT_SERVER : "";
+define("BASE_TEST", (file_exists("C:/wamp/www/market3w".$ext."/tests/core/indexReplace.php"))?"C:/wamp/www/market3w".$ext."/tests/":"/var/lib/jenkins/jobs/market3w".$ext."/workspace/tests/");
+define("BASE_SRC", str_replace("tests", "src", BASE_TEST));
+
 require_once BASE_TEST."core/indexReplace.php";
+/* ---------------------------- */
 
 class AppointmentsTest extends TestMaster {
 
