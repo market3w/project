@@ -40,18 +40,10 @@ $documents = $client->get_alldocument(); ?>
               </div>
             </div>
           </div>
-          <!-- /widget -->
-          <div class="widget widget-nopad">
-            <div class="widget-header"> <i class="icon-list-alt"></i>
-              <h3>Agenda</h3>
-            </div>
-            <!-- /widget-header -->
-            <div class="widget-content">
-              <div id='calendar'>
-              </div>
-            </div>
-            <!-- /widget-content --> 
-          </div>
+          <?php 
+          $agenda_titre = "Agenda";
+          include_once 'include/agenda.php'; 
+          ?>
           <!-- /widget -->
           <div class="widget">
             <div class="widget-header"> <i class="icon-file"></i>
@@ -60,7 +52,9 @@ $documents = $client->get_alldocument(); ?>
             <!-- /widget-header -->
             <div class="widget-content">
               <ul class="messages_layout">
-              
+              <span class="responseError" id="delete_documentError"><?php echo $_SESSION["errorMessage"]; ?></span>
+                    <?php if(isset($_SESSION['method']) && $_SESSION['method']=='delete_document'){echo'Suppression effectuée avec succés';} ?>
+						
                <?php if(count($documents)>0){ ?>
 			 <?php for($i=0; $i < 3 && $i < count($documents); $i++){
 	
@@ -68,20 +62,24 @@ $documents = $client->get_alldocument(); ?>
              
               <?php //echo (($documents->author_id==$_SESSION["market3w_user"]) ? "from_user left" : "by_myself right"); ?>
              <li class="<?php echo (($documents[$i]->author_id==$currentuser_id) ? "from_user left" : "by_myself right"); ?>"> <a href="#" class="avatar"><img src="img/message_avatar<?php echo (($documents[$i]->author_id==$currentuser_id) ? "1" : "2"); ?>.png"/></a>
-                  <div class="message_wrap"> <span class="arrow"></span>
-                    <div class="info"> <a class="name">Nom Prénom</a> <span class="time">il y a 1 jour</span>
+                  <div class="message_wrap" style="width:auto;"> <span class="arrow"></span>
+                    <div class="info"> <a class="name"><?php echo $documents[$i]->document_name; ?></a>  <span class="time" style="margin-left:10px; "><i><?php echo (($documents[$i]->author_id==$currentuser_id) ? "par <b>moi</b>" : "par <b>Market 3W</b>"); ?></i> <?php echo '(le '.$documents[$i]->document_date.')'; ?></span>
                       <div class="options_arrow">
                         <div class="dropdown pull-right"> <a class="dropdown-toggle " id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="#"> <i class=" icon-caret-down"></i> </a>
                           <ul class="dropdown-menu " role="menu" aria-labelledby="dLabel">
-                            <li><a href="#"><i class=" icon-share icon-large"></i> Télécharger</a></li>
-                            <li><a href="#"><i class=" icon-share-alt icon-large"></i> Modifier</a></li>
-                            <li><a href="#"><i class=" icon-trash icon-large"></i> Supprimer</a></li>
+                            <li><a href="<?php echo $documents[$i]->document_link; ?>"><i class=" icon-share icon-large"></i> Télécharger</a></li>
+                            <li><a href="#" class="delete_document" document_id="<?php echo  $documents[$i]->document_id; ?>"><i class=" icon-trash icon-large"></i> Supprimer</a></li>
                             
                           </ul>
                         </div>
                       </div>
                     </div>
-                    <div class="text">Ici description du document téléchargé en mettant ce qu'il y a dedans bla blal bla. </div>
+                    <div class="text" style="min-width:100%;">Ici description du document télé.dfgdgd gddgdbgfdj hbhbdbb hjgbhjghjdbhgfdbhd bh
+                    <form action="index.php" name="delete_documentForm<?php echo $documents[$i]->document_id; ?>" id="delete_documentForm<?php echo $documents[$i]->document_id; ?>" method="POST">
+                                        <input type="hidden" name="method" value="delete_document"/>
+                                        <input type="hidden" name="document_id" value="<?php echo $documents[$i]->document_id; ?>"/>
+                                         <input type="hidden" name="document_file_name" value="<?php echo basename($documents[$i]->document_link); ?>"/>
+                                     </form> </div>
                   </div>
                 </li>
              
@@ -151,7 +149,7 @@ $documents = $client->get_alldocument(); ?>
              
              <li  style="width:90%;">
                   
-                    <div class="news-item-detail"> <a href="<?php echo $paiements[$i]->paiement_link; ?>" class="news-item-title" target="_blank"><?php echo $campagnes[$i]->campain_name; ?></a>
+                    <div class="news-item-detail"> <a href="<?php echo $paiements[$i]->paiement_link; ?>" class="news-item-title" target="_blank"><?php echo $paiements[$i]->paiement_name; ?></a>
                     <p class="news-item-preview"><?php echo $paiements[$i]->paiement_description; ?></p>
                       <div style="text-align:center;margin-top:10px;"><a href="<?php echo $paiements[$i]->paiement_link; ?>" style="color:#ffffff; text-decoration:none;"><button class="btn btn-info">Télécharger la facture</button></a></div>
            

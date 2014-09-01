@@ -105,8 +105,38 @@ class Library_Core_RestServer{
      * Stocke la réponse dans la variable de classe $json
      */
     public function handle(){
+        if(array_key_exists("session_token",$this->requestParam)){
+            $token = $this->requestParam["session_token"];
+            unset($this->requestParam["session_token"]);
+        } else {
+            $token = null;
+        }
+        call_user_func(array($this->service, 'init_session'),  $token);
         $res = call_user_func(array($this->service, $this->classMethod),  $this->requestParam);
-        $this->json->response              = $res->response;
+        $nbRes = count($res->response);
+        $response = array();
+        if(is_array($res->response) && array_key_exists($nbRes-1, $res->response)){
+            $response = $res->response;
+            $index = (is_null($res->response[$nbRes-1]))?($nbRes-1):$nbRes;
+        } else {
+            $response[0] = $res->response;
+            $index = 1;
+        }
+        if($index==1){
+            if(array_key_exists(0, $response)){
+                $temp = $response[0];
+                unset($response[0]);
+            } else {
+                $temp = $response;
+            }
+            if(is_array($temp)){
+                $response[0] = (array_key_exists(0, $temp))?$temp[0]:$temp;
+            } else {
+                $response[0]= $temp;
+            }
+        }
+        $response[$index]["token"]=$_SESSION["token"];
+        $this->json->response              = $response;
         $this->json->apiError              = $res->apiError;
         $this->json->apiErrorMessage       = $res->apiErrorMessage;
         $this->json->serverError           = $res->serverError;

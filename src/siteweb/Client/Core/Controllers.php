@@ -6,6 +6,8 @@ class Client_Core_Controllers{
 	private $errorMessage;
 	
 	public function parseQueryResult($result){
+            $_SESSION["market3w_api_token"]=$result->response[count($result->response)-1]->token;
+            unset($result->response[count($result->response)-1]);
 		$this->response = $result->response;
 		$this->error = ($result->apiError==true || $result->serverError==true)? true:false;
 		$this->errorType = ($this->error==true)? (($result->apiError==true)? "API ERROR" : "SERVER ERROR"): "";

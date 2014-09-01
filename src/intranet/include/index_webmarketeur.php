@@ -1,4 +1,14 @@
 <?php if(isset($_GET['aff']) && $_GET['aff']!=''){ $aff = $_GET['aff'];}else{$aff='clients';}
+ if(isset($_GET['view_user_id']) && $_GET['view_user_id']!=''){ $view_user_id = $_GET['view_user_id'];}else{$view_user_id = '';}
+ 
+ if(is_numeric($view_user_id))
+{
+	$user = $client->get_user(array("user_id"=>$view_user_id));
+	$allappointmentuser = $client->get_allappointmentuser(array("user_id"=>$view_user_id));
+	$alldocumentuser = $client->get_alldocument(array("user_id"=>$view_user_id));
+	$allcampainuser = $client->get_allcampain(array("user_id"=>$view_user_id));
+	$allfactureuser = $client->get_allpaiement(array("user_id"=>$view_user_id));
+}
 $users = $client->get_all_users(); ?>
 <div class="main">
 	
@@ -7,7 +17,327 @@ $users = $client->get_all_users(); ?>
 	    <div class="container">
 	
 	      <div class="row">
-	      	
+          
+          <?php 
+		  //Si user sélectionné on affiche alors les informations de l'utilisateur
+		  if(is_numeric($view_user_id))
+		  {
+		  ?>
+	      	<div class="span12">      		
+	      		
+	      		<div class="widget ">
+	      			
+	      			<div class="widget-header">
+	      				<i class="icon-dashboard"></i>
+	      				<h3><?php echo $user->user_name; ?> <?php echo $user->user_firstname;
+						if($user->user_role->role_id==4)
+						{
+							echo' <i>(Client)</i>';
+						}
+						elseif($user->user_role->role_id==5)
+						{
+							echo' <i>(prospect)</i>';
+						}
+						elseif($user->user_role->role_id==6)
+						{
+							echo' <i>(Visiteur)</i>';
+						}
+												
+						?> </h3>
+	  				</div> <!-- /widget-header -->
+					
+					<div class="widget-content">
+						
+						
+						
+						<div class="tabbable">
+						<ul class="nav nav-tabs">
+						  <li  <?php if($aff=='infos_perso'){echo 'class="active"';} ?> > <a href="#infos_perso" data-toggle="tab">Infos personnelles</a></li>
+    					  <li  <?php if($aff=='entreprise'){echo 'class="active"';} ?>><a href="#entre" data-toggle="tab">Entreprise</a></li>
+                          <li  <?php if($aff=='rdv'){echo 'class="active"';} ?>><a href="#rdv" data-toggle="tab">Rendez-vous</a></li>
+                           <li  <?php if($aff=='documents'){echo 'class="active"';} ?>><a href="#doc" data-toggle="tab">Documents</a></li>
+						    <li  <?php if($aff=='campagnes'){echo 'class="active"';} ?>><a href="#campagnes" data-toggle="tab">Campagnes</a></li>
+                            <li  <?php if($aff=='factures'){echo 'class="active"';} ?>><a href="#factures" data-toggle="tab">Factures</a></li>
+						</ul>
+						
+						<br>
+						
+							<div class="tab-content">
+								<div class="tab-pane <?php if($aff=='infos_perso'){echo 'active';} ?>" id="infos_perso">
+										
+									<span class="responseError" id="loginError"><?php echo $_SESSION["errorMessage"]; ?></span>
+                                <?php if(isset($_SESSION['method']) && $_SESSION['method']=='put_user'  && $_SESSION["errorMessage"]==''){echo'modification enregistrée avec succés';} ?>
+								<form id="edit-profile" class="form-horizontal" action="index.php.?aff=infos_perso&view_user_id=<?php echo $user->user_id; ?>" method="post">
+									<fieldset>
+										<input type="hidden" name="method" value="put_user" />
+                                        <input type="hidden" name="user_id" value="<?php echo $user->user_id; ?>" />
+                                          <input type="hidden" name="company_id" value="1" />
+										<!--<div class="control-group">											
+											<label class="control-label" for="username">Username</label>
+											<div class="controls">
+												<input type="text" class="span6 disabled" id="username" value="Example" disabled>
+												<p class="help-block">Your username is for logging in and cannot be changed.</p>
+											</div> <!-- /controls -->				
+										<!--</div> <!-- /control-group -->
+										
+										
+										<div class="control-group">											
+											<label class="control-label" for="user_name">Nom</label>
+											<div class="controls">
+												<input type="text" class="span4" name="user_name" value="<?php echo $user->user_name; ?>">
+											</div> <!-- /controls -->				
+										</div> <!-- /control-group -->
+										
+										
+										<div class="control-group">											
+											<label class="control-label" for="user_firstname">Prénom</label>
+											<div class="controls">
+												<input type="text" class="span4" name="user_firstname" value="<?php echo $user->user_firstname; ?>">
+											</div> <!-- /controls -->				
+										</div> <!-- /control-group -->
+										
+										
+										<div class="control-group">											
+											<label class="control-label" for="email">Adresse email</label>
+											<div class="controls">
+												<input type="text" class="span4" name="user_email" value="<?php echo $user->user_email; ?>">
+											</div> <!-- /controls -->				
+										</div> <!-- /control-group -->
+										
+                                        <div class="control-group">											
+											<label class="control-label" for="user_adress">Adresse</label>
+											<div class="controls">
+												<input type="text" class="span4" name="user_adress" value="<?php echo $user->user_adress; ?>">
+											</div> <!-- /controls -->				
+										</div> <!-- /control-group -->
+										
+										
+										<div class="control-group">											
+											<label class="control-label" for="user_adress2">Adresse 2 <i>(falcultatif)</i></label>
+											<div class="controls">
+												<input type="text" class="span4" name="user_adress2" value="<?php echo $user->user_adress2; ?>">
+											</div> <!-- /controls -->				
+										</div> <!-- /control-group -->
+                                        
+                                        <div class="control-group">											
+											<label class="control-label" for="user_town">Ville</label>
+											<div class="controls">
+												<input type="text" class="span4" name="user_town" value="<?php echo $user->user_town; ?>">
+											</div> <!-- /controls -->				
+										</div> <!-- /control-group -->
+                                        
+                                        <div class="control-group">											
+											<label class="control-label" for="user_zipcode">Code postal</label>
+											<div class="controls">
+												<input type="text" class="span4" name="user_zipcode" value="<?php echo $user->user_zipcode; ?>">
+											</div> <!-- /controls -->				
+										</div> <!-- /control-group -->
+                                        
+                                        <div class="control-group">											
+											<label class="control-label" for="user_phone">Téléphone</label>
+											<div class="controls">
+												<input type="text" class="span4" name="user_phone" value="<?php echo $user->user_phone; ?>">
+											</div> <!-- /controls -->				
+										</div> <!-- /control-group -->
+                                        
+                                        <div class="control-group">											
+											<label class="control-label" for="user_mobile">Portable</label>
+											<div class="controls">
+												<input type="text" class="span4" name="user_mobile" value="<?php echo $user->user_mobile; ?>">
+											</div> <!-- /controls -->				
+										</div> <!-- /control-group -->
+                                        
+                                          <div class="control-group">											
+											<label class="control-label" for="user_function">Poste occupé</label>
+											<div class="controls">
+												<input type="text" class="span4" name="user_function" value="<?php echo $user->user_function; ?>">
+											</div> <!-- /controls -->				
+										</div> <!-- /control-group -->
+                                  		
+                                        <br/>
+                                       
+                                        <div class="control-group">											
+											<label class="control-label">Inscription à la newsletter</label>
+											
+                                            
+                                            <div class="controls">
+                                            <label class="radio inline">
+                                              <input type="radio"  name="newsletter" value="oui"> Oui
+                                            </label>
+                                            
+                                            <label class="radio inline">
+                                              <input type="radio" name="newsletter" value="non"> Non
+                                            </label>
+                                          </div>	<!-- /controls -->			
+										</div> <!-- /control-group -->
+                                      
+											
+										 <br />
+										
+											
+									<button type="submit" class="btn btn-primary">Enregistrer</button> </center>
+										
+									</fieldset>
+								</form>
+								</div>
+							
+                                
+								<div class="tab-pane <?php if($aff=='entreprise'){echo 'active';} ?>" id="entre">
+                                	<span class="responseError" id="put_companyError"><?php echo $_SESSION["errorMessage"]; ?></span>
+                                <?php if(isset($_SESSION['method']) && $_SESSION['method']=='put_company' && $_SESSION["errorMessage"]==''){echo'modification enregistrée avec succés';} ?>
+							
+									<form class="form-horizontal" action="index.php.?aff=entreprise&view_user_id=<?php echo $user->user_id; ?>" method="post">
+								
+                                    <input type="hidden" name="method" value="put_company" />
+                                        <input type="hidden" name="company_id" value="<?php echo $user->user_company->company_id; ?>" />
+									<fieldset>
+										
+										<div class="control-group">											
+											<label class="control-label" for="company_name">Nom</label>
+											<div class="controls">
+												<input type="text" class="span4" name="company_name" value="<?php echo $user->user_company->company_name; ?>">
+											</div> <!-- /controls -->				
+										</div> <!-- /control-group -->
+										
+										
+										<div class="control-group">											
+											<label class="control-label" for="company_siret">Siret</label>
+											<div class="controls">
+												<input type="text" class="span4" name="company_siret" value="<?php echo $user->user_company->company_siret; ?>">
+											</div> <!-- /controls -->				
+										</div> <!-- /control-group -->
+										
+										
+										<div class="control-group">											
+											<label class="control-label" for="company_siren">Siren</label>
+											<div class="controls">
+												<input type="text" class="span4" name="company_siren" value="<?php echo $user->user_company->company_siren; ?>">
+											</div> <!-- /controls -->				
+										</div> <!-- /control-group -->
+										
+                                        <div class="control-group">											
+											<label class="control-label" for="company_adress">Adresse</label>
+											<div class="controls">
+												<input type="text" class="span4" name="company_adress" value="<?php echo $user->user_company->company_adress; ?>">
+											</div> <!-- /controls -->				
+										</div> <!-- /control-group -->
+										
+										
+										<div class="control-group">											
+											<label class="control-label" for="company_adress2">Adresse 2 <i>(falcultatif)</i></label>
+											<div class="controls">
+												<input type="text" class="span4" name="company_adress2" value="<?php echo $user->user_company->company_adress2; ?>">
+											</div> <!-- /controls -->				
+										</div> <!-- /control-group -->
+                                        
+                                        <div class="control-group">											
+											<label class="control-label" for="company_town">Ville</label>
+											<div class="controls">
+												<input type="text" class="span4" name="company_town" value="<?php echo $user->user_company->company_town; ?>">
+											</div> <!-- /controls -->				
+										</div> <!-- /control-group -->
+                                        
+                                        <div class="control-group">											
+											<label class="control-label" for="company_zipcode">Code postal</label>
+											<div class="controls">
+												<input type="text" class="span4" name="company_zipcode" value="<?php echo $user->user_company->company_zipcode; ?>">
+											</div> <!-- /controls -->				
+										</div> <!-- /control-group -->
+                                        
+                                        <div class="control-group">											
+											<label class="control-label" for="company_nb_employees">Nombre d'employés</label>
+											<div class="controls">
+												<input type="text" class="span4" name="company_nb_employees" value="<?php echo $user->user_company->company_nb_employees; ?>">
+											</div> <!-- /controls -->				
+										</div> <!-- /control-group -->
+                                        
+                                        
+                                        
+										 <br />
+										
+											<button type="submit" class="btn btn-primary">Modifier</button>
+											
+									</fieldset>
+								</form>
+								</div>
+                                
+                                 <div class="tab-pane <?php if($aff=='rdv'){echo 'active';} ?>" id="rdv">
+							
+								<?php if(count($allappointmentuser)>0){ ?>
+                                    
+                                    <table width="100%" style="margin-top:-25px;"><tr><td>Intitulé rendez-vous</td><td>Début rendez-vous</td><td>Fin rendez-vous</td><td>Webmarketeur</td><td>Statut</td></tr>
+                                    <?php foreach($allappointmentuser as $key=>$value){ ?>
+                                    <tr><td><a href="index.php?aff=rdv&view_user_id=<?php echo $value->appointment_user->user_id; ?>"><?php echo $value->appointment_name; ?></a></td><td><?php echo $value->appointment_start_date; ?></td><td><?php echo $value->appointment_end_date; ?></td><td><?php echo $value->appointment_webmarketter->webmarketter_name.' '.$value->appointment_webmarketter->webmarketter_firstname; ?></td><td>A changer</td></tr>
+                                    <?php } ?>
+                                    
+                                    </table>
+                                    
+                                    <?php }else{echo'Pas de rendez-vous programmés ou réalisés pour cet utilisateur.';} ?>
+								</div>
+                                
+                                
+                                <div class="tab-pane <?php if($aff=='documents'){echo 'active';} ?>" id="doc">
+								
+                                <?php if(count($alldocumentuser)>0){ ?>
+                                    
+                                    <table width="100%" style="margin-top:-25px;"><tr><td>Intitulé document</td><td>Date</td></tr>
+                                    <?php foreach($alldocumentuser as $key=>$value){ ?>
+                                    <tr><td><a href="index.php?aff=documents&view_user_id=<?php echo $value->user_id; ?>"><?php echo $value->document_name; ?></a></td><td><?php echo $value->document_date; ?></td></tr>
+                                    <?php } ?>
+                                    
+                                    </table>
+                                    
+                                    <?php }else{echo'Pas de documents téléchargés pour cet utilisateur.';} ?>
+								</div>
+                                
+								
+                                
+                                <div class="tab-pane <?php if($aff=='campagnes'){echo 'active';} ?>" id="campagnes">
+							 	<?php if(count($allcampainuser)>0){ ?>
+                                    
+								 <table width="100%" style="margin-top:-25px;"><tr><td>Intitulé campagne</td><td>Dernière modification</td></tr>
+                                    <?php foreach($allcampainuser as $key=>$value){ ?>
+                                    <tr><td><a href="index.php?aff=campagnes&view_user_id=<?php echo $value->contact_id; ?>"><?php echo $value->campain_name; ?></a></td><td><?php echo $value->campain_date_modif; ?></td></tr>
+                                    <?php } ?>
+                                    
+                                    </table>
+                                    
+                                    <?php }else{echo'Pas de campagnes effectués ou en préparation pour cet utilisateur.';} ?>
+								</div>
+                                
+								
+                                 <div class="tab-pane <?php if($aff=='factures'){echo 'active';} ?>" id="factures">
+							
+								<?php if(count($allfactureuser)>0){ ?>
+                                    
+								 <table width="100%" style="margin-top:-25px;"><tr><td>Intitulé facture</td><td>Date</td></tr>
+                                    <?php foreach($allfactureuser as $key=>$value){ ?>
+                                    <tr><td><a href="index.php?aff=factures&view_user_id=<?php echo $view_user_id; ?>"><?php echo $value->paiement_name; ?></a></td><td><?php echo $value->paiement_date; ?></td></tr>
+                                    <?php } ?>
+                                    
+                                    </table>
+                                    
+                                    <?php }else{echo'Pas de fatures enregistrés pour cet utilisateur.';} ?>
+								</div>
+                                
+                                
+							</div>
+						  
+						  
+						</div>
+						
+						
+						
+						
+						
+					</div> <!-- /widget-content -->
+						
+				</div> <!-- /widget -->
+	      		
+		    </div> <!-- /span12 -->
+            <?php } ?>
+            <!-- fin si user sélectionné -->
+            
 	      	<div class="span12">      		
 	      		
 	      		<div class="widget ">
@@ -39,7 +369,7 @@ $users = $client->get_all_users(); ?>
                                 
                                     <table width="100%" style="margin-top:-25px;"><tr><td>Nom client</td><td>Société</td></tr>
                                     <?php foreach($users["clients"] as $key=>$value){ ?>
-                                    <tr><td><a href="#"><?php echo $value->user_firstname; ?> <?php echo $value->user_name; ?></a></td><td><a href="#"><?php echo $value->user_company->company_name; ?></a></td></tr>
+                                    <tr><td><a href="index.php?aff=clients&view_user_id=<?php echo $value->user_id; ?>"><?php echo $value->user_firstname; ?> <?php echo $value->user_name; ?></a></td><td><a href="#"><?php echo $value->user_company->company_name; ?></a></td></tr>
                                     <?php } ?>
                                     
                                     </table>
@@ -52,7 +382,7 @@ $users = $client->get_all_users(); ?>
                                     
                                     <table width="100%" style="margin-top:-25px;"><tr><td>Nom client</td><td>Société</td></tr>
                                     <?php foreach($users["prospects"] as $key=>$value){ ?>
-                                    <tr><td><a href="#"><?php echo $value->user_firstname; ?> <?php echo $value->user_name; ?></a></td><td><a href="#"><?php echo $value->user_company->company_name; ?></a></td></tr>
+                                    <tr><td><a href="index.php?aff=prospects&view_user_id=<?php echo $value->user_id; ?>"><?php echo $value->user_firstname; ?> <?php echo $value->user_name; ?></a></td><td><a href="#"><?php echo $value->user_company->company_name; ?></a></td></tr>
                                     <?php } ?>
                                     
                                     </table>
@@ -67,7 +397,7 @@ $users = $client->get_all_users(); ?>
                                     
                                     <table width="100%" style="margin-top:-25px;"><tr><td>Nom client</td></tr>
                                     <?php foreach($users["visiteurs"] as $key=>$value){ ?>
-                                    <tr><td><a href="#"><?php echo $value->user_firstname; ?> <?php echo $value->user_name; ?></a></td></tr>
+                                    <tr><td><a href="index.php?aff=visiteurs&view_user_id=<?php echo $value->user_id; ?>"><?php echo $value->user_firstname; ?> <?php echo $value->user_name; ?></a></td></tr>
                                     <?php } ?>
                                     
                                     </table>
@@ -81,61 +411,61 @@ $users = $client->get_all_users(); ?>
 									<fieldset>
 										
 										<div class="control-group">											
-											<label class="control-label" for="campany_name">Nom</label>
+											<label class="control-label" for="company_name">Nom</label>
 											<div class="controls">
-												<input type="text" class="span4" id="campany_name" value="">
+												<input type="text" class="span4" id="company_name" value="">
 											</div> <!-- /controls -->				
 										</div> <!-- /control-group -->
 										
 										
 										<div class="control-group">											
-											<label class="control-label" for="campany_siret">Siret</label>
+											<label class="control-label" for="company_siret">Siret</label>
 											<div class="controls">
-												<input type="text" class="span4" id="campany_siret" value="">
+												<input type="text" class="span4" id="company_siret" value="">
 											</div> <!-- /controls -->				
 										</div> <!-- /control-group -->
 										
 										
 										<div class="control-group">											
-											<label class="control-label" for="campany_siren">Siren</label>
+											<label class="control-label" for="company_siren">Siren</label>
 											<div class="controls">
-												<input type="text" class="span4" id="campany_siren" value="">
+												<input type="text" class="span4" id="company_siren" value="">
 											</div> <!-- /controls -->				
 										</div> <!-- /control-group -->
 										
                                         <div class="control-group">											
-											<label class="control-label" for="campany_adress">Adresse</label>
+											<label class="control-label" for="company_adress">Adresse</label>
 											<div class="controls">
-												<input type="text" class="span4" id="campany_adress" value="">
+												<input type="text" class="span4" id="company_adress" value="">
 											</div> <!-- /controls -->				
 										</div> <!-- /control-group -->
 										
 										
 										<div class="control-group">											
-											<label class="control-label" for="campany_adress2">Adresse 2 <i>(falcultatif)</i></label>
+											<label class="control-label" for="company_adress2">Adresse 2 <i>(falcultatif)</i></label>
 											<div class="controls">
-												<input type="text" class="span4" id="campany_adress2" value="">
+												<input type="text" class="span4" id="company_adress2" value="">
 											</div> <!-- /controls -->				
 										</div> <!-- /control-group -->
                                         
                                         <div class="control-group">											
-											<label class="control-label" for="campany_town">Ville</label>
+											<label class="control-label" for="company_town">Ville</label>
 											<div class="controls">
-												<input type="text" class="span4" id="campany_town" value="">
+												<input type="text" class="span4" id="company_town" value="">
 											</div> <!-- /controls -->				
 										</div> <!-- /control-group -->
                                         
                                         <div class="control-group">											
-											<label class="control-label" for="campany_zipcode">Code postal</label>
+											<label class="control-label" for="company_zipcode">Code postal</label>
 											<div class="controls">
-												<input type="text" class="span4" id="campany_zipcode" value="">
+												<input type="text" class="span4" id="company_zipcode" value="">
 											</div> <!-- /controls -->				
 										</div> <!-- /control-group -->
                                         
                                         <div class="control-group">											
-											<label class="control-label" for="campany_nb_employees">Nombre d'employés</label>
+											<label class="control-label" for="company_nb_employees">Nombre d'employés</label>
 											<div class="controls">
-												<input type="text" class="span4" id="campany_nb_employees" value="">
+												<input type="text" class="span4" id="company_nb_employees" value="">
 											</div> <!-- /controls -->				
 										</div> <!-- /control-group -->
                                         

@@ -1,6 +1,10 @@
 <?php
+    if(!($_SERVER['SERVER_NAME']=="127.0.0.1" || $_SERVER['SERVER_NAME']=="localhost")){
+        session_set_cookie_params(0, '/', preg_replace("/([a-z.]*)market3w(.*)/", ".market3w$2", $_SERVER['SERVER_NAME']));
+    }
 	session_start();
-        
+        ini_set('session.gc_maxlifetime', 7200);
+        ini_set('session.cookie_lifetime', 7200);
         $temp = str_replace($_SERVER['DOCUMENT_ROOT'], "", $_SERVER['SCRIPT_FILENAME']);
         $temp = explode("/",$temp);
         if(count($temp)<=1){
@@ -26,8 +30,8 @@
             define("UPLOAD_ROOT", $_SERVER['DOCUMENT_ROOT'].$folder."/intranet/upload/");
 	} else {
             define("WEB_ROOT", "http://".$_SERVER['SERVER_NAME']."/");
-            define("SERVER_ROOT", preg_replace("/([^test]*)market3w(.*)/", "http://api.market3w$2/", $_SERVER['SERVER_NAME']));
-            define("VITRINE_ROOT", preg_replace("/([^test]*)market3w(.*)/", "http://www.market3w$2/", $_SERVER['SERVER_NAME']));
+            define("SERVER_ROOT", preg_replace("/([a-z.]*)market3w(.*)/", "http://api.market3w$2/", $_SERVER['SERVER_NAME']));
+            define("VITRINE_ROOT", preg_replace("/([a-z.]*)market3w(.*)/", "http://www.market3w$2/", $_SERVER['SERVER_NAME']));
             define("UPLOAD_ROOT", $_SERVER['DOCUMENT_ROOT']."upload/");
 	}
 	$currentPage = ("http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME']==WEB_ROOT.'index.php')? WEB_ROOT:"http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'];
@@ -45,11 +49,9 @@
 	
 	if($_SESSION["market3w_user"]!="")
 	{
-		$currentuser = $client->get_currentuser();
+		$res = $client->get_currentuser();
+                $currentuser = $res[0];
 		$currentuser_id = $currentuser->user_id;
 		$currentuser_role_id = $currentuser->user_role->role_id;
 	}
-	else
-	{
-		header("Location: login.php"); 
-	} 
+	 

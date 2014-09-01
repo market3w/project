@@ -1,5 +1,10 @@
 <?php
+    if(!($_SERVER['SERVER_NAME']=="127.0.0.1" || $_SERVER['SERVER_NAME']=="localhost")){
+        session_set_cookie_params(0, '/', preg_replace("/([a-z.]*)market3w(.*)/", ".market3w$2", $_SERVER['SERVER_NAME']));
+    }
 	session_start();
+        ini_set('session.gc_maxlifetime', 7200);
+        ini_set('session.cookie_lifetime', 7200);
 	
 	$_SESSION["market3w_user"] = (array_key_exists("market3w_user",$_SESSION) && $_SESSION["market3w_user"]!="")? $_SESSION["market3w_user"]:"";
 	$_SESSION["errorMessage"]="";
@@ -18,8 +23,8 @@
 		define("INTRANET_ROOT", preg_replace("/siteweb\/([a-zA-Z0-9-_]*).php/", "intranet/", "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME']));
 	} else {
 		define("WEB_ROOT", "http://".$_SERVER['SERVER_NAME']."/");
-		define("SERVER_ROOT", preg_replace("/([^test]*)market3w(.*)/", "http://api.market3w$2/", $_SERVER['SERVER_NAME']));
-		define("INTRANET_ROOT", preg_replace("/([^test]*)market3w(.*)/", "http://intranet.market3w$2/", $_SERVER['SERVER_NAME']));
+		define("SERVER_ROOT", preg_replace("/([a-z.]*)market3w(.*)/", "http://api.market3w$2/", $_SERVER['SERVER_NAME']));
+		define("INTRANET_ROOT", preg_replace("/([a-z.]*)market3w(.*)/", "http://intranet.market3w$2/", $_SERVER['SERVER_NAME']));
 	}
 	$currentPage = ("http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME']==WEB_ROOT.'index.php')? WEB_ROOT:"http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'];
 	define("CURRENT_PAGE",$currentPage);

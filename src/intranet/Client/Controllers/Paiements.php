@@ -7,8 +7,8 @@ class Client_Controllers_Paiements extends Client_Core_Controllers{
 	}
 	
 	public function get_allpaiement($data=""){
-	 
-		$this->parseQueryResult(json_decode($this->_client->query("GET","method=allpaiement")));
+	 $user_id = (empty ($data['user_id']))?null:$data['user_id'];
+		$this->parseQueryResult(json_decode($this->_client->query("GET","method=allpaiement&user_id=".$user_id)));
 		$error = $this->getError();
 		if($error===false){
 			$paiements = $this->getResponse();

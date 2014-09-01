@@ -50,73 +50,7 @@ else
 <!-- Le javascript
 ================================================== --> 
 <!-- Placed at the end of the document so the pages load faster --> 
-<script src="js/jquery-1.7.2.min.js"></script> 
-<script src="js/excanvas.min.js"></script> 
-<script src="js/chart.min.js" type="text/javascript"></script> 
-<script src="js/bootstrap.js"></script>
-<script language="javascript" type="text/javascript" src="js/full-calendar/fullcalendar.js"></script>
-<script language="javascript" type="text/javascript" src="js/full-calendar/actions.js"></script>
- 
-<script src="js/base.js"></script> 
-<script> 
-$(document).ready(function() {
-	var date = new Date();
-	var d = date.getDate();
-	var m = date.getMonth();
-	var y = date.getFullYear();
-	var calendar = $('#calendar').fullCalendar({
-		header: {
-			left: 'prev,next today',
-			center: 'title',
-			right: 'month',
-		},
-		minTime: '09:00:00',
-		maxTime: '19:00:00',
-		allDaySlot: false,
-		weekends: false,
-		selectable: true,
-		selectHelper: true,
-		select: function(start, end, allDay) {
-			if ($('#calendar').fullCalendar('getView').name=="month") {
-				// Clicked on the entire day
-				$('#calendar')
-				.fullCalendar('changeView', 'agendaDay')
-				.fullCalendar('gotoDate',start);
-				$("#calendar .fc-content").css("padding-top","20px");
-			} else {
-				addAppointment(start,end);
-			}
-		},
-		editable: false,
-		// A modifier pour récupérer les infos dynamiquement
-		events: [
-			{
-				id: 5,
-				title: 'Lunch',
-				start: new Date(y, m, d, 12, 0),
-				end: new Date(y, m, d, 14, 0),
-				allDay: false
-			},
-			{
-				id: 9,
-				type: 'unavailable',
-				title: 'Indisponnible',
-				start: new Date(y, m, d, 16, 0),
-				end: new Date(y, m, d, 17, 0),
-				allDay: false
-			},
-			{
-				id: 10,
-				title: 'Vidéoconférence',
-				start: new Date(y, m, 25, 12, 0),
-				end: new Date(y, m, 25, 14, 0),
-				allDay: false
-			}
-		]
-	});
-	
-});
-</script><!-- /Calendar -->
+<?php include('include/end_javascript.php'); ?>
 
  <script type="text/javascript">
 	$(document).ready(function() {
@@ -129,6 +63,14 @@ $(document).ready(function() {
 			});
 
 
+	$(".delete_document").on('click', function(){
+		
+		 var document_id = $(this).attr("document_id");
+				$("#delete_documentForm"+document_id).submit();
+				return false;
+			});
+
+		
 	//Afficher / Cacher bonne div en fonction du type d'article sélectionné
 	
 	
@@ -140,6 +82,8 @@ $(document).ready(function() {
     }); 
   }); 
 });
- </script>  
+ </script>
+ 
+ 
 </body>
 </html>

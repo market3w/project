@@ -9,7 +9,7 @@
 -->
 <html>
 	<head>
-		<title>Inscription | MARKET 3W Agence webmarketing spécialisé en référencement</title>
+		<title>Inscription téléch	rgement | MARKET 3W Agence webmarketing spécialisé en référencement</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="description" content="Inscrivez-vous et bénéficier de nombreux avantages. Contacter nous à travers la vidéo conférence. Télécharger nos pdf explicatifs" />
 		<meta name="keywords" content="Agence Web ; Agence Marketing ; Agence Webmarketing ; Agence de référencement ; Référencement ; Webmarketing ; SMO ; SEO ; SEA ; SEM;"; "devis référencement" />
@@ -26,8 +26,8 @@
 			<article id="main">
 
 				<div style="text-align:center; padding-left:20px; padding-right:20px;">
-					<h2>Inscription</h2>
-					<p>Vous désirez devenir client et ainsi booster votre référencement, inscrivez-vous, cela prend deux minutes.</p>
+					<h2>Inscription téléchargement</h2>
+					<p>Vous désirez télécharger gratuitement nos tutoriels pdf, inscrivez-vous en deux minutes.</p>
 				</div>
 					
 				<!-- One -->
@@ -37,9 +37,9 @@
 							<div class="content">
                            <span class="responseError" id="loginError"><?php echo $_SESSION["errorMessage"]; ?></span>
                    
-								<form action="inscription.php" id="post_userForm" method="post">
+								<form action="inscription_download.php" id="post_userForm" method="post">
                                 
-                                <input type="hidden" name="methode" value="post_user" />
+                                <input type="hidden" name="methode" value="post_userdownload" />
 									<div class="row half no-collapse-1">
 										<div class="6u">
 											<input type="text" name="user_name" placeholder="Nom" />
@@ -62,38 +62,7 @@
 										</div>
 									</div>
                                     <br/>
-                                    <div class="row half">
-										<div class="12u">
-											<input type="text" name="user_adress" placeholder="Adresse" />
-										</div>
-									</div>
-									<div class="row half">
-										<div class="12u">
-											<input type="text" name="user_adress2" placeholder="Adresse complémentaire" />
-										</div>
-									</div>
-                                    <div class="row half no-collapse-1">
-										<div class="6u">
-											<input type="text" name="user_zipcode" placeholder="Code postal" />
-										</div>
-										<div class="6u">
-											<input type="text" name="user_town" placeholder="Ville" />
-										</div>
-									</div>
-									
-                                    <div class="row half">
-										<div class="6u">
-											<input type="text" name="user_phone" placeholder="Téléphone" />
-										</div>
-                                        <div class="6u">
-											<input type="text" name="user_mobile" placeholder="Portable" />
-										</div>
-									</div>
-                                    <div class="row half">
-										<div class="6u">
-											<input type="text" name="user_function" placeholder="Fonction" />
-										</div>
-                                    </div>
+                                    
                                     <div class="row">
 										<div class="12u">
 											<ul class="buttons">
