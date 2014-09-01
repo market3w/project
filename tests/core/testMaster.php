@@ -11,7 +11,7 @@ class TestMaster extends PHPUnit_Framework_TestCase {
     }
     
     public function class_autoload($class){
-        if($class!="Affiche" && strpos($class, "PHPUnit")===false){
+        if(strpos($class, "PHPUnit")===false){
             require_once BASE_SRC.FOLDER."/".str_replace("_", "/", $class).".php";
         }
     }

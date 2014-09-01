@@ -29,7 +29,7 @@ class AppointmentsTest extends TestMaster {
     }
 
     /**
-     * @covers Affiche::get_allappointment
+     * @covers Application_Controllers_Appointments::get_allappointment
      * @todo   Implement testGet_allappointment().
      */
     public function testGet_allappointment() {
