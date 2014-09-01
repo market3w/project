@@ -41,7 +41,7 @@ $users = $client->get_all_users(); ?>
 	      <div class="row">
            <?php 
 		  //Si option sélectionner et si element sélectionner
-		  if($option!='' && is_numeric($option_id))
+		  if($option!='')
 		  {
 			  //Si c'est une opton de rendez-vous
 			  if($aff=="rdv")
@@ -92,94 +92,113 @@ $users = $client->get_all_users(); ?>
                     </div></div>
 				<?php		
 			  }
-			    elseif($aff=="campagnes")
+			  elseif($aff=="campagnes")
 			  { ?>
 				  <div class="span12">      		
-	      		
-	      		<div class="widget ">
-	      			
-	      			<div class="widget-header">
-	      				<i class="icon-dashboard"></i>
-	      				<h3>Campagne </h3>
-	  				</div> <!-- /widget-header -->
-					
-                    
-					<div class="widget-content">
-                   
-                   <!-- Si on est dans une modification on afficher formulaire-->
-                   <?php if($option=="modifier"){ ?>
-                   <span class="responseError" id="loginError"><?php echo $_SESSION["errorMessage"]; ?></span>
-                  <?php if(isset($_SESSION['method']) && $_SESSION['method']=='put_campain'  && $_SESSION["errorMessage"]==''){echo'modification enregistrée avec succés';} ?>
-					<form class="form-horizontal" action="index.php.?aff=campagnes&view_user_id=<?php echo $view_user_id; ?>&option=modifier&option_id=<?php echo $option_id; ?>" method="post">
-						<fieldset>
-							<input type="hidden" name="method" value="put_campain" />
-                             <input type="hidden" name="campain_id" value="<?php echo $option_id; ?>" />
-                             
-					<?php } ?>				
+                      <div class="widget ">
+                           <div class="widget-header">
+	      						<i class="icon-dashboard"></i>
+	      						<h3>Campagne </h3>
+	  						</div> <!-- /widget-header -->
+                            
+							<div class="widget-content">
+                    			<?php //Si modifier ou voir  campagne
+                                 if($option=="voir" || $option=="modifier"){ ?>
+                                       <!-- Si on est dans une modification on afficher formulaire-->
+                                       <?php if($option=="modifier"){ ?>
+                                           <span class="responseError" id="loginError"><?php echo $_SESSION["errorMessage"]; ?></span>
+                                           <?php if(isset($_SESSION['method']) && $_SESSION['method']=='put_campain'  && $_SESSION["errorMessage"]==''){echo'modification enregistrée avec succés';} ?>
+                                           <form class="form-horizontal" action="index.php.?aff=campagnes&view_user_id=<?php echo $view_user_id; ?>&option=modifier&option_id=<?php echo $option_id; ?>" method="post">
+                                               <fieldset>
+                                                   <input type="hidden" name="method" value="put_campain" />
+                                                   <input type="hidden" name="campain_id" value="<?php echo $option_id; ?>" />
+                                       <?php } ?>				
+                                                                
+                                       <table width="100%" cellpadding="5" cellspacing="5">
+                                            <tr><td width="30%"><b>Nom campagne</b></td>
+                                            <td> <?php if($option=="modifier")
+                                            { ?>
+                                                 <input type="text" class="span4" name="campain_name" value="<?php echo $campagneselectuser[0]->campain_name; ?>">
+                                               <?php					
+                                            }
+                                            else
+                                            {
+                                                echo  $campagneselectuser[0]->campain_name;
+                                            } ?></td></tr>
+                                            
+                                            <tr><td><b>Courte description :</b></td>
+                                            <td> 
+                                             <?php if($option=="modifier")
+                                            { ?>
+                                                 <textarea class="span8" name="campain_courte_description" style="min-height:60px;"><?php echo $campagneselectuser[0]->campain_courte_description.'!'; ?></textarea>
+                                               <?php					
+                                            }
+                                            else
+                                            {
+                                                echo  $campagneselectuser[0]->campain_courte_description.'!';;
+                                            } ?>
+                                            </td></tr>
+                                            <tr><td><b>Description :</b></td><td>
+                                            <?php if($option=="modifier")
+                                            { ?>
+                                                 <textarea class="span8" name="campain_description" style="min-height:120px;"><?php echo $campagneselectuser[0]->campain_description.''; ?></textarea>
+                                               <?php					
+                                            }
+                                            else
+                                            {
+                                                echo  $campagneselectuser[0]->campain_description;;
+                                            } ?>
+                                            </td></tr>
+                                           <tr><td><b>Complément d'informations :</b></td><td>
+                                           <?php if($option=="modifier")
+                                            { ?>
+                                                <textarea class="span8" name="campain_completion" style="min-height:60px;"><?php echo $campagneselectuser[0]->campain_completion; ?></textarea>
+                                               <?php					
+                                            }
+                                            else
+                                            {
+                                                echo  $campagneselectuser[0]->campain_completion.'!';;
+                                            } ?>
+                                            </td></tr>
+                                            <tr><td><b>Webmarketeur :</b></td><td> <?php echo $campagneselectuser[0]->campain_webmarketter->webmarketter_name.' '. $campagneselectuser[0]->campain_webmarketter->webmarketter_firstname; ?></td></tr>
+                                            <tr><td><b>Date de création : </b></td><td> <?php echo $campagneselectuser[0]->campain_date; ?></td></tr>
+                                            <tr><td><b>Dernière modification : </b></td><td> <?php echo $campagneselectuser[0]->campain_date_modif; ?></td></tr>
+                                         </table>
+                                         
+                                         <?php if($option=="modifier"){ ?>
+                                            <br/> <center><input type="submit" class="btn" value="Modifier" /></center>
+                                            </fieldset>
+                                            </form>
+                                        <?php }
 										
-                    <table width="100%" cellpadding="5" cellspacing="5">
-                    <tr><td width="30%"><b>Nom campagne</b></td>
-                    <td> <?php if($option=="modifier")
-					{ ?>
-						 <input type="text" class="span4" name="campain_name" value="<?php echo $campagneselectuser[0]->campain_name; ?>">
-                       <?php					
-					}
-					else
-					{
-						echo  $campagneselectuser[0]->campain_name.'!';;
-					} ?></td></tr>
-                    
-                    <tr><td><b>Courte description :</b></td>
-                    <td> 
-                     <?php if($option=="modifier")
-					{ ?>
-						 <textarea class="span8" name="campain_courte_description" style="min-height:60px;"><?php echo $campagneselectuser[0]->campain_courte_description.'!'; ?></textarea>
-                       <?php					
-					}
-					else
-					{
-						echo  $campagneselectuser[0]->campain_courte_description.'!';;
-					} ?>
-                    </td></tr>
-                    <tr><td><b>Description :</b></td><td>
-                    <?php if($option=="modifier")
-					{ ?>
-						 <textarea class="span8" name="campain_description" style="min-height:120px;"><?php echo $campagneselectuser[0]->campain_description.''; ?></textarea>
-                       <?php					
-					}
-					else
-					{
-						echo  $campagneselectuser[0]->campain_description;;
-					} ?>
-                    </td></tr>
-                   <tr><td><b>Complément d'informations :</b></td><td>
-                   <?php if($option=="modifier")
-					{ ?>
-						<textarea class="span8" name="campain_completion" style="min-height:60px;"><?php echo $campagneselectuser[0]->campain_completion; ?></textarea>
-                       <?php					
-					}
-					else
-					{
-						echo  $campagneselectuser[0]->campain_completion.'!';;
-					} ?>
-                    </td></tr>
-                    <tr><td><b>Webmarketeur :</b></td><td> <?php echo $campagneselectuser[0]->campain_webmarketter->webmarketter_name.' '. $campagneselectuser[0]->campain_webmarketter->webmarketter_firstname; ?></td></tr>
-                    <tr><td><b>Date de création : </b></td><td> <?php echo $campagneselectuser[0]->campain_date; ?></td></tr>
-                    <tr><td><b>Dernière modification : </b></td><td> <?php echo $campagneselectuser[0]->campain_date_modif; ?></td></tr>
-                     </table>
-                     <?php if($option=="modifier"){ ?>
-                    <br/> <center><input type="submit" class="btn" value="Modifier" /></center>
-                  	</fieldset>
-                    </form>
-                    <?php }
-					else
-					{
-						echo' <a href="index.php.?aff='.$aff.'&view_user_id='.$user->user_id.'&option=modifier&option_id='.$option_id.'">Modifier</a>'; 
-					}
-                    ?>
-                    </div>
-                    </div></div>
-				<?php		
+                                        else
+                                        {
+                                            echo' <a href="index.php.?aff='.$aff.'&view_user_id='.$user->user_id.'&option=modifier&option_id='.$option_id.'">Modifier</a>'; 
+                                        }
+                                   }
+                                   elseif($option=="ajouter")
+                                   {?>
+                                   <span class="responseError" id="loginError"><?php echo $_SESSION["errorMessage"]; ?></span>
+                                    <?php if(isset($_SESSION['method']) && $_SESSION['method']=='post_campain'  && $_SESSION["errorMessage"]==''){echo'Ajout campagne enregistrée avec succés';} ?>
+                                           
+                                      <form class="form-horizontal" action="index.php.?aff=campagnes&view_user_id=<?php echo $view_user_id; ?>&option=ajouter" method="post">
+                                            <fieldset>
+                                            <input type="hidden" name="method" value="post_campain" />
+                                            <input type="hidden" name="user_id" value="<?php echo $view_user_id; ?>" />
+                                                <table width="100%" cellpadding="5" cellspacing="5">
+                                                     <tr><td width="30%"><b>Nom campagne</b></td><td><input type="text" class="span4" name="campain_name" value=""></td></tr>
+                                                     <tr><td><b>Courte description :</b></td><td> <textarea class="span8" name="campain_courte_description" style="min-height:60px;"></textarea></td></tr>
+                                                     <tr><td><b>Description :</b></td><td><textarea class="span8" name="campain_description" style="min-height:120px;"></textarea></td></tr>
+                                                     <tr><td><b>Complément d'informations :</b></td><td><textarea class="span8" name="campain_completion" style="min-height:60px;"></textarea></td></tr>
+                                                 </table>
+                                            	<br/> <center><input type="submit" class="btn" value="Ajouter" /></center>
+                                            </fieldset>
+                                        </form>
+                                    <?php }?>
+                               </div>
+                        </div>
+                  </div>
+              <?php		
 			  }
 			    elseif($aff=="factures")
 			  { ?>
@@ -478,7 +497,7 @@ $users = $client->get_all_users(); ?>
                                 
                                 <div class="tab-pane <?php if($aff=='campagnes'){echo 'active';} ?>" id="campagnes">
 							 	<?php if(count($allcampainuser)>0){ ?>
-                                    
+                                  <div style="clear:both;">  <a href="index.php?aff=campagnes&view_user_id=<?php echo $view_user_id; ?>&option=ajouter" style="float:right;">+ Ajouter une nouvelle campagne</a></div>
 								 <table width="100%" style="margin-top:-25px;"><tr><td>Intitulé campagne</td><td>Dernière modification</td></tr>
                                     <?php foreach($allcampainuser as $key=>$value){ ?>
                                     <tr><td><a href="index.php?aff=campagnes&view_user_id=<?php echo $value->contact_id; ?>&option=voir&option_id=<?php echo $value->campain_id; ?>"><?php echo $value->campain_name; ?></a></td><td><?php echo $value->campain_date_modif; ?></td></tr>

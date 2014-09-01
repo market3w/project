@@ -288,8 +288,8 @@ class Application_Controllers_Campains extends Library_Core_Controllers{
      * @return object
      */
     public function post_campain($data){
-        $user_id = ($_SESSION['market3w_user_id']==-1)?null:$_SESSION['market3w_user_id'];
-        if($user_id==null){return $this->setApiResult(false, true, 'you are not logged');}
+        $user_id_connecte = ($_SESSION['market3w_user_id']==-1)?null:$_SESSION['market3w_user_id'];
+        if($user_id_connecte==null){return $this->setApiResult(false, true, 'you are not logged');}
 
         $role = new Application_Controllers_Roles();
         $role_res = $role->get_currentrole();
@@ -298,33 +298,27 @@ class Application_Controllers_Campains extends Library_Core_Controllers{
         //Si c'est un administrateur ou un webmarketteur il peut publier une campagne pour société
         if($role_id==1 || $role_id==2)
         {
-            $campain_name = (empty ($data['campain_name']))?null:$data['campain_name'];
+            $user_id = (empty ($data['user_id']))?null:$data['user_id'];
+		    $campain_name = (empty ($data['campain_name']))?null:$data['campain_name'];
+			$campain_courte_description = (empty ($data['campain_courte_description']))?null:$data['campain_courte_description'];
             $campain_description = (empty ($data['campain_description']))?null:$data['campain_description'];
-            $campain_prix = (empty ($data['campain_prix']))?null:$data['campain_prix'];
-            $company_id = (empty ($data['company_id']))?null:$data['company_id'];
-            $webmarketter_id = $user_id;
             $campain_completion = (empty ($data['campain_completion']))?null:$data['campain_completion'];
 
-            // Tests des variables
-
-            if($campain_name==null){return $this->setApiResult(false, true, 'param \'campain_name\' undefined');}
+			// Tests des variables
+			if($user_id==null){return $this->setApiResult(false, true, 'param \'user_id\' undefined');}
+			if(!is_numeric($user_id)){return $this->setApiResult(false, true, 'param \'user_id\' undefined');}
+			if($campain_name==null){return $this->setApiResult(false, true, 'param \'campain_name\' undefined');}
+			if($campain_courte_description==null){return $this->setApiResult(false, true, 'param \'campain_courte_description\' undefined');}
             if($campain_description==null){return $this->setApiResult(false, true, 'param \'campain_description\' undefined');}
-            if($campain_prix==null){return $this->setApiResult(false, true, 'param \'campain_prix\' undefined');}
-            if(!is_numeric($campain_prix)){return $this->setApiResult(false, true, 'param \'campain_prix\' must be numeric');}
-            if($company_id==null){return $this->setApiResult(false, true, 'param \'company_id\' undefined');}
-            if(!is_numeric($company_id)){return $this->setApiResult(false, true, 'param \'company_id\' must be numeric');}
-            if($webmarketter_id==null){return $this->setApiResult(false, true, 'param \'webmarketter_id\' undefined');}
-            if(!is_numeric($webmarketter_id)){return $this->setApiResult(false, true, 'param \'webmarketter_id\' must be numeric');}
             if($campain_completion==null){return $this->setApiResult(false, true, 'param \'campain_completion\' undefined');}
 
             // Préparation de la requete
-            $this->table->addNewField("campain_name",$campain_name);
+             $this->table->addNewField("campain_name",$campain_name);
+			$this->table->addNewField("campain_courte_description",$campain_courte_description);
             $this->table->addNewField("campain_description",$campain_description);
-            $this->table->addNewField("campain_prix",$campain_prix);
-            $this->table->addNewField("company_id",$company_id);
-            $this->table->addNewField("webmarketter_id",$webmarketter_id);
             $this->table->addNewField("campain_completion",$campain_completion);
-
+			 $this->table->addNewField("webmarketter_id",$user_id_connecte);
+			 $this->table->addNewField("contact_id",$user_id);
             $insert = $this->table->insert();
             if($insert!="ok"){
                 return $this->setApiResult(false, true, $insert);
@@ -370,11 +364,11 @@ class Application_Controllers_Campains extends Library_Core_Controllers{
 
             // Préparation de la requete
             $this->table->addNewField("campain_name",$campain_name);
-			 $this->table->addNewField("campain_courte_description",$campain_courte_description);
+			$this->table->addNewField("campain_courte_description",$campain_courte_description);
             $this->table->addNewField("campain_description",$campain_description);
             $this->table->addNewField("campain_completion",$campain_completion);
-
-            $this->table->addWhere("campain_id",$campain_id);
+			$this->table->addWhere("campain_id",$campain_id);
+			
             $this->table->update();
 
             return $this->setApiResult(true);

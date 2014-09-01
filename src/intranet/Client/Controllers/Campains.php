@@ -78,5 +78,47 @@ class Client_Controllers_Campains extends Client_Core_Controllers{
             $_SESSION["errorServer"]=$error["errorMessage"];
         }
     }
-	
+	public function post_campain($data){
+		 $user_id = (empty ($data['user_id']))?null:$data['user_id'];
+       $campain_name = (empty ($data['campain_name']))?null:$data['campain_name'];
+		$campain_courte_description = (empty ($data['campain_courte_description']))?null:$data['campain_courte_description'];
+		$campain_description = (empty ($data['campain_description']))?null:$data['campain_description'];
+		$campain_completion = (empty ($data['campain_completion']))?null:$data['campain_completion'];
+
+
+        $this->parseQueryResult(json_decode($this->_client->query("POST","method=campain&user_id=".$user_id."&campain_name=".$campain_name."&campain_description=".$campain_description."&campain_courte_description=".$campain_courte_description."&campain_completion=".$campain_completion)));
+        $error = $this->getError();
+        if($error===false){
+            $response = $this->getResponse();
+        } elseif($error["errorType"]=="API ERROR") {
+            switch($error["errorMessage"]){
+                case "param 'user_id' undefined" :
+                case "param 'user_id' is not numeric" :	   
+                        $_SESSION["errorMessage"] = "Votre requête ne peut aboutir, il y a un problème avec la reconnaissance de l'id de l'utilisateur";
+                        break;
+
+                case "param 'campain_name' undefined" :
+                        $_SESSION["errorMessage"] = "Veuillez renseigner le nom de la campagne";
+                        break;
+
+                case "param 'campain_description' undefined" :
+                        $_SESSION["errorMessage"] = "Veuillez renseigner la description de la campagne";
+                        break;
+						
+				 case "param 'campain_courte_description' undefined" :
+                        $_SESSION["errorMessage"] = "Veuillez renseigner la courte description de la campagne";
+                        break;
+
+                case "param 'campain_completion' undefined" :
+                        $_SESSION["errorMessage"] = "Veuillez renseigner le complément d'informations";
+                        break;
+
+                default :
+                        $_SESSION["errorMessage"] = "Erreur de saisie";
+                        break;				 
+            }
+        } elseif($error["errorType"]=="SERVER ERROR") {
+            $_SESSION["errorServer"]=$error["errorMessage"];
+        }
+    }
 }
