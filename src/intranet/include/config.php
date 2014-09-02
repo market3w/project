@@ -7,11 +7,14 @@
         ini_set('session.cookie_lifetime', 7200);
         $temp = str_replace($_SERVER['DOCUMENT_ROOT'], "", $_SERVER['SCRIPT_FILENAME']);
         $temp = explode("/",$temp);
-        if(count($temp)<=1){
-            $temp = explode("\\",$temp);
+        
+        $folder = null;
+        if(array_key_exists(0, $temp) && $temp[0]!=""){
+            $folder = $temp[0];
+        } elseif(array_key_exists(0, $temp) && array_key_exists(1, $temp) && $temp[0]=="" && $temp[1]!=""){
+            $folder = "/".$temp[1];
         }
-        $folder = (array_key_exists(0, $temp) && $temp[0]!="")?$temp[0]:(array_key_exists(0, $temp) && array_key_exists(1, $temp) && $temp[0]=="" && $temp[1]!="")?"/".$temp[1]:null;
-	
+        
 	$_SESSION["market3w_user"] = (array_key_exists("market3w_user",$_SESSION) && $_SESSION["market3w_user"]!="")? $_SESSION["market3w_user"]:"";
 	$_SESSION["errorMessage"]="";
 	$_SESSION["errorServer"]="";
@@ -27,7 +30,7 @@
             define("WEB_ROOT", preg_replace("/([a-zA-Z0-9-_]*).php/", "", "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME']));
             define("SERVER_ROOT", preg_replace("/intranet\/([a-zA-Z0-9-_]*).php/", "api/", "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME']));
             define("VITRINE_ROOT", preg_replace("/intranet\/([a-zA-Z0-9-_]*).php/", "siteweb/", "http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME']));
-            define("UPLOAD_ROOT", $_SERVER['DOCUMENT_ROOT'].$folder."/intranet/upload/");
+            define("UPLOAD_ROOT", $_SERVER['DOCUMENT_ROOT'].$folder."/src/intranet/upload/");
 	} else {
             define("WEB_ROOT", "http://".$_SERVER['SERVER_NAME']."/");
             define("SERVER_ROOT", preg_replace("/([a-z.]*)market3w(.*)/", "http://api.market3w$2/", $_SERVER['SERVER_NAME']));
@@ -37,7 +40,6 @@
 	$currentPage = ("http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME']==WEB_ROOT.'index.php')? WEB_ROOT:"http://".$_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME'];
 	define("CURRENT_PAGE",$currentPage);
 	
-        //var_dump(UPLOAD_ROOT);die();
 	$client = new Client_Core_Client;
 	
 	$method = (array_key_exists("method",$_POST))? $_POST["method"]:null;

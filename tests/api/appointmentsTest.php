@@ -48,7 +48,7 @@ class AppointmentsTest extends TestMaster {
         $this->assertFalse($res->apiError);
         $this->assertEquals('',$res->apiErrorMessage);
         $this->assertFalse($res->serverError);
-        $this->assertEquals('',$res->apiErrorMessage);
+        $this->assertEquals('',$res->serverErrorMessage);
     }
 
 }
