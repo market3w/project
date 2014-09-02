@@ -119,7 +119,7 @@ $users = $client->get_all_users(); ?>
                                         
 										 <br />
 								
-										<button type="submit" class="btn btn-primary">Télécharger</button>
+										<button type="submit" class="btn">Télécharger</button>
 									</fieldset>
 								</form>
                             <?php } ?>
@@ -414,7 +414,7 @@ $users = $client->get_all_users(); ?>
 										 <br />
 										
 											
-									<button type="submit" class="btn btn-primary">Enregistrer</button> </center>
+									<button type="submit" class="btn">Enregistrer</button> </center>
 										
 									</fieldset>
 								</form>
@@ -494,7 +494,7 @@ $users = $client->get_all_users(); ?>
                                         
 										 <br />
 										
-											<button type="submit" class="btn btn-primary">Modifier</button>
+											<button type="submit" class="btn">Modifier</button>
 											
 									</fieldset>
 								</form>
@@ -714,7 +714,7 @@ $users = $client->get_all_users(); ?>
 										 <br />
 										
 										<div class="form-actions">
-											<center><button type="submit" class="btn btn-primary">Ajouter</button> </center>
+											<center><button type="submit" class="btn">Ajouter</button> </center>
 											<!--<button class="btn">Cancel</button>-->
 										</div> <!-- /form-actions -->
 									</fieldset>
