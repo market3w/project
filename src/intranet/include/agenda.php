@@ -13,8 +13,6 @@ $appointments = $client->get_allappointment();
     </div>
     <!-- /widget-content --> 
 </div>
-<script language="javascript" type="text/javascript" src="js/full-calendar/fullcalendar.js"></script>
-<script language="javascript" type="text/javascript" src="js/full-calendar/actions.js"></script>
 <script> 
 $(document).ready(function() {
     var date = new Date();
@@ -66,6 +64,8 @@ $(document).ready(function() {
                 description: '<?php echo $appointment->appointment_description; ?>',
                 start: new Date(<?php echo $startDate; ?>),
                 end: new Date(<?php echo $endDate; ?>),
+                user_id: '<?php echo $appointment->appointment_user->user_id; ?>',
+                webmarketter_id: '<?php echo $appointment->appointment_webmarketter->webmarketter_id; ?>',
                 <?php if(isset($appointment->type)){ ?>type: '<?php echo $appointment->type; ?>',<?php } ?>
                 allDay: false
             }
@@ -75,3 +75,5 @@ $(document).ready(function() {
 	
 });
 </script><!-- /Calendar -->
+<script language="javascript" type="text/javascript" src="js/full-calendar/fullcalendar.js"></script>
+<script language="javascript" type="text/javascript" src="js/full-calendar/actions.js"></script>

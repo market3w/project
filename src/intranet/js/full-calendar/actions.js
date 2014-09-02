@@ -27,7 +27,7 @@ function editAppointment(id){
 	var endDate = endTemp[2]+"/"+getMonthNumber(endTemp[1])+"/"+endTemp[3];
 	var endHour = endTemp[4];
 	
-	alert("titre : " + appointment.title + "\n" + "debut : " + startDate + " " + startHour + "\n" + "fin : " + endDate + " " + endHour);
+	alert("id : " + appointment.id + "\n" + "titre : " + appointment.title + "\n" + "description : " + appointment.description + "\n" + "debut : " + startDate + " " + startHour + "\n" + "fin : " + endDate + " " + endHour + "\n" + "user_id : " + appointment.user_id + "\n" + "webmarketter_id : " + appointment.webmarketter_id);
 	location.reload();
 }(jQuery)
 
