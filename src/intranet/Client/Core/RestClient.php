@@ -72,7 +72,6 @@ class Client_Core_RestClient{
         }
         $token = (array_key_exists("market3w_api_token",$_SESSION))?$_SESSION["market3w_api_token"]:null;
         $this->requestBody = $request."&session_token=".$token;
-        //var_dump($this->requestBody);die();
         
         $ch = curl_init($this->requestUrl);
         

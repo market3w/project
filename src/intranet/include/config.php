@@ -16,10 +16,11 @@
         }
         
 	$_SESSION["market3w_user"] = (array_key_exists("market3w_user",$_SESSION) && $_SESSION["market3w_user"]!="")? $_SESSION["market3w_user"]:"";
-	$_SESSION["errorMessage"]="";
+	$_SESSION["validMessage"]="";
+        $_SESSION["errorMessage"]="";
 	$_SESSION["errorServer"]="";
 	$_SESSION["method"]="";
-
+        
 	function class_autoload($class){
 		require_once(preg_replace("/([a-zA-Z0-9-_]*).php/", str_replace("_", "/", $class).".php", $_SERVER['SCRIPT_FILENAME']));
 	}

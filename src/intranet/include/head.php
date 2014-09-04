@@ -14,23 +14,5 @@
 <script src="js/chart.min.js" type="text/javascript"></script> 
 <script src="js/bootstrap.js"></script>
  
-<script src="js/base.js"></script>    
-<script type="text/javascript">
- $(document).ready(function() {
-	
-	//Clic rdv ouvre popup
-	 $(".clic_rdv").on('click', function(){
-        $(".fermer_pop_up").fadeIn(500);
-        $(".popup_rdv").fadeIn(500);
-        return false;
-	});
-	
-	//FERMER POPUP CLIC RDV
-	 $(".fermer_pop_up").on('click', function(){
-		$(".fermer_pop_up").fadeOut(500);
-		$(".popup_rdv").fadeOut(500);
-		
-	});
- });
-</script>	
+<script src="js/base.js"></script>    	
 </head>

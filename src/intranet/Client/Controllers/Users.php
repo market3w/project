@@ -121,14 +121,26 @@ class Client_Controllers_Users extends Client_Core_Controllers{
         return array();
     }
 	
-	 public function get_user($data){
+    public function get_user($data){
         /* Recupérer les pdf */
-		$user_id = (empty ($data['user_id']))?null:$data['user_id'];
+        $user_id = (empty ($data['user_id']))?null:$data['user_id'];
         $this->parseQueryResult(json_decode($this->_client->query("GET","method=user&user_id=".$user_id)));
         $error = $this->getError();
         if($error===false){
             $user = $this->getResponse();
             return $user[0];
+        }		
+        return array();
+    }
+    
+    public function get_alluserbywebmarketter($data="") {
+        /* Recupérer les pdf */
+        $webmarketter_id = (empty ($data['webmarketter_id']))?null:$data['webmarketter_id'];
+        $webmarketter = (is_null($webmarketter_id))?"":"&webmarketter_id=".$webmarketter_id;
+        $this->parseQueryResult(json_decode($this->_client->query("GET","method=alluserbywebmarketter".$webmarketter)));
+        $error = $this->getError();
+        if($error===false){
+            return $this->getResponse();
         }		
         return array();
     }

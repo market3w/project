@@ -244,6 +244,55 @@ class Application_Controllers_Users extends Library_Core_Controllers{
         }
         return $this->setApiResult($tab);
     }
+    
+    public function get_alluserbywebmarketter($data){
+
+        //------------- Test existance en base --------------------------------------------//
+        $exist_user = $this->get_currentuser();
+        if($exist_user->apiError==true){ return $this->setApiResult(false,true,'You are not logged'); }
+		 
+        $role = new Application_Controllers_Roles();
+        $role_res = $role->get_currentrole();
+        $role_current_id = (int)$role_res->response[0]->role_id;
+        
+        if($role_current_id>2){
+            return $this->setApiResult(false,true,'You can\'t list the users who are attached to this webmarketer');
+        } elseif($role_current_id==2){
+            $webmarketter_id = $_SESSION['market3w_user_id'];
+        } else {
+            $webmarketter_id = (empty($data["webmarketter_id"]))?null:$data["webmarketter_id"];
+        }
+        
+        $this->table->resetObject();
+        
+        if($webmarketter_id==null){return $this->setApiResult(false, true, 'param \'webmarketter_id\' undefined');}
+        if(!is_numeric($webmarketter_id)){return $this->setApiResult(false, true, 'param \'webmarketter_id\' is not numeric');}
+        $this->table->addJoin("roles","r","role_id","role_id");
+        $this->table->addJoin("companies","c","company_id","company_id","","left");
+        $this->table->addWhere("role_id",4,"","","","(");
+        $this->table->addWhere("role_id",5,"","","or",")");
+        $this->table->addWhere("webmarketter_id",$webmarketter_id);
+        $res = (array)$this->table->search();
+        $tab = array();
+        if(!array_key_exists(0,$res)){
+            return $this->setApiResult(false, true, ' no users found in this category');
+        }
+        foreach($res as $k=>$v){
+            foreach($v as $k2=>$v2){
+                if(!(strpos($k2,"role")===false)){
+                    $tab[$k]['user_role'][$k2]=$v2;
+                } elseif(!(strpos($k2,"company")===false)){
+                    $tab[$k]['user_company'][$k2]=$v2;
+                } else {
+                    $tab[$k][$k2] = $v2;
+                }
+            }
+            if($tab[$k]['user_company']['company_id']!=null){
+                $tab[$k]['user_company']['company_url']=API_ROOT."?method=company&company_id=".(int)$tab[$k]['user_company']['company_id'];
+            }
+        }
+        return $this->setApiResult($tab);
+    }
 	
     /**
      * Récupère tous les utilisateurs dont le nom ou le prenom est en partie trouvé en base de données (3 caractères minimum)

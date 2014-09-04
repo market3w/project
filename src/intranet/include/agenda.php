@@ -5,6 +5,9 @@ $appointments = $client->get_allappointment();
 <div class="widget widget-nopad">
     <div class="widget-header"> <i class="icon-list-alt"></i>
         <h3><?php echo $agenda_titre; ?></h3>
+        <?php if($_SESSION["validMessage"]!=""){ ?>
+        <span style="color: #218c0c;"><b><?php echo $_SESSION["validMessage"]; ?></b></span>
+        <?php } ?>
     </div>
     <!-- /widget-header -->
     <div class="widget-content">
@@ -60,13 +63,15 @@ $(document).ready(function() {
             ?>
             {
                 id: <?php echo $appointment->appointment_id; ?>,
-                title: '<?php echo $appointment->appointment_name; ?>',
-                description: '<?php echo $appointment->appointment_description; ?>',
+                title: "<?php echo $appointment->appointment_name; ?>",
+                description: "<?php echo $appointment->appointment_description; ?>",
                 start: new Date(<?php echo $startDate; ?>),
                 end: new Date(<?php echo $endDate; ?>),
-                user_id: '<?php echo $appointment->appointment_user->user_id; ?>',
-                webmarketter_id: '<?php echo $appointment->appointment_webmarketter->webmarketter_id; ?>',
-                <?php if(isset($appointment->type)){ ?>type: '<?php echo $appointment->type; ?>',<?php } ?>
+                user_id: "<?php echo $appointment->appointment_user->user_id; ?>",
+                webmarketter_id: "<?php echo $appointment->appointment_webmarketter->webmarketter_id; ?>",
+                mode_id: "<?php echo $appointment->type_id; ?>",
+                status_id: "<?php echo $appointment->status_id; ?>",
+                <?php if(isset($appointment->type)){ ?>type: "<?php echo $appointment->type; ?>",<?php } ?>
                 allDay: false
             }
             <?php } ?>
@@ -77,3 +82,18 @@ $(document).ready(function() {
 </script><!-- /Calendar -->
 <script language="javascript" type="text/javascript" src="js/full-calendar/fullcalendar.js"></script>
 <script language="javascript" type="text/javascript" src="js/full-calendar/actions.js"></script>
+<?php if($_SESSION["errorMessage"]!=""){ ?>
+<script>
+    $(document).ready(function(){
+        <?php if($_SESSION["method"]=="add_appointment") { ?>
+        $("#add-appointment").show();
+        $("#edit-appointment").hide();
+        <?php } else { ?>
+        $("#edit-appointment").show();
+        $("#add-appointment").hide();
+        <?php } ?>
+        $(".fermer_pop_up").fadeIn(500);
+        $(".popup_rdv").fadeIn(500);
+    });
+</script>
+<?php } ?>

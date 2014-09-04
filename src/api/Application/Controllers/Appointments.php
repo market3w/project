@@ -27,7 +27,8 @@ class Application_Controllers_Appointments extends Library_Core_Controllers{
                                         'appointment_start_date',
                                         'appointment_end_date',
                                         'appointment_places',
-										'status_id',
+					'status_id',
+					'type_id',
                                         'appointment_active');
 
     /**
@@ -455,6 +456,7 @@ class Application_Controllers_Appointments extends Library_Core_Controllers{
         if($appointment_start_hour==null){return $this->setApiResult(false, true, 'param \'appointment_start_hour\' undefined');}
         if($appointment_end_date==null){return $this->setApiResult(false, true, 'param \'appointment_end_date\' undefined');}
         if($appointment_end_hour==null){return $this->setApiResult(false, true, 'param \'appointment_end_hour\' undefined');}
+        if($type_id==null){return $this->setApiResult(false, true, 'param \'type_id\' undefined');}
         if(!is_numeric($type_id)){return $this->setApiResult(false, true, 'param \'type_id\' is not numeric');}
 		
         $appointment_start_date = explode("/",$appointment_start_date);
