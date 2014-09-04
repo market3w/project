@@ -90,10 +90,17 @@ class Application_Controllers_Appointments extends Library_Core_Controllers{
         return $this->setApiResult($tab);
     }
 	
-    public function get_currentappointment($data=array()){
-        $user_id = ($_SESSION['market3w_user_id']==-1)?null:$_SESSION['market3w_user_id'];
+    public function get_allappointmentcurrent($data=array()){
 		
-        if($user_id==null){return $this->setApiResult(false, true, 'you are not logged');}
+        /* Test si l'utilisateur est connecté */
+        $user = new Application_Controllers_Users();
+        $exist_user = $user->get_currentuser();
+        if($exist_user->apiError==true){ return $this->setApiResult(false,true,'You are not logged'); }
+        
+        $user_id = $exist_user->response["user_id"];
+        $role_id = $exist_user->response["user_role"]["role_id"];
+        $webmarketter_id = $exist_user->response["webmarketter_id"];
+        
         // Selectionner tous les champs de la table appointments
         $this->table->addField("*");
         // Selectionner tous les champs de la table users pour le client
@@ -109,24 +116,33 @@ class Application_Controllers_Appointments extends Library_Core_Controllers{
         $this->table->addJoin("users","u","user_id","user_id","","left");
         $this->table->addJoin("users","w","user_id","webmarketter_id","","left");
         // Condition
-        $this->table->addWhere("user_id",$user_id);
+        $this->table->addWhere("user_id",$user_id,'','','','(');
         $this->table->addWhere("webmarketter_id",$user_id,'','or');
+        $this->table->addWhere("webmarketter_id",$webmarketter_id,'','or','',')');
+        if(!empty($data["appointment_active"])){
+            $this->table->addWhere("appointment_active",$data["appointment_active"]);
+        }
         $res = (array)$this->table->search();
         $tab = array();
         if(!array_key_exists(0,$res)){
             return $this->setApiResult(false, true, 'appointment not found');
         }
-        foreach($res[0] as $k=>$v){
-            if(!(strpos($k,"user")===false)){
-                $tab['appointment_user'][$k]=$v;
-            } elseif(!(strpos($k,"webmarketter")===false)){
-                $tab['appointment_webmarketter'][$k]=$v;
-            } elseif($k=='appointment_token') {
-                if($res[0]->appointment_active==1){
-                    $tab['appointment_url']=RTC_ROOT.'#'.$v;
+        foreach($res as $k=>$v){
+            foreach($v as $k2=>$v2){
+                if(!(strpos($k2,"user")===false)){
+                    $tab[$k]['appointment_user'][$k2]=$v2;
+                } elseif(!(strpos($k2,"webmarketter")===false)){
+                    $tab[$k]['appointment_webmarketter'][$k2]=$v2;
+                } elseif($k2=='appointment_token') {
+                    if($res[$k]->appointment_active==1){
+                        $tab[$k]['appointment_url']=RTC_ROOT.'#'.$v2;
+                    }
+                } elseif(in_array($k2,$this->appointment_vars)) {
+                    $tab[$k][$k2] = $v2;
                 }
-            } elseif(in_array($k,$this->appointment_vars)) {
-                $tab[$k] = $v;
+                if(($role_id==4 || $role_id==5) && $k2=="user_id" && $v2!=$user_id){
+                    $tab[$k]["type"]="unavailable";
+                }
             }
         }
         return $this->setApiResult($tab);

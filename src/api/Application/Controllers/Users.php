@@ -31,7 +31,8 @@ class Application_Controllers_Users extends Library_Core_Controllers{
                                 'user_adress',
                                 'user_adress2',
                                 'user_zipcode',
-                                'user_town');
+                                'user_town',
+                                'webmarketter_id');
 	
     /**
      * Méthode magique __construct()

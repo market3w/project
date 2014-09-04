@@ -21,18 +21,24 @@ class Client_Controllers_Appointments extends Client_Core_Controllers{
         $this->parseQueryResult(json_decode($this->_client->query("GET","method=allappointment")));
         $error = $this->getError();
         if($error===false){
-            $videos = $this->getResponse();
-            return $videos;
+            return $this->getResponse();
         }
     }
 	
-	 public function get_allappointmentuser($data){
-		 $user_id = (empty ($data['user_id']))?null:$data['user_id'];
+    public function get_allappointmentcurrent($data=""){
+        $this->parseQueryResult(json_decode($this->_client->query("GET","method=allappointmentcurrent&appointment_active=1")));
+        $error = $this->getError();
+        if($error===false){
+            return $this->getResponse();
+        }
+    }
+	
+    public function get_allappointmentuser($data){
+        $user_id = (empty ($data['user_id']))?null:$data['user_id'];
         $this->parseQueryResult(json_decode($this->_client->query("GET","method=allappointmentuser&user_id=".$user_id)));
         $error = $this->getError();
         if($error===false){
-            $videos = $this->getResponse();
-            return $videos;
+            return $this->getResponse();
         }
     }
     

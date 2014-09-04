@@ -1,5 +1,5 @@
 <?php
-$appointments = $client->get_allappointment();
+$appointments = $client->get_allappointmentcurrent();
 ?>
 <!-- /widget -->
 <div class="widget widget-nopad">
