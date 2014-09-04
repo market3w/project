@@ -87,6 +87,10 @@ class Client_Controllers_Appointments extends Client_Core_Controllers{
                         $_SESSION["errorMessage"] = "Webmarketeur non trouvé";
                         break;
 
+                case "this is a past date" :
+                        $_SESSION["errorMessage"] = "Cette date est déjà passée";
+                        break;
+
                 case "this time is not available" :
                         $_SESSION["errorMessage"] = "Cette plage horaire n'est pas disponible";
                         break;
@@ -196,6 +200,10 @@ class Client_Controllers_Appointments extends Client_Core_Controllers{
 
                 case "Appointment not found" :
                         $_SESSION["errorMessage"] = "Rendez-vous non trouvé";
+                        break;
+
+                case "this is a past date" :
+                        $_SESSION["errorMessage"] = "Cette date est déjà passée";
                         break;
 
                 case "this time is not available" :

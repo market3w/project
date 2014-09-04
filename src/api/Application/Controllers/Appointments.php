@@ -359,6 +359,9 @@ class Application_Controllers_Appointments extends Library_Core_Controllers{
         $appointment_end_date = $appointment_end_date[2]."-".$appointment_end_date[1]."-".$appointment_end_date[0];
         $start_date = $appointment_start_date." ".$appointment_start_hour;
         $end_date = $appointment_end_date." ".$appointment_end_hour;
+        if($this->isFutureDate($start_date,$end_date)===false){
+            return $this->setApiResult(false,true,'this is a past date');
+        }
         if($this->isValidAppointment($start_date,$end_date,$user_id,$webmarketter_id)===false){
             return $this->setApiResult(false,true,'this time is not available');
         }
@@ -481,6 +484,11 @@ class Application_Controllers_Appointments extends Library_Core_Controllers{
         $appointment_end_date = $appointment_end_date[2]."-".$appointment_end_date[1]."-".$appointment_end_date[0];
         $start_date = $appointment_start_date." ".$appointment_start_hour;
         $end_date = $appointment_end_date." ".$appointment_end_hour;
+        
+        
+        if($this->isFutureDate($start_date,$end_date)===false){
+            return $this->setApiResult(false,true,'this is a past date');
+        }
 
         /* 
             Si les dates n'ont pas changées, mettre à jour le rendez-vous
@@ -501,6 +509,13 @@ class Application_Controllers_Appointments extends Library_Core_Controllers{
                 return $this->setApiResult(false, true, $update);
             }
 
+            $this->table->resetObject();
+        }
+        
+        if($update===false){
+            if($this->isValidAppointment($start_date,$end_date,$user_id,$webmarketter_id)===false){
+                return $this->setApiResult(false,true,'this time is not available');
+            }
             $this->table->resetObject();
         }
 
@@ -687,6 +702,14 @@ class Application_Controllers_Appointments extends Library_Core_Controllers{
             $this->table->resetObject();
         }while($token_valid===false);
         return $random_string;
+    }
+    
+    private function isFutureDate($startDate, $endDate){
+        $date = (string)date("Y-m-d H:i:s");
+        if($date>$startDate || $date>$endDate){
+            return false;
+        }
+        return true;
     }
 	
     private function isValidAppointment($startDate, $endDate, $user_id, $webmarketter_id){
