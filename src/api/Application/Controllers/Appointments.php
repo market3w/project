@@ -500,6 +500,10 @@ class Application_Controllers_Appointments extends Library_Core_Controllers{
             $updateMethod = true;
         } else {
             $updateMethod = false;
+            if($this->isValidAppointment($start_date,$end_date,$user_id,$webmarketter_id)===false){
+                return $this->setApiResult(false,true,'this time is not available');
+            }
+            $this->table->resetObject();
             $this->table->addNewField("status_id",4);
             $this->table->addNewField("appointment_token",null);
             $this->table->addNewField("appointment_active",0);
@@ -509,13 +513,6 @@ class Application_Controllers_Appointments extends Library_Core_Controllers{
                 return $this->setApiResult(false, true, $update);
             }
 
-            $this->table->resetObject();
-        }
-        
-        if($update===false){
-            if($this->isValidAppointment($start_date,$end_date,$user_id,$webmarketter_id)===false){
-                return $this->setApiResult(false,true,'this time is not available');
-            }
             $this->table->resetObject();
         }
 
@@ -718,8 +715,9 @@ class Application_Controllers_Appointments extends Library_Core_Controllers{
         $this->table->addWhere("webmarketter_id",$webmarketter_id,"","","or",")");
         $this->table->addWhere("appointment_start_date",array($startDate,$endDate),"","between","and","(");
         $this->table->addWhere("appointment_end_date",array($startDate,$endDate),"","between","or",")");
-        $this->table->addWhere("appointment_start_date",$startDate,"",">=");
-        $this->table->addWhere("appointment_end_date",$endDate,"","<=");
+        $this->table->addWhere("appointment_start_date",$startDate,"",">=","and","(");
+        $this->table->addWhere("appointment_end_date",$endDate,"","<=","or",")");
+        $this->table->addWhere("appointment_active",1);
         $res = $this->table->search();
         if(array_key_exists(0,$res)){
             return false;
