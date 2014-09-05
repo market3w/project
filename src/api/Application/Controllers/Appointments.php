@@ -284,7 +284,9 @@ class Application_Controllers_Appointments extends Library_Core_Controllers{
         /* Test si l'utilisateur est connecté */
         $user = new Application_Controllers_Users();
         $exist_user = $user->get_currentuser();
-        if($exist_user->apiError==true){ return $this->setApiResult(false,true,'You are not logged'); }
+        if($exist_user->apiError==true){ 
+            return $this->setApiResult(false,true,'You are not logged'); 
+        }
 
         /* Recupération du role */
         $role = new Application_Controllers_Roles();
@@ -324,17 +326,39 @@ class Application_Controllers_Appointments extends Library_Core_Controllers{
         $webmarketter_id = (empty ($data['webmarketter_id']))?$webmarketter_id:$data['webmarketter_id'];
 		
         // Tests des variables
-        if($appointment_name==null){return $this->setApiResult(false, true, 'param \'appointment_name\' undefined');}
-        if($appointment_start_date==null){return $this->setApiResult(false, true, 'param \'appointment_start_date\' undefined');}
-        if($appointment_start_hour==null){return $this->setApiResult(false, true, 'param \'appointment_start_hour\' undefined');}
-        if($appointment_end_date==null){return $this->setApiResult(false, true, 'param \'appointment_end_date\' undefined');}
-        if($appointment_end_hour==null){return $this->setApiResult(false, true, 'param \'appointment_end_hour\' undefined');}
-        if($user_id==null){return $this->setApiResult(false, true, 'param \'user_id\' undefined');}
-        if(!is_numeric($user_id)){return $this->setApiResult(false, true, 'param \'user_id\' is not numeric');}
-        if($webmarketter_id==null){return $this->setApiResult(false, true, 'param \'webmarketter_id\' undefined');}
-        if(!is_numeric($webmarketter_id)){return $this->setApiResult(false, true, 'param \'webmarketter_id\' is not numeric');}
-        if($type_id==null){return $this->setApiResult(false, true, 'param \'type_id\' undefined');}
-        if(!is_numeric($type_id)){return $this->setApiResult(false, true, 'param \'type_id\' is not numeric');}
+        if($appointment_name==null){
+            return $this->setApiResult(false, true, 'param \'appointment_name\' undefined');
+        }
+        if($appointment_start_date==null){
+            return $this->setApiResult(false, true, 'param \'appointment_start_date\' undefined');
+        }
+        if($appointment_start_hour==null){
+            return $this->setApiResult(false, true, 'param \'appointment_start_hour\' undefined');
+        }
+        if($appointment_end_date==null){
+            return $this->setApiResult(false, true, 'param \'appointment_end_date\' undefined');
+        }
+        if($appointment_end_hour==null){
+            return $this->setApiResult(false, true, 'param \'appointment_end_hour\' undefined');
+        }
+        if($user_id==null){
+            return $this->setApiResult(false, true, 'param \'user_id\' undefined');
+        }
+        if(!is_numeric($user_id)){
+            return $this->setApiResult(false, true, 'param \'user_id\' is not numeric');
+        }
+        if($webmarketter_id==null){
+            return $this->setApiResult(false, true, 'param \'webmarketter_id\' undefined');
+        }
+        if(!is_numeric($webmarketter_id)){
+            return $this->setApiResult(false, true, 'param \'webmarketter_id\' is not numeric');
+        }
+        if($type_id==null){
+            return $this->setApiResult(false, true, 'param \'type_id\' undefined');
+        }
+        if(!is_numeric($type_id)){
+            return $this->setApiResult(false, true, 'param \'type_id\' is not numeric');
+        }
         $user->get_table()->resetObject();
         $user_exists = $user->get_user(array("user_id"=>$user_id));
         if(!array_key_exists("user_id",$user_exists->response)){

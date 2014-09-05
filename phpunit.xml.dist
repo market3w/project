@@ -9,7 +9,9 @@
   <testsuites>
     <testsuite name="market3w-test">
       <directory suffix="Test.php">tests/api/</directory>
-      <directory suffix="Test.php">tests/integration/</directory>
+      <directory suffix="Test.php">tests/intranet/</directory>
+      <directory suffix="Test.php">tests/siteweb/</directory>
+      <directory suffix="Test.php">tests/videoconference/</directory>
     </testsuite>
   </testsuites>
 
