@@ -118,6 +118,7 @@ class Application_Controllers_Articles extends Library_Core_Controllers{
      * @return object
      */
     public function get_allarticle($data){
+        $this->table->addOrder("article_date", "desc");
         $res = (array)$this->table->search();
 		
         if(!array_key_exists(0,$res)){
@@ -133,6 +134,7 @@ class Application_Controllers_Articles extends Library_Core_Controllers{
      */
     public function get_allpdf($data){
         $this->table->addWhere("article_type_id","1");
+        $this->table->addOrder("article_date", "desc");
         $res = (array)$this->table->search();
 
         if(!array_key_exists(0,$res)){
@@ -148,6 +150,7 @@ class Application_Controllers_Articles extends Library_Core_Controllers{
      */
     public function get_allvideo($data){
         $this->table->addWhere("article_type_id","2");
+        $this->table->addOrder("article_date", "desc");
         $res = (array)$this->table->search();
 
         if(!array_key_exists(0,$res)){
@@ -163,6 +166,7 @@ class Application_Controllers_Articles extends Library_Core_Controllers{
      */
     public function get_allrss($data){
         $this->table->addWhere("article_type_id","3");
+        $this->table->addOrder("article_date", "desc");
         $res = (array)$this->table->search();
 
         if(!array_key_exists(0,$res)){
