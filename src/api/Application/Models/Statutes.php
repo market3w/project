@@ -12,7 +12,7 @@ class Application_Models_Statutes extends Library_Core_Model{
      * valeur : "appointments"
      * @var string
      */
-    protected $table = "appointments";
+    protected $table = "statutes";
     /**
      * Alias de la table liée
      * valeur : "st"

@@ -361,28 +361,6 @@ class Application_Controllers_Users extends Library_Core_Controllers{
         }
         return $this->setApiResult($res);
     }
-    public function get_post_login($data){
-        // Récupération des paramètres utiles
-        $user_email = (empty ($data['user_email']))?null:$data['user_email'];
-        $user_password = (empty ($data['user_password']))?null:$data['user_password'];
-        // Tests des variables
-        if($user_email==null){return $this->setApiResult(false, true, 'param \'user_email\' undefined');}
-        if($user_password==null){return $this->setApiResult(false, true, 'param \'user_password\' undefined');}
-        // Ajout des champs de recherche
-        $this->table->addWhere("user_email",$user_email);
-        $this->table->addWhere("user_password",md5($user_email.SALT_USER_PWD.$user_password));
-        $this->table->addWhere("user_active",1);
-        $res = (array)$this->table->search();
-        if(empty($res)){
-            return $this->setApiResult(false, true, 'Login incorrect');
-        } else {
-            $session = new Application_Controllers_Sessions();
-            if(is_null($session->new_session($res[0]->user_id))){
-                return $this->setApiResult(false, true, 'An error append curring login');
-            }
-        }
-        return $this->setApiResult($res);
-    }
 	
     /**
      * Déconnexion
