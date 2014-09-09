@@ -9,6 +9,7 @@ $currentuser = $currentuser[0];
 
 <form action="<?php echo WEB_ROOT.'login.php'; ?>" name="deconnexionForm" id="deconnexionForm" method="POST" style="display:none;"><input type="hidden" name="method" value="logout"/></form>
 <body>
+<div class="fermer_pop_up fond_gris"></div>
 <?php
 //affichage d'une alerte en cas d'erreur du serveur
 if($_SESSION["errorServer"]!=""){
@@ -18,11 +19,11 @@ if($_SESSION["errorServer"]!=""){
     </script>
 <?php } ?>
 <!-- popup -->
-<div class="fermer_pop_up" style="position:fixed; cursor:pointer; z-index:13000; display:none; background-color: rgba(0, 0, 0, 0.70); width:100%; height:100%; "></div>
-<div class="popup_rdv" style="position:fixed; overflow:auto; display:none;z-index:14000;background-color:#ffffff; width:80%; max-height:70%; margin-top:5%; margin-left:10%; margin-right:10%;">
-    <div style="background-color:#81B7CF;color:#ffffff; padding:10px; text-align:center; font-size:16px;">Détails du rendez-vous<div style="float:right; cursor:pointer;" class="fermer_pop_up">X</div></div>
+<div class="fermer_pop_up fond_gris"></div>
+<div class="popup_rdv">
+    <div class="titre_popup">Détails du rendez-vous<div style="float:right; cursor:pointer;" class="fermer_pop_up">X</div></div>
     <?php if($_SESSION["errorMessage"]!=""){ ?>
-    <div style="background-color:#e51212;color:#ffffff; padding:3px; text-align:center; font-size:12px;"><b><?php echo $_SESSION["errorMessage"]; ?></b></div>
+    <div class="popup_erreur"><b><?php echo $_SESSION["errorMessage"]; ?></b></div>
     <?php } ?>
     <form id="add-appointment" class="form-horizontal" style="margin:15px 15px 35px;" method="POST">
             <input type="hidden" name="method" value="add_appointment">
@@ -42,7 +43,7 @@ if($_SESSION["errorServer"]!=""){
                 <div class="control-group">											
                     <label class="control-label" for="appointment_description">Description</label>
                     <div class="controls">
-                        <textarea class="span8" name="appointment_description"><?php echo (isset($_POST["appointment_description"]))?$_POST["appointment_description"]:""; ?></textarea>
+                        <textarea class="span6" name="appointment_description"><?php echo (isset($_POST["appointment_description"]))?$_POST["appointment_description"]:""; ?></textarea>
                     </div> <!-- /controls -->				
                 </div> <!-- /control-group -->
 
