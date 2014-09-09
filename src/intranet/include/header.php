@@ -172,8 +172,7 @@ if($_SESSION["errorServer"]!=""){
 </div>
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
-    <div class="container"> <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span
-                    class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span> </a><a class="brand" style="margin-top:-5px;" href="<?php echo VITRINE_ROOT; ?>index.php"><img src="img/logo_mini.png" width="130" /> </a>
+    <div class="container"> <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span> </a><a class="brand" style="margin-top:-5px;" href="<?php echo VITRINE_ROOT; ?>index.php"><img src="img/logo_mini.png" alt="logo market3w" width="130" /> </a>
       <div class="nav-collapse">
         <ul class="nav pull-right">
         

@@ -3,8 +3,8 @@
             
 			
         
-                <div class="logo_tablette" ><div style="background-color:#83BBD3;  border-radius:3px; width:40px; height:40px; padding:5px;margin-top:-10px;cursor:pointer; float:right;" class="btn_connexion"><img src="images/em.png" style="width:30px;" /></div><center><a href="index.php" style="text-decoration:none;"><img src="images/logo_mini.png" width="120" /></a></center></div>
-                <div class="logo_mobile" ><div style="background-color:#83BBD3;  border-radius:3px; margin-right:3px;width:30px; height:30px; padding:5px;margin-top:3px;cursor:pointer; float:right;" class="btn_connexion"><img src="images/em.png" style="width:20px;" /></div><a href="index.php" style="text-decoration:none;"><img src="images/logo_mini.png" width="100" style="margin-left:10px;  margin-bottom:5px; margin-top:8px;"/></a></div>
+                <div class="logo_tablette" ><div style="background-color:#83BBD3;  border-radius:3px; width:40px; height:40px; padding:5px;margin-top:-10px;cursor:pointer; float:right;" class="btn_connexion"><img src="images/em.png" style="width:30px;" alt="espace membre" /></div><center><a href="index.php" style="text-decoration:none;"><img src="images/logo_mini.png" width="120" alt="logo market3w" /></a></center></div>
+                <div class="logo_mobile" ><div style="background-color:#83BBD3;  border-radius:3px; margin-right:3px;width:30px; height:30px; padding:5px;margin-top:3px;cursor:pointer; float:right;" class="btn_connexion"><img alt="espace membre" src="images/em.png" style="width:20px;" /></div><a href="index.php" style="text-decoration:none;"><img alt="logo market3w" src="images/logo_mini.png" width="100" style="margin-left:10px;  margin-bottom:5px; margin-top:8px;"/></a></div>
                  <?php if($_SESSION["market3w_user"]!=""){ ?>
               <div class="em_tablette" statut="ferme" style="">
               <center><b> Bonjour <?php echo $_SESSION["market3w_user"]; ?></b></center>
@@ -13,14 +13,14 @@
                 <?php } ?>
                 <header id="header">
                 <?php if($_SESSION["market3w_user"]!=""){ ?>
-                <div class="espace_membre_pc" style="position:fixed; left:140px; top:14px; font-size:22px; width:auto; color:#ffffff; text-align:center;"><span style="cursor:pointer;"><img src="images/em.png" style="width:18px;margin-top:5px;"/> Bonjour <?php echo $_SESSION["market3w_user"]; ?></span></div>
+                <div class="espace_membre_pc" style="position:fixed; left:140px; top:14px; font-size:22px; width:auto; color:#ffffff; text-align:center;"><span style="cursor:pointer;"><img alt="espace membre" src="images/em.png" style="width:18px;margin-top:5px;"/> Bonjour <?php echo $_SESSION["market3w_user"]; ?></span></div>
                 <div class="clic_espace_membre_pc" style="position:fixed; left:140px; top:14px; font-size:18px; width:auto; color:#ffffff; text-align:center; display:none;"><a href="../intranet/index.php" style="color:#ffffff;">Accéder à votre espace membre</a> | <a href="#" class="deconnexion" style="color:#ffffff;">Se déconnecter</a></div>
                 <form action="<?php echo WEB_ROOT; ?>" name="deconnexionForm" id="deconnexionForm" method="POST">
                     <input type="hidden" name="method" value="logout"/>
                 </form>
                 <?php } ?>
             
-				<h1 id="logo"><a href="index.php"><img src="images/logo_mini.png" style="width:110px;"/></a></h1>
+				<h1 id="logo"><a href="index.php"><img alt="logo market3w" src="images/logo_mini.png" style="width:110px;"/></a></h1>
 				<nav id="nav">
 					<ul>
 						

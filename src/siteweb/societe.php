@@ -147,7 +147,7 @@ Market3w met un point d’honneur à se rendre disponible pour ses clients parto
 Il est difficile de lister nos valeurs et surtout de vous démontrer combien elles font partie intégrante de chacun des projets Market3w avant que vous n’ayez collaboré avec notre équipe, pour autant sachez que nous portons une attention très particulière à respecter les valeurs suivantes :
 <br/><br/>
 
-<img src="images/valeurs.png" width="90%"/>
+<img src="images/valeurs.png" width="90%" alt="valeurs" />
 
 <br/><br/>
 Très orientées service clients, nos équipes ont à cœur de tout mettre en œuvre pour atteindre et dépasser les objectifs définis. Les performances obtenues, la disponibilité, la qualité des échanges offrent à nos clients un niveau de satisfaction élevé.

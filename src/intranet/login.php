@@ -35,7 +35,7 @@
 			</a>
 			
 			<a class="brand" href="<?php echo VITRINE_ROOT; ?>">
-				<img src="img/logo_mini.png" width="130" />			
+				<img src="img/logo_mini.png" alt="logo market3w" width="130" />			
 			</a>		
 			
 			<div class="nav-collapse">

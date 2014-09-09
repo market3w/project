@@ -36,7 +36,7 @@
 				<div class="inner">
 					
 					<header>
-						<h2><img src="images/logo.png" style="margin-top:10px; width:100%;"/></h2>
+						<h2><img src="images/logo.png" alt="logo market3w" style="margin-top:10px; width:100%;"/></h2>
 					</header>
 					<p>Agence <strong>Webmarketing</strong><br />
                     spécialisée en référencement
@@ -106,10 +106,10 @@ Market3W étant spécialisé dans le référencement, nous appliquons toutes les
 						<div class="row">
 							<div class="12u" style="text-align:center;">
 								
-									<a href="prestation.php" ><img src="images/pic01.jpg" style="max-width:200px;" alt="" /></a>
-                                    <a href="prestation.php"><img src="images/pic01.jpg" style="max-width:200px;" alt="" /></a>
-                                    <a href="prestation.php"><img src="images/pic01.jpg" style="max-width:200px;" alt="" /></a>
-                                    <a href="prestation.php"><img src="images/pic01.jpg" style="max-width:200px;" alt="" /></a>
+									<a href="prestation.php" ><img src="images/pic01.jpg" style="max-width:200px;" alt="réalisation nom" /></a>
+                                    <a href="prestation.php"><img src="images/pic01.jpg" style="max-width:200px;" alt="réalisation nom" /></a>
+                                    <a href="prestation.php"><img src="images/pic01.jpg" style="max-width:200px;" alt="réalisation nom" /></a>
+                                    <a href="prestation.php"><img src="images/pic01.jpg" style="max-width:200px;" alt="réalisation nom" /></a>
 									
                                   <div> <a href="prestations.php" class="button" style="margin-top:20px;">Voir nos prestations</a></div>
                                         
