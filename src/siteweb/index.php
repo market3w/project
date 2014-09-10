@@ -9,7 +9,7 @@
 -->
 <html>
 	<head>
-		<title>MARKET 3W | Agende de référencement</title>
+		<title>MARKET 3W | Agence de référencement</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="description" content="Agence Webmarketing spcécialiste en Référencement. Optimisation SEM : SEO / SEA / SMO. A l'écoute de vos projets, Market3w la Nouvelle ère de la relation client 100% connecté." />
 		<meta name="keywords" content="Agence Web ; Agence Marketing ; Agence Webmarketing ; Agence de référencement ; Référencement ; Webmarketing ; SMO ; SEO ; SEA ; SEM ; Référencement seo ; Référencement sea ; Référencement sem ; Référencement réseaux sociaux ; Référencement naturel ; Référencement payant ; Expert en référencement ; Spécialiste en référencement ; Audit référencement ;" />

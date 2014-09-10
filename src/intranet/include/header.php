@@ -125,7 +125,7 @@ if($_SESSION["errorServer"]!=""){
                 <div class="control-group">											
                     <label class="control-label" for="appointment_description">Description</label>
                     <div class="controls">
-                        <textarea class="span8" name="appointment_description"><?php echo (isset($_POST["appointment_description"]))?$_POST["appointment_description"]:""; ?></textarea>
+                        <textarea class="span6" name="appointment_description"><?php echo (isset($_POST["appointment_description"]))?$_POST["appointment_description"]:""; ?></textarea>
                     </div> <!-- /controls -->				
                 </div> <!-- /control-group -->
 
@@ -166,7 +166,7 @@ if($_SESSION["errorServer"]!=""){
                     </div> <!-- /controls -->				
                 </div> <!-- /control-group -->
                 <br />
-                <center><button type="button" id="appointment_edit" class="btn">Modifier le rendez-vous</button><button type="button" class="btn" id="appointment_cancel" style="background-color:#e51212; color: #ffffff; margin-left: 50px;">Annuler le rendez-vous</button><button type="button" id="appointment_valid" class="btn" style="background-color:#218c0c; color: #ffffff; margin-left: 50px;">Le rendez-vous est effectué</button></center>
+                <center><button type="button" id="appointment_edit" class="btn" style="margin-left:50px; margin-top:20px;">Modifier le rendez-vous</button><button type="button" class="btn" id="appointment_cancel" style="background-color:#e51212; color: #ffffff; margin-left: 50px; margin-top:20px;">Annuler le rendez-vous</button><button type="button" id="appointment_valid" class="btn" style="background-color:#218c0c; color: #ffffff; margin-left: 50px; margin-top:20px;">Le rendez-vous est effectué</button></center>
             </fieldset>
         </form>
     </div> 			
