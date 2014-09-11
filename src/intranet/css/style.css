@@ -1189,6 +1189,8 @@ color: #333;
 }
 .fond_gris {
 	position:fixed;
+        top:0;
+        left: 0;
 	cursor:pointer;
 	z-index:13000;
 	display:none;

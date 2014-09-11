@@ -13,6 +13,7 @@ jQuery(document).ready(function(e) {
 		videosContainer.insertBefore(e.mediaElement, videosContainer.firstChild);
 		if(videosContainer.childNodes.length >= 2){
 			jQuery("#waiting").hide();
+                        jQuery(".btn_skype").hide();
 		}
 	};
 
@@ -26,6 +27,7 @@ jQuery(document).ready(function(e) {
 		}, 1000);
 		if(videosContainer.childNodes.length >= 2){
 			jQuery("#waiting").show();
+                        jQuery(".btn_skype").show();
 		}
 	};
 	
@@ -45,7 +47,7 @@ jQuery(document).ready(function(e) {
 	var videosContainer = document.getElementById('videos-container') || document.body;
 	
 	// Attendre 2s pour se synchroniser avec la fonction précédente puis lancer testConnection()
-	window.setTimeout(testConnection,2000)
+	window.setTimeout(testConnection,2000);
 	function testConnection(){
 		// Si nous n'avons pas rejoint une session, on la crée
 		if(connectionMode=='open'){

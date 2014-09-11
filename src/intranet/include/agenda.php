@@ -47,6 +47,7 @@ $(document).ready(function() {
         },
         editable: false,
         // A modifier pour récupérer les infos dynamiquement
+        <?php if(!is_null($appointments)){ ?>
         events: [
             <?php
             $firstAppointment = true;
@@ -76,6 +77,7 @@ $(document).ready(function() {
             }
             <?php } ?>
         ]
+        <?php } ?>
     });
 	
 });
