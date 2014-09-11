@@ -516,9 +516,9 @@ $users = $client->get_all_users(); ?>
                                 
                                 
                                 <div class="tab-pane <?php if($aff=='documents'){echo 'active';} ?>" id="doc">
+                                      <div style="clear:both;">  <a href="index.php?aff=documents&view_user_id=<?php echo $view_user_id; ?>&option=ajouter" style="float:right;">+ Télécharger un nouveau document</a></div>
 								
                                 <?php if(count($alldocumentuser)>0){ ?>
-                                      <div style="clear:both;">  <a href="index.php?aff=documents&view_user_id=<?php echo $view_user_id; ?>&option=ajouter" style="float:right;">+ Télécharger un nouveau document</a></div>
 								
                                     <table width="100%" style="margin-top:-25px;"><tr><td>Intitulé document</td><td>Date</td></tr>
                                     <?php foreach($alldocumentuser as $key=>$value){ ?>
@@ -533,8 +533,8 @@ $users = $client->get_all_users(); ?>
 								
                                 
                                 <div class="tab-pane <?php if($aff=='campagnes'){echo 'active';} ?>" id="campagnes">
-							 	<?php if(count($allcampainuser)>0){ ?>
                                   <div style="clear:both;">  <a href="index.php?aff=campagnes&view_user_id=<?php echo $view_user_id; ?>&option=ajouter" style="float:right;">+ Ajouter une nouvelle campagne</a></div>
+							 	<?php if(count($allcampainuser)>0){ ?>
 								 <table width="100%" style="margin-top:-25px;"><tr><td>Intitulé campagne</td><td>Dernière modification</td></tr>
                                     <?php foreach($allcampainuser as $key=>$value){ ?>
                                     <tr><td><a href="index.php?aff=campagnes&view_user_id=<?php echo $value->contact_id; ?>&option=voir&option_id=<?php echo $value->campain_id; ?>"><?php echo $value->campain_name; ?></a></td><td><?php echo $value->campain_date_modif; ?></td></tr>
@@ -547,6 +547,7 @@ $users = $client->get_all_users(); ?>
                                 
 								
                                  <div class="tab-pane <?php if($aff=='factures'){echo 'active';} ?>" id="factures">
+                                  <div style="clear:both;">  <a href="index.php?aff=factures&view_user_id=<?php echo $view_user_id; ?>&option=ajouter" style="float:right;">+ Ajouter une nouvelle facture</a></div>
 							
 								<?php if(count($allfactureuser)>0){ ?>
                                     
