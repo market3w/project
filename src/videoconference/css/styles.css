@@ -5,6 +5,12 @@ body{
 	margin:0;
 	font-family: 'Lato', sans-serif;
 }
+.btn_skype{
+    position:absolute;
+    bottom:-110px;
+    left:0;
+    z-index: 9999;
+}
 .bouton{
 text-decoration:none;
 background-color:#83BBD3;
@@ -22,6 +28,7 @@ background-color:#73A3B7;
 	height:50px;
 	margin-left:auto;
 	margin-right:auto;
+        position: relative;
 }
 .logo{
 	float:right;

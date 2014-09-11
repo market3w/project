@@ -32,7 +32,6 @@ class Client_Core_Controllers{
      * @param object $result
      */
     public function parseQueryResult($result){
-        //var_dump($result->response);
         $_SESSION["market3w_api_token"]=$result->response[count($result->response)-1]->token;
         unset($result->response[count($result->response)-1]);
         $this->response = $result->response;

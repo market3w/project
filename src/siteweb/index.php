@@ -9,7 +9,7 @@
 -->
 <html>
 	<head>
-		<title>MARKET 3W | Agende de référencement</title>
+		<title>MARKET 3W | Agence de référencement</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="description" content="Agence Webmarketing spcécialiste en Référencement. Optimisation SEM : SEO / SEA / SMO. A l'écoute de vos projets, Market3w la Nouvelle ère de la relation client 100% connecté." />
 		<meta name="keywords" content="Agence Web ; Agence Marketing ; Agence Webmarketing ; Agence de référencement ; Référencement ; Webmarketing ; SMO ; SEO ; SEA ; SEM ; Référencement seo ; Référencement sea ; Référencement sem ; Référencement réseaux sociaux ; Référencement naturel ; Référencement payant ; Expert en référencement ; Spécialiste en référencement ; Audit référencement ;" />
@@ -36,7 +36,7 @@
 				<div class="inner">
 					
 					<header>
-						<h2><img src="images/logo.png" style="margin-top:10px; width:100%;"/></h2>
+						<h2><img src="images/logo.png" alt="logo market3w" style="margin-top:10px; width:100%;"/></h2>
 					</header>
 					<p>Agence <strong>Webmarketing</strong><br />
                     spécialisée en référencement
@@ -106,10 +106,10 @@ Market3W étant spécialisé dans le référencement, nous appliquons toutes les
 						<div class="row">
 							<div class="12u" style="text-align:center;">
 								
-									<a href="prestation.php" ><img src="images/pic01.jpg" style="max-width:200px;" alt="" /></a>
-                                    <a href="prestation.php"><img src="images/pic01.jpg" style="max-width:200px;" alt="" /></a>
-                                    <a href="prestation.php"><img src="images/pic01.jpg" style="max-width:200px;" alt="" /></a>
-                                    <a href="prestation.php"><img src="images/pic01.jpg" style="max-width:200px;" alt="" /></a>
+									<a href="prestation.php" ><img src="images/pic01.jpg" style="max-width:200px;" alt="réalisation nom" /></a>
+                                    <a href="prestation.php"><img src="images/pic01.jpg" style="max-width:200px;" alt="réalisation nom" /></a>
+                                    <a href="prestation.php"><img src="images/pic01.jpg" style="max-width:200px;" alt="réalisation nom" /></a>
+                                    <a href="prestation.php"><img src="images/pic01.jpg" style="max-width:200px;" alt="réalisation nom" /></a>
 									
                                   <div> <a href="prestations.php" class="button" style="margin-top:20px;">Voir nos prestations</a></div>
                                         

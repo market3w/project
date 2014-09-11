@@ -10,16 +10,29 @@
         <script src="js/videoconference/firebase.js"></script>
         <script src="js/videoconference/RTCMultiConnection.js"></script>
         <script src="js/videoconference/videoconference.js"></script>
+        <script type="text/javascript" src="js/skype/skype-ui.js"></script>
     </head>
 
     <body>    
         <input type="hidden" id="conference-name" value="test">
         
-        <div class="menu_top"><img src="images/videoconf.png" class="icone_video_donf" /><img src="images/logo.png" class="logo" /></div>
-        
-       
+        <div class="menu_top">
+            <img src="images/videoconf.png" class="icone_video_donf" alt="vidéo conférence"/>
+            <img src="images/logo.png" class="logo" alt="logo market3w" />
+            <div id="SkypeButton_Call_mon_pseudo_1" class="btn_skype">
+                <script type="text/javascript">
+                    Skype.ui({
+                        "name": "dropdown",
+                        "element": "SkypeButton_Call_mon_pseudo_1",
+                        "participants": ["mon_pseudo"],
+                        "imageSize": 32
+                    });
+                </script>
+            </div>
+        </div>
         <div id="videos-container"></div>
         <span id="waiting">En attente de connexion de votre interlocuteur...</span>
         <div class="footer"><div style="padding-top:15px; text-align:center;"><a href="#" class="bouton">FERMER LA CONVERSATION</a></div></div>
+    	 
     </body>
 </html>

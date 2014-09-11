@@ -124,7 +124,7 @@ $allrss = $client->get_allrss();  ?>
                                     <table width="100%" style="margin-top:-25px;"><tr><td>Nom pdf</td><td>Options</td><td style="width:5px;"></td></tr>
                                     <?php foreach($allpdf as $key=>$value){ ?>
                                     <tr><td><?php echo $value->article_name; ?></td>
-                                    <td><a href="../siteweb/article.php?id=<?php echo $value->article_id; ?>" target="_blank"><img src="img/voir.png" style="height:25px;margin-right:5px;" /></a><a href="index.php?aff=pdf&article_id=<?php echo $value->article_id; ?>"><img src="img/modif.png" style="height:25px;margin-right:5px;" /></a><a href="#" class="delete_article" article_id="<?php echo $value->article_id; ?>"><img src="img/suppr.png" style="height:25px;" /></a>
+                                    <td><a href="../siteweb/article.php?id=<?php echo $value->article_id; ?>" target="_blank"><img src="img/voir.png" alt="voir" style="height:25px;margin-right:5px;" /></a><a href="index.php?aff=pdf&article_id=<?php echo $value->article_id; ?>"><img alt="modifier" src="img/modif.png" style="height:25px;margin-right:5px;" /></a><a href="#" class="delete_article" article_id="<?php echo $value->article_id; ?>"><img alt="supprimer" src="img/suppr.png" style="height:25px;" /></a>
                                     
                                     </td><td><form action="index.php?aff=pdf" name="delete_articleForm<?php echo $value->article_id; ?>" id="delete_articleForm<?php echo $value->article_id; ?>" method="POST">
                                         <input type="hidden" name="method" value="delete_article"/>
@@ -145,7 +145,7 @@ $allrss = $client->get_allrss();  ?>
                                     <table width="100%" style="margin-top:-25px;"><tr><td>Nom video</td><td>Options</td><td style="width:5px;"></td></tr>
                                     <?php foreach($allvideo as $key=>$value){ ?>
                                     <tr><td><?php echo $value->article_name; ?></td>
-                                     <td><a href="../siteweb/video.php?id=<?php echo $value->article_id; ?>" target="_blank"><img src="img/voir.png" style="height:25px;margin-right:5px;" /></a><a href="index.php?aff=videos&article_id=<?php echo $value->article_id; ?>"><img src="img/modif.png" style="height:25px;margin-right:5px;" /></a><a href="#" class="delete_article" article_id="<?php echo $value->article_id; ?>"><img src="img/suppr.png" style="height:25px;" /></a>
+                                     <td><a href="../siteweb/video.php?id=<?php echo $value->article_id; ?>" target="_blank"><img src="img/voir.png" style="height:25px;margin-right:5px;" /></a><a href="index.php?aff=videos&article_id=<?php echo $value->article_id; ?>"><img alt="modifier" src="img/modif.png" style="height:25px;margin-right:5px;" /></a><a href="#" class="delete_article" article_id="<?php echo $value->article_id; ?>"><img alt="supprimer" src="img/suppr.png" style="height:25px;" /></a>
                                      </td><td><form action="index.php?aff=videos" name="delete_articleForm<?php echo $value->article_id; ?>" id="delete_articleForm<?php echo $value->article_id; ?>" method="POST">
                                         <input type="hidden" name="method" value="delete_article"/>
                                         <input type="hidden" name="article_id" value="<?php echo $value->article_id; ?>"/>
@@ -163,7 +163,7 @@ $allrss = $client->get_allrss();  ?>
                                     <table width="100%" style="margin-top:-25px;"><tr><td>Nom pdf</td><td>Options</td><td style="width:5px;"></td></tr>
                                     <?php foreach($allrss as $key=>$value){ ?>
                                     <tr><td><?php echo $value->article_name; ?></td>
-                                    <td><a href="../siteweb/rss.php?id=<?php echo $value->article_id; ?>" target="_blank"><img src="img/voir.png" style="height:25px;margin-right:5px;" /></a><a href="index.php?aff=rss&article_id=<?php echo $value->article_id; ?>"><img src="img/modif.png" style="height:25px;margin-right:5px;" /></a><a href="#" class="delete_article" article_id="<?php echo $value->article_id; ?>"><img src="img/suppr.png" style="height:25px;" /></a>
+                                    <td><a href="../siteweb/rss.php?id=<?php echo $value->article_id; ?>" target="_blank"><img alt="voir" src="img/voir.png" style="height:25px;margin-right:5px;" /></a><a href="index.php?aff=rss&article_id=<?php echo $value->article_id; ?>"><img alt="modifier" src="img/modif.png" style="height:25px;margin-right:5px;" /></a><a href="#" class="delete_article" article_id="<?php echo $value->article_id; ?>"><img alt="supprimer" src="img/suppr.png" style="height:25px;" /></a>
                                     </td> <td><form action="index.php?aff=rss" name="delete_articleForm<?php echo $value->article_id; ?>" id="delete_articleForm<?php echo $value->article_id; ?>" method="POST">
                                         <input type="hidden" name="method" value="delete_article"/>
                                         <input type="hidden" name="article_id" value="<?php echo $value->article_id; ?>"/>

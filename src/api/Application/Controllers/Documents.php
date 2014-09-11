@@ -312,7 +312,7 @@ class Application_Controllers_Documents extends Library_Core_Controllers{
      * @param array $data
      * @return object
      */
-    public function get_deletedocument($data){
+    public function delete_document($data){
         // l'admin, le ebmarketteur , le client et le prospect pourront supprimer leur document
        /* $user_id_connecte = ($_SESSION['market3w_user_id']==-1)?null:$_SESSION['market3w_user_id'];
         if($user_id_connecte==null){return $this->setApiResult(false, true, 'you are not logged');}

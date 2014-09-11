@@ -61,7 +61,7 @@ $documents = $client->get_alldocument(); ?>
 				  ?>
              
               <?php //echo (($documents->author_id==$_SESSION["market3w_user"]) ? "from_user left" : "by_myself right"); ?>
-             <li class="<?php echo (($documents[$i]->author_id==$currentuser_id) ? "from_user left" : "by_myself right"); ?>"> <a href="#" class="avatar"><img src="img/message_avatar<?php echo (($documents[$i]->author_id==$currentuser_id) ? "1" : "2"); ?>.png"/></a>
+             <li class="<?php echo (($documents[$i]->author_id==$currentuser_id) ? "from_user left" : "by_myself right"); ?>"> <a href="#" class="avatar"><img alt="icone avatar" src="img/message_avatar<?php echo (($documents[$i]->author_id==$currentuser_id) ? "1" : "2"); ?>.png"/></a>
                   <div class="message_wrap" style="width:auto;"> <span class="arrow"></span>
                     <div class="info"> <a class="name"><?php echo $documents[$i]->document_name; ?></a>  <span class="time" style="margin-left:10px; "><i><?php echo (($documents[$i]->author_id==$currentuser_id) ? "par <b>moi</b>" : "par <b>Market 3W</b>"); ?></i> <?php echo '(le '.$documents[$i]->document_date.')'; ?></span>
                       <div class="options_arrow">

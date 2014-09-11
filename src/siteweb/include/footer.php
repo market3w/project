@@ -10,13 +10,13 @@
 			<a style="color:#999999;margin-right:15px;" href="<?php echo WEB_ROOT; ?>mentions_legales">Mentions légales / CGU</a>
             <br/>
 				<ul class="icons">
-					<li><a href="#" class="icon circle"><img src="images/fb.png" /></a></li>
-                    <li><a href="#" class="icon circle"><img src="images/gp.png" /></a></li>
-                    <li><a href="#" class="icon circle"><img src="images/twitter.png" /></a></li>
-                    <li><a href="#" class="icon circle"><img src="images/youtube.png" /></a></li>
-                     <li><a href="#" class="icon circle"><img src="images/li.png" /></a></li>
-                      <li><a href="#" class="icon circle"><img src="images/viadeo.png" /></a></li>
-                    <li><a href="#" class="icon circle"><img src="images/rss.png" /></a></li>
+					<li><a href="#" class="icon circle"><img src="images/fb.png" alt="facebook" /></a></li>
+                    <li><a href="#" class="icon circle"><img src="images/gp.png" alt="google plus" /></a></li>
+                    <li><a href="#" class="icon circle"><img src="images/twitter.png" alt="twitter" /></a></li>
+                    <li><a href="#" class="icon circle"><img src="images/youtube.png" alt="youtube" /></a></li>
+                     <li><a href="#" class="icon circle"><img src="images/li.png" alt="linkedin" /></a></li>
+                      <li><a href="#" class="icon circle"><img src="images/viadeo.png" alt="viadeo" /></a></li>
+                    <li><a href="#" class="icon circle"><img src="images/rss.png" alt="rss" /></a></li>
                     
 				</ul>
 				

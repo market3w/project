@@ -42,7 +42,7 @@
                                   <a class="button" href="<?php echo CURRENT_PAGE; ?>">Référencement naturel</a><a class="button special_violet" href="#sea">Référencement payant</a><a class="button" href="#smo">Réseau social</a><br/><br/>
                                 <div id="seo"></div>
                                 <h1 style="font-weight:500;" id="seo">Référencement naturel (SEO)</h1>
-									<img src="images/search.png" width="100%" style="max-width:250px;" /><br/><br/>
+									<img src="images/search.png" width="100%" alt="référencement naturel" style="max-width:250px;" /><br/><br/>
                                 <table width="100%" ><tr><td style="font-weight:500;">Objectifs</td></tr>
                                 <tr><td>- L'acquisition durable de trafic qualifié<br/>
                                 - Le développement de la visibilité online et de la notoriété de votre site et de votre marque<br/>
@@ -59,7 +59,7 @@
    
 
 <h1 style="font-weight:500;">Référencement payant (SEA)</h1>
-									<img src="images/test.jpg" width="100%" style="max-width:250px;" /><br/><br/>
+									<img src="images/test.jpg" alt="référencement payant" width="100%" style="max-width:250px;" /><br/><br/>
                                 <table width="100%" ><tr><td style="font-weight:500;">Objectifs</td></tr>
                                 <tr><td>- Générer un trafic immédiat et qualifié<br/>
                                 - Augmenter le nombre de conversions<br/>
@@ -90,7 +90,7 @@
                        
 <div style="border-top:1px solid #cccccc; padding:20px;"></div>
 <h1 style="font-weight:500;">Référencement social (SMO)</h1>
-									<img src="images/reseaux_sociaux.jpg" width="100%" style="max-width:250px;" /><br/><br/>
+									<img src="images/reseaux_sociaux.jpg" alt="réseaux sociaux" width="100%" style="max-width:250px;" /><br/><br/>
                                 	 <table width="100%" ><tr><td style="font-weight:500;">Objectifs</td></tr>
                                 <tr><td>- Développer sa visibilité<br/>
                                 - Développer sa réputation et son traffic<br/>
